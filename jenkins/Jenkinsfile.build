@@ -58,7 +58,7 @@ pipeline {
                         targetDomain = "s3://water-visualizations-beta-website/visualizations/drought-duration"
                     }
                     else {
-                        targetDomain = "s3://water-visualizations-test-website/visualizations/drought-duration"
+                        targetDomain = "s3://water-visualizations-test-website/visualizations/drought-timeline"
                     }
                 }
                 sh """
