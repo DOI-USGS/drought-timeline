@@ -38,7 +38,7 @@ pipeline {
 
                 sh """
                     docker build . --tag="drought-timeline-docker" --build-arg BUILDTARGET=${params.BUILD_DEST} --build-arg VUE_BUILD_MODE=${params.VUE_BUILD_MODE}
-                    docker run drought-duration-docker
+                    docker run drought-timeline-docker
                     pathtemplate=":tmp/drought-timeline/dist"
                     dockerinstanceid=\$( docker ps -l -q )
                     docker cp  "\${dockerinstanceid}\${pathtemplate}" "$WORKSPACE"
