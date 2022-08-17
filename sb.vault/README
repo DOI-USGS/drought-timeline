@@ -1,0 +1,2 @@
+This directory is a secret vault.
+
