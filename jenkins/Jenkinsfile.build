@@ -55,7 +55,7 @@ pipeline {
                         targetDomain = "s3://water-visualizations-prod-website/visualizations/drought-timeline"
                     }
                     else if ("${params.BUILD_DEST}" == "beta") {
-                        targetDomain = "s3://water-visualizations-beta-website/visualizations/drought-duration"
+                        targetDomain = "s3://water-visualizations-beta-website/visualizations/drought-timeline"
                     }
                     else {
                         targetDomain = "s3://water-visualizations-test-website/visualizations/drought-timeline"
