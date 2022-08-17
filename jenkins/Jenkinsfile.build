@@ -28,7 +28,7 @@ pipeline {
                           extensions: [],
                           gitTool: 'Default',
                           submoduleCfg: [],
-                          userRemoteConfigs: [[url: 'https://github.com/usgs-vizlab/drought-duration.git']]
+                          userRemoteConfigs: [[url: 'https://github.com/usgs-vizlab/drought-timeline.git']]
                         ])
                 }
         }
@@ -37,9 +37,9 @@ pipeline {
             steps {
 
                 sh """
-                    docker build . --tag="drought-duration-docker" --build-arg BUILDTARGET=${params.BUILD_DEST} --build-arg VUE_BUILD_MODE=${params.VUE_BUILD_MODE}
-                    docker run drought-duration-docker
-                    pathtemplate=":tmp/drought-duration/dist"
+                    docker build . --tag="drought-timeline-docker" --build-arg BUILDTARGET=${params.BUILD_DEST} --build-arg VUE_BUILD_MODE=${params.VUE_BUILD_MODE}
+                    docker run drought-timeline-docker
+                    pathtemplate=":tmp/drought-timeline/dist"
                     dockerinstanceid=\$( docker ps -l -q )
                     docker cp  "\${dockerinstanceid}\${pathtemplate}" "$WORKSPACE"
                     docker rm "\${dockerinstanceid}"
@@ -52,13 +52,13 @@ pipeline {
             steps {
                 script {
                     if ("${params.BUILD_DEST}" == "prod") {
-                        targetDomain = "s3://water-visualizations-prod-website/visualizations/drought-duration"
+                        targetDomain = "s3://water-visualizations-prod-website/visualizations/drought-timeline"
                     }
                     else if ("${params.BUILD_DEST}" == "beta") {
-                        targetDomain = "s3://water-visualizations-beta-website/visualizations/drought-duration"
+                        targetDomain = "s3://water-visualizations-beta-website/visualizations/drought-timeline"
                     }
                     else {
-                        targetDomain = "s3://water-visualizations-test-website/visualizations/drought-duration"
+                        targetDomain = "s3://water-visualizations-test-website/visualizations/drought-timeline"
                     }
                 }
                 sh """
