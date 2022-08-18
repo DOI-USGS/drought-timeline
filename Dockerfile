@@ -17,7 +17,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
 RUN mkdir -p /tmp/drought-timeline
 
 # Copy source code
-WORKDIR /tmp/what-is-drought
+WORKDIR /tmp/drought-timeline
 COPY . .
 # Set environment variables for build target and tile source and then run config.sh
 ARG BUILDTARGET="test"
