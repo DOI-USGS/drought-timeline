@@ -8,10 +8,11 @@ p2_targets <- list(
   tar_target(p2_casc_list,
              # Climate Adaptation Regions
              list(NW = c('WA','OR','ID'),
-                  SW = c('CA','UT','NV','NM'),
+                  SW = c('CA','UT','NV','AZ'),
+                  SC = c('OK','TX','LA','NM'),
                   NC = c('MT','ND','SD','WY','CO','NE','KS'),
-                  MW = c('WI','MN','IA','IN','IL','OH','MI'),
-                  NE = c('ME','VT','NH','NY','NJ','MA','RI','CT','WV','VA','MD','DE','KY'),
+                  MW = c('WI','MN','IA','IN','IL','OH','MI', 'MO'),
+                  NE = c('ME','VT','NH','NY','NJ','PA','MA','RI','CT','WV','VA','MD','DE','KY'),
                   SE = c('AR','MS','TN','NC','SC','AL','FL','GA','PR'),
                   PI = c('HI','AS','GU'),
                   AK = c('AK'))
