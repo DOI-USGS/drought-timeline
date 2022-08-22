@@ -116,7 +116,16 @@ expand_drought_prop <- function(drought_prop) {
 #' @description Identify start and end dates by which the drought data
 #' can be chunked, such that the breaks between chunks fall on days
 #' when there are no droughts at any site
-#' @param drought_prop_expanded the expanded drought pr
+#' @param drought_prop the drought properties dataframe
+#' @param min_chunk_days the minimum length (in days) of each chunk
+#' that is included in the final set
+#' @return a tibble with columns for `chunk_num` (in sequence), the
+#' start date for the chunk `start_date`, the end date for each chunk
+#' `break_date`, the  length of the chunk, in days `chunk_length_days`,
+#' the length of the chunk in years `chunk_length_years`, the maximum
+#' number of droughts on any single day within the chunk `max_single_day_droughts`,
+#' the total number of drought days (unique site days with drought) `total_drought_days`,
+#' and the unique number of days with droughts within each chunk `n_days_w_droughts`
 identify_drought_chunks <- function(drought_prop, min_chunk_days) {
   # expand drought properties
   drought_prop_expanded <- expand_drought_prop(drought_prop)
