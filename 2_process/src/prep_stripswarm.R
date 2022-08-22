@@ -95,3 +95,69 @@ longest_events <- function(event_data, metadata, target_threshold){
   return(longest_event_per_decade)
   
 }
+
+#' @title Expand drought properties
+#' @description Expand the drought properties dataframe
+#' such that each row (1 drought event) is repeated
+#' X times, where X = the duration of the drought event. 
+#' Add a new column for date, such that each day within each
+#' drought event is represented by a row
+#' @param drought_prop the drought properties dataframe
+#' to be expanded
+#' @return The expanded dataframe, with one row for every
+#' day with drought
+expand_drought_prop <- function(drought_prop) {
+  drought_prop %>% 
+    uncount(duration, .remove=FALSE, .id="id") %>%
+    mutate(date = start+id-1, .after=end)
+}  
+
+#' @title Identify temporal chunks within drought data
+#' @description Identify start and end dates by which the drought data
+#' can be chunked, such that the breaks between chunks fall on days
+#' when there are no droughts at any site
+#' @param drought_prop_expanded the expanded drought pr
+identify_drought_chunks <- function(drought_prop, min_chunk_days) {
+  # expand drought properties
+  drought_prop_expanded <- expand_drought_prop(drought_prop)
+  
+  # pull unique drought dates and get count of droughts for each date
+  drought_dates <- drought_prop_expanded %>%
+    count(date, name='n_droughts')
+  
+  # get full sequence of dates
+  full_date_sequence <- seq.Date(from=min(drought_dates$date),to=max(drought_dates$date),by=1)
+  
+  # find dates that didn't have droughts
+  dates_w_o_drought <- full_date_sequence[!(full_date_sequence %in% drought_dates$date)]
+  
+  # identify chunks if used all dates w/o drought as breaks
+  date_chunks <- tibble(break_date = c(dates_w_o_drought, max(full_date_sequence))) %>%
+    mutate(chunk_num = row_number(),
+           start_date = case_when(
+             chunk_num==1 ~ min(full_date_sequence),
+             TRUE ~ lag(break_date)+1),
+           chunk_length_days = as.numeric(break_date-start_date))
+  # subset to larger chunks only
+  selected_chunks <- date_chunks %>%
+    filter(chunk_length_days>=min_chunk_days | break_date==max(full_date_sequence)) %>%
+    select(break_date) %>%
+    # recalculate break_num, start date, and break length
+    mutate(chunk_num = row_number(),
+           start_date = case_when(
+             chunk_num==1 ~ min(full_date_sequence),
+             TRUE ~ lag(break_date)+1
+           ),
+           chunk_length_days = as.numeric(break_date-start_date),
+           chunk_length_year = chunk_length_days/365) %>%
+    select(chunk_num, start_date, break_date, chunk_length_days, chunk_length_year) %>%
+    # figure out the max # of droughts on a single day within each chunk
+    group_by(chunk_num) %>%
+    group_modify( ~ {
+      drought_dates_subset <- drought_dates %>%
+        filter(date >= .x$start_date, date<=.x$break_date)
+      .x <- mutate(.x, 
+                   max_single_day_droughts = max(drought_dates_subset$n_droughts),
+                   total_drought_days = sum(drought_dates_subset$n_droughts),
+                   n_days_w_droughts = nrow(drought_dates_subset))
+    })
