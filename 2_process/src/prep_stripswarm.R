@@ -26,7 +26,7 @@ create_event_swarm <- function(event_data, start_period, end_period, max_drought
   
   # set up an empty "swarm grid" to place drought events into
   n <- round(max_droughts/2)+10 # will be mirrored, so start w/ ~ 1/2 max_droughts + some wiggle room
-  mat <- matrix(NaN,nrow=n,ncol=max(event_subset$end_day)+1)
+  mat <- matrix(NaN,nrow=n,ncol=max(event_subset$end_day)+2) # 1 additional for spacer 0 value at end, 1 additional in case last drought placed on plus1d location
   E_1 <- setDT(as.data.frame(mat))[]
   E_1[,priority:=1:n]
   E_2 <- E_1[order(-priority)]
@@ -78,15 +78,17 @@ create_event_swarm <- function(event_data, start_period, end_period, max_drought
   
   E[E == 0] <- NaN # remove spaces added to avoid events appearing connected
   
-  E[,decade:=as.factor(floor(year(start_period)/10)*10)]
-  
   E <- E[,priority:=NULL] # drop priority column
-  plot_dat <- melt(E, measure.vars=colnames(E)[1:(ncol(E)-2)], # all but last 2 columns (rnum, decade)
+  plot_dat <- melt(E, measure.vars=colnames(E)[1:(ncol(E)-1)], # all but last column (rnum)
                       variable.name="names",value.name = "duration")
   plot_dat[,dt:=as.integer(str_remove(names,"V"))]
   plot_dat[,date:=as.Date(start_period + dt - 1)]
   plot_dat[,rnum:=rnum - n]
   plot_dat <- na.omit(plot_dat)
+  
+  # drop names and dt columns
+  plot_dat <- plot_dat[,names:=NULL]
+  plot_dat <- plot_dat[,dt:=NULL]
   
   plot_dat_df <- as.data.frame(plot_dat)
   
