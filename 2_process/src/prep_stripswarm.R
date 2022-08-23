@@ -1,73 +1,96 @@
-create_event_swarm <- function(event_data, start_period, end_period){
+#' @title Create strip-swarm matrix from drought events
+#' @description Populate an event matrix, where columns = days
+#' and rows = drought events. Iterate through the drought events
+#' and add them such that each drought event spans X cells, where 
+#' X = the duration of the drought event. Place the drought events
+#' as close to the vertical center of the matrix as possible.
+#' Separate the drought events horizontally by one cell.
+#' @param event_data
+#' @param start_period the start date of the chunk of events being
+#' processed
+#' @param end_period the end date of the chunk of events being processed
+#' @param max_droughts the maximum number of drought events on a single
+#' day within the chunk of events. Used to set the number of rows in
+#' the event matrix
+#' @return A dataframe with a row for each drought day (unique site day 
+#' with drought) and columns for row number `rnum`, `date`, `duration`
+create_event_swarm <- function(event_data, start_period, end_period, max_droughts){
+  
   event_subset <- event_data %>% 
-    filter(start > start_period) %>%
-    filter(start <= end_period) %>% 
-    mutate(onset_day = as.integer(start - start_period)) %>% 
-    mutate(end_day = as.integer(end - start_period)) %>% 
-    arrange(onset_day)
+    filter(start >= start_period) %>%
+    filter(start <= end_period) %>% # Ok to filter only `start` b/c `end_period` accounts for duration of latest drought events (set in `identify_drought_chunks()`)
+    mutate(onset_day = as.integer(start - start_period) + 1) %>% 
+    mutate(end_day = onset_day + duration - 1) %>% # End value in raw data doesn't always = start + duration - 1
+    arrange(onset_day) %>%
+    mutate(idx = row_number())
   
   # set up an empty "swarm grid" to place drought events into
-  n <- 600 # set arbitrarily large number of possible simultaneous drought events positions. Trimmed prior to plotting
-  
-  E <- as_tibble(matrix(NaN,nrow=n,ncol=max(event_subset$end_day)+1))
-  E <- E %>% mutate(priority = 1:n)
-  E <- E %>% arrange(desc(priority)) %>% 
-    bind_rows(E) %>% 
-    mutate(rnum = 1:(2*n))
+  n <- round(max_droughts/2)+10 # will be mirrored, so start w/ ~ 1/2 max_droughts + some wiggle room
+  mat <- matrix(NaN,nrow=n,ncol=max(event_subset$end_day)+1)
+  E_1 <- setDT(as.data.frame(mat))[]
+  E_1[,priority:=1:n]
+  E_2 <- E_1[order(-priority)]
+  E <- rbindlist(list(E_2, E_1))
+  E[,rnum:=1:(2*n)]
   
   # loop through each event and place into best available spot in grid
   progress_bar <- txtProgressBar(min = 1, max = nrow(event_subset), style = 3)
   
+  # store priority, rnum for all rows
+  rnum_priority <- E[,.(priority,rnum)]
+
   for (idx in 1:nrow(event_subset)){
     temp_dur <- event_subset[[idx,'duration']]
     temp_startd <-event_subset[[idx,'onset_day']]
-    # find available spots looking within 1 day +/- the start date (to encourage a little compactness)
-    avail_rows <- E %>% select(all_of(temp_startd:(temp_startd + temp_dur - 1)),priority,rnum) %>% 
-      filter(is.na(if_all(starts_with("V")))) %>% 
-      mutate(pos = 0)
-    avail_rows_plus1d <- E %>% select(all_of((temp_startd+1):(temp_startd + temp_dur)),priority,rnum) %>%
-      filter(is.na(if_all(starts_with("V")))) %>%
-      mutate(pos = 1)
-    avail_rows_minus1d <- E %>% select(all_of((temp_startd-1):(temp_startd + temp_dur - 2)),priority,rnum) %>%
-      filter(is.na(if_all(starts_with("V")))) %>%
-      mutate(pos = -1)
-    # find spot closest to central axis
-    all_avail_rows <- bind_rows(avail_rows, avail_rows_minus1d, avail_rows_plus1d) %>% 
-      arrange(priority) %>%
-      group_by(priority) %>%
-      slice_sample(prop = 1) %>% # adds a little randomness by assigning to spot above or below central axis randomly
-      ungroup()
-    temp_rnum <- all_avail_rows[[1,'rnum']]
-    temp_pos_key <- all_avail_rows[[1, 'pos']]
+    
+    avail_rows_d <- E[,temp_startd:(temp_startd + temp_dur - 1)]
+    avail_rows_d <- cbind(avail_rows_d, rnum_priority)
+    avail_rows_d <- avail_rows_d[rowSums(is.na(avail_rows_d))==(ncol(avail_rows_d)-2),] # pull rows where all but priority and rnum are NA
+    avail_rows_d[,pos:=0]
+    avail_rows_plus1d <- E[,(temp_startd+1):(temp_startd + temp_dur)]
+    avail_rows_plus1d <- cbind(avail_rows_plus1d, rnum_priority)
+    avail_rows_plus1d <- avail_rows_plus1d[rowSums(is.na(avail_rows_plus1d))==(ncol(avail_rows_plus1d)-2),]
+    avail_rows_plus1d[,pos:=1]
+    avail_rows_minus1d <- E[,(temp_startd-1):(temp_startd + temp_dur - 2)]
+    avail_rows_minus1d <- cbind(avail_rows_minus1d, rnum_priority)
+    avail_rows_minus1d <- avail_rows_minus1d[rowSums(is.na(avail_rows_minus1d))==(ncol(avail_rows_minus1d)-2),]
+    avail_rows_minus1d[,pos:=-1]
+    all_avail_rows <- rbindlist(list(avail_rows_d, avail_rows_minus1d, avail_rows_plus1d), fill=TRUE) # need fill+TRUE to not drop columns that aren't shared
+    all_avail_rows <- all_avail_rows[priority==min(priority)] # filter to min priority, since want lowest value (highest priority) row(s)
+    all_avail_rows <- all_avail_rows[sample(.N,1)] # randomly select one of the highest priority rows
+    
+    temp_rnum <- all_avail_rows[,rnum]
+    temp_pos_key <- all_avail_rows[,pos]
     if (temp_startd == 1){
       temp_pos_key <- 0
     }
+    
     # assign event to identified spot by using duration value
-    E[temp_rnum,((temp_startd + temp_pos_key):(temp_startd + temp_dur - 1 + temp_pos_key))] <- event_subset[[idx,'duration']]
+    E[temp_rnum,((temp_startd + temp_pos_key):(temp_startd + temp_dur - 1 + temp_pos_key))] <- temp_dur
     E[temp_rnum,(temp_startd + temp_dur + temp_pos_key)] <- 0 # enforces a space between subsequent events
     
     setTxtProgressBar(progress_bar, idx)
   }
+  
   # trim unused rows
-  ind <- E %>% select(-priority,-rnum) %>% 
-    apply( 1, function(x) all(is.na(x)))
-  E <-E[ !ind, ]
+  E_ind <- rowSums(is.na(E))==(ncol(E)-2) # identify rows where all but priority and rnum are NA
+  E <- E[ !E_ind, ]
   
-  E[E == 0] = NaN # remove spaces added to avoid events appearing connected
+  E[E == 0] <- NaN # remove spaces added to avoid events appearing connected
   
-  ncols = ncol(E)-2
+  E[,decade:=as.factor(floor(year(start_period)/10)*10)]
   
-  E <- mutate(E, decade = as.factor(floor(year(start_period)/10)*10))
+  E <- E[,priority:=NULL] # drop priority column
+  plot_dat <- melt(E, measure.vars=colnames(E)[1:(ncol(E)-2)], # all but last 2 columns (rnum, decade)
+                      variable.name="names",value.name = "duration")
+  plot_dat[,dt:=as.integer(str_remove(names,"V"))]
+  plot_dat[,date:=as.Date(start_period + dt - 1)]
+  plot_dat[,rnum:=rnum - n]
+  plot_dat <- na.omit(plot_dat)
   
-  plot_dat <- E %>% select(-priority) %>% 
-    pivot_longer(cols=1:ncols, names_to = "names", values_to = "duration")
-  plot_dat$names<- str_remove(plot_dat$names,"V")
-  plot_dat <- plot_dat %>% mutate(dt = as.integer(names)) %>% 
-    mutate(date = as.Date(start_period + dt - 1)) %>% 
-    mutate(rnum = rnum - n) %>% 
-    drop_na()
+  plot_dat_df <- as.data.frame(plot_dat)
   
-  return(plot_dat)
+  return(plot_dat_df)
 }
 
 count_events <- function(event_data, metadata, target_threshold){
@@ -170,3 +193,4 @@ identify_drought_chunks <- function(drought_prop, min_chunk_days) {
                    total_drought_days = sum(drought_dates_subset$n_droughts),
                    n_days_w_droughts = nrow(drought_dates_subset))
     })
+}
