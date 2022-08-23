@@ -297,4 +297,26 @@ identify_drought_chunks <- function(drought_prop, min_chunk_days) {
                    total_drought_days = sum(drought_dates_subset$n_droughts),
                    n_days_w_droughts = nrow(drought_dates_subset))
     })
+  
+  n_chunks <- nrow(selected_chunks)
+  max_single_day_droughts_final = filter(selected_chunks, chunk_num==n_chunks) %>% pull(max_single_day_droughts)
+  if (max_single_day_droughts_final==1) {
+    selected_chunks <- head(selected_chunks, n_chunks-1)
+    selected_chunks$break_date[selected_chunks$chunk_num==(n_chunks-1)] <- max(full_date_sequence)
+    selected_chunks <- selected_chunks %>%
+      select(chunk_num, start_date, break_date) %>%
+      # recalculate chunk length
+      mutate(chunk_length_days = as.numeric(break_date-start_date),
+             chunk_length_year = chunk_length_days/365) %>%
+      # figure out the max # of droughts on a single day within each chunk
+      group_by(chunk_num) %>%
+      group_modify( ~ {
+        drought_dates_subset <- drought_dates %>%
+          filter(date >= .x$start_date, date<=.x$break_date)
+        .x <- mutate(.x, 
+                     max_single_day_droughts = max(drought_dates_subset$n_droughts),
+                     total_drought_days = sum(drought_dates_subset$n_droughts),
+                     n_days_w_droughts = nrow(drought_dates_subset))
+      })
+  }
 }
