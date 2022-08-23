@@ -57,5 +57,12 @@ p2_targets <- list(
                                              start_period = p2_nat_2_drought_chunks$start_date,
                                              end_period = p2_nat_2_drought_chunks$break_date,
                                              max_droughts = p2_nat_2_drought_chunks$max_single_day_droughts),
+             pattern = map(p2_nat_2_drought_chunks)),
+  
+  tar_target(p2_nat_2_swarm_compressed,
+             create_event_swarm_compressed(event_data = p2_nat_2,
+                                start_period = p2_nat_2_drought_chunks$start_date,
+                                end_period = p2_nat_2_drought_chunks$break_date,
+                                max_droughts = p2_nat_2_drought_chunks$max_single_day_droughts),
              pattern = map(p2_nat_2_drought_chunks))
 )
