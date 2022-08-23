@@ -131,7 +131,10 @@ create_event_swarm_compressed <- function(event_data, start_period, end_period, 
   E[,rnum:=1:(2*n)]
   
   # loop through each event and place into best available spot in grid
-  progress_bar <- txtProgressBar(min = 1, max = nrow(event_subset), style = 3)
+  # set up progress bar when multiple events to process
+  if (nrow(event_subset) > 1) {
+    progress_bar <- txtProgressBar(min = 1, max = nrow(event_subset), style = 3)
+  }
   
   # store priority, rnum for all rows
   rnum_priority <- E[,.(priority,rnum)]
@@ -171,7 +174,10 @@ create_event_swarm_compressed <- function(event_data, start_period, end_period, 
     E[temp_rnum,((temp_startd + temp_pos_key + 1):(temp_startd + temp_dur - 1 + temp_pos_key))] <- 0 # set remaining values as 0 (to block off)
     E[temp_rnum,(temp_startd + temp_dur + temp_pos_key)] <- 0 # enforces a space between subsequent events
     
-    setTxtProgressBar(progress_bar, idx)
+    # Update progress bar if processing multiple events
+    if (nrow(event_subset) > 1) {
+      setTxtProgressBar(progress_bar, idx)
+    }
   }
   
   # trim unused rows
@@ -298,25 +304,5 @@ identify_drought_chunks <- function(drought_prop, min_chunk_days) {
                    n_days_w_droughts = nrow(drought_dates_subset))
     })
   
-  n_chunks <- nrow(selected_chunks)
-  max_single_day_droughts_final = filter(selected_chunks, chunk_num==n_chunks) %>% pull(max_single_day_droughts)
-  if (max_single_day_droughts_final==1) {
-    selected_chunks <- head(selected_chunks, n_chunks-1)
-    selected_chunks$break_date[selected_chunks$chunk_num==(n_chunks-1)] <- max(full_date_sequence)
-    selected_chunks <- selected_chunks %>%
-      select(chunk_num, start_date, break_date) %>%
-      # recalculate chunk length
-      mutate(chunk_length_days = as.numeric(break_date-start_date),
-             chunk_length_year = chunk_length_days/365) %>%
-      # figure out the max # of droughts on a single day within each chunk
-      group_by(chunk_num) %>%
-      group_modify( ~ {
-        drought_dates_subset <- drought_dates %>%
-          filter(date >= .x$start_date, date<=.x$break_date)
-        .x <- mutate(.x, 
-                     max_single_day_droughts = max(drought_dates_subset$n_droughts),
-                     total_drought_days = sum(drought_dates_subset$n_droughts),
-                     n_days_w_droughts = nrow(drought_dates_subset))
-      })
-  }
+  return(selected_chunks)
 }
