@@ -95,6 +95,22 @@ create_event_swarm <- function(event_data, start_period, end_period, max_drought
   return(plot_dat_df)
 }
 
+#' @title Create strip-swarm matrix from drought events
+#' @description Populate an event matrix, where columns = days
+#' and rows = drought events. Iterate through the drought events
+#' and add them such that each drought event spans X cells, where 
+#' X = the duration of the drought event. Place the drought events
+#' as close to the vertical center of the matrix as possible.
+#' Separate the drought events horizontally by one cell.
+#' @param event_data
+#' @param start_period the start date of the chunk of events being
+#' processed
+#' @param end_period the end date of the chunk of events being processed
+#' @param max_droughts the maximum number of drought events on a single
+#' day within the chunk of events. Used to set the number of rows in
+#' the event matrix
+#' @return A dataframe with a row for each drought event and columns for 
+#' row number `rnum`, `date`, `duration`
 create_event_swarm_compressed <- function(event_data, start_period, end_period, max_droughts){
   
   event_subset <- event_data %>% 
@@ -146,8 +162,11 @@ create_event_swarm_compressed <- function(event_data, start_period, end_period, 
       temp_pos_key <- 0
     }
     
-    # assign event to identified spot by using duration value 3 dur = 8, 10
-    # E[temp_rnum,((temp_startd + temp_pos_key):(temp_startd + temp_dur - 1 + temp_pos_key))] <- temp_dur
+    # assign event to identified spot by using duration value
+    # instead of assigning all cells duration value
+    # using E[temp_rnum,((temp_startd + temp_pos_key):(temp_startd + temp_dur - 1 + temp_pos_key))] <- temp_dur
+    # Assign the first cell the duration value and fill the remaining cells with 0 to block off the event
+    # later these 0 values will get converted to NA and filtered out
     E[temp_rnum,(temp_startd + temp_pos_key)] <- temp_dur # set first value as temp_dur
     E[temp_rnum,((temp_startd + temp_pos_key + 1):(temp_startd + temp_dur - 1 + temp_pos_key))] <- 0 # set remaining values as 0 (to block off)
     E[temp_rnum,(temp_startd + temp_dur + temp_pos_key)] <- 0 # enforces a space between subsequent events
