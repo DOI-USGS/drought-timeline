@@ -8,10 +8,11 @@ p2_targets <- list(
   tar_target(p2_casc_list,
              # Climate Adaptation Regions
              list(NW = c('WA','OR','ID'),
-                  SW = c('CA','UT','NV','NM'),
+                  SW = c('CA','UT','NV','AZ'),
+                  SC = c('OK','TX','LA','NM'),
                   NC = c('MT','ND','SD','WY','CO','NE','KS'),
-                  MW = c('WI','MN','IA','IN','IL','OH','MI'),
-                  NE = c('ME','VT','NH','NY','NJ','MA','RI','CT','WV','VA','MD','DE','KY'),
+                  MW = c('WI','MN','IA','IN','IL','OH','MI', 'MO'),
+                  NE = c('ME','VT','NH','NY','NJ','PA','MA','RI','CT','WV','VA','MD','DE','KY'),
                   SE = c('AR','MS','TN','NC','SC','AL','FL','GA','PR'),
                   PI = c('HI','AS','GU'),
                   AK = c('AK'))
@@ -34,32 +35,34 @@ p2_targets <- list(
                filter(!is.na(CASC))),
   
   ###### Load drought properties ######
-  tar_target(p2_1951_2020_drought_prop_site,
-             readr::read_csv(p1_1951_2020_drought_prop_site_csv, col_types = cols()) %>%
-              mutate(across(c(start, end), ~as.Date(.x, '%Y-%m-%d')))),
   tar_target(p2_1951_2020_drought_prop_jd_7d,
              readr::read_csv(p1_1951_2020_drought_prop_jd_7d_csv, col_types = cols()) %>%
                mutate(across(c(start, end), ~as.Date(.x, '%Y-%m-%d')))),
   
-  ## Prep drought properties for "strip swarm" duration chart
-  tar_target(p2_site_prop_2,
-             # Filter to 2 threshold for now
-             p2_1951_2020_drought_prop_site %>%
+  ### Prep drought properties for "strip swarm" duration chart
+  ## All variable 7d
+  # National - 2%
+  tar_target(p2_nat_2,
+             p2_1951_2020_drought_prop_jd_7d %>%
                filter(threshold == 2) %>%
                left_join(p2_1951_2020_metadata %>%
-                           select(StaID:STATE, HCDN_2009, CASC))
-  ),
-  ## Processing data in 2 temporal chunks, processing swarm is slow (~20 min)
-  tar_target(p2_site_swarm,
-             create_event_swarm(event_data = p2_site_prop_2,
-                                start_period = as.Date('2000-01-01'),
-                                end_period = as.Date('2020-12-31'))), 
-  tar_target(p2_site_swarm_80s,
-             create_event_swarm(event_data = p2_site_prop_2,
-                                start_period = as.Date('1980-01-01'),
-                                end_period = as.Date('1999-12-31'))),
-  tar_target(p2_site_swarm_50s,
-             create_event_swarm(event_data = p2_site_prop_2,
-                                start_period = as.Date('1950-01-01'),
-                                end_period = as.Date('1979-12-31')))
+                           select(StaID:STATE, HCDN_2009, CASC))),
+  # Identify drought chunks
+  tar_target(p2_nat_2_drought_chunks,
+             identify_drought_chunks(p2_nat_2, min_chunk_days=365/3)),
+  
+  ## Process data to generate swarm
+  tar_target(p2_nat_2_swarm,
+             create_event_swarm(event_data = p2_nat_2,
+                                             start_period = p2_nat_2_drought_chunks$start_date,
+                                             end_period = p2_nat_2_drought_chunks$break_date,
+                                             max_droughts = p2_nat_2_drought_chunks$max_single_day_droughts),
+             pattern = map(p2_nat_2_drought_chunks)),
+  
+  tar_target(p2_nat_2_swarm_compressed,
+             create_event_swarm_compressed(event_data = p2_nat_2,
+                                start_period = p2_nat_2_drought_chunks$start_date,
+                                end_period = p2_nat_2_drought_chunks$break_date,
+                                max_droughts = p2_nat_2_drought_chunks$max_single_day_droughts),
+             pattern = map(p2_nat_2_drought_chunks))
 )

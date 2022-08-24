@@ -10,7 +10,7 @@ p0_targets <- list(
   
   # Set date for re-fetching data
   # Change this if you want to repull the data
-  tar_target(p0_sb_fetch_date, "2022-07-18"),
+  tar_target(p0_sb_fetch_date, "2022-08-24"),
   
   # Make sure that the user can authenticate to ScienceBase for later targets that push
   # or pull. Targets that need to push/pull from ScienceBase will use this as input.
