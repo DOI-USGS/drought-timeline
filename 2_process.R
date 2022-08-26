@@ -4,19 +4,6 @@ p2_targets <- list(
   ##### General metadata #####
   tar_target(p2_metadata,
              readr::read_csv(p1_metadata_csv, col_types=cols())),
-
-  # Define USGS Climate Adaptation Regions
-  tar_target(p2_casc_list,
-             list(NW = c('WA','OR','ID'),
-                  SW = c('CA','UT','NV','AZ'),
-                  SC = c('OK','TX','LA','NM'),
-                  NC = c('MT','ND','SD','WY','CO','NE','KS'),
-                  MW = c('WI','MN','IA','IN','IL','OH','MI', 'MO'),
-                  NE = c('ME','VT','NH','NY','NJ','PA','MA','RI','CT','WV','VA','MD','DE','KY'),
-                  SE = c('AR','MS','TN','NC','SC','AL','FL','GA','PR'),
-                  PI = c('HI','AS','GU'),
-                  AK = c('AK'))
-  ),
   
   # Define states that are in the western U.S.
   tar_target(p2_western_states, 
@@ -26,17 +13,8 @@ p2_targets <- list(
 
   ###### Get 1951-2020 metadata ######
   tar_target(p2_1951_2020_metadata,
-             filter(p2_metadata, national_1951)%>%
-               mutate(
-                 CASC = case_when(
-                 STATE %in% p2_casc_list$NW ~ 'NW',
-                 STATE %in% p2_casc_list$SW ~ 'SW',
-                 STATE %in% p2_casc_list$SC ~ 'SC',
-                 STATE %in% p2_casc_list$NC ~ 'NC',
-                 STATE %in% p2_casc_list$MW ~ 'MW',
-                 STATE %in% p2_casc_list$NE ~ 'NE',
-                 STATE %in% p2_casc_list$SE ~ 'SE'),
-                 western_us = STATE %in% p2_western_states)),
+             filter(p2_metadata, national_1951) %>%
+               mutate(western_us = STATE %in% p2_western_states)),
   
   ###### Load drought properties ######
   ## Using only variable 7d drought properties
@@ -51,7 +29,7 @@ p2_targets <- list(
              p2_1951_2020_drought_prop_jd_7d %>%
                filter(threshold == 2) %>%
                left_join(p2_1951_2020_metadata %>%
-                           select(StaID:STATE, HCDN_2009, CASC, western_us)) %>%
+                           select(StaID:STATE, HCDN_2009, western_us)) %>%
                filter(western_us)),
   
   # Identify drought chunks
