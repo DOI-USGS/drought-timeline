@@ -1,7 +1,7 @@
 <template>
 <div id="container">
   <div class="module">
-    <img src="@/assets/images/duration-chart/swarm_national.png" alt="" />
+    <img src="@/assets/images/duration-chart/swarm_jd7d_2_western_compressed.png" alt="" />
   </div>
 
 </div>
