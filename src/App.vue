@@ -1,17 +1,18 @@
 <template>
   <div id="app">
     <WindowSize v-if="checkTypeOfEnv === '-test build-'" />
-    <!-- <HeaderUSGS
+    <HeaderUSGS
       ref="headerUSGS"
       class="sticky-header"
-    /> -->
+    />
     <InternetExplorerPage v-if="isInternetExplorer" />
     <!-- an empty string in this case means the 'prod' version of the application   -->
     <router-view
       v-if="!isInternetExplorer"
-    /><!-- 
+    /> 
     <PreFooterCodeLinks v-if="!isInternetExplorer" />
-    <FooterUSGS /> -->
+    <PreFooterVisualizationsLinks v-if="!isInternetExplorer" />
+    <FooterUSGS />
   </div>
 </template>
 
@@ -23,10 +24,11 @@
         name: 'App',
         components: {
             WindowSize,
-            //HeaderUSGS,
+            HeaderUSGS,
             InternetExplorerPage: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "internet-explorer-page"*/ "./components/InternetExplorerPage"),
-            //PreFooterCodeLinks: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "pre-footer-links-code"*/ "./components/PreFooterCodeLinks"),
-            //FooterUSGS: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "usgs-footer"*/ "./components/FooterUSGS") // Have Webpack put the footer in a separate chunk so we can load it conditionally (with a v-if) if we desire
+            PreFooterVisualizationsLinks: () => import( /* webpackPreload: true */ /*webpackChunkName: "pre-footer-links-visualizations"*/ "./components/PreFooterVisualizationsLinks"),
+            PreFooterCodeLinks: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "pre-footer-links-code"*/ "./components/PreFooterCodeLinks"),
+            FooterUSGS: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "usgs-footer"*/ "./components/FooterUSGS") // Have Webpack put the footer in a separate chunk so we can load it conditionally (with a v-if) if we desire
         },
         data() {
             return {
