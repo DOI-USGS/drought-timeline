@@ -3,7 +3,6 @@
     <WindowSize v-if="checkTypeOfEnv === '-test build-'" />
     <HeaderUSGS
       ref="headerUSGS"
-      class="sticky-header"
     />
     <InternetExplorerPage v-if="isInternetExplorer" />
     <!-- an empty string in this case means the 'prod' version of the application   -->
@@ -117,7 +116,7 @@ h2{
   font-weight: 700;
   text-align: left;
   font-family: $SourceSans;
-  font-size: 3.75em;
+  font-size: 3em;
   margin-top: 5px;
   line-height: 1.2;
     color: $textcolor;
