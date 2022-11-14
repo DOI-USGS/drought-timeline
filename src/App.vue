@@ -135,7 +135,7 @@ h3{
   }  
 }
 p, text {
-  padding: 1em 0 0 0; 
+  // padding: 1em 0 0 0; 
   font-family: $SourceSans;
   color: $textcolor;
 }
@@ -144,9 +144,6 @@ input[type=button] {
     }
 
 // General Layout  
-  section {
-    padding: 3em 0 3em 0;
-  }
   .text-content {
     min-width: 300px;
     max-width: 700px;

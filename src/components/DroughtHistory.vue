@@ -1,10 +1,22 @@
 <template>
-<div id="main-container">
+<section id="main-container">
   <div id="title-container">
     <h2>A history of drought in the western U.S.</h2>
+    <nav id="nav-button-container">
+      <p>
+        <span><button id='button1950s' class="button first">1950s</button></span>
+        <span><button id='button1960s' class="button">1960s</button></span>
+        <span><button id='button1970s' class="button">1970s</button></span>
+        <span><button id='button1980s' class="button">1980s</button></span>
+        <span><button id='button1990s' class="button">1990s</button></span>
+        <span><button id='button2000s' class="button">2000s</button></span>
+        <span><button id='button2010s' class="button">2010s</button></span>
+      </p>
+    </nav>
   </div>
+
   <div id="container">
-    <div iPad="annotation-container">
+    <div id="annotation-container">
       <div
           v-for="annotation in annotations" 
           :key="annotation.id"
@@ -113,9 +125,28 @@ img {
   p {
     // color: black;
   }
+
 }
 #title-container {
   display: block;
   width: 100vw;
+}
+#nav-button-container {
+  padding: 10px 0px 10px 0px;
+}
+.button {
+  padding: 3px 6px 4px 5px;
+  margin-left: 5px;
+  @media only screen and (max-width: 600px) {
+    margin-left: 1px;
+  }
+}
+.button.first {
+  margin-left: 0px;
+}
+.button:hover {
+  background-color: black;
+  color: white;
+  border-radius: 3px;
 }
 </style>
