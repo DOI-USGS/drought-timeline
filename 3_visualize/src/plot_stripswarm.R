@@ -94,8 +94,8 @@ event_swarm_plot_compressed_vertical <- function(swarm_data){
                  expand = c(0,0),
                  position='right') +
     theme(axis.text.x=element_blank(),
-          axis.text.y=element_text(size = 14, family = font_fam, hjust = 0, angle=180),
-          panel.grid.major.y = element_line(color = "black", size = 0.1),
+          axis.text.y=element_blank(),
+          panel.grid.major.y = element_blank(),
           legend.position = 'none')
   
 }
