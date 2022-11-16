@@ -10,7 +10,7 @@
       v-if="!isInternetExplorer"
     /> 
     <PreFooterCodeLinks v-if="!isInternetExplorer" />
-    <PreFooterVisualizationsLinks v-if="!isInternetExplorer" />
+    <!-- PreFooterVisualizationsLinks v-if="!isInternetExplorer" / -->
     <FooterUSGS />
   </div>
 </template>
@@ -25,7 +25,7 @@
             WindowSize,
             HeaderUSGS,
             InternetExplorerPage: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "internet-explorer-page"*/ "./components/InternetExplorerPage"),
-            PreFooterVisualizationsLinks: () => import( /* webpackPreload: true */ /*webpackChunkName: "pre-footer-links-visualizations"*/ "./components/PreFooterVisualizationsLinks"),
+            // PreFooterVisualizationsLinks: () => import( /* webpackPreload: true */ /*webpackChunkName: "pre-footer-links-visualizations"*/ "./components/PreFooterVisualizationsLinks"),
             PreFooterCodeLinks: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "pre-footer-links-code"*/ "./components/PreFooterCodeLinks"),
             FooterUSGS: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "usgs-footer"*/ "./components/FooterUSGS") // Have Webpack put the footer in a separate chunk so we can load it conditionally (with a v-if) if we desire
         },
