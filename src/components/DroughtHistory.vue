@@ -1,36 +1,37 @@
 <template>
 <section id="main-container">
-  <div id="title-container">
-    <h2>A history of drought in the western U.S.</h2>
-
-  </div>
-  <nav id="nav-button-container">
-    <p>
-      <span><button id='button-1950s' class="button first" @click="scrollTimeline">1950s</button></span>
-      <span><button id='button-1960s' class="button" @click="scrollTimeline">1960s</button></span>
-      <span><button id='button-1970s' class="button" @click="scrollTimeline">1970s</button></span>
-      <span><button id='button-1980s' class="button" @click="scrollTimeline">1980s</button></span>
-      <span><button id='button-1990s' class="button" @click="scrollTimeline">1990s</button></span>
-      <span><button id='button-2000s' class="button" @click="scrollTimeline">2000s</button></span>
-      <span><button id='button-2010s' class="button" @click="scrollTimeline">2010s</button></span>
-    </p>
-  </nav>
-  <div id="chart-container">
-    <img id="swarm_vertical" src="@/assets/images/duration-chart/swarm_jd7d_2_western_compressed_vertical.png" alt=""/>
-  </div>
-  <div id="chart-overlay">
-    <svg id="svg-chart"/>
-  </div>
-  <!--div id="annotation-container">
+  <section id="grid-container">
+    <div id="title-container">
+      <h2>A history of drought in the western U.S.</h2>
+    </div>
+    <nav id="nav-button-container">
+      <p>
+        <span><button id='button-1950s' class="button first" @click="scrollTimeline">1950s</button></span>
+        <span><button id='button-1960s' class="button" @click="scrollTimeline">1960s</button></span>
+        <span><button id='button-1970s' class="button" @click="scrollTimeline">1970s</button></span>
+        <span><button id='button-1980s' class="button" @click="scrollTimeline">1980s</button></span>
+        <span><button id='button-1990s' class="button" @click="scrollTimeline">1990s</button></span>
+        <span><button id='button-2000s' class="button" @click="scrollTimeline">2000s</button></span>
+        <span><button id='button-2010s' class="button" @click="scrollTimeline">2010s</button></span>
+      </p>
+    </nav>
+    <div id="chart-container">
+      <img id="swarm_vertical" src="@/assets/images/duration-chart/swarm_jd7d_2_western_compressed_vertical.png" alt=""/>
+    </div>
+    <div id="chart-overlay">
+      <svg id="svg-chart"/>
+    </div>
+  </section>
+  <div id="annotation-container" v-if="mobileView">
     <div
         v-for="annotation in annotations" 
         :key="annotation.id"
         :class="`droughtText drought-text-${annotation.id}`"
-        :style="{top: annotation.offset}"
       >
-        <p :style="{color: annotation.textColor}">{{ annotation.text }}</p>
+        <p>{{ annotation.text }}</p>
       </div>
-  </div-->
+  </div>
+  
 </section>
 </template>
 <script>
@@ -40,7 +41,7 @@ import { isMobile } from 'mobile-device-detect';
 import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 import { TimelineMax } from "gsap/all";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import droughtAnnotations from "@/assets/text/droughtAnnotations.json";
+import droughtAnnotations from "@/assets/text/droughtAnnotations.js";
 export default {
   name: "DroughtHistory",
     components: {
