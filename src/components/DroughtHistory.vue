@@ -53,12 +53,13 @@ export default {
         d3: null,
         publicPath: process.env.BASE_URL, // allows the application to find the files when on different deployment roots
         mobileView: isMobile, // test for mobile
-        annotations: JSON.parse(droughtAnnotations),
+        annotations: droughtAnnotations.timelineEvents,
         // dimensions
         chartWidth: null,
         chartHeight: null,
         // show scroll trigger markers on the page?
         marker_on: false,
+        tl: null
 
       }
   },
@@ -68,10 +69,9 @@ export default {
     this.$gsap.registerPlugin(ScrollTrigger, TimelineMax, ScrollToPlugin); 
 
     // create the scrolling timeline
-    let tl = this.$gsap.timeline(); 
+    this.tl = this.$gsap.timeline(); 
 
-    let container = document.getElementById("chart-container");
-    console.log(container)
+    // let container = document.getElementById("chart-container");
     // this.$gsap.to(container, {
     //   y: () => -(container.scrollHeight - document.documentElement.clientHeight) + "px",
     //   ease: "none",
@@ -83,8 +83,10 @@ export default {
     //     end: () => "+=" + container.offsetHeight
     //   }
     // })
-    this.loadData();
-
+    this.addOverlay(this.annotations)
+    if (this.mobileView) {
+      this.addAnimations()
+    }
   },
     methods:{
       isMobile() {
@@ -94,38 +96,22 @@ export default {
                   return false
               }
       },
-      loadData(){
-        const self = this;
-        // read in data
-        let promises = [
-            self.d3.csv(self.publicPath + "data/annotations.csv", this.d3.autoType) // to be repalced with file stored in s3 via pipeline
-        ];
-        Promise.all(promises).then(self.callback);
-      },
-      callback(data){
-        const self = this;
-
-        const annotation_data = data[0]
-        
-        this.addOverlay(annotation_data)
-      },
       scrollTimeline(e) {
-        console.log(e)
         const scrollButton = e.target
         const scrollID = scrollButton.id
         const scrollYear = scrollID.split('-')[1]
-        console.log(scrollYear)
         this.$gsap.to(window, {duration: 2, scrollTo:"#scrollStop-"+scrollYear});
       },
       addOverlay(annotation_data) {
         const self = this;
-
-        this.svg = this.d3.select("#svg-chart")
+        console.log(annotation_data)
+        console.log(this.annotations)
+        this.svgChart = this.d3.select("#svg-chart")
 
         this.chartWidth = window.innerWidth*0.9
         this.chartHeight = this.chartWidth*9.996
 
-        this.svg
+        this.svgChart
           .attr("viewBox", "0 0 " + this.chartWidth + " " + this.chartHeight)
           .attr("preserveAspectRatio", "xMidYMid meet")
           .attr("width", '100%')
@@ -142,8 +128,6 @@ export default {
           {id: '2010s', date: '2010-01-01'}]
         allDates.push(...timelineDates)
         allDates.push(...scrollToDates.map(item => item.date))
-        console.log(allDates)
-        console.log(Date(timelineDates[0]))
         const yScale = this.d3.scaleTime()
           .domain([new Date(timelineDates[0]), new Date(timelineDates[1])])
           .range([0, this.chartHeight]);
@@ -153,48 +137,99 @@ export default {
         //   }))
         //   .range([0, this.chartHeight]);
         let testDate = new Date(timelineDates[0])
-        console.log(yScale(testDate))
+
+        const yAxisOffset = this.mobileView ? 35: 40;
 
         const yAxis = this.d3.axisLeft(yScale)
+          .ticks(this.d3.timeYear.every(1))
+          .tickSize(-this.chartWidth-yAxisOffset)
+          .tickSizeOuter(0)
 
-        const yAxisDom = this.svg.append("g")
+
+        const yAxisDom = this.svgChart.append("g")
           .call(yAxis)
           .attr("class", "y_axis")
-          .attr("transform", "translate(100,0)")
+          .attr("transform", "translate(" + yAxisOffset + ",0)")
 
-        yAxis.ticks(10)
+        yAxisDom.selectAll('text')
+          .attr("class", "yAxisText")
+        
+        yAxisDom.selectAll(".tick line")
+          .attr("class", "yAxisTick")
+
+        yAxisDom.select(".domain").remove()
 
         const xScale = this.d3.scaleLinear()
           .domain([0,100])
           .range([0, this.chartWidth])
 
-        console
-
-        const scrollToSpot = this.svg.selectAll('scrollToSpot')
+        const scrollToSpot = this.svgChart.selectAll('scrollToSpot')
           .data(scrollToDates)
           .enter()
           .append('rect')
           .attr("id", d => "scrollStop-" + d.id)
           .attr("class", "scrollToSpot")
-          .attr("x", 100)
+          .attr("x", 0)
           .attr("y", d => yScale(new Date(d.date)))
           .attr("width", 10)
           .attr("height", 10)
           .style("fill", "red")
 
-        const annotationText = this.svg.selectAll('annotationText')
-          .data(annotation_data)
-          .enter()
-          .append("text")
-          .attr("id", d => "annotation-" + d.id)
-          .attr("class", "droughtText")
-          .text(d => d.text)
-
         if (this.mobileView === false) {
-          annotationText
+          const annotationItems = this.svgChart.selectAll('annotationText')
+            .data(annotation_data)
+            .enter()
+            .append("text")
+            .attr("id", d => "annotation-" + d.id)
+            .attr("class", "droughtText")
             .attr("x", d => xScale(d.x_offset_per))
             .attr("y", d => yScale(new Date(d.date)))
+            .attr("text-anchor", "middle")
+            .text(d => d.text)
+        } else {
+          const annotationItems = this.svgChart.selectAll('annotationText')
+            .data(annotation_data)
+            .enter()
+            .append("circle")
+            .attr("id", d => "annotation-" + d.id)
+            .attr("class", "droughtCircle")
+            .attr("cx", d => xScale(d.x_offset_per))
+            .attr("cy", d => yScale(new Date(d.date)))
+            .attr("r", 4)
         }
+      },
+      addAnimations() {
+        // find all annotation text
+        // const droughtTexts = this.$gsap.utils.toArray("#svg-chart y_axis");
+        const chartSVG = document.querySelector("#svg-chart");
+        const droughtTexts = this.$gsap.utils.toArray(".droughtText", chartSVG);
+        // console.log(droughtTexts)
+
+        droughtTexts.forEach((droughtText) => {
+            // get unique ID and class for frame. Scroll frame classes follow the pattern `scrolly scroll-step-${frame.id}`
+            // let classList = droughtText.className
+            // let scrollClass = classList.split(' ')[1]
+            // console.log(scrollClass.split('-')[2])
+            let scrollID = droughtText.id
+            console.log(scrollID)
+          // use class to set trigger
+            this.tl.to(`#${scrollID}`, {
+              scrollTrigger: {
+                markers: this.marker_on,
+                trigger: `#${scrollID}`,
+                start: "top 70%",
+                end: "bottom 70%",
+                toggleClass: {targets: `#${scrollID}`, className:"visible"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+                /*
+                onEnter - scrolling down, start meets scroller-start
+                onLeave - scrolling down, end meets scroller-end
+                onEnterBack - scrolling up, end meets scroller-end
+                onLeaveBack - scrolling up, start meets scroller-start
+                */
+              },
+            }) 
+          })
       }
     }
 }
@@ -204,7 +239,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 $writeFont: 'Nanum Pen Script', cursive;
 
-#main-container {
+#grid-container {
   display: grid;
   padding: 20px 0 20px 0;
   gap: 5px;
@@ -252,14 +287,43 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-area: chart;
 }
 #annotation-container {
-  grid-area: chart;
+  height: 100px;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  opacity: 0.8;
+  box-shadow: 0px -5px 5px #B9B9B9;
 }
 .droughtText {
   z-index: 10;
   position: absolute;
-  p {
-    // color: black;
+}
+.hidden{
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+.visible{
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s linear;
+}
+</style>
+<style lang="scss">
+.yAxisText {
+  font-size: 2em;
+  @media only screen and (max-width: 600px) {
+    font-size: 1.6em;
   }
 }
-
+.yAxisTick {
+  stroke: #949494;
+  stroke-width: 0.5;
+}
+.droughtCircle {
+  stroke: #949494;
+  stroke-width: 1;
+  fill: #ffffff
+}
 </style>
