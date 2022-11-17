@@ -121,7 +121,7 @@ h2{
   line-height: 1.2;
     color: $textcolor;
   @media screen and (max-width: 600px) {
-    font-size: 3em;
+    font-size: 2em;
   }
 }
 h3{
