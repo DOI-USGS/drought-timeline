@@ -18,6 +18,9 @@
     <div id="chart-container">
       <img id="swarm_vertical" src="@/assets/images/duration-chart/swarm_jd7d_2_western_compressed_vertical.png" alt=""/>
     </div>
+    <div id="inset-container">
+      <img id="inset-map" src="@/assets/images/western_states_inset.png" alt=""/>
+    </div>
     <div id="chart-overlay">
       <svg id="svg-chart"/>
     </div>
@@ -26,12 +29,25 @@
     <div
         v-for="annotation in annotations" 
         :key="annotation.id"
-        :class="`droughtText drought-text-${annotation.id}`"
+        :class="`droughtText hidden`"
+        :id="`drought-text-${annotation.id}`"
       >
         <p>{{ annotation.text }}</p>
       </div>
   </div>
-  
+  <def>
+      <filter
+        id="shadow2"
+        style="width: 0px; height:0px"
+      >
+        <feDropShadow
+          dx="0"
+          dy="0"
+          stdDeviation="5"
+          flood-color="#c9c9c9"
+        />
+      </filter>
+  </def>
 </section>
 </template>
 <script>
