@@ -74,18 +74,13 @@ export default {
         chartWidth: null,
         chartHeight: null,
         // show scroll trigger markers on the page?
-        marker_on: false,
-        tl: null
-
+        marker_on: false
       }
   },
   mounted(){      
     this.d3 = Object.assign(d3Base);
     // register plugins for global use
     this.$gsap.registerPlugin(ScrollTrigger, TimelineMax, ScrollToPlugin); 
-
-    // create the scrolling timeline
-    this.tl = this.$gsap.timeline(); 
 
     // let container = document.getElementById("chart-container");
     // this.$gsap.to(container, {
@@ -100,9 +95,8 @@ export default {
     //   }
     // })
     this.addOverlay(this.annotations)
-    if (this.mobileView) {
-      this.addAnimations()
-    }
+
+    this.addAnimations()
   },
     methods:{
       isMobile() {
@@ -120,19 +114,19 @@ export default {
       },
       addOverlay(annotation_data) {
         const self = this;
-        console.log(annotation_data)
-        console.log(this.annotations)
+
+        // select svg
         this.svgChart = this.d3.select("#svg-chart")
 
-        this.chartWidth = window.innerWidth*0.9
-        this.chartHeight = this.chartWidth*9.996
-
+        // set dimensions for overlay svg
+        this.chartWidth = window.innerWidth*0.9 //MUST MATCH max-width of grid, which controls chart image width
+        this.chartHeight = this.chartWidth*9.996 //Based on image aspect ratio
         this.svgChart
           .attr("viewBox", "0 0 " + this.chartWidth + " " + this.chartHeight)
           .attr("preserveAspectRatio", "xMidYMid meet")
           .attr("width", '100%')
 
-        const allDates = []
+        // Define relevant dates
         const timelineDates = ['1950-04-01','2020-03-22']
         const scrollToDates = [
           {id: '1950s', date: '1950-04-01'}, 
@@ -142,43 +136,39 @@ export default {
           {id: '1990s', date: '1990-01-01'},
           {id: '2000s', date: '2000-01-01'},
           {id: '2010s', date: '2010-01-01'}]
-        allDates.push(...timelineDates)
-        allDates.push(...scrollToDates.map(item => item.date))
         const yScale = this.d3.scaleTime()
           .domain([new Date(timelineDates[0]), new Date(timelineDates[1])])
           .range([0, this.chartHeight]);
-        // const yScale = this.d3.scaleTime()
-        //   .domain(this.d3.extent(allDates, function(d) { 
-        //     return new Date(d); 
-        //   }))
-        //   .range([0, this.chartHeight]);
-        let testDate = new Date(timelineDates[0])
 
-        const yAxisOffset = this.mobileView ? 35: 40;
+        // set up y axis
+        const yAxisOffset = this.mobileView ? 40: 40;
 
         const yAxis = this.d3.axisLeft(yScale)
           .ticks(this.d3.timeYear.every(1))
-          .tickSize(-this.chartWidth-yAxisOffset)
+          .tickSize(-this.chartWidth-yAxisOffset) // ticks spanning width of chart
           .tickSizeOuter(0)
-
 
         const yAxisDom = this.svgChart.append("g")
           .call(yAxis)
           .attr("class", "y_axis")
           .attr("transform", "translate(" + yAxisOffset + ",0)")
 
+        // set up classes for styling
         yAxisDom.selectAll('text')
           .attr("class", "yAxisText")
         
         yAxisDom.selectAll(".tick line")
           .attr("class", "yAxisTick")
 
+        // remove y axis line
         yAxisDom.select(".domain").remove()
 
+        // Set up linear scale for chart width
         const xScale = this.d3.scaleLinear()
           .domain([0,100])
           .range([0, this.chartWidth])
 
+        // Add scroll to elements (only used for scroll navigation)
         const scrollToSpot = this.svgChart.selectAll('scrollToSpot')
           .data(scrollToDates)
           .enter()
@@ -189,25 +179,28 @@ export default {
           .attr("y", d => yScale(new Date(d.date)))
           .attr("width", 10)
           .attr("height", 10)
-          .style("fill", "red")
+          .attr("opacity", 0) // make fully transparent
 
+        // Set up annotations
         if (this.mobileView === false) {
+          // On desktop, place annotations as text
           const annotationItems = this.svgChart.selectAll('annotationText')
             .data(annotation_data)
             .enter()
             .append("text")
-            .attr("id", d => "annotation-" + d.id)
-            .attr("class", "droughtText")
+            .attr("id", d => "annotation-text-" + d.id)
+            .attr("class", d => "droughtText hidden")
             .attr("x", d => xScale(d.x_offset_per))
             .attr("y", d => yScale(new Date(d.date)))
             .attr("text-anchor", "middle")
             .text(d => d.text)
         } else {
+          // On mobile, place circles at annotation locations
           const annotationItems = this.svgChart.selectAll('annotationText')
             .data(annotation_data)
             .enter()
             .append("circle")
-            .attr("id", d => "annotation-" + d.id)
+            .attr("id", d => "annotation-circle-" + d.id)
             .attr("class", "droughtCircle")
             .attr("cx", d => xScale(d.x_offset_per))
             .attr("cy", d => yScale(new Date(d.date)))
@@ -215,27 +208,59 @@ export default {
         }
       },
       addAnimations() {
-        // find all annotation text
-        // const droughtTexts = this.$gsap.utils.toArray("#svg-chart y_axis");
+        const tl = this.$gsap.timeline(); 
         const chartSVG = document.querySelector("#svg-chart");
-        const droughtTexts = this.$gsap.utils.toArray(".droughtText", chartSVG);
-        // console.log(droughtTexts)
+        if (this.mobileView) {
 
-        droughtTexts.forEach((droughtText) => {
+          // find all annotation text triggers
+          const droughtTextTriggers = this.$gsap.utils.toArray(".droughtCircle", chartSVG)
+          // const droughtTexts = this.$gsap.utils.toArray(".droughtText");
+          console.log(droughtTextTriggers)
+
+          droughtTextTriggers.forEach((droughtTextTrigger) => {
             // get unique ID and class for frame. Scroll frame classes follow the pattern `scrolly scroll-step-${frame.id}`
-            // let classList = droughtText.className
-            // let scrollClass = classList.split(' ')[1]
+            let scrollIDFull = droughtTextTrigger.id
             // console.log(scrollClass.split('-')[2])
-            let scrollID = droughtText.id
+            let scrollID = scrollIDFull.split('-')[2]
+            console.log(scrollIDFull)
             console.log(scrollID)
-          // use class to set trigger
-            this.tl.to(`#${scrollID}`, {
+            // use class to set trigger
+            tl.to(`#${scrollIDFull}`, {
               scrollTrigger: {
-                markers: this.marker_on,
-                trigger: `#${scrollID}`,
-                start: "top 70%",
-                end: "bottom 70%",
-                toggleClass: {targets: `#${scrollID}`, className:"visible"}, // adds class to target when triggered
+                markers: true,
+                trigger: `#${scrollIDFull}`,
+                start: "top 80%",
+                end: "none",
+                toggleClass: {targets: `#drought-text-${scrollID}`, className:"visible"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+                /*
+                onEnter - scrolling down, start meets scroller-start
+                onLeave - scrolling down, end meets scroller-end
+                onEnterBack - scrolling up, end meets scroller-end
+                onLeaveBack - scrolling up, start meets scroller-start
+                */
+              },
+            }, ">") 
+          })
+        } else {
+          const droughtTexts = this.$gsap.utils.toArray(".droughtText", chartSVG)
+          console.log(droughtTexts)
+          
+          droughtTexts.forEach((droughtText) => {
+            // get unique ID and class for frame. Scroll frame classes follow the pattern `scrolly scroll-step-${frame.id}`
+            let scrollIDFull = droughtText.id
+            // console.log(scrollClass.split('-')[2])
+            let scrollID = scrollIDFull.split('-')[2]
+            console.log(scrollIDFull)
+            console.log(scrollID)
+            // use class to set trigger
+            tl.to(`#${scrollIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${scrollIDFull}`,
+                start: "top 95%",
+                end: "bottom 35%",
+                toggleClass: {targets: `#${scrollIDFull}`, className:"visible"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
                 /*
                 onEnter - scrolling down, start meets scroller-start
@@ -246,6 +271,7 @@ export default {
               },
             }) 
           })
+        }
       }
     }
 }
@@ -320,7 +346,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-area: chart;
 }
 #annotation-container {
-  height: 100px;
+  height: 20vh;
   width: 100vw;
   position: fixed;
   bottom: 0;
@@ -358,5 +384,15 @@ $writeFont: 'Nanum Pen Script', cursive;
   stroke: #949494;
   stroke-width: 1;
   fill: #ffffff
+}
+.hidden{
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+.visible{
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.5s linear;
 }
 </style>
