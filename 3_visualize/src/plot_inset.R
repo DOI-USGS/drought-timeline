@@ -7,7 +7,7 @@ plot_inset <- function(station_data, station, western_us_data, us_data, file_png
             color = '#7A7A7A') +
     geom_sf(data = western_us_data,
             fill = '#949494',
-            color = NA,
+            color = '#7A7A7A',
             alpha = 0.5) +
     theme_void() 
     
