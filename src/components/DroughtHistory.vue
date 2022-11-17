@@ -6,7 +6,7 @@
     </div>
     <nav id="nav-button-container">
       <p>
-        <span><button id='button-1950s' class="button first" @click="scrollTimeline">1950s</button></span>
+        <span><button id='button-1950s' class="button firstButton" @click="scrollTimeline">1950s</button></span>
         <span><button id='button-1960s' class="button" @click="scrollTimeline">1960s</button></span>
         <span><button id='button-1970s' class="button" @click="scrollTimeline">1970s</button></span>
         <span><button id='button-1980s' class="button" @click="scrollTimeline">1980s</button></span>
