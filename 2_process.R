@@ -31,33 +31,7 @@ p2_targets <- list(
                left_join(p2_1951_2020_metadata %>%
                            select(StaID:STATE, HCDN_2009, western_us)) %>%
                filter(western_us)),
-  
-  # identify unique staID's for western states that have threshold = 2 
-  tar_target(p2_prop_western_2_StaID,
-             unique(p2_prop_western_2$StaID)),
-  
-  #filter metadata to the unique staID's for western states that have threshold =2 
-  tar_target(p2_prop_western_2_StaID_metadata,
-             p2_1951_2020_metadata |> filter(StaID %in% p2_prop_western_2_StaID)),
-  
-  # set proj
-  tar_target(p2_proj,
-             '+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0'
-  ),
-  
-  # transform to sf 
-  tar_target(p2_prop_western_2_StaID_metadata_sf,
-             sf::st_as_sf(p2_prop_western_2_StaID_metadata, coords = c("LNG_GAGE", "LAT_GAGE"), crs = p2_proj)),
-  
-  # obtain all US wide data 
-  tar_target(p2_states,
-             spData::us_states |> st_transform(p2_proj) |> ms_simplify()),
-  
-  # filter US for the 11 western states of interest 
-  tar_target(p2_states_western,
-             spData::us_states |> st_transform(p2_proj) |> ms_simplify() |> 
-               filter(NAME %in% c('Arizona', 'California', 'Colorado', 'Idaho', 'Montana', 'Nevada','New Mexico', 'Oregon', 'Utah','Washington', 'Wyoming'))),
-  
+
   # Identify drought chunks
   tar_target(p2_prop_western_2_drought_chunks,
              identify_drought_chunks(p2_prop_western_2, min_chunk_days=365)),
