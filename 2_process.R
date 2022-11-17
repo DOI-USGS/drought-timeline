@@ -31,7 +31,7 @@ p2_targets <- list(
                left_join(p2_1951_2020_metadata %>%
                            select(StaID:STATE, HCDN_2009, western_us)) %>%
                filter(western_us)),
-  
+
   # Identify drought chunks
   tar_target(p2_prop_western_2_drought_chunks,
              identify_drought_chunks(p2_prop_western_2, min_chunk_days=365)),
