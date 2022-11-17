@@ -18,7 +18,10 @@ tar_option_set(packages = c("retry",
                             'ggthemes',
                             'usmap',
                             'cowplot',
-                            'ggbeeswarm'))
+                            'ggbeeswarm',
+                            'sf',
+                            'spData',
+                            'rmapshaper'))
 
 # Phase target makefiles
 source("0_config.R")
