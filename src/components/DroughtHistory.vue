@@ -274,7 +274,11 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #nav-button-container {
   grid-area: buttons;
+  position: sticky;
+  top: 0px;
   padding: 10px 0px 10px 0px;
+  z-index: 20;
+  background-color: white;
 }
 .button {
   padding: 3px 6px 4px 5px;
@@ -284,13 +288,26 @@ $writeFont: 'Nanum Pen Script', cursive;
     margin-left: 0px;
   }
 }
-.button.first {
+.button.firstButton {
   margin-left: 0px;
 }
 .button:hover {
   background-color: black;
   color: white;
   border-radius: 3px;
+}
+#inset-container {
+  grid-area: chart;
+  justify-self: end;
+}
+#inset-map {
+  position: sticky;
+  top: 50px;
+  height: 150px;
+  filter: url(#shadow2);
+  @media only screen and (max-width: 600px) {
+    height: 75px;
+  }
 }
 #chart-container {
   grid-area: chart;
