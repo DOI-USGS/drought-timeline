@@ -177,20 +177,39 @@ export default {
             .enter()
             .append("text")
             .attr("id", d => "annotation-text-" + d.id)
-            .attr("class", d => "droughtText hidden")
-            .attr("x", d => xScale(d.x_offset_per))
+            .attr("class", d => "droughtText desktop hidden")
+            .attr("x", d => xScale(d.desktop_x_offset_per))
             .attr("y", d => yScale(new Date(d.date)))
-            .attr("text-anchor", "middle")
+            .attr("text-anchor", d=> d.desktop_text_anchor)
+            .attr("data-width", d => d.desktop_text_width)
             .text(d => d.text)
+            .call(self.wrap);
         } else {
+          // On mobile, set up rectangles to trigger annoations
+          const annotationRects = this.svgChart.selectAll('annotationRect')
+            .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
+            .enter()
+            .append("rect")
+            .attr("id", d => "annotation-rect-" + d.id)
+            .attr("class", "droughtRect")
+            .attr("x", yAxisOffset)
+            .attr("y", d => yScale(new Date(d.date)))
+            .attr("width", this.chartWidth - yAxisOffset)
+            .attr("height", (d,i) => {
+              const y_diff = i===annotation_data.length-1 ? 
+                yScale(new Date(timelineDates[1])) - yScale(new Date(d.date)) : 
+                yScale(new Date(annotation_data[i+1].date)) - yScale(new Date(d.date))
+              return y_diff > 300 ? 300 : y_diff
+            })
+            .style('opacity', "0")
           // On mobile, place circles at annotation locations
-          const annotationItems = this.svgChart.selectAll('annotationText')
+          const annotationCircles = this.svgChart.selectAll('annotationCircle')
             .data(annotation_data)
             .enter()
             .append("circle")
             .attr("id", d => "annotation-circle-" + d.id)
             .attr("class", "droughtCircle")
-            .attr("cx", d => xScale(d.x_offset_per))
+            .attr("cx", d => xScale(d.mobile_x_offset_per))
             .attr("cy", d => yScale(new Date(d.date)))
             .attr("r", 4)
         }
@@ -201,24 +220,22 @@ export default {
         if (this.mobileView) {
 
           // find all annotation text triggers
-          const droughtTextTriggers = this.$gsap.utils.toArray(".droughtCircle", chartSVG)
-          // const droughtTexts = this.$gsap.utils.toArray(".droughtText");
-          console.log(droughtTextTriggers)
+          const droughtTextTriggers = this.$gsap.utils.toArray(".droughtRect", chartSVG)
 
           droughtTextTriggers.forEach((droughtTextTrigger) => {
+            let triggerHeight = droughtTextTrigger.height.baseVal.value
+            
             // get unique ID and class for frame. Scroll frame classes follow the pattern `scrolly scroll-step-${frame.id}`
             let scrollIDFull = droughtTextTrigger.id
-            // console.log(scrollClass.split('-')[2])
             let scrollID = scrollIDFull.split('-')[2]
-            console.log(scrollIDFull)
-            console.log(scrollID)
+
             // use class to set trigger
             tl.to(`#${scrollIDFull}`, {
               scrollTrigger: {
                 markers: true,
                 trigger: `#${scrollIDFull}`,
-                start: "top 80%",
-                end: "none",
+                start: "top 30%",
+                end: `+=${triggerHeight}`,
                 toggleClass: {targets: `#drought-text-${scrollID}`, className:"visible"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
                 /*
@@ -228,26 +245,40 @@ export default {
                 onLeaveBack - scrolling up, start meets scroller-start
                 */
               },
-            }, ">") 
+            })
+            // use class to set trigger
+            tl.to(`#${scrollIDFull}`, {
+              scrollTrigger: {
+                markers: true,
+                trigger: `#${scrollIDFull}`,
+                start: "top 30%",
+                end: `+=${triggerHeight}`,
+                toggleClass: {targets: `#annotation-circle-${scrollID}`, className:"current"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+                /*
+                onEnter - scrolling down, start meets scroller-start
+                onLeave - scrolling down, end meets scroller-end
+                onEnterBack - scrolling up, end meets scroller-end
+                onLeaveBack - scrolling up, start meets scroller-start
+                */
+              },
+            }) 
           })
         } else {
           const droughtTexts = this.$gsap.utils.toArray(".droughtText", chartSVG)
-          console.log(droughtTexts)
           
           droughtTexts.forEach((droughtText) => {
             // get unique ID and class for frame. Scroll frame classes follow the pattern `scrolly scroll-step-${frame.id}`
             let scrollIDFull = droughtText.id
-            // console.log(scrollClass.split('-')[2])
             let scrollID = scrollIDFull.split('-')[2]
-            console.log(scrollIDFull)
-            console.log(scrollID)
+
             // use class to set trigger
             tl.to(`#${scrollIDFull}`, {
               scrollTrigger: {
-                markers: false,
+                markers: true,
                 trigger: `#${scrollIDFull}`,
                 start: "top 95%",
-                end: "bottom 35%",
+                end: "bottom 20%",
                 toggleClass: {targets: `#${scrollIDFull}`, className:"visible"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
                 /*
@@ -373,6 +404,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 #annotation-container {
   height: 20vh;
   width: 100vw;
+  padding: 20px 0 10px 0;
   position: fixed;
   bottom: 0;
   background-color: white;
@@ -381,20 +413,32 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 .droughtText {
   z-index: 10;
+}
+.droughtText.mobile {
+  margin: 0 5vw 0 5vw;
   position: absolute;
 }
 .hidden{
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s 0.5s, opacity 0.5s linear;
+  transition: visibility 0s 0.3s, opacity 0.3s linear;
 }
 .visible{
   visibility: visible;
   opacity: 1;
-  transition: opacity 0.5s linear;
+  transition: opacity 0.3s linear;
+}
+#filter-svg {
+  width: 0;
+  height: 0;
 }
 </style>
 <style lang="scss">
+.droughtText {
+  z-index: 10;
+  font-weight: 500;
+  font-size: 1em;
+}
 .yAxisText {
   font-size: 2em;
   @media only screen and (max-width: 600px) {
@@ -413,11 +457,15 @@ $writeFont: 'Nanum Pen Script', cursive;
 .hidden{
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0s 0.5s, opacity 0.5s linear;
+  transition: visibility 0s 0.3s, opacity 0.3s linear;
 }
 .visible{
   visibility: visible;
   opacity: 1;
-  transition: opacity 0.5s linear;
+  transition: opacity 0.3s linear;
+}
+.current {
+  stroke: #000000;
+  fill: #000000;
 }
 </style>
