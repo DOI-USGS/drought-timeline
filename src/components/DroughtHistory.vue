@@ -82,18 +82,6 @@ export default {
     // register plugins for global use
     this.$gsap.registerPlugin(ScrollTrigger, TimelineMax, ScrollToPlugin); 
 
-    // let container = document.getElementById("chart-container");
-    // this.$gsap.to(container, {
-    //   y: () => -(container.scrollHeight - document.documentElement.clientHeight) + "px",
-    //   ease: "none",
-    //   scrollTrigger: {
-    //     trigger: container,
-    //     invalidateOnRefresh: true,
-    //     pin: true,
-    //     scrub: 0,
-    //     end: () => "+=" + container.offsetHeight
-    //   }
-    // })
     this.addOverlay(this.annotations)
 
     this.addAnimations()
