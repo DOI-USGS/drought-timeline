@@ -29,25 +29,25 @@
     <div
         v-for="annotation in annotations" 
         :key="annotation.id"
-        :class="`droughtText hidden`"
+        :class="`droughtText mobile hidden`"
         :id="`drought-text-${annotation.id}`"
       >
         <p>{{ annotation.text }}</p>
       </div>
   </div>
-  <def>
-      <filter
-        id="shadow2"
-        style="width: 0px; height:0px"
-      >
-        <feDropShadow
-          dx="0"
-          dy="0"
-          stdDeviation="5"
-          flood-color="#c9c9c9"
-        />
-      </filter>
-  </def>
+  <svg id="filter-svg">
+    <filter
+      id="shadow2"
+      style="width: 0px; height:0px"
+    >
+      <feDropShadow
+        dx="0"
+        dy="0"
+        stdDeviation="5"
+        flood-color="#c9c9c9"
+      />
+    </filter>
+    </svg>
 </section>
 </template>
 <script>
