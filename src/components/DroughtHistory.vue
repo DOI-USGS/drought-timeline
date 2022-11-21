@@ -6,13 +6,13 @@
     </div>
     <nav id="nav-button-container">
       <p>
-        <span><button id='button-1950s' class="button firstButton" @click="scrollTimeline">1950s</button></span>
-        <span><button id='button-1960s' class="button" @click="scrollTimeline">1960s</button></span>
-        <span><button id='button-1970s' class="button" @click="scrollTimeline">1970s</button></span>
-        <span><button id='button-1980s' class="button" @click="scrollTimeline">1980s</button></span>
-        <span><button id='button-1990s' class="button" @click="scrollTimeline">1990s</button></span>
-        <span><button id='button-2000s' class="button" @click="scrollTimeline">2000s</button></span>
-        <span><button id='button-2010s' class="button" @click="scrollTimeline">2010s</button></span>
+        <span><button id='button-1950s' class="scrollButton firstButton currentButton" @click="scrollTimeline">1950s</button></span>
+        <span><button id='button-1960s' class="scrollButton" @click="scrollTimeline">1960s</button></span>
+        <span><button id='button-1970s' class="scrollButton" @click="scrollTimeline">1970s</button></span>
+        <span><button id='button-1980s' class="scrollButton" @click="scrollTimeline">1980s</button></span>
+        <span><button id='button-1990s' class="scrollButton" @click="scrollTimeline">1990s</button></span>
+        <span><button id='button-2000s' class="scrollButton" @click="scrollTimeline">2000s</button></span>
+        <span><button id='button-2010s' class="scrollButton" @click="scrollTimeline">2010s</button></span>
       </p>
     </nav>
     <div id="chart-container">
@@ -70,6 +70,7 @@ export default {
         publicPath: process.env.BASE_URL, // allows the application to find the files when on different deployment roots
         mobileView: isMobile, // test for mobile
         annotations: droughtAnnotations.timelineEvents,
+        scrollToDates:  null,
         // dimensions
         chartWidth: null,
         chartHeight: null,
@@ -81,6 +82,19 @@ export default {
     this.d3 = Object.assign(d3Base);
     // register plugins for global use
     this.$gsap.registerPlugin(ScrollTrigger, TimelineMax, ScrollToPlugin); 
+
+    // Define scrollTo dates
+    this.scrollToDates = [
+      {id: '1950s', date: '1950-04-01'}, 
+      {id: '1960s', date: '1960-01-01'},
+      {id: '1970s', date: '1970-01-01'},
+      {id: '1980s', date: '1980-01-01'},
+      {id: '1990s', date: '1990-01-01'},
+      {id: '2000s', date: '2000-01-01'},
+      {id: '2010s', date: '2010-01-01'}]
+
+    // set starting decade
+    this.currentDecade = '1950s'
 
     this.addOverlay(this.annotations)
 
@@ -95,10 +109,25 @@ export default {
               }
       },
       scrollTimeline(e) {
+        // Get all possible button ids
+        const buttonIDs = this.scrollToDates.map(scrollDate => scrollDate.id);
+
+        // determine which decade is already shown
+        const currentButton = document.querySelector('.currentButton')
+        let currentDecade = currentButton == null ? buttonIDs[0] : currentButton.id.split('-')[1]; // currently goes to null when user scrolls back to top of page
+        const currentIndex = buttonIDs.indexOf(currentDecade, 0)
+
+        // determine which decade should be scrolled to
         const scrollButton = e.target
         const scrollID = scrollButton.id
         const scrollYear = scrollID.split('-')[1]
-        this.$gsap.to(window, {duration: 2, scrollTo:"#scrollStop-"+scrollYear});
+
+        // determine scroll length, based on # of decades scrolled
+        const nextIndex = buttonIDs.indexOf(scrollYear, 0)
+        const scrollLength = Math.abs(nextIndex - currentIndex) + 1 * 0.4
+
+        // scroll to position of specified decade
+        this.$gsap.to(window, {duration: scrollLength, scrollTo:"#scrollStop-"+scrollYear});
       },
       addOverlay(annotation_data) {
         const self = this;
@@ -114,16 +143,8 @@ export default {
           .attr("preserveAspectRatio", "xMidYMid meet")
           .attr("width", '100%')
 
-        // Define relevant dates
+        // Define y scale based on timeline start and end dates
         const timelineDates = ['1950-04-01','2020-03-22']
-        const scrollToDates = [
-          {id: '1950s', date: '1950-04-01'}, 
-          {id: '1960s', date: '1960-01-01'},
-          {id: '1970s', date: '1970-01-01'},
-          {id: '1980s', date: '1980-01-01'},
-          {id: '1990s', date: '1990-01-01'},
-          {id: '2000s', date: '2000-01-01'},
-          {id: '2010s', date: '2010-01-01'}]
         const yScale = this.d3.scaleTime()
           .domain([new Date(timelineDates[0]), new Date(timelineDates[1])])
           .range([0, this.chartHeight]);
@@ -158,7 +179,7 @@ export default {
 
         // Add scroll to elements (only used for scroll navigation)
         const scrollToSpot = this.svgChart.selectAll('scrollToSpot')
-          .data(scrollToDates)
+          .data(this.scrollToDates)
           .enter()
           .append('rect')
           .attr("id", d => "scrollStop-" + d.id)
@@ -167,9 +188,9 @@ export default {
           .attr("y", d => yScale(new Date(d.date)))
           .attr("width", this.chartWidth - yAxisOffset)
           .attr("height", (d,i) => {
-            return i===scrollToDates.length-1 ? 
+            return i===this.scrollToDates.length-1 ? 
               yScale(new Date(timelineDates[1])) - yScale(new Date(d.date)) : 
-              yScale(new Date(scrollToDates[i+1].date)) - yScale(new Date(d.date))
+              yScale(new Date(this.scrollToDates[i+1].date)) - yScale(new Date(d.date))
           })
           .attr("opacity", 0) // make fully transparent
         // Set up annotations
@@ -400,7 +421,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   z-index: 20;
   background-color: white;
 }
-.button {
+.scrollButton {
   padding: 3px 6px 4px 5px;
   margin-left: 5px;
   border: 0.5px solid white;
@@ -410,10 +431,10 @@ $writeFont: 'Nanum Pen Script', cursive;
     margin-left: 0px;
   }
 }
-.button.firstButton {
+.scrollButton.firstButton {
   margin-left: 0px;
 }
-.button:hover {
+.scrollButton:hover {
   background-color: white;
   border-color: black;
 }
