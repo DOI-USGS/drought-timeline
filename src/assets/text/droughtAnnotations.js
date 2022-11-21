@@ -66,7 +66,7 @@ export default {
       {
         id: 'intro_text_2',
         date: '1951-04-25',
-        text: 'This drought was 295 days long',
+        text: 'This drought was 281 days long',
         mobile_x_offset_per: 38,
         desktop_x_offset_per: 40,
         desktop_text_anchor: 'end',
