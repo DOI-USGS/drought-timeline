@@ -36,7 +36,7 @@ p3_targets <- list(
              ggsave('src/assets/images/duration-chart/swarm_jd7d_2_western_compressed_vertical.png', 
                     p3_prop_western_2_swarm_plot_compressed_vertical,
                     width = 10, height = 100, dpi = 300, limitsize = FALSE),
-             format = "file" )
+             format = "file" ),
 
 # set proj
   tar_target(p2_proj,
