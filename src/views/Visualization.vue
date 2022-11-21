@@ -1,7 +1,6 @@
 <template>
   <div id="visualization">
     <DroughtHistory />
-
   </div>
 </template>
 

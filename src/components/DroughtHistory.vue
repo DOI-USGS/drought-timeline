@@ -1,57 +1,96 @@
 <template>
-<section id="main-container">
-  <section id="grid-container">
-    <div id="title-container">
-      <h2>A history of drought in the western U.S.</h2>
-    </div>
-    <nav id="nav-button-container">
-      <p>
-        <span><button id='button-1950s' class="scrollButton firstButton" @click="scrollTimeline">1950s</button></span>
-        <span><button id='button-1960s' class="scrollButton" @click="scrollTimeline">1960s</button></span>
-        <span><button id='button-1970s' class="scrollButton" @click="scrollTimeline">1970s</button></span>
-        <span><button id='button-1980s' class="scrollButton" @click="scrollTimeline">1980s</button></span>
-        <span><button id='button-1990s' class="scrollButton" @click="scrollTimeline">1990s</button></span>
-        <span><button id='button-2000s' class="scrollButton" @click="scrollTimeline">2000s</button></span>
-        <span><button id='button-2010s' class="scrollButton" @click="scrollTimeline">2010s</button></span>
-      </p>
-    </nav>
-    <div id="chart-container">
-      <img id="swarm_vertical" src="@/assets/images/duration-chart/swarm_jd7d_2_western_compressed_vertical.png" alt=""/>
-    </div>
-    <div id="inset-container">
-      <img id="inset-map" src="@/assets/images/western_states_inset.png" alt=""/>
-    </div>
-    <div id="chart-overlay-dynamic">
-      <svg id="svg-dynamic"/>
-    </div>
-    <div id="chart-overlay-static">
-      <annotationDrawings/>
-    </div>
-  </section>
-  <div id="annotation-container" v-if="mobileView">
+  <section id="main-container">
+    <section id="grid-container">
+      <div id="title-container">
+        <h2>A history of drought in the western U.S.</h2>
+      </div>
+      <nav id="nav-button-container">
+        <p>
+          <span><button
+            id="button-1950s"
+            class="scrollButton firstButton"
+            @click="scrollTimeline"
+          >1950s</button></span>
+          <span><button
+            id="button-1960s"
+            class="scrollButton"
+            @click="scrollTimeline"
+          >1960s</button></span>
+          <span><button
+            id="button-1970s"
+            class="scrollButton"
+            @click="scrollTimeline"
+          >1970s</button></span>
+          <span><button
+            id="button-1980s"
+            class="scrollButton"
+            @click="scrollTimeline"
+          >1980s</button></span>
+          <span><button
+            id="button-1990s"
+            class="scrollButton"
+            @click="scrollTimeline"
+          >1990s</button></span>
+          <span><button
+            id="button-2000s"
+            class="scrollButton"
+            @click="scrollTimeline"
+          >2000s</button></span>
+          <span><button
+            id="button-2010s"
+            class="scrollButton"
+            @click="scrollTimeline"
+          >2010s</button></span>
+        </p>
+      </nav>
+      <div id="chart-container">
+        <img
+          id="swarm_vertical"
+          src="@/assets/images/duration-chart/swarm_jd7d_2_western_compressed_vertical.png"
+          alt=""
+        >
+      </div>
+      <div id="inset-container">
+        <img
+          id="inset-map"
+          src="@/assets/images/western_states_inset.png"
+          alt=""
+        >
+      </div>
+      <div id="chart-overlay-dynamic">
+        <svg id="svg-dynamic" />
+      </div>
+      <div id="chart-overlay-static">
+        <annotationDrawings />
+      </div>
+    </section>
     <div
+      v-if="mobileView"
+      id="annotation-container"
+    >
+      <div
         v-for="annotation in annotations" 
+        :id="`drought-text-${annotation.id}`"
         :key="annotation.id"
         :class="`droughtText mobile hidden`"
-        :id="`drought-text-${annotation.id}`"
       >
         <p>{{ annotation.text }}</p>
       </div>
-  </div>
-  <svg id="filter-svg">
-    <filter
-      id="shadow2"
-      style="width: 0px; height:0px"
-    >
-      <feDropShadow
-        dx="0"
-        dy="0"
-        stdDeviation="5"
-        flood-color="#c9c9c9"
-      />
-    </filter>
+    </div>
+    <svg id="filter-svg">
+      <filter
+        id="shadow2"
+        style="width: 0px; height:0px"
+      >
+        <feDropShadow
+          dx="0"
+          dy="0"
+          stdDeviation="5"
+          flood-color="#c9c9c9"
+        />
+      </filter>
     </svg>
-</section>
+  </section>
 </template>
 <script>
 import * as d3Base from 'd3';
