@@ -129,7 +129,7 @@ export default {
           .range([0, this.chartHeight]);
 
         // set up y axis
-        const yAxisOffset = this.mobileView ? 40: 40;
+        const yAxisOffset = this.mobileView ? 40: 45;
 
         const yAxis = this.d3.axisLeft(yScale)
           .ticks(this.d3.timeYear.every(1))
@@ -163,12 +163,15 @@ export default {
           .append('rect')
           .attr("id", d => "scrollStop-" + d.id)
           .attr("class", "scrollToSpot")
-          .attr("x", 0)
+          .attr("x", yAxisOffset)
           .attr("y", d => yScale(new Date(d.date)))
-          .attr("width", 10)
-          .attr("height", 10)
+          .attr("width", this.chartWidth - yAxisOffset)
+          .attr("height", (d,i) => {
+            return i===scrollToDates.length-1 ? 
+              yScale(new Date(timelineDates[1])) - yScale(new Date(d.date)) : 
+              yScale(new Date(scrollToDates[i+1].date)) - yScale(new Date(d.date))
+          })
           .attr("opacity", 0) // make fully transparent
-
         // Set up annotations
         if (this.mobileView === false) {
           // On desktop, place annotations as text
@@ -201,7 +204,7 @@ export default {
                 yScale(new Date(annotation_data[i+1].date)) - yScale(new Date(d.date))
               return y_diff > 300 ? 300 : y_diff
             })
-            .style('opacity', "0")
+            .style('opacity', 0)
           // On mobile, place circles at annotation locations
           const annotationCircles = this.svgChart.selectAll('annotationCircle')
             .data(annotation_data)
@@ -215,28 +218,63 @@ export default {
         }
       },
       addAnimations() {
+        // Set up timeline
         const tl = this.$gsap.timeline(); 
-        const chartSVG = document.querySelector("#svg-chart");
-        if (this.mobileView) {
 
-          // find all annotation text triggers
+        // Select chart overlay svg
+        const chartSVG = document.querySelector("#svg-chart");
+
+        // Add scrollTo animations
+        const scrollToTriggers = this.$gsap.utils.toArray(".scrollToSpot")
+        scrollToTriggers.forEach((scrollToTrigger) => {
+          let scrollTriggerHeight = scrollToTrigger.height.baseVal.value
+
+          // get unique ID for scroll step.
+          let scrollIDFull = scrollToTrigger.id
+          let scrollID = scrollIDFull.split('-')[1]
+
+          // Highlight the menu item for each decade button-1950s
+          tl.to(`#${scrollIDFull}`, {
+            scrollTrigger: {
+              markers: false,
+              trigger: `#${scrollIDFull}`,
+              start: "top 15%",
+              end: `+=${scrollTriggerHeight}`,
+              toggleClass: {targets: `#button-${scrollID}`, className:"currentButton"}, // adds class to target when triggered
+              toggleActions: "restart reverse none reverse" 
+              /*
+              onEnter - scrolling down, start meets scroller-start
+              onLeave - scrolling down, end meets scroller-end
+              onEnterBack - scrolling up, end meets scroller-end
+              onLeaveBack - scrolling up, start meets scroller-start
+              */
+            },
+          })
+        })
+
+        // Add text animations
+        if (this.mobileView) {
+          // On mobile...
+
+          // find all annotation text triggers (rectangles)
           const droughtTextTriggers = this.$gsap.utils.toArray(".droughtRect", chartSVG)
 
+          // For each trigger,
           droughtTextTriggers.forEach((droughtTextTrigger) => {
-            let triggerHeight = droughtTextTrigger.height.baseVal.value
+            let textTriggerHeight = droughtTextTrigger.height.baseVal.value
             
-            // get unique ID and class for frame. Scroll frame classes follow the pattern `scrolly scroll-step-${frame.id}`
-            let scrollIDFull = droughtTextTrigger.id
-            let scrollID = scrollIDFull.split('-')[2]
+            // get unique ID for text step.
+            let rectIDFull = droughtTextTrigger.id
+            let rectlID = rectIDFull.split('-')[2]
 
-            // use class to set trigger
-            tl.to(`#${scrollIDFull}`, {
+            // Make the text for the step visible
+            tl.to(`#${rectIDFull}`, {
               scrollTrigger: {
                 markers: true,
-                trigger: `#${scrollIDFull}`,
+                trigger: `#${rectIDFull}`,
                 start: "top 30%",
-                end: `+=${triggerHeight}`,
-                toggleClass: {targets: `#drought-text-${scrollID}`, className:"visible"}, // adds class to target when triggered
+                end: `+=${textTriggerHeight}`,
+                toggleClass: {targets: `#drought-text-${rectlID}`, className:"visible"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
                 /*
                 onEnter - scrolling down, start meets scroller-start
@@ -246,14 +284,14 @@ export default {
                 */
               },
             })
-            // use class to set trigger
-            tl.to(`#${scrollIDFull}`, {
+            // Highlight the circle for each step
+            tl.to(`#${rectIDFull}`, {
               scrollTrigger: {
                 markers: true,
-                trigger: `#${scrollIDFull}`,
+                trigger: `#${rectIDFull}`,
                 start: "top 30%",
-                end: `+=${triggerHeight}`,
-                toggleClass: {targets: `#annotation-circle-${scrollID}`, className:"current"}, // adds class to target when triggered
+                end: `+=${textTriggerHeight}`,
+                toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
                 /*
                 onEnter - scrolling down, start meets scroller-start
@@ -365,8 +403,10 @@ $writeFont: 'Nanum Pen Script', cursive;
 .button {
   padding: 3px 6px 4px 5px;
   margin-left: 5px;
+  border: 0.5px solid white;
+  border-radius: 3px;
   @media only screen and (max-width: 600px) {
-    padding: 2px 5px 3px 4px;
+    padding: 2px 4px 2px 3px;
     margin-left: 0px;
   }
 }
@@ -374,9 +414,8 @@ $writeFont: 'Nanum Pen Script', cursive;
   margin-left: 0px;
 }
 .button:hover {
-  background-color: black;
-  color: white;
-  border-radius: 3px;
+  background-color: white;
+  border-color: black;
 }
 #inset-container {
   grid-area: chart;
@@ -428,6 +467,17 @@ $writeFont: 'Nanum Pen Script', cursive;
   opacity: 1;
   transition: opacity 0.3s linear;
 }
+.currentButton {
+  background-color: black;
+  border-color: black;
+  color: white;
+  border-radius: 3px;
+}
+.currentButton:hover {
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+}
 #filter-svg {
   width: 0;
   height: 0;
@@ -464,7 +514,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   opacity: 1;
   transition: opacity 0.3s linear;
 }
-.current {
+.currentCircle {
   stroke: #000000;
   fill: #000000;
 }
