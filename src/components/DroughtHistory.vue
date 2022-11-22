@@ -396,7 +396,7 @@ export default {
             let scrollIDFull = droughtText.id
             let scrollID = scrollIDFull.split('-')[2]
 
-            // use class to set trigger
+            // use id to set trigger
             tl.to(`#${scrollIDFull}`, {
               scrollTrigger: {
                 markers: false,
