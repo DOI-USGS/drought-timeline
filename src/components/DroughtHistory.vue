@@ -6,41 +6,15 @@
       </div>
       <nav id="nav-button-container">
         <p>
-          <span><button
-            id="button-1950s"
-            class="scrollButton firstButton"
-            @click="scrollTimeline"
-          >1950s</button></span>
-          <span><button
-            id="button-1960s"
+          <span 
+            v-for="decade in decadeIDs"
+            :key="decade"
+          ><button
+            :id="`button-${decade}`"
             class="scrollButton"
             @click="scrollTimeline"
-          >1960s</button></span>
-          <span><button
-            id="button-1970s"
-            class="scrollButton"
-            @click="scrollTimeline"
-          >1970s</button></span>
-          <span><button
-            id="button-1980s"
-            class="scrollButton"
-            @click="scrollTimeline"
-          >1980s</button></span>
-          <span><button
-            id="button-1990s"
-            class="scrollButton"
-            @click="scrollTimeline"
-          >1990s</button></span>
-          <span><button
-            id="button-2000s"
-            class="scrollButton"
-            @click="scrollTimeline"
-          >2000s</button></span>
-          <span><button
-            id="button-2010s"
-            class="scrollButton"
-            @click="scrollTimeline"
-          >2010s</button></span>
+            v-text="decade"
+          /></span>
         </p>
       </nav>
       <div id="chart-container">
@@ -77,6 +51,7 @@
         <p>{{ annotation.text }}</p>
       </div>
     </div>
+    <div id="empty-div" />
     <svg id="filter-svg">
       <filter
         id="shadow2"
@@ -115,7 +90,7 @@ export default {
         mobileView: isMobile, // test for mobile
         annotations: droughtAnnotations.timelineEvents,
         scrollToDates:  null,
-        buttonIDs: null,
+        decadeIDs: null,
         // dimensions
         overlayWidth: null,
         overlayHeight: null,
@@ -138,7 +113,7 @@ export default {
       {id: '2000s', date: '2000-01-01'},
       {id: '2010s', date: '2010-01-01'}]
     // Get all possible button ids
-    this.buttonIDs = this.scrollToDates.map(scrollDate => scrollDate.id);
+    this.decadeIDs = this.scrollToDates.map(scrollDate => scrollDate.id);
 
     // sort annotations
     this.annotations.sort((a,b) => this.d3.ascending(a.date, b.date))
@@ -159,8 +134,8 @@ export default {
 
         // determine which decade is already shown
         const currentButton = document.querySelector('.currentButton')
-        let currentDecade = currentButton == null ? this.buttonIDs[0] : currentButton.id.split('-')[1]; // currently goes to null when user scrolls back to top of page
-        const currentIndex = this.buttonIDs.indexOf(currentDecade, 0)
+        let currentDecade = currentButton == null ? this.decadeIDs[0] : currentButton.id.split('-')[1]; // currently goes to null when user scrolls back to top of page
+        const currentIndex = this.decadeIDs.indexOf(currentDecade, 0)
 
         // determine which decade should be scrolled to
         const scrollButton = e.target
@@ -168,7 +143,7 @@ export default {
         const scrollYear = scrollID.split('-')[1]
 
         // determine scroll length, based on # of decades scrolled
-        const nextIndex = this.buttonIDs.indexOf(scrollYear, 0)
+        const nextIndex = this.decadeIDs.indexOf(scrollYear, 0)
         const scrollLength = Math.abs(nextIndex - currentIndex) + 1 * 0.4
 
         // scroll to position of specified decade
@@ -312,7 +287,7 @@ export default {
           let scrollID = scrollIDFull.split('-')[1]
 
           // figure out index of ID
-          const scrollIndex = this.buttonIDs.indexOf(scrollID, 0)
+          const scrollIndex = this.decadeIDs.indexOf(scrollID, 0)
 
           // Highlight the menu item for each decade
           // Make sure first decade button highlighted on page load
@@ -521,7 +496,7 @@ $writeFont: 'Nanum Pen Script', cursive;
     margin-left: 0px;
   }
 }
-.scrollButton.firstButton {
+#button-1950s {
   margin-left: 0px;
 }
 .scrollButton:hover {
@@ -612,6 +587,9 @@ $writeFont: 'Nanum Pen Script', cursive;
 #filter-svg {
   width: 0;
   height: 0;
+}
+#empty-div {
+  height: 300px;
 }
 </style>
 <style lang="scss">
