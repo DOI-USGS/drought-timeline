@@ -392,7 +392,7 @@ export default {
           const droughtTexts = this.$gsap.utils.toArray(".droughtText", dynamicSVG)
 
           droughtTexts.forEach((droughtText) => {
-            // get unique ID and class for frame. Scroll frame classes follow the pattern `scrolly scroll-step-${frame.id}`
+            // get unique ID for text annotation
             let scrollIDFull = droughtText.id
             let scrollID = scrollIDFull.split('-')[2]
 
