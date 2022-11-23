@@ -237,7 +237,7 @@ export default {
             .attr("class", d => "droughtText desktop hidden")
             .attr("x", d => xScale(d.desktop_x_offset_per))
             .attr("y", d => yScale(new Date(d.date)))
-            .attr("text-anchor", d=> d.desktop_text_anchor)
+            .attr("text-anchor", d => d.desktop_text_anchor)
             .attr("data-width", d => d.desktop_text_width)
             .text(d => d.text)
             .call(self.wrap);
@@ -392,11 +392,11 @@ export default {
           const droughtTexts = this.$gsap.utils.toArray(".droughtText", dynamicSVG)
 
           droughtTexts.forEach((droughtText) => {
-            // get unique ID for text annotation
+           // get unique ID for text annotation
             let scrollIDFull = droughtText.id
             let scrollID = scrollIDFull.split('-')[2]
 
-            // use class to set trigger
+            // use id to set trigger
             tl.to(`#${scrollIDFull}`, {
               scrollTrigger: {
                 markers: false,
@@ -507,15 +507,9 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 .scrollButton:focus {
   border-color: white;
-  @media only screen  and (max-width: 800px){
-    border-color: white
-  }
 }
 .scrollButton:active {
   border-color: black;
-  @media only screen  and (max-width: 800px){
-    border-color: black
-  }
 }
 #inset-container {
   grid-area: chart;
@@ -543,6 +537,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 #chart-overlay-static {
   grid-area: chart;
 }
+// Class for paths in AI-generated annotation_drawings-01.svg
 .cls-1 {
   fill: none;
   stroke: black;

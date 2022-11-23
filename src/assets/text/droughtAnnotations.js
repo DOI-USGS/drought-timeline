@@ -1,13 +1,13 @@
 export default {
     timelineEvents: [
       {
-        id: '1',
-        date: '1954-01-01',
-        text: 'Event 1: 1/1/1954',
-        mobile_x_offset_per: 20,
-        desktop_x_offset_per: 70,
-        desktop_text_anchor: 'start',
-        desktop_text_width: 100,
+        id: '1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by date
+        date: '1954-01-01', // Date marking start of annotation. Determines y placement on deskop and mobile AND scroll order for annotations on mobile
+        text: 'Event 1: 1/1/1954', // Text of annotation
+        mobile_x_offset_per: 20, // x placement on mobile, as percent of chart width (0 = left edge, 100 = right edge)
+        desktop_x_offset_per: 70, // x placement on desktop, as percent  of chart width
+        desktop_text_anchor: 'start', // alignment of text on desktop (either 'start', 'middle', or 'end')
+        desktop_text_width: 100, // Max width allowed for text wrapping
       },
       {
         id: '4',
