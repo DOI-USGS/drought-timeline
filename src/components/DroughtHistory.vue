@@ -510,9 +510,6 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 .scrollButton:active {
   border-color: black;
-  @media only screen  and (max-width: 800px){
-    border-color: black
-  }
 }
 #inset-container {
   grid-area: chart;
