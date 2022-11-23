@@ -507,7 +507,6 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 .scrollButton:focus {
   border-color: white;
-    border-color: white
   }
 }
 .scrollButton:active {
