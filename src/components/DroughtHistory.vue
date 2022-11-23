@@ -537,6 +537,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 #chart-overlay-static {
   grid-area: chart;
 }
+// Class for paths in AI-generated annotation_drawings-01.svg
 .cls-1 {
   fill: none;
   stroke: black;
