@@ -1,7 +1,6 @@
 <template>
   <div class="pre-footer-links">
     <div class="inner-pre-footer-links-container">
-      <p>See U.S. River conditions:</p>
       <div class="footer-viz-links">
         <a
           :href="LinkOne"

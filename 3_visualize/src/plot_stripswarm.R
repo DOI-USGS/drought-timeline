@@ -53,7 +53,7 @@ event_swarm_plot_compressed <- function(swarm_data){
     geom_tile(aes(x=(date+(duration/2)), y=rnum, fill = duration, width=duration), height=0.5)+ # tiles plot centered, so offset x by 1/2 of duration
     scale_fill_scico(values = scaledBreaks, palette = "lajolla", begin = 0.25, end = 1 , direction = 1,
                      guide_legend(title = "Drought Duration (Days)"), breaks = c(5, 100, 200, 300))+
-    theme_minimal()+
+    theme_nothing()+
     ylab(element_blank())+
     xlab(element_blank())+
     scale_x_date(breaks = scales::date_breaks(width = '1 years'),
@@ -67,3 +67,21 @@ event_swarm_plot_compressed <- function(swarm_data){
   
 }
 
+event_swarm_plot_compressed_vertical <- function(swarm_data){
+  
+  hbreaks <- BAMMtools::getJenksBreaks(swarm_data$duration, k=10)
+  scaledBreaks <- scales::rescale(c(0,hbreaks), c(0,1))
+
+  # plot swarm vertically
+  p <- swarm_data %>% 
+    ggplot()+
+    geom_tile(aes(y=(date+(duration/2)), x=rnum, fill = duration, height=duration), width=0.5)+ # tiles plot centered, so offset x by 1/2 of duration
+    scale_fill_scico(values = scaledBreaks, palette = "lajolla", begin = 0.25, end = 1 , direction = 1,
+                     breaks = c(5, 100, 200, 300))+
+    theme_nothing() +
+    scale_y_date(breaks = scales::date_breaks(width = '1 years'),
+                 labels = NULL,
+                 expand = c(0,0),
+                 position='right')
+  
+}

@@ -1,7 +1,6 @@
 <template>
   <div id="visualization">
     <DroughtHistory />
-
   </div>
 </template>
 
@@ -24,8 +23,7 @@ export default {
 
 <style lang="scss">
 #visualization {
-  //height: calc(100vh);
-  height: 100vh;
+  width: 100vw;
   position: relative;
   top: 0;
 
