@@ -237,7 +237,7 @@ export default {
             .attr("class", d => "droughtText desktop hidden")
             .attr("x", d => xScale(d.desktop_x_offset_per))
             .attr("y", d => yScale(new Date(d.date)))
-            .attr("text-anchor", d=> d.desktop_text_anchor)
+            .attr("text-anchor", d => d.desktop_text_anchor)
             .attr("data-width", d => d.desktop_text_width)
             .text(d => d.text)
             .call(self.wrap);
