@@ -1,7 +1,7 @@
 export default {
     timelineEvents: [
       {
-        id: '1',
+        id: '1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by date
         date: '1954-01-01',
         text: 'Event 1: 1/1/1954',
         mobile_x_offset_per: 20,
