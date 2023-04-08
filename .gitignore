@@ -75,3 +75,4 @@ sb.vault/users/*
 
 node_modules
 node_modules
+.Rproj.user
