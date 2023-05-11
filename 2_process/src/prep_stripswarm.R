@@ -1,3 +1,28 @@
+#' @title Create the most complete drought record from all child items
+#' @description Combine all of the drought records from all of the child
+#' items, removing duplicates to complete the most full record of droughts. 
+#' Then filter out only the 2% droughts.
+#' @param df_1921 The data frame from the target that loads in the 1921-2020 csv
+#' @param df_1951 The data frame from the target that loads in the 1951-2020 csv
+#' @param df_1981 The data frame from the target that loads in the 1981-2020 csv
+join_full_drought_record <- function(df_1921, df_1951, df_1981, metadata){
+  # Remove redundant records from 1951 data that are in the 1921 data by station id
+  temp_1951 <- df_1951 |>
+    filter(! national_1921)
+  
+  # Remove redundant records from 1981 data that are in the 1951 & 1921 data 
+  temp_1981 <- df_1981 |>
+    filter(! national_1921,
+           ! national_1951)
+  
+  df_all <- bind_rows(df_1921, temp_1951, temp_1981) |>
+    filter(threshold == 2)
+  
+  return(df_all)
+  
+}
+
+
 #' @title Create strip-swarm matrix from drought events
 #' @description Populate an event matrix, where columns = days
 #' and rows = drought events. Iterate through the drought events
