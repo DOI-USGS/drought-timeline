@@ -16,7 +16,6 @@ tar_option_set(packages = c("retry",
                             'scales',
                             'usmap',
                             'cowplot',
-                            'ggbeeswarm',
                             'sf',
                             'spData',
                             'rmapshaper'))
