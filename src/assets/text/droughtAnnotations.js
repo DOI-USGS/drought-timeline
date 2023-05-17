@@ -40,7 +40,7 @@ export default {
         id: '2',
         date: '1924-03-10',
         text: 'Longest drought on record, lasted 705 days!',
-        mobile_x_offset_per: 20,
+        mobile_x_offset_per: 60,
         desktop_x_offset_per: 59,
         desktop_text_anchor: 'start',
         desktop_text_width: 100
