@@ -5,7 +5,8 @@
 #' @param df_1921 The data frame from the target that loads in the 1921-2020 csv
 #' @param df_1951 The data frame from the target that loads in the 1951-2020 csv
 #' @param df_1981 The data frame from the target that loads in the 1981-2020 csv
-join_full_drought_record <- function(df_1921, df_1951, df_1981, metadata){
+#' @param percentile The percentile for droughts 
+join_and_filter_full_drought_record <- function(df_1921, df_1951, df_1981, percentile){
   # Remove redundant records from 1951 data that are in the 1921 data by station id
   temp_1951 <- df_1951 |>
     filter(! national_1921)
@@ -15,8 +16,9 @@ join_full_drought_record <- function(df_1921, df_1951, df_1981, metadata){
     filter(! national_1921,
            ! national_1951)
   
+  # Select only the target percentile drought events
   df_all <- bind_rows(df_1921, temp_1951, temp_1981) |>
-    filter(threshold == 2)
+    filter(threshold == percentile)
   
   return(df_all)
   

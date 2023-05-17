@@ -1,14 +1,11 @@
 
-plot_inset <- function(station_data, station, western_us_data, us_data, file_png, width, height ){
+plot_inset <- function(station_data, station, us_data, file_png, width, height ){
   
   p <- ggplot() + 
     geom_sf(data = us_data,
             fill = "white",
-            color = '#7A7A7A') +
-    geom_sf(data = western_us_data,
-            fill = '#949494',
             color = '#7A7A7A',
-            alpha = 0.5) +
+            linewidth = 1.2) +
     theme_void() 
     
     
