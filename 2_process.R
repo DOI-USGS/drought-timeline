@@ -53,7 +53,6 @@ p2_targets <- list(
   
   ### Prep drought properties for "strip swarm" duration chart
   # Filter to droughts defined using the 2% threshold
-  # and to only drought that occurred in the western U.S.
   tar_target(p2_all_2pct_droughts,
              join_full_drought_record(df_1921 = p2_1921_2020_drought_prop_jd_7d,
                                       df_1951 = p2_1951_2020_drought_prop_jd_7d,
@@ -64,8 +63,7 @@ p2_targets <- list(
   tar_target(p2_2000_severe_2pct_droughts,
              p2_all_2pct_droughts |>
                slice_max(order_by = severity,
-                         n = 2000) |>
-               mutate(unique_id = paste0(StaID, "-", drought_id))
+                         n = 2000)
              ),
 
   # Identify drought chunks
@@ -75,11 +73,30 @@ p2_targets <- list(
   
   # Process data to generate swarm
   ## 'Compressed' approach (# cells filled per event = 1)
-  ## nrow = # of drought events = nrow(p2_prop_western_2)
+  ## nrow = # of drought events 
   tar_target(p2_drought_swarm_compressed,
              create_event_swarm_compressed(event_data = p2_2000_severe_2pct_droughts,
                                 start_period = p2_drought_chunks$start_date,
                                 end_period = p2_drought_chunks$break_date,
                                 max_droughts = p2_drought_chunks$max_single_day_droughts),
-             pattern = map(p2_drought_chunks))
+             pattern = map(p2_drought_chunks)),
+  
+  # Process data for each CASC
+  ## Group by CASC, calculate chunks, and then use pattern to create swarm data by chunk and CASC
+  tar_target(p2_2000_severe_2pct_droughts_byCASC,
+             p2_2000_severe_2pct_droughts |>
+               left_join(p2_CASCs, by = "STATE") |> 
+               group_by(CASC) |>
+               tar_group(),
+             iteration = "group"),
+  tar_target(p2_drought_chunks_byCASC,
+             identify_drought_chunks(p2_2000_severe_2pct_droughts_byCASC, 
+                                     min_chunk_days = 365),
+             pattern = map(p2_2000_severe_2pct_droughts_byCASC)),
+  tar_target(p2_drought_swarm_CASC,
+             create_event_swarm_compressed(event_data = p2_2000_severe_2pct_droughts_byCASC,
+                                           start_period = p2_drought_chunks_byCASC$start_date,
+                                           end_period = p2_drought_chunks_byCASC$break_date,
+                                           max_droughts = p2_drought_chunks_byCASC$max_single_day_droughts),
+             pattern = cross(p2_2000_severe_2pct_droughts_byCASC, p2_drought_chunks_byCASC))
 )
