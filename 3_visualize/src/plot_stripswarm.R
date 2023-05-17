@@ -19,8 +19,8 @@ event_swarm_plot_compressed_vertical <- function(swarm_data){
     #       panel.grid.major.y = element_line(color = 'blue', linetype = "dashed")) +
     scale_y_date(breaks = scales::date_breaks(width = '1 years'),
                  labels = NULL,
-                 # labels = scales::date_format('%Y'), # use to check line-up on website
-                 limits = c(as.Date(min(swarm_data$date)), as.Date(max(swarm_data$date))),
+                 #labels = scales::date_format('%Y'), # use to check line-up on website
+                 limits = c(as.Date(min(swarm_data$date)), as.Date(max(swarm_data$date + swarm_data$duration))),
                  expand = c(0,0),
                  position = 'right')
   

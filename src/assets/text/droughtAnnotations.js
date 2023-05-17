@@ -38,7 +38,7 @@ export default {
       },
       {
         id: '2',
-        date: '1924-03-10',
+        date: '1924-09-01',
         text: 'Longest drought on record, lasted 705 days!',
         mobile_x_offset_per: 60,
         desktop_x_offset_per: 59,
@@ -47,7 +47,7 @@ export default {
       },
       {
         id: 'intro_text_1',
-        date: '1921-07-01',
+        date: '1922-07-01',
         text: 'Each drought event at a single stream site is represented by a vertical bar. The taller the bar, the longer the drought',
         mobile_x_offset_per: 20,
         desktop_x_offset_per: 6,
@@ -65,7 +65,7 @@ export default {
       },
       {
         id: 'intro_text_2',
-        date: '1923-11-25',
+        date: '1924-06-01',
         text: 'This drought was 126 days long',
         mobile_x_offset_per: 38,
         desktop_x_offset_per: 40,

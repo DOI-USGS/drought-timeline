@@ -180,7 +180,7 @@ export default {
           .attr("width", '100%')
 
         // Define y scale based on timeline start and end dates
-        const timelineDates = ['1921-10-01','2019-12-01']
+        const timelineDates = ['1921-10-01','2020-04-01']
         const yScale = this.d3.scaleTime()
           .domain([new Date(timelineDates[0]), new Date(timelineDates[1])])
           .range([0, this.overlayHeight]);
