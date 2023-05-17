@@ -173,7 +173,7 @@ export default {
 
         // set dimensions for overlay svg
         this.overlayWidth = window.innerWidth*0.9 //MUST MATCH max-width of grid, which controls chart image width
-        this.overlayHeight = this.overlayWidth*9.996 //Based on image aspect ratio
+        this.overlayHeight = this.overlayWidth*10 //Based on image aspect ratio
         this.svgChartDynamic
           .attr("viewBox", "0 0 " + this.overlayWidth + " " + this.overlayHeight)
           .attr("preserveAspectRatio", "xMidYMid meet")
