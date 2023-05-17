@@ -6,7 +6,13 @@ p0_targets <- list(
   tar_target(p0_sbitem_parent, "62793493d34e8d45aa6e3ba9"),
   
   # Set child ScienceBase item ID 
+  tar_target(p0_sbitem_child_1981_2020, "62f475abd34eacf5397395e8"),
+  
+  # Set child ScienceBase item ID 
   tar_target(p0_sbitem_child_1951_2020, "627974ccd34e8d45aa6e3c81"),
+  
+  # Set child ScienceBase item ID 
+  tar_target(p0_sbitem_child_1921_2020, "62f463c5d34eacf5397395d9"),
   
   # Set date for re-fetching data
   # Change this if you want to repull the data

@@ -2,7 +2,7 @@
   <section id="main-container">
     <section id="grid-container">
       <div id="title-container">
-        <h2>A history of drought in the western U.S.</h2>
+        <h2>100 years of severe drought in the contiguous U.S.</h2>
       </div>
       <nav id="nav-button-container">
         <p>
@@ -20,14 +20,14 @@
       <div id="chart-container">
         <img
           id="swarm_vertical"
-          src="@/assets/images/duration-chart/swarm_jd7d_2_western_compressed_vertical.png"
+          src="@/assets/images/duration-chart/swarm_jd7d_2pct_compressed_vertical.png"
           alt=""
         >
       </div>
       <div id="inset-container">
         <img
           id="inset-map"
-          src="@/assets/images/western_states_inset.png"
+          src="@/assets/images/states_stations_inset.png"
           alt=""
         >
       </div>
@@ -105,7 +105,10 @@ export default {
 
     // Define scrollTo dates
     this.scrollToDates = [
-      {id: '1950s', date: '1950-04-01'}, 
+      {id: '1920s', date: '1921-10-01'}, 
+      {id: '1930s', date: '1930-01-01'}, 
+      {id: '1940s', date: '1940-01-01'}, 
+      {id: '1950s', date: '1950-01-01'}, 
       {id: '1960s', date: '1960-01-01'},
       {id: '1970s', date: '1970-01-01'},
       {id: '1980s', date: '1980-01-01'},
@@ -170,14 +173,14 @@ export default {
 
         // set dimensions for overlay svg
         this.overlayWidth = window.innerWidth*0.9 //MUST MATCH max-width of grid, which controls chart image width
-        this.overlayHeight = this.overlayWidth*9.996 //Based on image aspect ratio
+        this.overlayHeight = this.overlayWidth*10 //Based on image aspect ratio
         this.svgChartDynamic
           .attr("viewBox", "0 0 " + this.overlayWidth + " " + this.overlayHeight)
           .attr("preserveAspectRatio", "xMidYMid meet")
           .attr("width", '100%')
 
         // Define y scale based on timeline start and end dates
-        const timelineDates = ['1950-04-01','2020-03-22']
+        const timelineDates = ['1921-10-01','2020-04-01']
         const yScale = this.d3.scaleTime()
           .domain([new Date(timelineDates[0]), new Date(timelineDates[1])])
           .range([0, this.overlayHeight]);

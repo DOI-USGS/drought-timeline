@@ -1,99 +1,31 @@
-#' @title Create strip-swarm matrix from drought events
-#' @description Populate an event matrix, where columns = days
-#' and rows = drought events. Iterate through the drought events
-#' and add them such that each drought event spans X cells, where 
-#' X = the duration of the drought event. Place the drought events
-#' as close to the vertical center of the matrix as possible.
-#' Separate the drought events horizontally by one cell.
-#' @param event_data
-#' @param start_period the start date of the chunk of events being
-#' processed
-#' @param end_period the end date of the chunk of events being processed
-#' @param max_droughts the maximum number of drought events on a single
-#' day within the chunk of events. Used to set the number of rows in
-#' the event matrix
-#' @return A dataframe with a row for each drought day (unique site day 
-#' with drought) and columns for row number `rnum`, `date`, `duration`
-create_event_swarm <- function(event_data, start_period, end_period, max_droughts){
+#' @title Create the most complete drought record from all child items
+#' @description Combine all of the drought records from all of the child
+#' items, removing duplicates to complete the most full record of droughts. 
+#' Then filter out only the 2% droughts.
+#' @param df_1921 The data frame from the target that loads in the 1921-2020 csv
+#' @param df_1951 The data frame from the target that loads in the 1951-2020 csv
+#' @param df_1981 The data frame from the target that loads in the 1981-2020 csv
+#' @param percentile The percentile for droughts 
+join_and_filter_full_drought_record <- function(df_1921, df_1951, df_1981, percentile){
+  # Remove redundant records from 1951 data that are in the 1921 data by station id
+  temp_1951 <- df_1951 |>
+    filter(! national_1921)
   
-  event_subset <- event_data %>% 
-    filter(start >= start_period) %>%
-    filter(start <= end_period) %>% # Ok to filter only `start` b/c `end_period` accounts for duration of latest drought events (set in `identify_drought_chunks()`)
-    mutate(onset_day = as.integer(start - start_period) + 1) %>% 
-    mutate(end_day = onset_day + duration - 1) %>% # End value in raw data doesn't always = start + duration - 1
-    arrange(onset_day) %>%
-    mutate(idx = row_number())
+  # Remove redundant records from 1981 data that are in the 1951 & 1921 data 
+  temp_1981 <- df_1981 |>
+    filter(! national_1921,
+           ! national_1951)
   
-  # set up an empty "swarm grid" to place drought events into
-  n <- round(max_droughts/2)+10 # will be mirrored, so start w/ ~ 1/2 max_droughts + some wiggle room
-  mat <- matrix(NaN,nrow=n,ncol=max(event_subset$end_day)+2) # 1 additional for spacer 0 value at end, 1 additional in case last drought placed on plus1d location
-  E_1 <- setDT(as.data.frame(mat))[]
-  E_1[,priority:=1:n]
-  E_2 <- E_1[order(-priority)]
-  E <- rbindlist(list(E_2, E_1))
-  E[,rnum:=1:(2*n)]
+  # Select only the target percentile drought events
+  df_all <- bind_rows(df_1921, temp_1951, temp_1981) |>
+    filter(threshold == percentile)
   
-  # loop through each event and place into best available spot in grid
-  progress_bar <- txtProgressBar(min = 1, max = nrow(event_subset), style = 3)
+  return(df_all)
   
-  # store priority, rnum for all rows
-  rnum_priority <- E[,.(priority,rnum)]
-
-  for (idx in 1:nrow(event_subset)){
-    temp_dur <- event_subset[[idx,'duration']]
-    temp_startd <-event_subset[[idx,'onset_day']]
-    
-    avail_rows_d <- E[,temp_startd:(temp_startd + temp_dur - 1)]
-    avail_rows_d <- cbind(avail_rows_d, rnum_priority)
-    avail_rows_d <- avail_rows_d[rowSums(is.na(avail_rows_d))==(ncol(avail_rows_d)-2),] # pull rows where all but priority and rnum are NA
-    avail_rows_d[,pos:=0]
-    avail_rows_plus1d <- E[,(temp_startd+1):(temp_startd + temp_dur)]
-    avail_rows_plus1d <- cbind(avail_rows_plus1d, rnum_priority)
-    avail_rows_plus1d <- avail_rows_plus1d[rowSums(is.na(avail_rows_plus1d))==(ncol(avail_rows_plus1d)-2),]
-    avail_rows_plus1d[,pos:=1]
-    avail_rows_minus1d <- E[,(temp_startd-1):(temp_startd + temp_dur - 2)]
-    avail_rows_minus1d <- cbind(avail_rows_minus1d, rnum_priority)
-    avail_rows_minus1d <- avail_rows_minus1d[rowSums(is.na(avail_rows_minus1d))==(ncol(avail_rows_minus1d)-2),]
-    avail_rows_minus1d[,pos:=-1]
-    all_avail_rows <- rbindlist(list(avail_rows_d, avail_rows_minus1d, avail_rows_plus1d), fill=TRUE) # need fill+TRUE to not drop columns that aren't shared
-    all_avail_rows <- all_avail_rows[priority==min(priority)] # filter to min priority, since want lowest value (highest priority) row(s)
-    all_avail_rows <- all_avail_rows[sample(.N,1)] # randomly select one of the highest priority rows
-    
-    temp_rnum <- all_avail_rows[,rnum]
-    temp_pos_key <- all_avail_rows[,pos]
-    if (temp_startd == 1){
-      temp_pos_key <- 0
-    }
-    
-    # assign event to identified spot by using duration value
-    E[temp_rnum,((temp_startd + temp_pos_key):(temp_startd + temp_dur - 1 + temp_pos_key))] <- temp_dur
-    E[temp_rnum,(temp_startd + temp_dur + temp_pos_key)] <- 0 # enforces a space between subsequent events
-    
-    setTxtProgressBar(progress_bar, idx)
-  }
-  
-  # trim unused rows
-  E_ind <- rowSums(is.na(E))==(ncol(E)-2) # identify rows where all but priority and rnum are NA
-  E <- E[ !E_ind, ]
-  
-  E[E == 0] <- NaN # remove spaces added to avoid events appearing connected
-  
-  E <- E[,priority:=NULL] # drop priority column
-  plot_dat <- melt(E, measure.vars=colnames(E)[1:(ncol(E)-1)], # all but last column (rnum)
-                      variable.name="names",value.name = "duration")
-  plot_dat[,dt:=as.integer(str_remove(names,"V"))]
-  plot_dat[,date:=as.Date(start_period + dt - 1)]
-  plot_dat[,rnum:=rnum - n]
-  plot_dat <- na.omit(plot_dat)
-  
-  # drop names and dt columns
-  plot_dat <- plot_dat[,names:=NULL]
-  plot_dat <- plot_dat[,dt:=NULL]
-  
-  plot_dat_df <- as.data.frame(plot_dat)
-  
-  return(plot_dat_df)
 }
+
+
+
 
 #' @title Create strip-swarm matrix from drought events
 #' @description Populate an event matrix, where columns = days
@@ -123,7 +55,7 @@ create_event_swarm_compressed <- function(event_data, start_period, end_period, 
   
   # set up an empty "swarm grid" to place drought events into
   n <- round(max_droughts/2)+10 # will be mirrored, so start w/ ~ 1/2 max_droughts + some wiggle room
-  mat <- matrix(NaN,nrow=n,ncol=max(event_subset$end_day)+2) # 1 additional for spacer 0 value at end, 1 additional in case last drought placed on plus1d location
+  mat <- matrix(NaN, nrow = n, ncol = max(event_subset$end_day)+2) # 1 additional for spacer 0 value at end, 1 additional in case last drought placed on plus1d location
   E_1 <- setDT(as.data.frame(mat))[]
   E_1[,priority:=1:n]
   E_2 <- E_1[order(-priority)]
@@ -216,18 +148,7 @@ count_events <- function(event_data, metadata, target_threshold){
     
 }
 
-longest_events <- function(event_data, metadata, target_threshold){
-  longest_event_per_decade <- event_data %>% 
-    left_join(metadata, by = "StaID", suffix = c("",".gages")) %>% 
-    filter(HUC02 == 14) %>% # restrict to upper Colorado river basin
-    filter(threshold == target_threshold) %>% 
-    mutate(decade = as.factor(floor(year(start)/10)*10)) %>% 
-    group_by(decade) %>% 
-    slice_max(duration, n = 1)
-  
-  return(longest_event_per_decade)
-  
-}
+
 
 #' @title Expand drought properties
 #' @description Expand the drought properties dataframe
