@@ -2,7 +2,7 @@ source('2_process/src/prep_stripswarm.R')
 
 p2_targets <- list(
   ##### General metadata #####
-  tar_target(p2_metadata,
+  tar_target(p2_metadata_raw,
              readr::read_csv(p1_metadata_csv, col_types=cols())),
   
   # Define states that are in each CASC region
@@ -33,6 +33,9 @@ p2_targets <- list(
                                                      "Utah", "Nevada") ~ "Southwest",
                                          TRUE ~ "not sorted")) 
              ),
+  # Attach CASCs to metadata
+  tar_target(p2_metadata,
+             p2_metadata_raw |> left_join(p2_CASCs, by = "STATE")),
   
   ##### Data for 1951-2020 #####
   
@@ -69,7 +72,7 @@ p2_targets <- list(
 
   # Identify drought chunks
   tar_target(p2_drought_chunks,
-             identify_drought_chunks(p2_2000_severe_2pct_droughts, 
+             identify_drought_chunks(drought_prop = p2_2000_severe_2pct_droughts, 
                                      min_chunk_days = 365)),
   
   # Process data to generate swarm
@@ -80,7 +83,13 @@ p2_targets <- list(
                                 start_period = p2_drought_chunks$start_date,
                                 end_period = p2_drought_chunks$break_date,
                                 max_droughts = p2_drought_chunks$max_single_day_droughts),
-             pattern = map(p2_drought_chunks))
+             pattern = map(p2_drought_chunks)),
   
+  # Expand drought properties of 2000 most severe droughts and group by CASC
+  tar_target(p2_expanded_2000_2pct_droughts_byCASC,
+             expand_drought_prop(drought_prop = p2_2000_severe_2pct_droughts) |> 
+               group_by(CASC) |>
+               tar_group(),
+             iteration = "group")
   
 )
