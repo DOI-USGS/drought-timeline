@@ -5,7 +5,8 @@
 #' @param df_1921 The data frame from the target that loads in the 1921-2020 csv
 #' @param df_1951 The data frame from the target that loads in the 1951-2020 csv
 #' @param df_1981 The data frame from the target that loads in the 1981-2020 csv
-join_full_drought_record <- function(df_1921, df_1951, df_1981, metadata){
+#' @param percentile The percentile for droughts 
+join_and_filter_full_drought_record <- function(df_1921, df_1951, df_1981, percentile){
   # Remove redundant records from 1951 data that are in the 1921 data by station id
   temp_1951 <- df_1951 |>
     filter(! national_1921)
@@ -15,8 +16,9 @@ join_full_drought_record <- function(df_1921, df_1951, df_1981, metadata){
     filter(! national_1921,
            ! national_1951)
   
+  # Select only the target percentile drought events
   df_all <- bind_rows(df_1921, temp_1951, temp_1981) |>
-    filter(threshold == 2)
+    filter(threshold == percentile)
   
   return(df_all)
   
@@ -53,7 +55,7 @@ create_event_swarm_compressed <- function(event_data, start_period, end_period, 
   
   # set up an empty "swarm grid" to place drought events into
   n <- round(max_droughts/2)+10 # will be mirrored, so start w/ ~ 1/2 max_droughts + some wiggle room
-  mat <- matrix(NaN,nrow=n,ncol=max(event_subset$end_day)+2) # 1 additional for spacer 0 value at end, 1 additional in case last drought placed on plus1d location
+  mat <- matrix(NaN, nrow = n, ncol = max(event_subset$end_day)+2) # 1 additional for spacer 0 value at end, 1 additional in case last drought placed on plus1d location
   E_1 <- setDT(as.data.frame(mat))[]
   E_1[,priority:=1:n]
   E_2 <- E_1[order(-priority)]

@@ -52,20 +52,19 @@ p2_targets <- list(
                left_join(p2_metadata, by = "StaID")),
   
   ### Prep drought properties for "strip swarm" duration chart
-  # Filter to droughts defined using the 2% threshold
-  # and to only drought that occurred in the western U.S.
+  # Join full record and then filter to droughts defined using the target percentile
   tar_target(p2_all_2pct_droughts,
-             join_full_drought_record(df_1921 = p2_1921_2020_drought_prop_jd_7d,
-                                      df_1951 = p2_1951_2020_drought_prop_jd_7d,
-                                      df_1981 = p2_1981_2020_drought_prop_jd_7d)
-             ),
+             join_and_filter_full_drought_record(df_1921 = p2_1921_2020_drought_prop_jd_7d,
+                                                 df_1951 = p2_1951_2020_drought_prop_jd_7d,
+                                                 df_1981 = p2_1981_2020_drought_prop_jd_7d,
+                                                 percentile = 2)
+  ),
   
   # determine the 2000 most severe droughts
   tar_target(p2_2000_severe_2pct_droughts,
              p2_all_2pct_droughts |>
                slice_max(order_by = severity,
-                         n = 2000) |>
-               mutate(unique_id = paste0(StaID, "-", drought_id))
+                         n = 2000)
              ),
 
   # Identify drought chunks
@@ -75,11 +74,13 @@ p2_targets <- list(
   
   # Process data to generate swarm
   ## 'Compressed' approach (# cells filled per event = 1)
-  ## nrow = # of drought events = nrow(p2_prop_western_2)
+  ## nrow = # of drought events = nrow(p2_prop_severe_2pct_droughts)
   tar_target(p2_drought_swarm_compressed,
              create_event_swarm_compressed(event_data = p2_2000_severe_2pct_droughts,
                                 start_period = p2_drought_chunks$start_date,
                                 end_period = p2_drought_chunks$break_date,
                                 max_droughts = p2_drought_chunks$max_single_day_droughts),
              pattern = map(p2_drought_chunks))
+  
+  
 )

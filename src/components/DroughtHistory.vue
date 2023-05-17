@@ -2,7 +2,7 @@
   <section id="main-container">
     <section id="grid-container">
       <div id="title-container">
-        <h2>100 years of drought in the contiguous U.S.</h2>
+        <h2>100 years of severe drought in the contiguous U.S.</h2>
       </div>
       <nav id="nav-button-container">
         <p>
