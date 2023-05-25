@@ -86,6 +86,12 @@ p2_targets <- list(
              pattern = map(p2_drought_chunks)),
   
   # Expand drought properties of 2000 most severe droughts and group by CASC
+  tar_target(p2_2000_severe_2pct_droughts_byCASC,
+             p2_2000_severe_2pct_droughts |> 
+               group_by(CASC) |>  
+               tar_group(),
+             iteration = "group"),
+  
   tar_target(p2_expanded_2000_2pct_droughts_byCASC,
              expand_drought_prop(drought_prop = p2_2000_severe_2pct_droughts) |> 
                group_by(CASC) |>
