@@ -90,7 +90,6 @@ export default {
         mobileView: isMobile, // test for mobile
         annotations: droughtAnnotations.timelineEvents,
         scrollToDates:  null,
-        droughtIDs: null,
         // dimensions
         overlayWidth: null,
         overlayHeight: null
@@ -108,8 +107,6 @@ export default {
       {id: '1962', name: '1960s Drought', start: '1962-12-01', end: '1968-10-31'}, 
       {id: '1987', name: '1980s Drought', start: '1987-05-01', end: '1992-10-31'},
       {id: '1999', name: 'Turn-of-the-Century Drought', start: '1999-09-01', end: '2015-09-30'}]
-    // Get all possible button ids
-    this.droughtIDs = this.scrollToDates.map(scrollDate => scrollDate.id);
 
     // sort annotations
     this.annotations.sort((a,b) => this.d3.ascending(a.date, b.date))
