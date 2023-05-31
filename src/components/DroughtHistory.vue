@@ -7,13 +7,13 @@
       <nav id="nav-button-container">
         <p>
           <span 
-            v-for="decade in decadeIDs"
-            :key="decade"
+            v-for="drought in scrollToDates"
+            :key="drought.id"
           ><button
-            :id="`button-${decade}`"
+            :id="`button-${drought.id}`"
             class="scrollButton"
             @click="scrollTimeline"
-            v-text="decade"
+            v-text="drought.name"
           /></span>
         </p>
       </nav>
@@ -90,12 +90,10 @@ export default {
         mobileView: isMobile, // test for mobile
         annotations: droughtAnnotations.timelineEvents,
         scrollToDates:  null,
-        decadeIDs: null,
+        droughtIDs: null,
         // dimensions
         overlayWidth: null,
-        overlayHeight: null,
-        // show scroll trigger markers on the page?
-        marker_on: false
+        overlayHeight: null
       }
   },
   mounted(){      
@@ -105,18 +103,13 @@ export default {
 
     // Define scrollTo dates
     this.scrollToDates = [
-      {id: '1920s', date: '1921-10-01'}, 
-      {id: '1930s', date: '1930-01-01'}, 
-      {id: '1940s', date: '1940-01-01'}, 
-      {id: '1950s', date: '1950-01-01'}, 
-      {id: '1960s', date: '1960-01-01'},
-      {id: '1970s', date: '1970-01-01'},
-      {id: '1980s', date: '1980-01-01'},
-      {id: '1990s', date: '1990-01-01'},
-      {id: '2000s', date: '2000-01-01'},
-      {id: '2010s', date: '2010-01-01'}]
+      {id: '1930', name: 'Dust Bowl', start: '1930-02-01', end: '1941-08-31'}, 
+      {id: '1952', name: '1950s Drought', start: '1952-11-01', end: '1957-08-31'}, 
+      {id: '1962', name: '1960s Drought', start: '1962-12-01', end: '1968-10-31'}, 
+      {id: '1987', name: '1980s Drought', start: '1987-05-01', end: '1992-10-31'},
+      {id: '1999', name: 'Turn-of-the-Century Drought', start: '1999-09-01', end: '2015-09-30'}]
     // Get all possible button ids
-    this.decadeIDs = this.scrollToDates.map(scrollDate => scrollDate.id);
+    this.droughtIDs = this.scrollToDates.map(scrollDate => scrollDate.id);
 
     // sort annotations
     this.annotations.sort((a,b) => this.d3.ascending(a.date, b.date))
@@ -135,22 +128,23 @@ export default {
       },
       scrollTimeline(e) {
 
-        // determine which decade is already shown
-        const currentButton = document.querySelector('.currentButton')
-        let currentDecade = currentButton == null ? this.decadeIDs[0] : currentButton.id.split('-')[1]; // currently goes to null when user scrolls back to top of page
-        const currentIndex = this.decadeIDs.indexOf(currentDecade, 0)
+        // determine which year we are in on the timeline
+        // currently, scroll trigger start and end set up so that there is always 1+ year 'inView'
+        const currentYearElement = document.querySelector('.inView'); // pulls first element w/ class
+        let currentYear = currentYearElement.id.split('-')[1];
 
-        // determine which decade should be scrolled to
-        const scrollButton = e.target
-        const scrollID = scrollButton.id
-        const scrollYear = scrollID.split('-')[1]
+        // determine which year should be scrolled to, based on selected drought
+        const scrollButton = e.target;
+        const scrollID = scrollButton.id;
+        const scrollDroughtYear = scrollID.split('-')[1];
 
-        // determine scroll length, based on # of decades scrolled
-        const nextIndex = this.decadeIDs.indexOf(scrollYear, 0)
-        const scrollLength = Math.abs(nextIndex - currentIndex) + 1 * 0.4
-
-        // scroll to position of specified decade
-        this.$gsap.to(window, {duration: scrollLength, scrollTo:"#scrollStop-"+scrollYear});
+        // determine scroll length, based on # of years scrolled
+        const scrollDistance = Math.abs(scrollDroughtYear - currentYear);
+        const scrollSpeed = 9;
+        const scrollLength =  scrollDistance/scrollSpeed;
+        
+        // scroll to position of specified drought
+        this.$gsap.to(window, {duration: scrollLength, scrollTo:"#scrollStop-" + scrollDroughtYear});
       },
       addOverlay() {
         const self = this;
@@ -213,6 +207,28 @@ export default {
           .domain([0,100])
           .range([0, this.overlayWidth])
 
+        // Add hidden timeline elements (only used to determine scroll distance)
+        const timelineYearStart = timelineDates[0].split('-')[0]
+        const timelineYearEnd = timelineDates[1].split('-')[0]
+        const timelineLengthInYears = timelineYearEnd - timelineYearStart;
+        const startMonthDay = '-' + timelineDates[0].split('-')[1] + '-' + timelineDates[0].split('-')[2]
+        const timelineYears = Array(timelineLengthInYears).fill().map((element, index) => index + Number(timelineYearStart))
+        const timelineYearRects = this.svgChartDynamic.selectAll('timelineYear')
+          .data(timelineYears)
+          .enter()
+          .append('rect')
+          .attr("id", d => "timelineYear-" + d)
+          .attr("class", "timelineYear")
+          .attr("x", yAxisOffset)
+          .attr("y", d => yScale(new Date(d + startMonthDay)))
+          .attr("width", this.overlayWidth - yAxisOffset)
+          .attr("height", (d,i) => {
+            return i===timelineYears.length-1 ? 
+              yScale(new Date(timelineDates[1])) - yScale(new Date(d + startMonthDay)) : 
+              yScale(new Date(timelineYears[i+1] + startMonthDay)) - yScale(new Date(d + startMonthDay))
+          })
+          .attr("opacity", 0) // make fully transparent
+
         // Add scroll to elements (only used for scroll navigation)
         const scrollToSpot = this.svgChartDynamic.selectAll('scrollToSpot')
           .data(this.scrollToDates)
@@ -221,12 +237,10 @@ export default {
           .attr("id", d => "scrollStop-" + d.id)
           .attr("class", "scrollToSpot")
           .attr("x", yAxisOffset)
-          .attr("y", d => yScale(new Date(d.date)))
+          .attr("y", d => yScale(new Date(d.start)))
           .attr("width", this.overlayWidth - yAxisOffset)
-          .attr("height", (d,i) => {
-            return i===this.scrollToDates.length-1 ? 
-              yScale(new Date(timelineDates[1])) - yScale(new Date(d.date)) : 
-              yScale(new Date(this.scrollToDates[i+1].date)) - yScale(new Date(d.date))
+          .attr("height", (d) => {
+            return yScale(new Date(d.end)) - yScale(new Date(d.start))
           })
           .attr("opacity", 0) // make fully transparent
         // Set up annotations
@@ -281,6 +295,28 @@ export default {
         // Select dynamically added chart overlay svg
         const dynamicSVG = document.querySelector("#svg-dynamic");
 
+        // Add year in view animations, so that we know which years are in the current view
+        const yearTriggers = this.$gsap.utils.toArray(".timelineYear")
+        yearTriggers.forEach((yearTrigger) => {
+
+          // get unique ID for scroll step.
+          let scrollIDFull = yearTrigger.id
+          let scrollID = scrollIDFull.split('-')[1]
+
+          // When each year is in view on the timeline, add 'inView' class to element
+          // NOTE: no visual change - simply for use in scrollTimeline()
+          tl.to(`#${scrollIDFull}`, {
+            scrollTrigger: {
+              markers: false,
+              trigger: `#${scrollIDFull}`,
+              start: "top 90%",
+              end: 'bottom 10%',
+              toggleClass: {targets: `#${scrollIDFull}`, className:"inView"}, // adds class to target when triggered
+              toggleActions: "restart reverse none reverse" 
+            },
+          })
+        })
+
         // Add scrollTo animations
         const scrollToTriggers = this.$gsap.utils.toArray(".scrollToSpot")
         scrollToTriggers.forEach((scrollToTrigger) => {
@@ -289,40 +325,18 @@ export default {
           let scrollIDFull = scrollToTrigger.id
           let scrollID = scrollIDFull.split('-')[1]
 
-          // figure out index of ID
-          const scrollIndex = this.decadeIDs.indexOf(scrollID, 0)
-
-          // Highlight the menu item for each decade
-          // Make sure first decade button highlighted on page load
-          if (scrollIndex === 0) {
-            tl.to(`#${scrollIDFull}`, {
-              scrollTrigger: {
-                markers: false,
-                trigger: `#${scrollIDFull}`,
-                start: "top center",
-                end: 'bottom 15%',
-                toggleClass: {targets: `#button-${scrollID}`, className:"currentButton"}, // adds class to target when triggered
-                toggleActions: "restart reverse none reverse" 
-                /*
-                onEnter - scrolling down, start meets scroller-start
-                onLeave - scrolling down, end meets scroller-end
-                onEnterBack - scrolling up, end meets scroller-end
-                onLeaveBack - scrolling up, start meets scroller-start
-                */
-              },
-            })
-          } else {
-            tl.to(`#${scrollIDFull}`, {
-              scrollTrigger: {
-                markers: false,
-                trigger: `#${scrollIDFull}`,
-                start: "top 15%",
-                end: 'bottom 15%',
-                toggleClass: {targets: `#button-${scrollID}`, className:"currentButton"}, // adds class to target when triggered
-                toggleActions: "restart reverse none reverse" 
-              },
-            })
-          }
+          // Highlight the menu item for each drought
+          // when in that drought period
+          tl.to(`#${scrollIDFull}`, {
+            scrollTrigger: {
+              markers: false,
+              trigger: `#${scrollIDFull}`,
+              start: "top 15%",
+              end: 'bottom 15%',
+              toggleClass: {targets: `#button-${scrollID}`, className:"currentButton"}, // adds class to target when triggered
+              toggleActions: "restart reverse none reverse" 
+            },
+          })
 
         })
 
