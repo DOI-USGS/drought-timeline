@@ -204,28 +204,6 @@ export default {
           .domain([0,100])
           .range([0, this.overlayWidth])
 
-        // Add hidden timeline elements (only used to determine scroll distance)
-        const timelineYearStart = timelineDates[0].split('-')[0]
-        const timelineYearEnd = timelineDates[1].split('-')[0]
-        const timelineLengthInYears = timelineYearEnd - timelineYearStart;
-        const startMonthDay = '-' + timelineDates[0].split('-')[1] + '-' + timelineDates[0].split('-')[2]
-        const timelineYears = Array(timelineLengthInYears).fill().map((element, index) => index + Number(timelineYearStart))
-        const timelineYearRects = this.svgChartDynamic.selectAll('timelineYear')
-          .data(timelineYears)
-          .enter()
-          .append('rect')
-          .attr("id", d => "timelineYear-" + d)
-          .attr("class", "timelineYear")
-          .attr("x", yAxisOffset)
-          .attr("y", d => yScale(new Date(d + startMonthDay)))
-          .attr("width", this.overlayWidth - yAxisOffset)
-          .attr("height", (d,i) => {
-            return i===timelineYears.length-1 ? 
-              yScale(new Date(timelineDates[1])) - yScale(new Date(d + startMonthDay)) : 
-              yScale(new Date(timelineYears[i+1] + startMonthDay)) - yScale(new Date(d + startMonthDay))
-          })
-          .attr("opacity", 0) // make fully transparent
-
         // Add scroll to elements (only used for scroll navigation)
         const scrollToSpot = this.svgChartDynamic.selectAll('scrollToSpot')
           .data(this.scrollToDates)
