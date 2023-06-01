@@ -272,13 +272,11 @@ export default {
         // Select dynamically added chart overlay svg
         const dynamicSVG = document.querySelector("#svg-dynamic");
 
-        // Add year in view animations, so that we know which years are in the current view
-        const yearTriggers = this.$gsap.utils.toArray(".timelineYear")
-        yearTriggers.forEach((yearTrigger) => {
-
+        // Add in view animations to tick marks, so that we know which years are in the current view
+        const tickMarkTriggers = this.$gsap.utils.toArray(".yAxisText")
+        tickMarkTriggers.forEach((tickMarkTrigger) => {
           // get unique ID for scroll step.
-          let scrollIDFull = yearTrigger.id
-          let scrollID = scrollIDFull.split('-')[1]
+          let scrollIDFull = tickMarkTrigger.id
 
           // When each year is in view on the timeline, add 'inView' class to element
           // NOTE: no visual change - simply for use in scrollTimeline()
