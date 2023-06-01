@@ -190,8 +190,10 @@ export default {
           .attr("transform", "translate(" + yAxisOffset + ",0)")
 
         // set up classes for styling
+        const yearFormat = this.d3.timeFormat("%Y")
         yAxisDom.selectAll('text')
           .attr("class", "yAxisText")
+          .attr("id", function(i) {return "tick-" + yearFormat(i)});
         
         yAxisDom.selectAll(".tick line")
           .attr("class", "yAxisTick")
