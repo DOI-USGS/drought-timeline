@@ -193,7 +193,7 @@ export default {
         const yearFormat = this.d3.timeFormat("%Y")
         yAxisDom.selectAll('text')
           .attr("class", "yAxisText")
-          .attr("id", function(i) {return "tick-" + yearFormat(i)});
+          .attr("id", function(d) {return "tick-" + yearFormat(d)});
         
         yAxisDom.selectAll(".tick line")
           .attr("class", "yAxisTick")
