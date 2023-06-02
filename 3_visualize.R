@@ -88,8 +88,9 @@ p3_targets <- list(
                         width = 9, height = 6),
              format = "file"),
   
-  # plotting background for thumbnails
+  # plotting radial thumbnail plot
   tar_target(p3_polar_background_plot_png,
-             plot_radial_chart(major_droughts = p2_major_droughts_expanded),
+             plot_radial_chart(major_drought_periods = p2_major_droughts_expanded,
+                               drought_events = p2_expanded_2000_2pct_droughts_byCASC),
              format = "file")
 )

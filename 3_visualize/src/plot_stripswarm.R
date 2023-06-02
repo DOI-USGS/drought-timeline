@@ -27,7 +27,7 @@ event_swarm_plot_compressed_vertical <- function(swarm_data){
 }
 
 
-
+#' @param chart_type Whether to include years as labels or not 
 event_violin_vertical <- function(drought_data){
   # focal CASC
   focal_CASC <- unique(drought_data$CASC)
@@ -50,6 +50,7 @@ event_violin_vertical <- function(drought_data){
                    expand = c(0,0),
                    position = 'right')+
       ggtitle(focal_CASC)
+
   
   ggsave(sprintf("src/assets/images/duration-chart/vertical_violin_jd7d_2pct_%s.png", focal_CASC),
          width = 1.5, height = 5, dpi = 300, limitsize = FALSE)

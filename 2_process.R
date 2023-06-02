@@ -31,7 +31,15 @@ p2_targets <- list(
                                                      "Arkansas") ~ "Southeast",
                                          NAME %in% c("Arizona", "California", 
                                                      "Utah", "Nevada") ~ "Southwest",
-                                         TRUE ~ "not sorted")) 
+                                         TRUE ~ "not sorted"),
+                      # these angles are set 51.4 degrees apart starting at Midwest
+                      "CASC_angle" = case_when(CASC == "Midwest" ~ 41.0,
+                                               CASC == "Northeast" ~ 92.4,
+                                               CASC == "Southeast" ~ 143.8,
+                                               CASC == "South Central" ~ 195.2,
+                                               CASC == "Southwest" ~ 246.6,
+                                               CASC == "Northwest" ~ 298.0,
+                                               CASC == "North Central" ~ 349.4)) 
              ),
   # Attach CASCs to metadata
   tar_target(p2_metadata,
@@ -111,10 +119,10 @@ p2_targets <- list(
   
   tar_target(p2_major_droughts_expanded,
              data.frame(
-               name = rep(p2_major_droughts$name, each = 361),
-               start = rep(p2_major_droughts$start, each = 361),
-               end = rep(p2_major_droughts$end, each = 361),
-               angle = rep(0:360, 5)
+               name = rep(p2_major_droughts$name, each = 381),
+               start = rep(p2_major_droughts$start, each = 381),
+               end = rep(p2_major_droughts$end, each = 381),
+               angle = rep(0:380, 5)
              ))
   
 )
