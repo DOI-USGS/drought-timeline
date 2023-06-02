@@ -1,10 +1,10 @@
 
-plot_inset <- function(station_data, station, us_data, regions, region_sf, file_png, width, height ){
+plot_inset <- function(station_data, station, us_data, regions, region_sf, file_png, width, height, color_scheme){
   
   p <- ggplot() + 
     geom_sf(data = us_data,
             fill = "white",
-            color = '#BBBBC3',
+            color = color_scheme$annotation_grey,
             linewidth = 1.2) +
     theme_void() 
     

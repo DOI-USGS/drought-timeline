@@ -1,18 +1,15 @@
-plot_radial_chart <- function(major_drought_periods, drought_events){
+plot_radial_chart <- function(major_drought_periods, drought_events, color_scheme){
   
   # Using the major droughts, create concentric circles that are grey
   ggplot(data = major_drought_periods, aes(x = angle, y = start))+
     geom_ribbon(aes(ymin = start, ymax = end,
                     xmin = angle, xmax = angle,
                     group = name),
-                fill = "#DAA520", alpha = 0.1) +
-    # ggdist::geom_dots(data = drought_events,
-    #                   aes(x = CASC_angle, y = date),
-    #                   color = "#cc5500",
-    #                   fill = NA, side = "both") +
+                fill = color_scheme$drought_period_shading, alpha = 0.7) +
     geom_violin(data = drought_events,
                 aes(x = CASC_angle, y = date, group = CASC),
-                color = "#CC5500", fill = "#CC5500",
+                color = NA, 
+                fill = color_scheme$drought_event_color,
                 scale = "count") +
     scale_y_date(breaks = scales::date_breaks(width = '10 years'),
                  #labels = NULL,

@@ -5,6 +5,16 @@ source('3_visualize/src/plot_radial.R')
 
 p3_targets <- list(
 
+  
+  # Color scheme tibble
+  tar_target(
+    p3_colors,
+    tibble(
+      drought_period_shading = "#F1F1F1", #light orange option: "#DAA520"
+      drought_event_color = "#CC5500", # another more subtle orange: "#dd8e58"
+      annotation_grey = "#949494"
+    )
+  ),
 
   # Generate vertical plot
   tar_target(
@@ -42,7 +52,8 @@ p3_targets <- list(
                       regions = FALSE,
                       region_sf = NA,
                       file_png = 'src/assets/images/states_stations_inset.png',
-                      width = 16, height = 9),
+                      width = 16, height = 9,
+                      color_scheme = p3_colors),
            format = "file"),
   
   # create CASC-level violins
@@ -70,7 +81,8 @@ p3_targets <- list(
                           filter(CASC == unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)),
                         file_png = sprintf("src/assets/images/states_stations_%s.png", 
                                            unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)),
-                        width = 9, height = 6),
+                        width = 9, height = 6,
+                        color_scheme = p3_colors),
              pattern = map(p2_expanded_2000_2pct_droughts_byCASC),
              format = "file"),
   
@@ -85,12 +97,14 @@ p3_targets <- list(
                           group_by(CASC) |>
                           summarise(id = unique(CASC)),
                         file_png = "src/assets/images/casc_regions_map.png",
-                        width = 9, height = 6),
+                        width = 9, height = 6,
+                        color_scheme = p3_colors),
              format = "file"),
   
   # plotting radial thumbnail plot
   tar_target(p3_polar_background_plot_png,
              plot_radial_chart(major_drought_periods = p2_major_droughts_expanded,
-                               drought_events = p2_expanded_2000_2pct_droughts_byCASC),
+                               drought_events = p2_expanded_2000_2pct_droughts_byCASC,
+                               color_scheme = p3_colors),
              format = "file")
 )
