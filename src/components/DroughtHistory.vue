@@ -141,7 +141,7 @@ export default {
         const scrollLength =  scrollDistance/scrollSpeed;
         
         // scroll to position of specified drought
-        this.$gsap.to(window, {duration: scrollLength, scrollTo:"#scrollStop-" + scrollDroughtYear});
+        this.$gsap.to(window, {duration: scrollLength, scrollTo: {y: "#scrollStop-" + scrollDroughtYear, offsetY: 100}});
       },
       addOverlay() {
         const self = this;
