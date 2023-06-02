@@ -223,25 +223,6 @@ export default {
         // remove y axis line
         yAxisDom.select(".domain").remove()
 
-        // Set up linear scale for chart width
-        const xScale = this.d3.scaleLinear()
-          .domain([0,100])
-          .range([0, this.overlayWidth])
-
-        // Add scroll to elements (only used for scroll navigation)
-        const scrollToSpot = this.svgChartDynamic.selectAll('scrollToSpot')
-          .data(this.scrollToDates)
-          .enter()
-          .append('rect')
-          .attr("id", d => "scrollStop-" + d.id)
-          .attr("class", "scrollToSpot")
-          .attr("x", yAxisOffset)
-          .attr("y", d => yScale(new Date(d.start)))
-          .attr("width", this.overlayWidth - yAxisOffset)
-          .attr("height", (d) => {
-            return yScale(new Date(d.end)) - yScale(new Date(d.start))
-          })
-          .attr("opacity", 0) // make fully transparent
         // Set up annotations
         if (this.mobileView === false) {
           // On desktop, place annotations as text
