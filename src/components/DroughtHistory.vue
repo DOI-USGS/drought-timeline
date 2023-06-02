@@ -176,9 +176,31 @@ export default {
           .domain([new Date(timelineDates[0]), new Date(timelineDates[1])])
           .range([0, this.overlayHeight]);
 
-        // set up y axis
+        // set y-axis offset
         const yAxisOffset = this.mobileView ? 40: 45;
 
+        // Set up linear scale for chart width
+        const xScale = this.d3.scaleLinear()
+          .domain([0,100])
+          .range([0, this.overlayWidth])
+
+        // Add scroll to elements (only used for scroll navigation)
+        const scrollToSpot = this.svgChartDynamic.selectAll('scrollToSpot')
+          .data(this.scrollToDates)
+          .enter()
+          .append('rect')
+          .attr("id", d => "scrollStop-" + d.id)
+          .attr("class", "scrollToSpot")
+          .attr("x", yAxisOffset)
+          .attr("y", d => yScale(new Date(d.start)))
+          .attr("width", this.overlayWidth - yAxisOffset)
+          .attr("height", (d) => {
+            return yScale(new Date(d.end)) - yScale(new Date(d.start))
+          })
+          .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
+          .attr("opacity", 1)
+        
+        // Add y axis
         const yAxis = this.d3.axisLeft(yScale)
           .ticks(this.d3.timeYear.every(1))
           .tickSize(-this.overlayWidth-yAxisOffset) // ticks spanning width of chart
