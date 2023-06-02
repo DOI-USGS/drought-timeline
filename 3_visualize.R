@@ -1,5 +1,6 @@
 source('3_visualize/src/plot_stripswarm.R')
 source('3_visualize/src/plot_inset.R')
+source('3_visualize/src/plot_radial.R')
 
 
 p3_targets <- list(
@@ -59,7 +60,7 @@ p3_targets <- list(
   tar_target(p3_inset_stations_map_byCASC_png,
              plot_inset(station_data = p2_metadata_sf |> 
                           filter(STATE %in% p2_expanded_2000_2pct_droughts_byCASC$STATE),
-                        station = TRUE,
+                        station = FALSE,
                         us_data = p2_states,
                         regions = TRUE,
                         region_sf = p2_states |>
@@ -85,5 +86,10 @@ p3_targets <- list(
                           summarise(id = unique(CASC)),
                         file_png = "src/assets/images/casc_regions_map.png",
                         width = 9, height = 6),
+             format = "file"),
+  
+  # plotting background for thumbnails
+  tar_target(p3_polar_background_plot_png,
+             plot_radial_chart(major_droughts = p2_major_droughts_expanded),
              format = "file")
 )
