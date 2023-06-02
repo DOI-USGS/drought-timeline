@@ -28,14 +28,14 @@ event_swarm_plot_compressed_vertical <- function(swarm_data){
 
 
 #' @param chart_type Whether to include years as labels or not 
-event_violin_vertical <- function(drought_data){
+event_violin_vertical <- function(drought_data, color_scheme){
   # focal CASC
   focal_CASC <- unique(drought_data$CASC)
   
   # plot violin vertically
   drought_data |> 
     ggplot(aes(y = date, x = CASC)) +
-    ggdist::geom_dots(color = "#cc5500",
+    ggdist::geom_dots(color = color_scheme$drought_event_color,
                       fill = NA, side = "both") +
     theme_nothing() + 
       theme(axis.text.x = element_blank(),

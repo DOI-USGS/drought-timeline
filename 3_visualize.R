@@ -11,8 +11,10 @@ p3_targets <- list(
     p3_colors,
     tibble(
       drought_period_shading = "#F1F1F1", #light orange option: "#DAA520"
-      drought_event_color = "#CC5500", # another more subtle orange: "#dd8e58"
+      drought_event_color = "#C34C4A", # another more subtle orange: "#dd8e58"
       annotation_grey = "#949494"
+      # colors in the main stripswarm scico(n = 5, palette = "lajolla", begin = 0.25)
+      #c("#F1C659", "#E48951", "#C34C4A", "#69342A", "#191900")
     )
   ),
 
@@ -58,7 +60,8 @@ p3_targets <- list(
   
   # create CASC-level violins
   tar_target(p3_drought_violin_vertical_byCASC,
-             event_violin_vertical(drought_data = p2_expanded_2000_2pct_droughts_byCASC),
+             event_violin_vertical(drought_data = p2_expanded_2000_2pct_droughts_byCASC,
+                                   color_scheme = p3_colors),
              pattern = map(p2_expanded_2000_2pct_droughts_byCASC),
              format = "file"),
 
