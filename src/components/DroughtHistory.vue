@@ -197,6 +197,7 @@ export default {
           .attr("height", (d) => {
             return yScale(new Date(d.end)) - yScale(new Date(d.start))
           })
+          .attr("rx", 5)
           .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
           .attr("opacity", 1)
         
