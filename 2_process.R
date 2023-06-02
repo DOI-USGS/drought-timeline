@@ -96,6 +96,25 @@ p2_targets <- list(
              expand_drought_prop(drought_prop = p2_2000_severe_2pct_droughts) |> 
                group_by(CASC) |>
                tar_group(),
-             iteration = "group")
+             iteration = "group"),
+  
+  ## Define the 5 major drought periods
+  tar_target(p2_major_droughts,
+             tibble(
+               name = c("Dust Bowl", "1950s Drought", "1960s Drought", 
+                        "1980s Drought", "Turn-of-the-Century Drought"),
+               start = as.Date(c("1930-02-01", "1952-11-01", "1962-12-01",
+                                 "1987-05-01", "1999-09-01")),
+               end = as.Date(c("1941-08-01", "1957-08-01", "1968-10-01",
+                               "1992-10-01", "2015-09-01"))
+             )),
+  
+  tar_target(p2_major_droughts_expanded,
+             data.frame(
+               name = rep(p2_major_droughts$name, each = 361),
+               start = rep(p2_major_droughts$start, each = 361),
+               end = rep(p2_major_droughts$end, each = 361),
+               angle = rep(0:360, 5)
+             ))
   
 )
