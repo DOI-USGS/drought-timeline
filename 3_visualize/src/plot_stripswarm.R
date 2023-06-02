@@ -33,7 +33,7 @@ event_violin_vertical <- function(drought_data){
   focal_CASC <- unique(drought_data$CASC)
   
   # plot violin vertically
-  plot_out <- drought_data |> 
+  drought_data |> 
     ggplot(aes(y = date, x = CASC)) +
     ggdist::geom_dots(color = "#cc5500",
                       fill = NA, side = "both") +
