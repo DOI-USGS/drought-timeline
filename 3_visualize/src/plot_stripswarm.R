@@ -58,21 +58,5 @@ event_violin_vertical <- function(drought_data){
 }
 
 
-event_barcode_plot <- function(drought_data){
-  # focal CASC
-  focal_CASC <- unique(drought_data$CASC)
-  
-  # plot violin vertically
-  plot_out <- drought_data |> 
-    ggplot(aes(y = start, x = CASC)) +
-    geom_linerange(aes(ymin = start, ymax = end), 
-                   alpha = 0.25, linewidth = 10,
-                   color = "#cc5500") +
-    theme_nothing()
-  
-  ggsave(sprintf("src/assets/images/duration-chart/barcode_jd7d_2pct_%s.png", focal_CASC),
-         width = 1.5, height = 5, dpi = 300, limitsize = FALSE)
-  
-}
 
 

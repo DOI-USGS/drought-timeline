@@ -61,11 +61,7 @@ p3_targets <- list(
              event_violin_vertical(drought_data = p2_expanded_2000_2pct_droughts_byCASC),
              pattern = map(p2_expanded_2000_2pct_droughts_byCASC),
              format = "file"),
-  # create CASC-level violin thumbnails (no axes)
-  tar_target(p3_drought_barcode_byCASC,
-             event_barcode_plot(drought_data = p2_2000_severe_2pct_droughts_byCASC),
-             pattern = map(p2_2000_severe_2pct_droughts_byCASC),
-             format = "file"),
+
   
   # plotting inset with stations and regions
   tar_target(p3_inset_stations_map_byCASC_png,
