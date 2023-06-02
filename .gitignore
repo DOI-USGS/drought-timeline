@@ -9,7 +9,7 @@ _targets
 */out/CONUS_1951_2020/*
 
 # Ignore images (can build locally with R and then put on S3)
-src/assets/images/
+src/assets/images/*
 
 # Allow the `.empty` files to be committed
 !*/in/.empty
