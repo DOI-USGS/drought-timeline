@@ -509,11 +509,12 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #inset-map {
   position: sticky;
-  top: 50px;
+  top: 55px;
   height: 150px;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
     height: 75px;
+    top: 75px;
   }
 }
 #chart-container {
