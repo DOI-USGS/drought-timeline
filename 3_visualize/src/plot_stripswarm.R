@@ -27,7 +27,7 @@ event_swarm_plot_compressed_vertical <- function(swarm_data){
 }
 
 
-#' @param chart_type Whether to include years as labels or not 
+
 event_violin_vertical <- function(drought_data, major_drought_periods, color_scheme){
   # focal CASC
   focal_CASC <- unique(drought_data$CASC)
