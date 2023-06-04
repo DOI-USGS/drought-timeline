@@ -26,8 +26,8 @@ plot_inset <- function(station_data, station, us_data, regions, region_sf, focal
     
     if (focal_stations)
       p <- p + geom_sf(data = focal_station_data, shape = 21, 
-                       color = color_scheme$drought_event_color, 
-                       fill = color_scheme$drought_event_color, 
+                       color = color_scheme$drought_event_dark, 
+                       fill = color_scheme$drought_event_dark, 
                        size = 2.1)
   
   ggsave(file_png, width = width, height = height, dpi = 300, bg = "transparent", limitsize = FALSE)
