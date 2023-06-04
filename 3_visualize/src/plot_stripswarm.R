@@ -43,7 +43,7 @@ event_violin_vertical <- function(drought_data, major_drought_periods, color_sch
                 fill = color_scheme$drought_period_shading, alpha = 0.7) +
     ggdist::geom_dots(data = drought_data,
                       aes(y = date, x = threshold),
-                      color = color_scheme$drought_event_color,
+                      color = color_scheme$drought_event_highlight,
                       fill = NA, side = "both") +
     theme_nothing() + 
       theme(axis.text.x = element_blank(),

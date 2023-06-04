@@ -9,7 +9,7 @@ plot_radial_chart <- function(major_drought_periods, drought_events, color_schem
     geom_violin(data = drought_events,
                 aes(x = CASC_angle, y = date, group = CASC),
                 color = NA, 
-                fill = color_scheme$drought_event_color,
+                fill = color_scheme$drought_event_highlight,
                 scale = "count") +
     scale_y_date(breaks = scales::date_breaks(width = '10 years'),
                  #labels = NULL,

@@ -12,6 +12,7 @@ p3_targets <- list(
     tibble(
       drought_period_shading = "#F1F1F1", #light orange option: "#DAA520"
       drought_event_color = "#C34C4A", # another more subtle orange: "#dd8e58"
+      drought_event_highlight = "#E48951",
       annotation_grey = "#949494"
       # colors in the main stripswarm from: scico(n = 5, palette = "lajolla", begin = 0.25)
       #c("#F1C659", "#E48951", "#C34C4A", "#69342A", "#191900")
@@ -53,6 +54,8 @@ p3_targets <- list(
                       us_data = p2_states,
                       regions = FALSE,
                       region_sf = NA,
+                      focal_stations = FALSE,
+                      focal_station_data = p2_metadata_sf,
                       file_png = 'src/assets/images/states_stations_inset.png',
                       width = 16, height = 9,
                       color_scheme = p3_colors),
@@ -71,7 +74,7 @@ p3_targets <- list(
   tar_target(p3_inset_stations_map_byCASC_png,
              plot_inset(station_data = p2_metadata_sf |> 
                           filter(STATE %in% p2_expanded_2000_2pct_droughts_byCASC$STATE),
-                        station = FALSE,
+                        station = TRUE,
                         us_data = p2_states,
                         regions = TRUE,
                         region_sf = p2_states |>
@@ -79,11 +82,30 @@ p3_targets <- list(
                           group_by(CASC) |>
                           summarise(id = unique(CASC)) |> 
                           filter(CASC == unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)),
+                        focal_stations = FALSE,
+                        focal_station_data = p2_metadata_sf,
                         file_png = sprintf("src/assets/images/states_stations_%s.png", 
                                            unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)),
                         width = 9, height = 6,
                         color_scheme = p3_colors),
              pattern = map(p2_expanded_2000_2pct_droughts_byCASC),
+             format = "file"),
+  
+  # plotting inset with for major drought periods
+  tar_target(p3_inset_stations_map_byMajorDrought_png,
+             plot_inset(station_data = p2_metadata_sf,
+                        station = TRUE,
+                        us_data = p2_states,
+                        regions = FALSE,
+                        region_sf = p2_states,
+                        focal_stations = TRUE,
+                        focal_station_data = p2_metadata_sf |> 
+                          filter(StaID %in% p2_expanded_droughts_during_major_drought_periods$StaID),
+                        file_png = sprintf("src/assets/images/drought_period_stations_%s.png", 
+                                           unique(p2_expanded_droughts_during_major_drought_periods$name)),
+                        width = 9, height = 6,
+                        color_scheme = p3_colors),
+             pattern = map(p2_expanded_droughts_during_major_drought_periods),
              format = "file"),
   
   # plotting inset without stations and all regions
@@ -96,6 +118,8 @@ p3_targets <- list(
                           left_join(p2_CASCs, by = "NAME") |>
                           group_by(CASC) |>
                           summarise(id = unique(CASC)),
+                        focal_stations = FALSE,
+                        focal_station_data = p2_metadata_sf,
                         file_png = "src/assets/images/casc_regions_map.png",
                         width = 9, height = 6,
                         color_scheme = p3_colors),
