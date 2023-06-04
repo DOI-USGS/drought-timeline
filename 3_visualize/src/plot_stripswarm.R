@@ -28,20 +28,31 @@ event_swarm_plot_compressed_vertical <- function(swarm_data){
 
 
 #' @param chart_type Whether to include years as labels or not 
-event_violin_vertical <- function(drought_data, color_scheme){
+event_violin_vertical <- function(drought_data, major_drought_periods, color_scheme){
   # focal CASC
   focal_CASC <- unique(drought_data$CASC)
   
   # plot violin vertically
-  drought_data |> 
-    ggplot(aes(y = date, x = CASC)) +
-    ggdist::geom_dots(color = color_scheme$drought_event_color,
+
+  major_drought_periods |> 
+    ggplot(aes(y = start,
+               x = xfill)) +
+    # drought events shaded
+    geom_ribbon(aes(ymin = start, ymax = end,
+                    group = name),
+                fill = color_scheme$drought_period_shading, alpha = 0.7) +
+    ggdist::geom_dots(data = drought_data,
+                      aes(y = date, x = threshold),
+                      color = color_scheme$drought_event_color,
                       fill = NA, side = "both") +
     theme_nothing() + 
       theme(axis.text.x = element_blank(),
-            axis.text.y = element_text(size = 6, color = '#dddddd', angle = 180),
-            panel.grid.major.y = element_line(color = '#dddddd', linetype = "dashed"),
-            plot.title = element_text(size = 8, color = "#333333", 
+            axis.text.y = element_text(size = 6, 
+                                       color = color_scheme$annotation_grey, 
+                                       angle = 180),
+            panel.grid.major.y = element_line(color = color_scheme$annotation_grey, 
+                                              linewidth = 0.2),
+            plot.title = element_text(size = 8, color = color_scheme$annotation_grey, 
                                       angle = 180)) +
       scale_y_date(breaks = scales::date_breaks(width = '5 years'),
                    labels = scales::date_format('%Y'), 
@@ -49,6 +60,7 @@ event_violin_vertical <- function(drought_data, color_scheme){
                               as.Date("2020-12-31")),
                    expand = c(0,0),
                    position = 'right')+
+    scale_x_continuous(limits = c(1.2, 2.8))+
       ggtitle(focal_CASC)
 
   

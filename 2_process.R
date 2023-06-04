@@ -122,7 +122,8 @@ p2_targets <- list(
                name = rep(p2_major_droughts$name, each = 381),
                start = rep(p2_major_droughts$start, each = 381),
                end = rep(p2_major_droughts$end, each = 381),
-               angle = rep(0:380, 5)
+               angle = rep(0:380, 5),
+               xfill = rep(seq(0, 3.8, by = 0.01), 5)
              ))
   
 )
