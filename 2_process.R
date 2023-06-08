@@ -111,6 +111,7 @@ p2_targets <- list(
              tibble(
                name = c("Dust Bowl", "1950s Drought", "1960s Drought", 
                         "1980s Drought", "Turn-of-the-Century Drought"),
+               major_drought_id = c("1930", "1952", "1962", "1987", "1999"),
                start = as.Date(c("1930-02-01", "1952-11-01", "1962-12-01",
                                  "1987-05-01", "1999-09-01")),
                end = as.Date(c("1941-08-31", "1957-08-31", "1968-10-31",

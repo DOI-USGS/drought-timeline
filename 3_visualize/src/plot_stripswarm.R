@@ -41,10 +41,16 @@ event_violin_vertical <- function(drought_data, major_drought_periods, color_sch
     geom_ribbon(aes(ymin = start, ymax = end,
                     group = name),
                 fill = color_scheme$drought_period_shading, alpha = 0.7) +
-    ggdist::geom_dots(data = drought_data,
-                      aes(y = date, x = threshold),
-                      color = color_scheme$drought_event_highlight,
-                      fill = NA, side = "both") +
+    # ggdist::geom_dots(data = drought_data,
+    #                   aes(y = date, x = threshold),
+    #                   color = color_scheme$drought_event_highlight,
+    #                   fill = NA, side = "both") +
+    geom_violin(data = drought_data,
+                aes(x = threshold, y = date),
+                color = NA, 
+                fill = color_scheme$drought_event_highlight,
+                scale = "count",
+                adjust = 0.2) +
     theme_nothing() + 
       theme(axis.text.x = element_blank(),
             axis.text.y = element_text(size = 6, 
@@ -60,7 +66,7 @@ event_violin_vertical <- function(drought_data, major_drought_periods, color_sch
                               as.Date("2020-12-31")),
                    expand = c(0,0),
                    position = 'right')+
-    scale_x_continuous(limits = c(1.2, 2.8))+
+    scale_x_continuous(limits = c(1.25, 2.75))+
       ggtitle(focal_CASC)
 
   

@@ -102,7 +102,7 @@ p3_targets <- list(
                         focal_station_data = p2_metadata_sf |> 
                           filter(StaID %in% p2_expanded_droughts_during_major_drought_periods$StaID),
                         file_png = sprintf("src/assets/images/drought_period_stations_%s.png", 
-                                           unique(p2_expanded_droughts_during_major_drought_periods$name)),
+                                           unique(p2_expanded_droughts_during_major_drought_periods$major_drought_id)),
                         width = 9, height = 6,
                         color_scheme = p3_colors),
              pattern = map(p2_expanded_droughts_during_major_drought_periods),

@@ -10,12 +10,13 @@ plot_radial_chart <- function(major_drought_periods, drought_events, color_schem
                 aes(x = CASC_angle, y = date, group = CASC),
                 color = NA, 
                 fill = color_scheme$drought_event_highlight,
-                scale = "count") +
+                scale = "count",
+                adjust = 0.2) +
     scale_y_date(breaks = scales::date_breaks(width = '10 years'),
                  #labels = NULL,
                  labels = scales::date_format('%Y'), # use to check line-up on website
                  limits = c(as.Date("1900-01-01"), 
-                            as.Date("2020-12-01")),
+                            as.Date("2020-12-31")),
                  expand = c(0,0)) +
     scale_x_continuous(limits = c(0, 373)) +
     coord_polar() +
