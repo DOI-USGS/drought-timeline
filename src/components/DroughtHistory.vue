@@ -343,7 +343,7 @@ export default {
                 scrollTrigger: {
                   markers: false,
                   trigger: `#${rectIDFull}`,
-                  start: `top center`,
+                  start: `top 80%`,
                   end: 'bottom 200',
                   toggleClass: {targets: [`#drought-text-${rectlID}`, `#annotation-drawing-${rectlID}`], className:"visible"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
@@ -354,7 +354,7 @@ export default {
                 scrollTrigger: {
                   markers: false,
                   trigger: `#${rectIDFull}`,
-                  start: `top center`,
+                  start: `top 80%`,
                   end: 'bottom 200',
                   toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
