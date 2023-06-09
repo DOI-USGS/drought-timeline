@@ -94,12 +94,6 @@ p2_targets <- list(
              pattern = map(p2_drought_chunks)),
   
   # Expand drought properties of 2000 most severe droughts and group by CASC
-  tar_target(p2_2000_severe_2pct_droughts_byCASC,
-             p2_2000_severe_2pct_droughts |> 
-               group_by(CASC) |>  
-               tar_group(),
-             iteration = "group"),
-  
   tar_target(p2_expanded_2000_2pct_droughts_byCASC,
              expand_drought_prop(drought_prop = p2_2000_severe_2pct_droughts) |> 
                group_by(CASC) |>
@@ -120,11 +114,14 @@ p2_targets <- list(
                mutate(duration = as.duration(interval(start, end)) / ddays(1))),
   
   ## Expand to determine all days within drought
-  tar_target(p2_major_droughts_expanded_by_day,
+  tar_target(p2_major_droughts_expanded,
              expand_drought_prop(drought_prop = p2_major_droughts)),
   
   ## Expand for plotting geom ribbons (shading on regional plots)
-  tar_target(p2_major_droughts_expanded,
+  # here, these produce a row for each degree from 0 to 380 (n = 381)
+  # for each major drought event. These then can be drawn as complete
+  # ribbons on the polar plot
+  tar_target(p2_major_droughts_expanded_radial,
              data.frame(
                name = rep(p2_major_droughts$name, each = 381),
                start = rep(p2_major_droughts$start, each = 381),
@@ -137,10 +134,10 @@ p2_targets <- list(
   tar_target(p2_expanded_droughts_during_major_drought_periods,
              expand_drought_prop(p2_2000_severe_2pct_droughts) |>
                # join with major droughts
-               left_join(p2_major_droughts_expanded_by_day |>
+               left_join(p2_major_droughts_expanded |>
                            rename(major_start = start, major_end = end, major_duration = duration), 
                          by = "date") |>
-               # remove all non-major drought periods
+               # remove all non-major drought periods (only major drought periods are named)
                filter(! is.na(name)) |>
                group_by(name) |>
                tar_group(),

@@ -14,8 +14,8 @@ plot_radial_chart <- function(major_drought_periods, drought_events,
                 scale = "count",
                 adjust = 0.2) +
     scale_y_date(breaks = scales::date_breaks(width = '10 years'),
-                 #labels = NULL,
-                 labels = scales::date_format('%Y'), # use to check line-up on website
+                 labels = scales::date_format('%Y'), 
+                 # limits are set so that there's blank space in center before timeline starts
                  limits = c(as.Date("1900-01-01"), 
                             as.Date("2020-12-31")),
                  expand = c(0,0)) +
@@ -32,29 +32,37 @@ plot_radial_chart <- function(major_drought_periods, drought_events,
              label = seq(1920, 2020, by = 10), 
              x = rep(0, 11),
              y = as.Date(sprintf("%s-01-01", seq(1920, 2020, by = 10))),
-             size = 2.5)
+             size = 2)
   
   ggsave(file_out,
          width = 5, height = 5, dpi = 300, limitsize = FALSE)
+  
+  return(file_out)
 }
 
 plot_radial_wedges <- function(CASC_data, file_out){
   
   wedge_df <- data.frame(
     group = factor(x = unique(CASC_data$CASC),
+                   # these levels mean that the CASCs line up with violins
                    levels = c("Southwest",
                               "Northwest", "North Central", 
                               "Midwest", "Northeast",
                               "Southeast", "South Central")),
+    # Max year as "y" for the wedges
     ymax = rep(2020, length(unique(CASC_data$CASC)))
   )
   
   ggplot(data = wedge_df, 
          aes(x = group, y = ymax)) +
-    geom_bar(width = 0.9, stat = "identity", color = "red", fill = NA) + 
-    coord_polar(start = 10)
+    geom_bar(width = 0.9, stat = "identity", aes(color = group), fill = NA) + 
+    coord_polar(start = 10) +
+    theme_void() +
+    theme(legend.position = "none")
 
   
   ggsave(file_out,
          width = 5, height = 5, dpi = 300, limitsize = FALSE)
+  
+  return(file_out)
 }

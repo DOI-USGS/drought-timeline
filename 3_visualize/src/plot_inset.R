@@ -1,5 +1,5 @@
 
-plot_inset <- function(station_data, station, us_data, regions, region_sf, focal_stations, focal_station_data, file_png, width, height, color_scheme){
+plot_inset <- function(station_data, station, us_data, regions, region_sf, focal_stations, focal_station_data, file_out, width, height, color_scheme){
   
   p <- ggplot() + 
     geom_sf(data = us_data,
@@ -10,8 +10,9 @@ plot_inset <- function(station_data, station, us_data, regions, region_sf, focal
     
     if (regions)
       p <- p + geom_sf(data = region_sf,
-                       color = color_scheme$drought_event_highlight,
-                       fill = NA,
+                       color = NA,
+                       alpha = 0.5,
+                       fill = color_scheme$drought_event_highlight,
                        linewidth = 2.5)
     
   
@@ -30,8 +31,8 @@ plot_inset <- function(station_data, station, us_data, regions, region_sf, focal
                        fill = color_scheme$drought_event_dark, 
                        size = 2.1)
   
-  ggsave(file_png, width = width, height = height, dpi = 300, bg = "transparent", limitsize = FALSE)
-  return(file_png)
+  ggsave(file_out, width = width, height = height, dpi = 300, bg = "transparent", limitsize = FALSE)
+  return(file_out)
 }
 
 

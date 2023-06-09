@@ -28,7 +28,9 @@ event_swarm_plot_compressed_vertical <- function(swarm_data){
 
 
 
-event_violin_vertical <- function(drought_data, major_drought_periods, color_scheme){
+event_violin_vertical <- function(drought_data, major_drought_periods, 
+                                  timeline_start, timeline_end,
+                                  color_scheme, file_out){
   # focal CASC
   focal_CASC <- unique(drought_data$CASC)
   
@@ -41,10 +43,6 @@ event_violin_vertical <- function(drought_data, major_drought_periods, color_sch
     geom_ribbon(aes(ymin = start, ymax = end,
                     group = name),
                 fill = color_scheme$drought_period_shading, alpha = 0.7) +
-    # ggdist::geom_dots(data = drought_data,
-    #                   aes(y = date, x = threshold),
-    #                   color = color_scheme$drought_event_highlight,
-    #                   fill = NA, side = "both") +
     geom_violin(data = drought_data,
                 aes(x = threshold, y = date),
                 color = NA, 
@@ -62,17 +60,18 @@ event_violin_vertical <- function(drought_data, major_drought_periods, color_sch
                                       angle = 180)) +
       scale_y_date(breaks = scales::date_breaks(width = '5 years'),
                    labels = scales::date_format('%Y'), 
-                   limits = c(as.Date("1920-01-01"), 
-                              as.Date("2020-12-31")),
+                   limits = c(as.Date(timeline_start), 
+                              as.Date(timeline_end)),
                    expand = c(0,0),
                    position = 'right')+
+    # Here this scale gives equidistant spacing on either side of "2" (the threshold)
     scale_x_continuous(limits = c(1.25, 2.75))+
       ggtitle(focal_CASC)
 
   
-  ggsave(sprintf("src/assets/images/duration-chart/vertical_violin_jd7d_2pct_%s.png", focal_CASC),
+  ggsave(file_out,
          width = 1.5, height = 5, dpi = 300, limitsize = FALSE)
-  
+  return(file_out)
 }
 
 
