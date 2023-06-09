@@ -34,6 +34,11 @@ event_violin_vertical <- function(drought_data, major_drought_periods,
   # focal CASC
   focal_CASC <- unique(drought_data$CASC)
   
+  # Major Drought Start dates for annotations
+  major_drought_annotations <- major_drought_periods |> 
+    group_by(name) |>
+    summarise(start_date = min(start))
+  
   # plot violin vertically
 
   major_drought_periods |> 
@@ -43,6 +48,12 @@ event_violin_vertical <- function(drought_data, major_drought_periods,
     geom_ribbon(aes(ymin = start, ymax = end,
                     group = name),
                 fill = color_scheme$drought_period_shading, alpha = 0.7) +
+    # Manually add major drought labels
+    annotate(geom = "text",
+             label = major_drought_annotations$name,
+             x = rep(2.7, length(major_drought_annotations$name)),
+             y = major_drought_annotations$start_date,
+             size = 2, angle = 180, hjust = 0, vjust = 0) +
     geom_violin(data = drought_data,
                 aes(x = threshold, y = date),
                 color = NA, 
@@ -66,7 +77,7 @@ event_violin_vertical <- function(drought_data, major_drought_periods,
                    position = 'right')+
     # Here this scale gives equidistant spacing on either side of "2" (the threshold)
     scale_x_continuous(limits = c(1.25, 2.75))+
-      ggtitle(focal_CASC)
+       ggtitle(focal_CASC) 
 
   
   ggsave(file_out,

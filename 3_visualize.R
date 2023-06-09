@@ -73,7 +73,8 @@ p3_targets <- list(
              event_violin_vertical(drought_data = p2_expanded_2000_2pct_droughts_byCASC,
                                    major_drought_periods = p2_major_droughts_expanded_radial,
                                    timeline_start = min(p2_drought_swarm_compressed$date),
-                                   timeline_end = max(p2_drought_swarm_compressed$date),
+                                   timeline_end = max(p2_drought_swarm_compressed$date + 
+                                                        p2_drought_swarm_compressed$duration),
                                    color_scheme = p3_colors,
                                    file_out = sprintf("src/assets/images/duration-chart/vertical_violin_jd7d_2pct_%s.png", 
                                                       unique(p2_expanded_2000_2pct_droughts_byCASC$CASC))),
