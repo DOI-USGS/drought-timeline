@@ -54,6 +54,19 @@
         <p>{{ annotation.text }}</p>
       </div>
     </div>
+    <div
+      v-if="!mobileView"
+      id="annotation-container"
+    >
+      <div
+        v-for="narration in narrations" 
+        :id="`drought-text-${narration.id}`"
+        :key="narration.id"
+        :class="`droughtText narration hidden`"
+      >
+        <p>{{ narration.text }}</p>
+      </div>
+    </div>
     <div id="empty-div" />
     <svg id="filter-svg">
       <filter
@@ -79,6 +92,7 @@ import { TimelineMax } from "gsap/all";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.js";
 import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
+import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 export default {
   name: "DroughtHistory",
@@ -93,6 +107,7 @@ export default {
         publicPath: process.env.BASE_URL, // allows the application to find the files when on different deployment roots
         mobileView: isMobile, // test for mobile
         annotations: null,
+        narrations: droughtNarrations_desktop.timelineEvents,
         scrollToDates:  null,
         // dimensions
         overlayWidth: null,
@@ -152,6 +167,7 @@ export default {
         const self = this;
 
         const annotation_data = this.annotations
+        const narration_data = this.narrations
 
         // set viewbox for svg with static overlay drawings
         const svgChartStatic = this.d3.select("#svg-static")
@@ -244,6 +260,21 @@ export default {
             .attr("data-width", d => d.desktop_text_width)
             .text(d => d.text)
             .call(self.wrap);
+          // On desktop, set up rectangles to trigger narrations in box at bottom
+          const narrationRects = this.svgChartDynamic.selectAll('narrationRect')
+            .data(narration_data.sort((a,b) => this.d3.ascending(a.start_date, b.start_date)))
+            .enter()
+            .append("rect")
+            .attr("id", d => "narration-rect-" + d.id)
+            .attr("class", "droughtRect")
+            .attr("x", yAxisOffset)
+            .attr("y", d => yScale(new Date(d.start_date)))
+            .attr("width", this.overlayWidth - yAxisOffset)
+            .attr("height", (d,i) => {
+              const y_diff = yScale(new Date(d.end_date)) - yScale(new Date(d.start_date))
+              return y_diff
+            })
+            .style('opacity', 0)
         } else {
           // On mobile, set up rectangles to trigger annotations
           const annotationRects = this.svgChartDynamic.selectAll('annotationRect')
@@ -402,7 +433,7 @@ export default {
               scrollTrigger: {
                 markers: false,
                 trigger: `#${scrollIDFull}`,
-                start: "top 95%",
+                start: "top 75%",
                 end: "bottom 25%",
                 toggleClass: {targets: [`#${scrollIDFull}`,`#annotation-drawing-${scrollID}`], className:"visible"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
@@ -412,6 +443,29 @@ export default {
                 onEnterBack - scrolling up, end meets scroller-end
                 onLeaveBack - scrolling up, start meets scroller-start
                 */
+              },
+            })
+          })
+
+          // find all narration text triggers (rectangles)
+          const droughtNarrationTriggers = this.$gsap.utils.toArray(".droughtRect", dynamicSVG)
+
+          // For each trigger,
+          droughtNarrationTriggers.forEach((droughtNarrationTrigger) => {
+
+            // get unique ID for text step.
+            let rectIDFull = droughtNarrationTrigger.id
+            let rectlID = rectIDFull.split('-')[2]
+            
+            // Make the narratvie text for the step visible
+            tl.to(`#${rectIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${rectIDFull}`,
+                start: `top 25%`,
+                end: 'bottom 25%',
+                toggleClass: {targets: `#drought-text-${rectlID}`, className:"visible"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
               },
             })
           })
@@ -564,6 +618,10 @@ $writeFont: 'Nanum Pen Script', cursive;
   z-index: 10;
 }
 .droughtText.mobile {
+  margin: 0 5vw 0 5vw;
+  position: absolute;
+}
+.droughtText.narration {
   margin: 0 5vw 0 5vw;
   position: absolute;
 }
