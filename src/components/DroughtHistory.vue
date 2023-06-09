@@ -77,7 +77,8 @@ import { isMobile } from 'mobile-device-detect';
 import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 import { TimelineMax } from "gsap/all";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import droughtAnnotations from "@/assets/text/droughtAnnotations.js";
+import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.js";
+import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 export default {
   name: "DroughtHistory",
@@ -91,7 +92,7 @@ export default {
         d3: null,
         publicPath: process.env.BASE_URL, // allows the application to find the files when on different deployment roots
         mobileView: isMobile, // test for mobile
-        annotations: droughtAnnotations.timelineEvents,
+        annotations: null,
         scrollToDates:  null,
         // dimensions
         overlayWidth: null,
@@ -112,6 +113,7 @@ export default {
       {id: '1999', name: 'Turn-of-the-Century Drought', start: '1999-09-01', end: '2015-09-30'}]
 
     // sort annotations
+    this.annotations = this.mobileView ? droughtAnnotationsMobile.timelineEvents: droughtAnnotationsDesktop.timelineEvents;
     this.annotations.sort((a,b) => this.d3.ascending(a.date, b.date))
 
     this.addOverlay()
