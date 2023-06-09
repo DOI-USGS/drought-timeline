@@ -2,7 +2,10 @@
   <section id="main-container">
     <section id="grid-container">
       <div id="title-container">
-        <h2>100 years of severe drought in the contiguous U.S.</h2>
+        <h2>Five droughts that changed history</h2>
+      </div>
+      <div id="intro-container">
+        <p>The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a href = "https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target = '_blank'>What is Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.</p>
       </div>
       <nav id="nav-button-container">
         <p>
@@ -465,6 +468,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-template-rows: max-content max-content max-content;
   grid-template-areas:
     "title"
+    "intro"
     "buttons"
     "chart";
   justify-content: center;
@@ -473,6 +477,10 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #title-container {
   grid-area: title;
+}
+#intro-container {
+  grid-area: intro;
+  padding-left: 5px;
 }
 #nav-button-container {
   grid-area: buttons;
