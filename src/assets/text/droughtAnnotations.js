@@ -71,6 +71,15 @@ export default {
         desktop_x_offset_per: 40,
         desktop_text_anchor: 'end',
         desktop_text_width: 370
-      }      
+      },
+      {
+        id: 'legend',
+        date: '1926-06-01',
+        text: 'Droughts are colored by duration. (Darker = longer)',
+        mobile_x_offset_per: 60,
+        desktop_x_offset_per: 58,
+        desktop_text_anchor: 'start',
+        desktop_text_width: 370
+      }    
     ]
 };
