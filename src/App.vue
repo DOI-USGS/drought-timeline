@@ -119,19 +119,20 @@ h2{
   font-size: 3em;
   margin-top: 5px;
   line-height: 1.2;
-    color: $textcolor;
+  color: $textcolor;
   @media screen and (max-width: 600px) {
     font-size: 2em;
   }
 }
 h3{
-  font-size: 2.25em;
+  font-size: 2em;
   padding-top: .25em;
+  padding-bottom: .25em;
   font-family: $SourceSans;
-  font-weight: 300;
-    color: $textcolor;
+  font-weight: 700;
+  color: $textcolor;
   @media screen and (max-width: 600px) {
-      font-size: 2em;
+      font-size: 1.5em;
   }  
 }
 p, text {

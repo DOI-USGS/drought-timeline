@@ -68,7 +68,26 @@
         <p v-html="narration.text"></p>
       </div>
     </div>
-    <div id="empty-div" />
+    <section id="region-container" class = "page-section">
+      <h3>Droughts in every region</h3>
+      <p>The five major drought events described above stand out in the history of the conterminous U.S. (the lower 48 states) because of their large effects on agriculture, wildfires, and streamflow. But droughts happen in every region of the U.S., and dry years in some regions are wet years in others. How do the 100-year histories of drought compare across regions?</p>
+      <div id = "region-grid-container"></div>
+      <div id = "region-description">
+        <p>Placeholder for dynamically updating description of region</p>
+      </div>
+    </section>
+    <section id="methods-container" class = "page-section">
+      <h3>Methods</h3>
+      <p>These are the methods that we used to process the data</p>
+    </section>
+    <section id="references-container" class = "page-section">
+      <h3>References</h3>
+      <p>These are the references</p>
+    </section>
+    <section id="authors-container" class = "page-section">
+      <h3>Authors</h3>
+      <p>These are the people who contributed to the site</p>
+    </section>
     <svg id="filter-svg">
       <filter
         id="shadow2"
@@ -649,7 +668,24 @@ $writeFont: 'Nanum Pen Script', cursive;
   width: 0;
   height: 0;
 }
-#empty-div {
+.page-section {
+  margin: auto;
+  max-width: 90vw;
+}
+#region-grid-container {
+  height: 500px;
+  display: grid
+}
+#region-description {
+  height: 100px;
+}
+#methods-container {
+  height: 300px;
+}
+#references-container {
+  height: 300px;
+}
+#authors-container {
   height: 300px;
 }
 </style>
