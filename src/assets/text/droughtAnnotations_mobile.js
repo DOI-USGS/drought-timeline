@@ -2,9 +2,10 @@ export default {
     timelineEvents: [
       {
         id: '1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by date
-        date: '1922-01-01', // Date marking start of annotation. Determines y placement on mobile AND scroll order for annotations on mobile
-        text: 'Event 1: 1/1/1922', // Text of annotation
-        mobile_x_offset_per: 20 // x placement of circle on mobile, as percent of chart width (0 = left edge, 100 = right edge)
+        date: '1926-06-01', // Date marking start of annotation. Determines y placement on mobile AND scroll order for annotations on mobile
+        text: '<a href="https://en.wikipedia.org/wiki/Dust_Bowl" target="_blank">"This is a quote about drought"</a>', // Text of annotation
+        quote: true, // required for quote, for styling
+        mobile_x_offset_per: 30 // x placement of circle on mobile, as percent of chart width (0 = left edge, 100 = right edge)
       },
       {
         id: '4',

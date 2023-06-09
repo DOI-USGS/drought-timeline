@@ -3,10 +3,12 @@ export default {
       {
         id: '1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by date
         date: '1923-04-01', // Date marking start of annotation. Determines y placement on deskop and mobile AND scroll order for annotations on mobile
-        text: 'Event 1: 4/1/1923', // Text of annotation
+        text: '"This is a quote about drought"', // Text of annotation
+        url: "https://en.wikipedia.org/wiki/Dust_Bowl", // Required for quote
+        quote: true, // required for quote, for styling
         desktop_x_offset_per: 60, // x placement on desktop, as percent  of chart width
         desktop_text_anchor: 'start', // alignment of text on desktop (either 'start', 'middle', or 'end')
-        desktop_text_width: 100, // Max width allowed for text wrapping
+        desktop_text_width: 150, // Max width allowed for text wrapping
       },
       {
         id: '4',

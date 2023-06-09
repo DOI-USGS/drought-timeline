@@ -49,9 +49,10 @@
         v-for="annotation in annotations" 
         :id="`drought-text-${annotation.id}`"
         :key="annotation.id"
-        :class="`droughtText mobile hidden`"
+        :class = "annotation.quote ? 'quote' : ''"
+        class="droughtText mobile hidden"
       >
-        <p>{{ annotation.text }}</p>
+        <p v-html="annotation.text"></p>
       </div>
     </div>
     <div
@@ -64,7 +65,7 @@
         :key="narration.id"
         :class="`droughtText narration hidden`"
       >
-        <p>{{ narration.text }}</p>
+        <p v-html="narration.text"></p>
       </div>
     </div>
     <div id="empty-div" />
@@ -251,9 +252,10 @@ export default {
           const annotationItems = this.svgChartDynamic.selectAll('annotationText')
             .data(annotation_data)
             .enter()
+            .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
             .append("text")
             .attr("id", d => "annotation-text-" + d.id)
-            .attr("class", d => "droughtText desktop hidden")
+            .attr("class", d => d.quote ? "droughtText desktop quote hidden" : "droughtText desktop hidden")
             .attr("x", d => xScale(d.desktop_x_offset_per))
             .attr("y", d => yScale(new Date(d.date)))
             .attr("text-anchor", d => d.desktop_text_anchor)
@@ -590,13 +592,15 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #swarm_vertical {
   width: 100%;
-  transform: rotate(180deg)
+  transform: rotate(180deg);
+  pointer-events: none;
 }
 #chart-overlay-dynamic {
   grid-area: chart;
 }
 #chart-overlay-static {
   grid-area: chart;
+  pointer-events: none;
 }
 // Class for paths in AI-generated annotation_drawings-01.svg
 .cls-1 {
@@ -613,9 +617,6 @@ $writeFont: 'Nanum Pen Script', cursive;
   background-color: white;
   opacity: 0.8;
   box-shadow: 0px -5px 5px #B9B9B9;
-}
-.droughtText {
-  z-index: 10;
 }
 .droughtText.mobile {
   margin: 0 5vw 0 5vw;
@@ -657,11 +658,24 @@ $writeFont: 'Nanum Pen Script', cursive;
   z-index: 10;
   font-weight: 300;
   font-size: 1em;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 .droughtText.mobile {
   z-index: 10;
   font-weight: 500;
   font-size: 1em;
+}
+.droughtText.quote {
+  font-style: italic;
+}
+.droughtText.desktop.quote {
+  text-shadow: 2px 4px 4px rgba(179,179,179,0.6);
+}
+.droughtText.desktop.quote:hover {
+  font-style: italic;
+  font-weight: 500;
 }
 .yAxisText {
   font-size: 2em;
