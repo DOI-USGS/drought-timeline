@@ -1,4 +1,5 @@
-plot_radial_chart <- function(major_drought_periods, drought_events, color_scheme){
+plot_radial_chart <- function(major_drought_periods, drought_events, 
+                              color_scheme, file_out){
   
   # Using the major droughts, create concentric circles that are grey
   ggplot(data = major_drought_periods, aes(x = angle, y = start))+
@@ -18,7 +19,7 @@ plot_radial_chart <- function(major_drought_periods, drought_events, color_schem
                  limits = c(as.Date("1900-01-01"), 
                             as.Date("2020-12-31")),
                  expand = c(0,0)) +
-    scale_x_continuous(limits = c(0, 373)) +
+    scale_x_continuous(limits = c(0, 371)) +
     coord_polar() +
     theme_minimal() +
     theme(legend.position = "none",
@@ -33,6 +34,27 @@ plot_radial_chart <- function(major_drought_periods, drought_events, color_schem
              y = as.Date(sprintf("%s-01-01", seq(1920, 2020, by = 10))),
              size = 2.5)
   
-  ggsave("src/assets/images/duration-chart/polar_background_plot.png",
+  ggsave(file_out,
+         width = 5, height = 5, dpi = 300, limitsize = FALSE)
+}
+
+plot_radial_wedges <- function(CASC_data, file_out){
+  
+  wedge_df <- data.frame(
+    group = factor(x = unique(CASC_data$CASC),
+                   levels = c("Southwest",
+                              "Northwest", "North Central", 
+                              "Midwest", "Northeast",
+                              "Southeast", "South Central")),
+    ymax = rep(2020, length(unique(CASC_data$CASC)))
+  )
+  
+  ggplot(data = wedge_df, 
+         aes(x = group, y = ymax)) +
+    geom_bar(width = 0.9, stat = "identity", color = "red", fill = NA) + 
+    coord_polar(start = 10)
+
+  
+  ggsave(file_out,
          width = 5, height = 5, dpi = 300, limitsize = FALSE)
 }

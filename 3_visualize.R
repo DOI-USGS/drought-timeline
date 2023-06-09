@@ -126,9 +126,16 @@ p3_targets <- list(
              format = "file"),
   
   # plotting radial thumbnail plot
-  tar_target(p3_polar_background_plot_png,
+  tar_target(p3_polar_violin_plot_png,
              plot_radial_chart(major_drought_periods = p2_major_droughts_expanded,
                                drought_events = p2_expanded_2000_2pct_droughts_byCASC,
-                               color_scheme = p3_colors),
+                               color_scheme = p3_colors,
+                               file_out = "src/assets/images/duration-chart/polar_background_plot.png"),
+             format = "file"),
+  
+  # plotting radial plot with wedges to svg 
+  tar_target(p3_polar_wedge_plot_svg,
+             plot_radial_wedges(CASC_data = p2_CASCs,
+                                file_out = "src/assets/images/duration-chart/polar_wedges.svg"),
              format = "file")
 )
