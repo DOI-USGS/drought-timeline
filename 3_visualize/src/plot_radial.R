@@ -70,12 +70,14 @@ plot_radial_wedges <- function(CASC_data, file_out){
   
   # grid.garnish needs a handle - determine by running grid.ls() and checking
   # names under panel
+  # CRITICAL that row order of referenced dataframe MATCHES plotting order
   gridSVG::grid.garnish('geom_rect',
                'class' = rep('wedge', nrow(wedge_df)),
                'id' = wedge_df$CASC_name,
                group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
   
   gridSVG::grid.export(file_out, strict = FALSE)
-  graphics.off()
+  dev.off(which=dev.cur())
+  
   return(file_out)
 }

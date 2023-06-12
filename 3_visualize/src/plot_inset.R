@@ -50,13 +50,14 @@ plot_inset <- function(station_data, station, us_data, regions, region_sf, focal
     
     # grid.garnish needs a handle - determine by running grid.ls() and checking
     # names under panel
+    # CRITICAL that row order of referenced dataframe MATCHES plotting order
     gridSVG::grid.garnish('GRID.pathgrob',
                           'class' = rep('CASC_region', nrow(us_data)),
                           'id' = us_data$CASC,
                           group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
     
     gridSVG::grid.export(file_out, strict = FALSE)
-    graphics.off()
+    dev.off(which=dev.cur())
   } else {
     stop('svg export only set up for when `station`, `regions` and `focal_stations` set to FALSE')
   }
