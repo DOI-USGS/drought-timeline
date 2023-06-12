@@ -1,6 +1,13 @@
 
-plot_inset <- function(station_data, station, us_data, regions, region_sf, focal_stations, focal_station_data, file_out, width, height, color_scheme){
-  
+plot_inset <- function(station_data, station, us_data, regions, region_sf, focal_stations, focal_station_data, file_out, svg_export, width, height, color_scheme){
+  # if exporting as svg, must have polygons instead of multipolygons
+  # have to cast to multipolygon first to not lose some polygons
+  if (svg_export) {
+    us_data <- us_data %>%
+      st_cast("MULTIPOLYGON") %>%
+      st_cast("POLYGON")
+  }
+    
   p <- ggplot() + 
     geom_sf(data = us_data,
             fill = "white",
@@ -31,7 +38,29 @@ plot_inset <- function(station_data, station, us_data, regions, region_sf, focal
                        fill = color_scheme$drought_event_dark, 
                        size = 2.1)
   
-  ggsave(file_out, width = width, height = height, dpi = 300, bg = "transparent", limitsize = FALSE)
+  if (!svg_export) {
+    ggsave(file_out, width = width, height = height, dpi = 300, bg = "transparent", limitsize = FALSE)
+  } else if (svg_export && !station && !regions && !focal_stations) {
+    
+    # gridSVG approach modified from 
+    # https://gist.github.com/jimjam-slam/1d988451ae15882c889f49cf20b99a64
+    grob <- p %>% ggplotGrob() %>% grid::grid.force()
+    dev.new(width = width, height = height, units = 'in', res = 300)
+    grid::grid.draw(grob)
+    
+    # grid.garnish needs a handle - determine by running grid.ls() and checking
+    # names under panel
+    gridSVG::grid.garnish('GRID.pathgrob',
+                          'class' = rep('CASC_region', nrow(us_data)),
+                          'id' = us_data$CASC,
+                          group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
+    
+    gridSVG::grid.export(file_out, strict = FALSE)
+    graphics.off()
+  } else {
+    stop('svg export only set up for when `station`, `regions` and `focal_stations` set to FALSE')
+  }
+  
   return(file_out)
 }
 
