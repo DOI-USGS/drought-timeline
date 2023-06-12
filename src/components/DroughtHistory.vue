@@ -51,7 +51,10 @@
         <p>{{ annotation.text }}</p>
       </div>
     </div>
-    <div id="empty-div" />
+    <div id="empty-div">
+      <cascMap id="casc-svg" />
+      <polarWedges id="wedges-svg" />
+    </div>
     <svg id="filter-svg">
       <filter
         id="shadow2"
@@ -76,10 +79,14 @@ import { TimelineMax } from "gsap/all";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import droughtAnnotations from "@/assets/text/droughtAnnotations.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
+import polarWedges from "@/assets/svgs/polar_wedges.svg";
+import cascMap from "@/assets/svgs/casc_regions_map.svg";
 export default {
   name: "DroughtHistory",
     components: {
-      annotationDrawings
+      annotationDrawings,
+      polarWedges,
+      cascMap
     },
     props: {
     },
@@ -114,6 +121,8 @@ export default {
     this.addOverlay()
 
     this.addAnimations()
+
+    this.addInteractions()
   },
     methods:{
       isMobile() {
@@ -411,6 +420,25 @@ export default {
             })
           })
         }
+      },
+      addInteractions() {
+        const self = this;
+
+        // Add interaction to wedges
+        const wedgesSVG = self.d3.select("#wedges-svg")
+        console.log(wedgesSVG.selectAll('.wedge'))
+        wedgesSVG.selectAll('.wedge')
+           .on("mouseover", (event, d) => {
+               console.log(event.target.parentElement.id) // unique wedge id - use to tie to regional violin and map
+            })
+
+        // add interaction to CASC regions map
+        const cascSVG = self.d3.select("#casc-svg")
+        console.log(cascSVG.selectAll('.CASC_region'))
+        cascSVG.selectAll('.CASC_region')
+           .on("mouseover", (event, d) => {
+               console.log(event.target.id) // unique wedge id - use to tie to regional violin and map
+            })
       },
       // function to wrap text added with d3 modified from
       // https://stackoverflow.com/questions/24784302/wrapping-text-in-d3
