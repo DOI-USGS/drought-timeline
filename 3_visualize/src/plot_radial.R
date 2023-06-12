@@ -51,18 +51,31 @@ plot_radial_wedges <- function(CASC_data, file_out){
                               "Southeast", "South Central")),
     # Max year as "y" for the wedges
     ymax = rep(2020, length(unique(CASC_data$CASC)))
-  )
+  ) %>%
+    arrange(group) %>% # svg order = group levels = plotting order
+    mutate(CASC_name = as.character(group))
   
-  ggplot(data = wedge_df, 
+  wedge_plot <- ggplot(data = wedge_df, 
          aes(x = group, y = ymax)) +
-    geom_bar(width = 0.9, stat = "identity", aes(color = group), fill = NA) + 
+    geom_bar(width = 0.9, stat = "identity", aes(color = group), fill = 'white', alpha = 0) + 
     coord_polar(start = 10) +
     theme_void() +
     theme(legend.position = "none")
-
+   
+  # gridSVG approach modified from 
+  # https://gist.github.com/jimjam-slam/1d988451ae15882c889f49cf20b99a64
+  wedge_grob <- wedge_plot %>% ggplotGrob() %>% grid::grid.force()
+  dev.new(width = 5, height = 5, units = 'in', res = 300)
+  grid::grid.draw(wedge_grob)
   
-  ggsave(file_out,
-         width = 5, height = 5, dpi = 300, limitsize = FALSE)
+  # grid.garnish needs a handle - determine by running grid.ls() and checking
+  # names under panel
+  gridSVG::grid.garnish('geom_rect',
+               'class' = rep('wedge', nrow(wedge_df)),
+               'id' = wedge_df$CASC_name,
+               group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
   
+  gridSVG::grid.export(file_out, strict = FALSE)
+  graphics.off()
   return(file_out)
 }
