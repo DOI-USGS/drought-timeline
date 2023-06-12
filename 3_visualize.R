@@ -155,6 +155,6 @@ p3_targets <- list(
   # plotting radial plot with wedges to svg 
   tar_target(p3_polar_wedge_plot_svg,
              plot_radial_wedges(CASC_data = p2_CASCs,
-                                file_out = "src/assets/images/duration-chart/polar_wedges.svg"),
+                                file_out = "src/assets/svgs/polar_wedges.svg"),
              format = "file")
 )
