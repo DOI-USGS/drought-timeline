@@ -2,7 +2,7 @@ source('2_process/src/prep_stripswarm.R')
 
 p2_targets <- list(
   ##### General metadata #####
-  tar_target(p2_metadata,
+  tar_target(p2_metadata_raw,
              readr::read_csv(p1_metadata_csv, col_types=cols())),
   
   # Define states that are in each CASC region
@@ -31,10 +31,21 @@ p2_targets <- list(
                                                      "Arkansas") ~ "Southeast",
                                          NAME %in% c("Arizona", "California", 
                                                      "Utah", "Nevada") ~ "Southwest",
-                                         TRUE ~ "not sorted")) 
-             ),
+                                         TRUE ~ "not sorted"),
+                      # these angles are set ~51.4 degrees apart starting at Midwest for polar plot
+                      "CASC_angle" = case_when(CASC == "Midwest" ~ 39,
+                                               CASC == "Northeast" ~ 90,
+                                               CASC == "Southeast" ~ 143.8,
+                                               CASC == "South Central" ~ 195.2,
+                                               CASC == "Southwest" ~ 250,
+                                               CASC == "Northwest" ~ 302,
+                                               CASC == "North Central" ~ 348)) 
+  ),
+  # Attach CASCs to metadata
+  tar_target(p2_metadata,
+             p2_metadata_raw |> left_join(p2_CASCs, by = "STATE")),
   
-  ##### Data for 1951-2020 #####
+  
   
   ###### Load drought properties ######
   ## Using only variable 7d drought properties
@@ -65,11 +76,11 @@ p2_targets <- list(
              p2_all_2pct_droughts |>
                slice_max(order_by = severity,
                          n = 2000)
-             ),
-
+  ),
+  
   # Identify drought chunks
   tar_target(p2_drought_chunks,
-             identify_drought_chunks(p2_2000_severe_2pct_droughts, 
+             identify_drought_chunks(drought_prop = p2_2000_severe_2pct_droughts, 
                                      min_chunk_days = 365)),
   
   # Process data to generate swarm
@@ -77,10 +88,59 @@ p2_targets <- list(
   ## nrow = # of drought events = nrow(p2_prop_severe_2pct_droughts)
   tar_target(p2_drought_swarm_compressed,
              create_event_swarm_compressed(event_data = p2_2000_severe_2pct_droughts,
-                                start_period = p2_drought_chunks$start_date,
-                                end_period = p2_drought_chunks$break_date,
-                                max_droughts = p2_drought_chunks$max_single_day_droughts),
-             pattern = map(p2_drought_chunks))
+                                           start_period = p2_drought_chunks$start_date,
+                                           end_period = p2_drought_chunks$break_date,
+                                           max_droughts = p2_drought_chunks$max_single_day_droughts),
+             pattern = map(p2_drought_chunks)),
   
+  # Expand drought properties of 2000 most severe droughts and group by CASC
+  tar_target(p2_expanded_2000_2pct_droughts_byCASC,
+             expand_drought_prop(drought_prop = p2_2000_severe_2pct_droughts) |> 
+               group_by(CASC) |>
+               tar_group(),
+             iteration = "group"),
+  
+  ## Define the 5 major drought periods
+  tar_target(p2_major_droughts,
+             tibble(
+               name = c("Dust Bowl", "1950s Drought", "1960s Drought", 
+                        "1980s Drought", "Turn-of-the-Century Drought"),
+               major_drought_id = c("1930", "1952", "1962", "1987", "1999"),
+               start = as.Date(c("1930-02-01", "1952-11-01", "1962-12-01",
+                                 "1987-05-01", "1999-09-01")),
+               end = as.Date(c("1941-08-31", "1957-08-31", "1968-10-31",
+                               "1992-10-31", "2015-09-30"))
+             ) |>
+               mutate(duration = as.duration(interval(start, end)) / ddays(1))),
+  
+  ## Expand to determine all days within drought
+  tar_target(p2_major_droughts_expanded,
+             expand_drought_prop(drought_prop = p2_major_droughts)),
+  
+  ## Expand for plotting geom ribbons (shading on regional plots)
+  # here, these produce a row for each degree from 0 to 380 (n = 381)
+  # for each major drought event. These then can be drawn as complete
+  # ribbons on the polar plot
+  tar_target(p2_major_droughts_expanded_radial,
+             data.frame(
+               name = rep(p2_major_droughts$name, each = 381),
+               start = rep(p2_major_droughts$start, each = 381),
+               end = rep(p2_major_droughts$end, each = 381),
+               angle = rep(0:380, 5),
+               xfill = rep(seq(0, 3.8, by = 0.01), 5)
+             )),
+  
+  ## Collect all droughts that start during the five major droughts for mapping insets
+  tar_target(p2_expanded_droughts_during_major_drought_periods,
+             expand_drought_prop(p2_2000_severe_2pct_droughts) |>
+               # join with major droughts
+               left_join(p2_major_droughts_expanded |>
+                           rename(major_start = start, major_end = end, major_duration = duration), 
+                         by = "date") |>
+               # remove all non-major drought periods (only major drought periods are named)
+               filter(! is.na(name)) |>
+               group_by(name) |>
+               tar_group(),
+             iteration = "group")
   
 )

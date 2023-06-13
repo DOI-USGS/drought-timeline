@@ -8,6 +8,13 @@ _targets
 !*/out/CONUS_1951_2020/
 */out/CONUS_1951_2020/*
 
+# Eventually ignore images (can build locally with R and then put on S3)
+# for now, commit them.
+#src/assets/images/*
+
+# ignore pdf files output by graphics device when generating svgs
+Rplots*.pdf
+
 # Allow the `.empty` files to be committed
 !*/in/.empty
 !*/tmp/.empty

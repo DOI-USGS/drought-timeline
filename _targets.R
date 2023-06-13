@@ -18,7 +18,9 @@ tar_option_set(packages = c("retry",
                             'cowplot',
                             'sf',
                             'spData',
-                            'rmapshaper'))
+                            'rmapshaper',
+                            'grid',
+                            'gridSVG'))
 
 # Phase target makefiles
 source("0_config.R")
