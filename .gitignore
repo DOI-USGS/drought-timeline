@@ -9,7 +9,7 @@ _targets
 */out/CONUS_1951_2020/*
 
 # Ignore images (can build locally with R and then put on S3)
-src/assets/images/*
+#src/assets/images/*
 
 # ignore pdf files output by graphics device when generating svgs
 Rplots*.pdf
