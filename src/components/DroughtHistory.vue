@@ -113,6 +113,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.js";
 import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
 import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
+import droughtImages from "@/assets/text/droughtImages.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 export default {
   name: "DroughtHistory",
@@ -128,6 +129,7 @@ export default {
         mobileView: isMobile, // test for mobile
         annotations: null,
         narrations: droughtNarrations_desktop.timelineEvents,
+        images: droughtImages.timelineEvents,
         scrollToDates:  null,
         // dimensions
         overlayWidth: null,
@@ -187,6 +189,7 @@ export default {
 
         const annotation_data = this.annotations
         const narration_data = this.narrations
+        const image_data = this.images
 
         // set viewbox for svg with static overlay drawings
         const svgChartStatic = this.d3.select("#svg-static")
@@ -237,7 +240,7 @@ export default {
           .attr("height", (d) => {
             return yScale(new Date(d.end)) - yScale(new Date(d.start))
           })
-          .attr("rx", 5)
+          .attr("rx", 4)
           .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
           .attr("opacity", 1)
         
@@ -324,6 +327,21 @@ export default {
             .attr("cy", d => yScale(new Date(d.date)))
             .attr("r", 4)
         }
+
+        // Set up images
+        const annotationImages = this.svgChartDynamic.selectAll('annotationImages')
+          .data(image_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
+          .enter()
+          .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
+          .append("svg:image")
+          .attr("id", d => "annotation-image-" + d.id)
+          .attr("class", "droughtImage hidden")
+          .attr("x", d => this.mobileView ? xScale(d.mobile_x_offset_per) : xScale(d.desktop_x_offset_per))
+          .attr("y", d => yScale(new Date(d.date)))
+          .attr("width", d => this.mobileView ? xScale(d.mobile_width_per) : xScale(d.desktop_width_per))
+          .attr("xlink:href", d => d.url)
+          .attr("alt", d => d.alt)
+
       },
       addAnimations() {
         // Set up timeline
@@ -477,7 +495,7 @@ export default {
             let rectIDFull = droughtNarrationTrigger.id
             let rectlID = rectIDFull.split('-')[2]
             
-            // Make the narratvie text for the step visible
+            // Make the narrative text for the step visible
             tl.to(`#${rectIDFull}`, {
               scrollTrigger: {
                 markers: false,
@@ -490,6 +508,30 @@ export default {
             })
           })
         }
+
+        // Add image animations
+        const droughtImages = this.$gsap.utils.toArray(".droughtImage", dynamicSVG)
+
+        // For each trigger,
+        droughtImages.forEach((droughtImage) => {
+
+          // get unique ID for text step.
+          let imageIDFull = droughtImage.id
+          let imagelID = imageIDFull.split('-')[2]
+          
+          // Make the image for the step visible
+          tl.to(`#${imageIDFull}`, {
+            scrollTrigger: {
+              markers: false,
+              trigger: `#${imageIDFull}`,
+              start: `top 25%`,
+              end: 'bottom 25%',
+              toggleClass: {targets: `#annotation-image-${imagelID}`, className:"visible"}, // adds class to target when triggered
+              toggleActions: "restart reverse none reverse" 
+            },
+          })
+        })
+
       },
       // function to wrap text added with d3 modified from
       // https://stackoverflow.com/questions/24784302/wrapping-text-in-d3

@@ -51,9 +51,9 @@ export default {
       },
       {
         id: 'dustbowl_1',
-        date: '1930-06-01',
+        date: '1930-07-01',
         text: 'dustbowl text 1 <a href="https://en.wikipedia.org/wiki/Dust_Bowl" target = "_blank">source</a>',
-        mobile_x_offset_per: 20
+        mobile_x_offset_per: 17
       },
       {
         id: '1950s_1',
