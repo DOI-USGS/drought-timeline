@@ -48,6 +48,54 @@ export default {
         date: '1924-06-01',
         text: 'This drought was 126 days long',
         mobile_x_offset_per: 38
-      }      
+      },
+      {
+        id: 'dustbowl_1',
+        date: '1930-06-01',
+        text: 'dustbowl text 1 <a href="https://en.wikipedia.org/wiki/Dust_Bowl" target = "_blank">source</a>',
+        mobile_x_offset_per: 20
+      },
+      {
+        id: '1950s_1',
+        date: '1953-04-01',
+        text: '1950s drought text 1',
+        mobile_x_offset_per: 15
+      } ,
+      {
+        id: '1950s_2',
+        date: '1955-06-01',
+        text: '1950s drought text 2',
+        mobile_x_offset_per: 15
+      },
+      {
+        id: 'dustbowl_2',
+        date: '1936-01-01',
+        text: 'dustbowl text 2',
+        mobile_x_offset_per: 15
+      },
+      {
+        id: '1960s_1',
+        date: '1963-04-01',
+        text: '1960s drought text 1',
+        mobile_x_offset_per: 15
+      },
+      {
+        id: '1960s_2',
+        date: '1965-11-01',
+        text: '1960s drought text 2',
+        mobile_x_offset_per: 15
+      },
+      {
+        id: '1980s_1',
+        date: '1987-09-01',
+        text: '1980s drought text 1',
+        mobile_x_offset_per: 15
+      },
+      {
+        id: 'turn_of_century_1',
+        date: '1999-12-01',
+        text: 'Turn-of-the-Century Drought text 1',
+        mobile_x_offset_per: 15
+      }   
     ]
 };
