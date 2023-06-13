@@ -5,7 +5,12 @@
         <h2>Five droughts that changed history</h2>
       </div>
       <div id="intro-container">
-        <p>The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a href = "https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target = '_blank'>What is Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.</p>
+        <p>
+          The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a
+            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
+            target="_blank"
+          >What is Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
+        </p>
       </div>
       <nav id="nav-button-container">
         <p>
@@ -48,16 +53,16 @@
           v-for="annotation in annotations" 
           :id="`drought-text-${annotation.id}`"
           :key="annotation.id"
-          :class = "annotation.quote ? 'quote' : ''"
+          :class="annotation.quote ? 'quote' : ''"
           class="droughtText mobile hidden"
         >
-          <p v-html="annotation.text"></p>
+          <p v-html="annotation.text" />
         </div>
       </div>
       <div
         v-if="!mobileView"
         id="annotation-container"
-        class = "reveal"
+        class="reveal"
       >
         <div
           v-for="narration in narrations" 
@@ -65,30 +70,42 @@
           :key="narration.id"
           :class="`droughtText narration hidden`"
         >
-          <p v-html="narration.text"></p>
+          <p v-html="narration.text" />
         </div>
       </div>
     </section>
-    <section id="region-container" class = "page-section">
+    <section
+      id="region-container"
+      class="page-section"
+    >
       <h3>Droughts in every region</h3>
       <p>The five major drought events described above stand out in the history of the conterminous U.S. (the lower 48 states) because of their large effects on agriculture, wildfires, and streamflow. But droughts happen in every region of the U.S., and dry years in some regions are wet years in others. How do the 100-year histories of drought compare across regions?</p>
-      <div id = "region-grid-container">
+      <div id="region-grid-container">
         <cascMap id="casc-svg" />
         <polarWedges id="wedges-svg" />
       </div>
-      <div id = "region-description">
+      <div id="region-description">
         <p>Placeholder for dynamically updating description of region</p>
       </div>
     </section>
-    <section id="methods-container" class = "page-section">
+    <section
+      id="methods-container"
+      class="page-section"
+    >
       <h3>Methods</h3>
       <p>These are the methods that we used to process the data</p>
     </section>
-    <section id="references-container" class = "page-section">
+    <section
+      id="references-container"
+      class="page-section"
+    >
       <h3>References</h3>
       <p>These are the references</p>
     </section>
-    <section id="authors-container" class = "page-section">
+    <section
+      id="authors-container"
+      class="page-section"
+    >
       <h3>Authors</h3>
       <p>These are the people who contributed to the site</p>
     </section>
