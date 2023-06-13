@@ -57,6 +57,7 @@
       <div
         v-if="!mobileView"
         id="annotation-container"
+        class = "reveal"
       >
         <div
           v-for="narration in narrations" 
@@ -155,6 +156,10 @@ export default {
     this.addOverlay()
 
     this.addAnimations()
+
+    if (!this.mobileView) {
+      window.addEventListener("scroll", this.revealAnnotationContainer);
+    }
   },
     methods:{
       isMobile() {
@@ -569,6 +574,20 @@ export default {
                 }
             }
         });
+      },
+      revealAnnotationContainer() {
+        const self = this;
+
+        const scrollDistance = window.scrollY
+        const annotationContainer = document.querySelector('#annotation-container')
+        const annotationContainerHeight = annotationContainer.getBoundingClientRect().height
+
+        // Once scrolled x distance (currently annotationContainerHeight / 2), reveal annotation container
+        if (scrollDistance > annotationContainerHeight / 2) {
+          annotationContainer.classList.add("active");
+        } else {
+          annotationContainer.classList.remove("active")
+        }
       }
     }
 }
@@ -669,6 +688,8 @@ $writeFont: 'Nanum Pen Script', cursive;
   stroke-width: 1;
 }
 #annotation-container {
+  //grid-area: chart; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
+  //align-self: end; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
   height: 20vh;
   width: 100vw;
   padding: 20px 0 10px 0;
@@ -676,8 +697,18 @@ $writeFont: 'Nanum Pen Script', cursive;
   justify-self: center;
   bottom: 0;
   background-color: white;
-  opacity: 0.8;
+  opacity: 0.9;
   box-shadow: 0px -5px 5px #B9B9B9;
+}
+.reveal{
+  position: relative;
+  transform: translateY(21vh);
+  opacity: 0;
+  transition: 1s all ease;
+}
+.reveal.active {
+  transform: translateY(0);
+  opacity: 1;
 }
 .droughtText.mobile {
   margin: 0 5vw 0 5vw;
