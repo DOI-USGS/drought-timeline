@@ -40,34 +40,34 @@
       <div id="chart-overlay-static">
         <annotationDrawings />
       </div>
+      <div
+        v-if="mobileView"
+        id="annotation-container"
+      >
+        <div
+          v-for="annotation in annotations" 
+          :id="`drought-text-${annotation.id}`"
+          :key="annotation.id"
+          :class = "annotation.quote ? 'quote' : ''"
+          class="droughtText mobile hidden"
+        >
+          <p v-html="annotation.text"></p>
+        </div>
+      </div>
+      <div
+        v-if="!mobileView"
+        id="annotation-container"
+      >
+        <div
+          v-for="narration in narrations" 
+          :id="`drought-text-${narration.id}`"
+          :key="narration.id"
+          :class="`droughtText narration hidden`"
+        >
+          <p v-html="narration.text"></p>
+        </div>
+      </div>
     </section>
-    <div
-      v-if="mobileView"
-      id="annotation-container"
-    >
-      <div
-        v-for="annotation in annotations" 
-        :id="`drought-text-${annotation.id}`"
-        :key="annotation.id"
-        :class = "annotation.quote ? 'quote' : ''"
-        class="droughtText mobile hidden"
-      >
-        <p v-html="annotation.text"></p>
-      </div>
-    </div>
-    <div
-      v-if="!mobileView"
-      id="annotation-container"
-    >
-      <div
-        v-for="narration in narrations" 
-        :id="`drought-text-${narration.id}`"
-        :key="narration.id"
-        :class="`droughtText narration hidden`"
-      >
-        <p v-html="narration.text"></p>
-      </div>
-    </div>
     <section id="region-container" class = "page-section">
       <h3>Droughts in every region</h3>
       <p>The five major drought events described above stand out in the history of the conterminous U.S. (the lower 48 states) because of their large effects on agriculture, wildfires, and streamflow. But droughts happen in every region of the U.S., and dry years in some regions are wet years in others. How do the 100-year histories of drought compare across regions?</p>
@@ -672,7 +672,8 @@ $writeFont: 'Nanum Pen Script', cursive;
   height: 20vh;
   width: 100vw;
   padding: 20px 0 10px 0;
-  position: fixed;
+  position: sticky;
+  justify-self: center;
   bottom: 0;
   background-color: white;
   opacity: 0.8;
