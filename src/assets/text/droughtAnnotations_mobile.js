@@ -51,15 +51,15 @@ export default {
       },
       {
         id: 'dustbowl_1',
-        date: '1930-07-01',
+        date: '1930-09-01',
         text: 'dustbowl text 1 <a href="https://en.wikipedia.org/wiki/Dust_Bowl" target = "_blank">source</a>',
-        mobile_x_offset_per: 17
+        mobile_x_offset_per: 20
       },
       {
         id: '1950s_1',
-        date: '1953-04-01',
+        date: '1953-05-01',
         text: '1950s drought text 1',
-        mobile_x_offset_per: 15
+        mobile_x_offset_per: 30
       } ,
       {
         id: '1950s_2',
@@ -75,9 +75,9 @@ export default {
       },
       {
         id: '1960s_1',
-        date: '1963-04-01',
+        date: '1963-07-01',
         text: '1960s drought text 1',
-        mobile_x_offset_per: 15
+        mobile_x_offset_per: 22
       },
       {
         id: '1960s_2',
@@ -87,15 +87,15 @@ export default {
       },
       {
         id: '1980s_1',
-        date: '1987-09-01',
+        date: '1987-11-15',
         text: '1980s drought text 1',
-        mobile_x_offset_per: 15
+        mobile_x_offset_per: 22
       },
       {
         id: 'turn_of_century_1',
-        date: '1999-12-01',
+        date: '2000-06-15',
         text: 'Turn-of-the-Century Drought text 1',
-        mobile_x_offset_per: 15
+        mobile_x_offset_per: 22
       },
       {
         id: 'end',

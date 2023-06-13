@@ -257,7 +257,28 @@ export default {
           .attr("rx", 4)
           .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
           .attr("opacity", 1)
-        
+
+        // Add names of major droughts to drought event scrollTo rectangles
+        const formatYear = this.d3.timeFormat("%Y")
+        const titleOffsetX = this.mobileView ? 8 : 15
+        const titleOffsetY = this.mobileView ? 20 : 30
+        const droughtTitles = this.svgChartDynamic.selectAll('droughtTitle')
+          .data(this.scrollToDates)
+          .enter()
+          .append('text')
+          .attr("id", d => "droughtTitle-" + d.id)
+          .attr("class", "droughtTitle")
+          .attr("x", yAxisOffset + titleOffsetX)
+          .attr("y", d => yScale(new Date(d.start)) + titleOffsetY)
+          .text(d => `${d.name} (${formatYear(new Date(d.start))} - ${formatYear(new Date(d.end))})`)
+
+        // wrap titles on mobile
+        if (this.mobileView) {
+          droughtTitles
+            .attr("data-width", d => d.name === '1950s Drought' ? this.overlayWidth*0.24 : this.overlayWidth*0.4)
+            .call(self.wrap);
+        }
+
         // Add y axis
         const yAxis = this.d3.axisLeft(yScale)
           .ticks(this.d3.timeYear.every(1))
@@ -793,7 +814,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 <style lang="scss">
 .droughtText {
   z-index: 10;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1em;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -813,6 +834,9 @@ $writeFont: 'Nanum Pen Script', cursive;
 .droughtText.desktop.quote:hover {
   font-style: italic;
   font-weight: 500;
+}
+.droughtTitle {
+  font-weight: 700;
 }
 .yAxisText {
   font-size: 2em;
