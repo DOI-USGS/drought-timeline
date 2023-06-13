@@ -147,9 +147,8 @@ export default {
       {id: '1987', name: '1980s Drought', start: '1987-05-01', end: '1992-10-31'},
       {id: '1999', name: 'Turn-of-the-Century Drought', start: '1999-09-01', end: '2015-09-30'}]
 
-    // sort annotations
+    // Define annotations source for desktop and mobile
     this.annotations = this.mobileView ? droughtAnnotationsMobile.timelineEvents: droughtAnnotationsDesktop.timelineEvents;
-    this.annotations.sort((a,b) => this.d3.ascending(a.date, b.date))
 
     this.addOverlay()
 
@@ -269,7 +268,7 @@ export default {
         if (this.mobileView === false) {
           // On desktop, place annotations as text
           const annotationItems = this.svgChartDynamic.selectAll('annotationText')
-            .data(annotation_data)
+            .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
             .enter()
             .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
             .append("text")
