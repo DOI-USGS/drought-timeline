@@ -72,7 +72,10 @@
     <section id="region-container" class = "page-section">
       <h3>Droughts in every region</h3>
       <p>The five major drought events described above stand out in the history of the conterminous U.S. (the lower 48 states) because of their large effects on agriculture, wildfires, and streamflow. But droughts happen in every region of the U.S., and dry years in some regions are wet years in others. How do the 100-year histories of drought compare across regions?</p>
-      <div id = "region-grid-container"></div>
+      <div id = "region-grid-container">
+        <cascMap id="casc-svg" />
+        <polarWedges id="wedges-svg" />
+      </div>
       <div id = "region-description">
         <p>Placeholder for dynamically updating description of region</p>
       </div>
@@ -116,10 +119,14 @@ import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js
 import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
 import droughtImages from "@/assets/text/droughtImages.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
+import polarWedges from "@/assets/svgs/polar_wedges.svg";
+import cascMap from "@/assets/svgs/casc_regions_map.svg";
 export default {
   name: "DroughtHistory",
     components: {
-      annotationDrawings
+      annotationDrawings,
+      polarWedges,
+      cascMap
     },
     props: {
     },
@@ -156,6 +163,8 @@ export default {
     this.addOverlay()
 
     this.addAnimations()
+    
+    this.addInteractions()
 
     if (!this.mobileView) {
       window.addEventListener("scroll", this.revealAnnotationContainer);
@@ -537,6 +546,25 @@ export default {
           })
         })
 
+      },
+      addInteractions() {
+        const self = this;
+
+        // Add interaction to wedges
+        const wedgesSVG = self.d3.select("#wedges-svg")
+        console.log(wedgesSVG.selectAll('.wedge'))
+        wedgesSVG.selectAll('.wedge')
+           .on("mouseover", (event, d) => {
+               console.log(event.target.parentElement.id) // unique wedge id - use to tie to regional violin and map
+            })
+
+        // add interaction to CASC regions map
+        const cascSVG = self.d3.select("#casc-svg")
+        console.log(cascSVG.selectAll('.CASC_region'))
+        cascSVG.selectAll('.CASC_region')
+           .on("mouseover", (event, d) => {
+               console.log(event.target.id) // unique wedge id - use to tie to regional violin and map
+            })
       },
       // function to wrap text added with d3 modified from
       // https://stackoverflow.com/questions/24784302/wrapping-text-in-d3

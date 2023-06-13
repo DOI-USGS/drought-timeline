@@ -162,8 +162,8 @@ count_events <- function(event_data, metadata, target_threshold){
 #' day with drought
 expand_drought_prop <- function(drought_prop) {
   drought_prop %>% 
-    uncount(duration, .remove=FALSE, .id="id") %>%
-    mutate(date = start+id-1, .after=end)
+    uncount(duration, .remove = FALSE, .id = "id") %>%
+    mutate(date = start + id - 1, .after = end)
 }  
 
 #' @title Identify temporal chunks within drought data
@@ -189,7 +189,8 @@ identify_drought_chunks <- function(drought_prop, min_chunk_days) {
     count(date, name='n_droughts')
   
   # get full sequence of dates
-  full_date_sequence <- seq.Date(from=min(drought_dates$date),to=max(drought_dates$date),by=1)
+  full_date_sequence <- seq.Date(from = min(drought_dates$date), 
+                                 to = max(drought_dates$date), by = 1)
   
   # find dates that didn't have droughts
   dates_w_o_drought <- full_date_sequence[!(full_date_sequence %in% drought_dates$date)]
@@ -198,18 +199,19 @@ identify_drought_chunks <- function(drought_prop, min_chunk_days) {
   date_chunks <- tibble(break_date = c(dates_w_o_drought, max(full_date_sequence))) %>%
     mutate(chunk_num = row_number(),
            start_date = case_when(
-             chunk_num==1 ~ min(full_date_sequence),
-             TRUE ~ lag(break_date)+1),
+             chunk_num == 1 ~ min(full_date_sequence),
+             TRUE ~ lag(break_date) + 1),
            chunk_length_days = as.numeric(break_date-start_date))
+  
   # subset to larger chunks only
   selected_chunks <- date_chunks %>%
-    filter(chunk_length_days>=min_chunk_days | break_date==max(full_date_sequence)) %>%
+    filter(chunk_length_days >= min_chunk_days | break_date == max(full_date_sequence)) %>%
     select(break_date) %>%
     # recalculate break_num, start date, and break length
     mutate(chunk_num = row_number(),
            start_date = case_when(
-             chunk_num==1 ~ min(full_date_sequence),
-             TRUE ~ lag(break_date)+1
+             chunk_num == 1 ~ min(full_date_sequence),
+             TRUE ~ lag(break_date) + 1
            ),
            chunk_length_days = as.numeric(break_date-start_date),
            chunk_length_year = chunk_length_days/365) %>%
