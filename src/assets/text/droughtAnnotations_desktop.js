@@ -2,7 +2,7 @@ export default {
     timelineEvents: [
       {
         id: '1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by date
-        date: '1923-04-01', // Date marking start of annotation. Determines y placement on deskop and mobile AND scroll order for annotations on mobile
+        date: '1923-04-01', // Date marking start of annotation. Determines y placement on deskop
         text: '"This is a quote about drought"', // Text of annotation
         url: "https://en.wikipedia.org/wiki/Dust_Bowl", // Required for quote
         quote: true, // required for quote, for styling

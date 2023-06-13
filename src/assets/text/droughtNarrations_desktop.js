@@ -2,7 +2,7 @@ export default {
     timelineEvents: [
       {
         id: 'dustbowl_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
-        start_date: '1930-01-01', // Date marking start of annotation. Determines y trigger start position on deskop adn order
+        start_date: '1930-01-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
         end_date: '1935-12-31', // Date marking end of annotation. Determines y trigger end position on deskop
         text: 'dustbowl text 1 <a href="https://en.wikipedia.org/wiki/Dust_Bowl" target = "_blank">source</a>', // Narrative text
       },
