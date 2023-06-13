@@ -287,14 +287,17 @@ export default {
           .attr("class", "droughtTitle")
           .attr("x", yAxisOffset + titleOffsetX)
           .attr("y", d => yScale(new Date(d.start)) + titleOffsetY)
-          .text(d => `${d.name} (${formatYear(new Date(d.start))} - ${formatYear(new Date(d.end))})`)
+          .text(d => d.name)
 
-        // wrap titles on mobile
-        if (this.mobileView) {
-          droughtTitles
-            .attr("data-width", d => d.name === '1950s Drought' ? this.overlayWidth*0.24 : this.overlayWidth*0.4)
-            .call(self.wrap);
-        }
+        const droughtSubtitles = this.svgChartDynamic.selectAll('droughtSubtitle')
+          .data(this.scrollToDates)
+          .enter()
+          .append('text')
+          .attr("id", d => "droughtTitle-" + d.id)
+          .attr("class", "droughtSubtitle")
+          .attr("x", yAxisOffset + titleOffsetX)
+          .attr("y", d => yScale(new Date(d.start)) + titleOffsetY + 25)
+          .text(d => `(${formatYear(new Date(d.start))} - ${formatYear(new Date(d.end))})`)
 
         // Add y axis
         const yAxis = this.d3.axisLeft(yScale)
