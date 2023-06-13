@@ -47,6 +47,12 @@ export default {
         start_date: '1999-09-01',
         end_date: '2015-09-30',
         text: 'Turn-of-the-Century Drought text 1'
-      }      
+      },
+      {
+        id: 'end',
+        start_date: '2017-03-01',
+        end_date: '2020-04-01',
+        text: 'end of timeline'
+      }          
     ]
 };

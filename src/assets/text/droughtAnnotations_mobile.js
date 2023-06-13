@@ -96,6 +96,12 @@ export default {
         date: '1999-12-01',
         text: 'Turn-of-the-Century Drought text 1',
         mobile_x_offset_per: 15
-      }   
+      },
+      {
+        id: 'end',
+        date: '2019-04-01',
+        text: 'end of timeline',
+        mobile_x_offset_per: 15
+      }    
     ]
 };
