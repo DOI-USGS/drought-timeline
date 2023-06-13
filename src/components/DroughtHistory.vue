@@ -559,7 +559,7 @@ export default {
             scrollTrigger: {
               markers: false,
               trigger: `#${imageIDFull}`,
-              start: `top 25%`,
+              start: `top 75%`,
               end: 'bottom 25%',
               toggleClass: {targets: `#annotation-image-${imagelID}`, className:"visible"}, // adds class to target when triggered
               toggleActions: "restart reverse none reverse" 
