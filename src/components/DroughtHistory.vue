@@ -682,7 +682,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   padding: 20px 0 20px 0;
   gap: 5px;
   grid-template-columns: 100%;
-  grid-template-rows: max-content max-content max-content;
+  grid-template-rows: max-content max-content max-content max-content;
   grid-template-areas:
     "title"
     "intro"
