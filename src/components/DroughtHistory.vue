@@ -276,29 +276,21 @@ export default {
           .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
           .attr("opacity", 1)
 
-        // Add names of major droughts to drought event scrollTo rectangles
-        const formatYear = this.d3.timeFormat("%Y")
-        const titleOffsetX = this.mobileView ? 8 : 15
-        const titleOffsetY = this.mobileView ? 20 : 30
-        const droughtTitles = this.svgChartDynamic.selectAll('droughtTitle')
-          .data(this.scrollToDates)
-          .enter()
-          .append('text')
-          .attr("id", d => "droughtTitle-" + d.id)
-          .attr("class", "droughtTitle")
-          .attr("x", yAxisOffset + titleOffsetX)
-          .attr("y", d => yScale(new Date(d.start)) + titleOffsetY)
-          .text(d => d.name)
-
-        const droughtSubtitles = this.svgChartDynamic.selectAll('droughtSubtitle')
-          .data(this.scrollToDates)
-          .enter()
-          .append('text')
-          .attr("id", d => "droughtTitle-" + d.id)
-          .attr("class", "droughtSubtitle")
-          .attr("x", yAxisOffset + titleOffsetX)
-          .attr("y", d => yScale(new Date(d.start)) + titleOffsetY + 25)
-          .text(d => `(${formatYear(new Date(d.start))} - ${formatYear(new Date(d.end))})`)
+        // On desktop, Add names of major droughts to drought event scrollTo rectangles
+        if (!this.mobileView) {
+          const formatYear = this.d3.timeFormat("%Y")
+          const titleOffsetX = this.mobileView ? 8 : 15
+          const titleOffsetY = this.mobileView ? 20 : 30
+          const droughtTitles = this.svgChartDynamic.selectAll('droughtTitle')
+            .data(this.scrollToDates)
+            .enter()
+            .append('text')
+            .attr("id", d => "droughtTitle-" + d.id)
+            .attr("class", "droughtTitle")
+            .attr("x", yAxisOffset + titleOffsetX)
+            .attr("y", d => yScale(new Date(d.start)) + titleOffsetY)
+            .text(d => `${d.name} (${formatYear(new Date(d.start))} - ${formatYear(new Date(d.end))})`)
+        }
 
         // Add y axis
         const yAxis = this.d3.axisLeft(yScale)
@@ -324,7 +316,7 @@ export default {
         yAxisDom.select(".domain").remove()
 
         // Set up annotations
-        if (this.mobileView === false) {
+        if (!this.mobileView) {
           // On desktop, place annotations as text
           const annotationItems = this.svgChartDynamic.selectAll('annotationText')
             .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
@@ -743,7 +735,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
     height: 75px;
-    top: 75px;
+    top: 70px;
   }
 }
 #chart-container {
