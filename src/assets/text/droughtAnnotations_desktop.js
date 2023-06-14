@@ -70,7 +70,6 @@ export default {
         id: 'legend',
         date: '1926-06-01',
         text: 'Droughts are colored by duration where darker = longer.',
-        mobile_x_offset_per: 60,
         desktop_x_offset_per: 58,
         desktop_text_anchor: 'start',
         desktop_text_width: 370
@@ -79,7 +78,6 @@ export default {
         id: 'legend-2',
         date: '1927-04-01',
         text: 'The shortest droughts were 43 days',
-        mobile_x_offset_per: 60,
         desktop_x_offset_per: 58,
         desktop_text_anchor: 'start',
         desktop_text_width: 370
