@@ -280,8 +280,8 @@ export default {
         // On desktop, Add names of major droughts to drought event scrollTo rectangles
         if (!this.mobileView) {
           const formatYear = this.d3.timeFormat("%Y")
-          const titleOffsetX = this.mobileView ? 8 : 15
-          const titleOffsetY = this.mobileView ? 20 : 30
+          const titleOffsetX = 15
+          const titleOffsetY = 30
           const droughtTitles = this.svgChartDynamic.selectAll('droughtTitle')
             .data(this.scrollToDates)
             .enter()
