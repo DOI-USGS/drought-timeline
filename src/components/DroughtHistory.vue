@@ -2,7 +2,15 @@
   <section id="main-container">
     <section id="grid-container">
       <div id="title-container">
-        <h2>100 years of severe drought in the contiguous U.S.</h2>
+        <h2>Five droughts that changed history</h2>
+      </div>
+      <div id="intro-container">
+        <p>
+          The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a
+            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
+            target="_blank"
+          >What is Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
+        </p>
       </div>
       <nav id="nav-button-container">
         <p>
@@ -32,29 +40,77 @@
         >
       </div>
       <div id="chart-overlay-dynamic">
-        <svg id="svg-dynamic" />
+        <svg id="svg-dynamic">
+        </svg>
       </div>
       <div id="chart-overlay-static">
         <annotationDrawings />
       </div>
-    </section>
-    <div
-      v-if="mobileView"
-      id="annotation-container"
-    >
       <div
-        v-for="annotation in annotations" 
-        :id="`drought-text-${annotation.id}`"
-        :key="annotation.id"
-        :class="`droughtText mobile hidden`"
+        v-if="mobileView"
+        id="annotation-container"
       >
-        <p>{{ annotation.text }}</p>
+        <div
+          v-for="annotation in annotations" 
+          :id="`drought-text-${annotation.id}`"
+          :key="annotation.id"
+          :class="annotation.quote ? 'quote' : ''"
+          class="droughtText mobile hidden"
+        >
+          <p v-html="annotation.text" />
+        </div>
       </div>
-    </div>
-    <div id="empty-div">
-      <cascMap id="casc-svg" />
-      <polarWedges id="wedges-svg" />
-    </div>
+      <div
+        v-if="!mobileView"
+        id="annotation-container"
+        class="reveal"
+      >
+        <div
+          v-for="narration in narrations" 
+          :id="`drought-text-${narration.id}`"
+          :key="narration.id"
+          :class="`droughtText narration hidden`"
+        >
+          <p v-html="narration.text" />
+        </div>
+      </div>
+    </section>
+    <hr>
+    <section
+      id="region-container"
+      class="page-section"
+    >
+      <h3>Droughts in every region</h3>
+      <p>The five major drought events described above stand out in the history of the conterminous U.S. (the lower 48 states) because of their large effects on agriculture, wildfires, and streamflow. But droughts happen in every region of the U.S., and dry years in some regions are wet years in others. How do the 100-year histories of drought compare across regions?</p>
+      <div id="region-grid-container">
+        <cascMap id="casc-svg" />
+        <polarWedges id="wedges-svg" />
+      </div>
+      <div id="region-description">
+        <p>Placeholder for dynamically updating description of region</p>
+      </div>
+    </section>
+    <section
+      id="methods-container"
+      class="page-section"
+    >
+      <h3>Methods</h3>
+      <p>These are the methods that we used to process the data</p>
+    </section>
+    <section
+      id="references-container"
+      class="page-section"
+    >
+      <h3>References</h3>
+      <p>These are the references</p>
+    </section>
+    <section
+      id="authors-container"
+      class="page-section"
+    >
+      <h3>Authors</h3>
+      <p>These are the people who contributed to the site</p>
+    </section>
     <svg id="filter-svg">
       <filter
         id="shadow2"
@@ -77,7 +133,10 @@ import { isMobile } from 'mobile-device-detect';
 import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 import { TimelineMax } from "gsap/all";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import droughtAnnotations from "@/assets/text/droughtAnnotations.js";
+import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.js";
+import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
+import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
+import droughtImages from "@/assets/text/droughtImages.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 import polarWedges from "@/assets/svgs/polar_wedges.svg";
 import cascMap from "@/assets/svgs/casc_regions_map.svg";
@@ -95,7 +154,9 @@ export default {
         d3: null,
         publicPath: process.env.BASE_URL, // allows the application to find the files when on different deployment roots
         mobileView: isMobile, // test for mobile
-        annotations: droughtAnnotations.timelineEvents,
+        annotations: null,
+        narrations: droughtNarrations_desktop.timelineEvents,
+        images: droughtImages.timelineEvents,
         scrollToDates:  null,
         // dimensions
         overlayWidth: null,
@@ -115,14 +176,18 @@ export default {
       {id: '1987', name: '1980s Drought', start: '1987-05-01', end: '1992-10-31'},
       {id: '1999', name: 'Turn-of-the-Century Drought', start: '1999-09-01', end: '2015-09-30'}]
 
-    // sort annotations
-    this.annotations.sort((a,b) => this.d3.ascending(a.date, b.date))
+    // Define annotations source for desktop and mobile
+    this.annotations = this.mobileView ? droughtAnnotationsMobile.timelineEvents: droughtAnnotationsDesktop.timelineEvents;
 
     this.addOverlay()
 
     this.addAnimations()
-
+    
     this.addInteractions()
+
+    if (!this.mobileView) {
+      window.addEventListener("scroll", this.revealAnnotationContainer);
+    }
   },
     methods:{
       isMobile() {
@@ -156,6 +221,8 @@ export default {
         const self = this;
 
         const annotation_data = this.annotations
+        const narration_data = this.narrations
+        const image_data = this.images
 
         // set viewbox for svg with static overlay drawings
         const svgChartStatic = this.d3.select("#svg-static")
@@ -200,16 +267,32 @@ export default {
           .append('rect')
           .attr("id", d => "scrollStop-" + d.id)
           .attr("class", "scrollToSpot")
-          .attr("x", yAxisOffset)
+          .attr("x", this.mobileView ? 0 : yAxisOffset)
           .attr("y", d => yScale(new Date(d.start)))
-          .attr("width", this.overlayWidth - yAxisOffset)
+          .attr("width", this.mobileView ? this.overlayWidth : this.overlayWidth - yAxisOffset)
           .attr("height", (d) => {
             return yScale(new Date(d.end)) - yScale(new Date(d.start))
           })
-          .attr("rx", 5)
+          .attr("rx", 4)
           .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
           .attr("opacity", 1)
-        
+
+        // On desktop, Add names of major droughts to drought event scrollTo rectangles
+        if (!this.mobileView) {
+          const formatYear = this.d3.timeFormat("%Y")
+          const titleOffsetX = 15
+          const titleOffsetY = 30
+          const droughtTitles = this.svgChartDynamic.selectAll('droughtTitle')
+            .data(this.scrollToDates)
+            .enter()
+            .append('text')
+            .attr("id", d => "droughtTitle-" + d.id)
+            .attr("class", "droughtTitle")
+            .attr("x", yAxisOffset + titleOffsetX)
+            .attr("y", d => yScale(new Date(d.start)) + titleOffsetY)
+            .text(d => `${d.name} (${formatYear(new Date(d.start))} - ${formatYear(new Date(d.end))})`)
+        }
+
         // Add y axis
         const yAxis = this.d3.axisLeft(yScale)
           .ticks(this.d3.timeYear.every(1))
@@ -234,20 +317,36 @@ export default {
         yAxisDom.select(".domain").remove()
 
         // Set up annotations
-        if (this.mobileView === false) {
+        if (!this.mobileView) {
           // On desktop, place annotations as text
           const annotationItems = this.svgChartDynamic.selectAll('annotationText')
-            .data(annotation_data)
+            .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
             .enter()
+            .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
             .append("text")
             .attr("id", d => "annotation-text-" + d.id)
-            .attr("class", d => "droughtText desktop hidden")
+            .attr("class", d => d.quote ? "droughtText desktop quote hidden" : "droughtText desktop hidden")
             .attr("x", d => xScale(d.desktop_x_offset_per))
             .attr("y", d => yScale(new Date(d.date)))
             .attr("text-anchor", d => d.desktop_text_anchor)
             .attr("data-width", d => d.desktop_text_width)
             .text(d => d.text)
             .call(self.wrap);
+          // On desktop, set up rectangles to trigger narrations in box at bottom
+          const narrationRects = this.svgChartDynamic.selectAll('narrationRect')
+            .data(narration_data.sort((a,b) => this.d3.ascending(a.start_date, b.start_date)))
+            .enter()
+            .append("rect")
+            .attr("id", d => "narration-rect-" + d.id)
+            .attr("class", "droughtRect")
+            .attr("x", yAxisOffset)
+            .attr("y", d => yScale(new Date(d.start_date)))
+            .attr("width", this.overlayWidth - yAxisOffset)
+            .attr("height", (d,i) => {
+              const y_diff = yScale(new Date(d.end_date)) - yScale(new Date(d.start_date))
+              return y_diff
+            })
+            .style('opacity', 0)
         } else {
           // On mobile, set up rectangles to trigger annotations
           const annotationRects = this.svgChartDynamic.selectAll('annotationRect')
@@ -277,6 +376,21 @@ export default {
             .attr("cy", d => yScale(new Date(d.date)))
             .attr("r", 4)
         }
+
+        // Set up images
+        const annotationImages = this.svgChartDynamic.selectAll('annotationImages')
+          .data(image_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
+          .enter()
+          .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
+          .append("svg:image")
+          .attr("id", d => "annotation-image-" + d.id)
+          .attr("class", "droughtImage hidden")
+          .attr("x", d => this.mobileView ? xScale(d.mobile_x_offset_per) : xScale(d.desktop_x_offset_per))
+          .attr("y", d => yScale(new Date(d.date)))
+          .attr("width", d => this.mobileView ? xScale(d.mobile_width_per) : xScale(d.desktop_width_per))
+          .attr("xlink:href", d => d.url)
+          .attr("alt", d => d.alt)
+
       },
       addAnimations() {
         // Set up timeline
@@ -349,7 +463,7 @@ export default {
                 scrollTrigger: {
                   markers: false,
                   trigger: `#${rectIDFull}`,
-                  start: `top center`,
+                  start: `top 80%`,
                   end: 'bottom 200',
                   toggleClass: {targets: [`#drought-text-${rectlID}`, `#annotation-drawing-${rectlID}`], className:"visible"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
@@ -360,7 +474,7 @@ export default {
                 scrollTrigger: {
                   markers: false,
                   trigger: `#${rectIDFull}`,
-                  start: `top center`,
+                  start: `top 80%`,
                   end: 'bottom 200',
                   toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
@@ -406,7 +520,7 @@ export default {
               scrollTrigger: {
                 markers: false,
                 trigger: `#${scrollIDFull}`,
-                start: "top 95%",
+                start: "top 75%",
                 end: "bottom 25%",
                 toggleClass: {targets: [`#${scrollIDFull}`,`#annotation-drawing-${scrollID}`], className:"visible"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
@@ -419,22 +533,79 @@ export default {
               },
             })
           })
+
+          // find all narration text triggers (rectangles)
+          const droughtNarrationTriggers = this.$gsap.utils.toArray(".droughtRect", dynamicSVG)
+
+          // For each trigger,
+          droughtNarrationTriggers.forEach((droughtNarrationTrigger) => {
+
+            // get unique ID for text step.
+            let rectIDFull = droughtNarrationTrigger.id
+            let rectlID = rectIDFull.split('-')[2]
+            
+            // Make the narrative text for the step visible
+            tl.to(`#${rectIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${rectIDFull}`,
+                start: `top 25%`,
+                end: 'bottom 25%',
+                toggleClass: {targets: `#drought-text-${rectlID}`, className:"visible"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+              },
+            })
+          })
         }
+
+        // Add image animations
+        const droughtImages = this.$gsap.utils.toArray(".droughtImage", dynamicSVG)
+
+        // For each trigger,
+        droughtImages.forEach((droughtImage) => {
+
+          // get unique ID for text step.
+          let imageIDFull = droughtImage.id
+          let imagelID = imageIDFull.split('-')[2]
+          
+          // Make the image for the step visible
+          tl.to(`#${imageIDFull}`, {
+            scrollTrigger: {
+              markers: false,
+              trigger: `#${imageIDFull}`,
+              start: `top 75%`,
+              end: 'bottom 25%',
+              toggleClass: {targets: `#annotation-image-${imagelID}`, className:"visible"}, // adds class to target when triggered
+              toggleActions: "restart reverse none reverse" 
+            },
+          })
+        })
+
       },
       addInteractions() {
         const self = this;
 
-        // Add interaction to wedges
+        // set viewbox for svg with wedges
         const wedgesSVG = self.d3.select("#wedges-svg")
-        console.log(wedgesSVG.selectAll('.wedge'))
+            .attr("viewBox", "0 0 " + 360 + " " + 360)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .attr("width", '100%')
+            .attr("height", '100%')
+
+        // Add interaction to wedges
         wedgesSVG.selectAll('.wedge')
            .on("mouseover", (event, d) => {
                console.log(event.target.parentElement.id) // unique wedge id - use to tie to regional violin and map
             })
 
-        // add interaction to CASC regions map
+        // set viewbox for svg with casc map
         const cascSVG = self.d3.select("#casc-svg")
-        console.log(cascSVG.selectAll('.CASC_region'))
+            .attr("viewBox", "0 0 " + 648 + " " + 432)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .attr("width", '100%')
+            .attr("height", '100%')
+
+        // add interaction to CASC regions map
         cascSVG.selectAll('.CASC_region')
            .on("mouseover", (event, d) => {
                console.log(event.target.id) // unique wedge id - use to tie to regional violin and map
@@ -476,6 +647,20 @@ export default {
                 }
             }
         });
+      },
+      revealAnnotationContainer() {
+        const self = this;
+
+        const scrollDistance = window.scrollY
+        const annotationContainer = document.querySelector('#annotation-container')
+        const annotationContainerHeight = annotationContainer.getBoundingClientRect().height
+
+        // Once scrolled x distance (currently annotationContainerHeight / 2), reveal annotation container
+        if (scrollDistance > annotationContainerHeight / 2) {
+          annotationContainer.classList.add("active");
+        } else {
+          annotationContainer.classList.remove("active")
+        }
       }
     }
 }
@@ -490,9 +675,10 @@ $writeFont: 'Nanum Pen Script', cursive;
   padding: 20px 0 20px 0;
   gap: 5px;
   grid-template-columns: 100%;
-  grid-template-rows: max-content max-content max-content;
+  grid-template-rows: max-content max-content max-content max-content;
   grid-template-areas:
     "title"
+    "intro"
     "buttons"
     "chart";
   justify-content: center;
@@ -501,6 +687,10 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #title-container {
   grid-area: title;
+}
+#intro-container {
+  grid-area: intro;
+  padding-left: 5px;
 }
 #nav-button-container {
   grid-area: buttons;
@@ -554,13 +744,15 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #swarm_vertical {
   width: 100%;
-  transform: rotate(180deg)
+  transform: rotate(180deg);
+  pointer-events: none;
 }
 #chart-overlay-dynamic {
   grid-area: chart;
 }
 #chart-overlay-static {
   grid-area: chart;
+  pointer-events: none;
 }
 // Class for paths in AI-generated annotation_drawings-01.svg
 .cls-1 {
@@ -569,19 +761,33 @@ $writeFont: 'Nanum Pen Script', cursive;
   stroke-width: 1;
 }
 #annotation-container {
+  //grid-area: chart; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
+  //align-self: end; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
   height: 20vh;
   width: 100vw;
   padding: 20px 0 10px 0;
-  position: fixed;
+  position: sticky;
+  justify-self: center;
   bottom: 0;
   background-color: white;
-  opacity: 0.8;
+  opacity: 0.9;
   box-shadow: 0px -5px 5px #B9B9B9;
 }
-.droughtText {
-  z-index: 10;
+.reveal{
+  position: relative;
+  transform: translateY(21vh);
+  opacity: 0;
+  transition: 1s all ease;
+}
+.reveal.active {
+  transform: translateY(0);
+  opacity: 1;
 }
 .droughtText.mobile {
+  margin: 0 5vw 0 5vw;
+  position: absolute;
+}
+.droughtText.narration {
   margin: 0 5vw 0 5vw;
   position: absolute;
 }
@@ -608,20 +814,70 @@ $writeFont: 'Nanum Pen Script', cursive;
   width: 0;
   height: 0;
 }
-#empty-div {
+.page-section {
+  margin: auto;
+  max-width: 90vw;
+}
+#region-grid-container {
+  max-width: 95vw;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content max-content;
+  grid-template-areas:
+    "map"
+    "wedges";
+}
+#casc-svg {
+  grid-area: map;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+#wedges-svg {
+  grid-area: wedges;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+#region-description {
+  height: 100px;
+}
+#methods-container {
+  height: 300px;
+}
+#references-container {
+  height: 300px;
+}
+#authors-container {
   height: 300px;
 }
 </style>
 <style lang="scss">
 .droughtText {
   z-index: 10;
-  font-weight: 300;
+  font-weight: 400;
   font-size: 1em;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
 .droughtText.mobile {
   z-index: 10;
   font-weight: 500;
   font-size: 1em;
+}
+.droughtText.quote {
+  font-style: italic;
+}
+.droughtText.desktop.quote {
+  text-shadow: 2px 4px 4px rgba(179,179,179,0.6);
+}
+.droughtText.desktop.quote:hover {
+  font-style: italic;
+  font-weight: 500;
+}
+.droughtTitle {
+  font-weight: 700;
 }
 .yAxisText {
   font-size: 2em;
