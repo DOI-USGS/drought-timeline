@@ -21,9 +21,9 @@ export default {
       },
       {
         id: '3',
-        date: '1965-03-10',
-        text: 'Event 3: 3/10/1965',
-        mobile_x_offset_per: 20
+        date: '1968-03-10',
+        text: 'Event 3: 3/10/1968',
+        mobile_x_offset_per: 80
       },
       {
         id: '2',
@@ -63,7 +63,7 @@ export default {
       } ,
       {
         id: '1950s_2',
-        date: '1955-06-01',
+        date: '1956-06-01',
         text: '1950s drought text 2',
         mobile_x_offset_per: 15
       },
@@ -81,7 +81,7 @@ export default {
       },
       {
         id: '1960s_2',
-        date: '1965-11-01',
+        date: '1966-11-01',
         text: '1960s drought text 2',
         mobile_x_offset_per: 15
       },
