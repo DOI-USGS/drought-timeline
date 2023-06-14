@@ -126,7 +126,7 @@ h2{
 }
 h3{
   font-size: 2em;
-  padding-top: .25em;
+  padding-top: 1em;
   padding-bottom: .25em;
   font-family: $SourceSans;
   font-weight: 700;

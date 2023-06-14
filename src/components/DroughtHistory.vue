@@ -75,6 +75,7 @@
         </div>
       </div>
     </section>
+    <hr>
     <section
       id="region-container"
       class="page-section"
