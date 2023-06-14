@@ -33,11 +33,22 @@
         >
       </div>
       <div id="inset-container">
-        <img
-          id="inset-map"
-          src="@/assets/images/states_stations_inset.png"
-          alt=""
-        >
+        <div id = "inset-image-container">
+          <img
+            class="inset-map"
+            id = "inset-map-default"
+            src="@/assets/images/states_stations_inset.png"
+            alt="Map of drought sites in the continental United States"
+          >
+          <img
+            v-for="drought in scrollToDates"
+            :key="drought.id"
+            :id="`inset-map-${drought.id}`"
+            class="inset-map hide"
+            :src="require(`@/assets/images/drought_period_stations_${drought.id}.png`)"
+            :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${drought.name} are highlighted in red`"
+          >
+        </div>
       </div>
       <div id="chart-overlay-dynamic">
         <svg id="svg-dynamic">
@@ -729,14 +740,20 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-area: chart;
   justify-self: end;
 }
-#inset-map {
+#inset-image-container {
   position: sticky;
   top: 55px;
+  @media only screen and (max-width: 600px) {
+    top: 75px;
+  }
+}
+.inset-map {
+  position: absolute;
+  right: 0;
   height: 150px;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
     height: 75px;
-    top: 75px;
   }
 }
 #chart-container {
