@@ -2,7 +2,7 @@ export default {
     timelineEvents: [
       {
         id: '1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by date
-        date: '1926-06-01', // Date marking start of annotation. Determines y placement on mobile AND scroll order for annotations on mobile
+        date: '1928-06-01', // Date marking start of annotation. Determines y placement on mobile AND scroll order for annotations on mobile
         text: '<a href="https://en.wikipedia.org/wiki/Dust_Bowl" target="_blank">"This is a quote about drought"</a>', // Text of annotation
         quote: true, // required for quote, for styling
         mobile_x_offset_per: 30 // x placement of circle on mobile, as percent of chart width (0 = left edge, 100 = right edge)
@@ -102,6 +102,18 @@ export default {
         date: '2019-04-01',
         text: 'end of timeline',
         mobile_x_offset_per: 15
-      }    
+      },
+      {
+        id: 'legend',
+        date: '1926-06-01',
+        text: 'Droughts are colored by duration where darker = longer.',
+        mobile_x_offset_per: 60
+      }    ,
+      {
+        id: 'legend-2',
+        date: '1927-04-01',
+        text: 'The shortest droughts were 43 days',
+        mobile_x_offset_per: 60
+      }   
     ]
 };
