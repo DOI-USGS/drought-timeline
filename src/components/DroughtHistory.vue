@@ -35,7 +35,7 @@
       <div id="inset-container">
         <div id = "inset-image-container">
           <img
-            class="inset-map"
+            class="inset-map default"
             id = "inset-map-default"
             src="@/assets/images/states_stations_inset.png"
             alt="Map of drought sites in the continental United States"
@@ -44,7 +44,7 @@
             v-for="drought in scrollToDates"
             :key="drought.id"
             :id="`inset-map-${drought.id}`"
-            class="inset-map hide"
+            class="inset-map drought-specific hide"
             :src="require(`@/assets/images/drought_period_stations_${drought.id}.png`)"
             :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${drought.name} are highlighted in red`"
           >
@@ -759,13 +759,18 @@ $writeFont: 'Nanum Pen Script', cursive;
   }
 }
 .inset-map {
-  position: absolute;
-  right: 0;
   height: 150px;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
     height: 75px;
   }
+}
+.inset-map.default {
+  position: sticky;
+}
+.inset-map.drought-specific {
+  position: absolute;
+  right: 0;
 }
 #chart-container {
   grid-area: chart;
