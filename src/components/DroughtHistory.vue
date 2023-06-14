@@ -735,7 +735,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
     height: 75px;
-    top: 70px;
+    top: 75px;
   }
 }
 #chart-container {
