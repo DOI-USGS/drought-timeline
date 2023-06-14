@@ -80,7 +80,7 @@
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
           :key="narration.id"
-          :class="`droughtText narration hidden`"
+          class="droughtText narration hidden"
         >
           <p v-html="narration.text" />
         </div>
