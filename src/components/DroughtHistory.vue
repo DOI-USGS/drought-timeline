@@ -40,7 +40,8 @@
         >
       </div>
       <div id="chart-overlay-dynamic">
-        <svg id="svg-dynamic" />
+        <svg id="svg-dynamic">
+        </svg>
       </div>
       <div id="chart-overlay-static">
         <annotationDrawings />
@@ -591,17 +592,27 @@ export default {
       addInteractions() {
         const self = this;
 
-        // Add interaction to wedges
+        // set viewbox for svg with wedges
         const wedgesSVG = self.d3.select("#wedges-svg")
-        console.log(wedgesSVG.selectAll('.wedge'))
+            .attr("viewBox", "0 0 " + 360 + " " + 360)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .attr("width", '100%')
+            .attr("height", '100%')
+
+        // Add interaction to wedges
         wedgesSVG.selectAll('.wedge')
            .on("mouseover", (event, d) => {
                console.log(event.target.parentElement.id) // unique wedge id - use to tie to regional violin and map
             })
 
-        // add interaction to CASC regions map
+        // set viewbox for svg with casc map
         const cascSVG = self.d3.select("#casc-svg")
-        console.log(cascSVG.selectAll('.CASC_region'))
+            .attr("viewBox", "0 0 " + 648 + " " + 432)
+            .attr("preserveAspectRatio", "xMidYMid meet")
+            .attr("width", '100%')
+            .attr("height", '100%')
+
+        // add interaction to CASC regions map
         cascSVG.selectAll('.CASC_region')
            .on("mouseover", (event, d) => {
                console.log(event.target.id) // unique wedge id - use to tie to regional violin and map
@@ -815,8 +826,25 @@ $writeFont: 'Nanum Pen Script', cursive;
   max-width: 90vw;
 }
 #region-grid-container {
-  height: 500px;
-  display: grid
+  max-width: 95vw;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: max-content max-content;
+  grid-template-areas:
+    "map"
+    "wedges";
+}
+#casc-svg {
+  grid-area: map;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+#wedges-svg {
+  grid-area: wedges;
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 #region-description {
   height: 100px;
