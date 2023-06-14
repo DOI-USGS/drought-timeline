@@ -115,7 +115,7 @@ p3_targets <- list(
                         file_out = sprintf("src/assets/images/drought_period_stations_%s.png", 
                                            unique(p2_expanded_droughts_during_major_drought_periods$major_drought_id)),
                         svg_export = FALSE,
-                        width = 9, height = 6,
+                        width = 16, height = 9,
                         color_scheme = p3_colors),
              pattern = map(p2_expanded_droughts_during_major_drought_periods),
              format = "file"),
