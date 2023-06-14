@@ -446,7 +446,18 @@ export default {
               trigger: `#${scrollIDFull}`,
               start: "top 25%",
               end: 'bottom 25%',
-              toggleClass: {targets: `#button-${scrollID}`, className:"currentButton"}, // adds class to target when triggered
+              toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
+              toggleActions: "restart reverse none reverse" 
+            },
+          })
+          // Show the map for each drought when in that drought period
+          tl.to(`#${scrollIDFull}`, {
+            scrollTrigger: {
+              markers: false,
+              trigger: `#${scrollIDFull}`,
+              start: "top 25%",
+              end: 'bottom 25%',
+              toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
               toggleActions: "restart reverse none reverse" 
             },
           })
@@ -817,6 +828,12 @@ $writeFont: 'Nanum Pen Script', cursive;
   visibility: visible;
   opacity: 1;
   transition: opacity 0.3s linear;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: inline;
 }
 .currentButton {
   background-color: black;
