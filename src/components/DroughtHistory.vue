@@ -33,17 +33,17 @@
         >
       </div>
       <div id="inset-container">
-        <div id = "inset-image-container">
+        <div id="inset-image-container">
           <img
+            id="inset-map-default"
             class="inset-map default"
-            id = "inset-map-default"
             src="@/assets/images/states_stations_inset.png"
             alt="Map of drought sites in the continental United States"
           >
           <img
             v-for="drought in scrollToDates"
-            :key="drought.id"
             :id="`inset-map-${drought.id}`"
+            :key="drought.id"
             class="inset-map drought-specific hide"
             :src="require(`@/assets/images/drought_period_stations_${drought.id}.png`)"
             :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${drought.name} are highlighted in red`"
@@ -51,8 +51,7 @@
         </div>
       </div>
       <div id="chart-overlay-dynamic">
-        <svg id="svg-dynamic">
-        </svg>
+        <svg id="svg-dynamic" />
       </div>
       <div id="chart-overlay-static">
         <annotationDrawings />
