@@ -266,9 +266,9 @@ export default {
           .append('rect')
           .attr("id", d => "scrollStop-" + d.id)
           .attr("class", "scrollToSpot")
-          .attr("x", yAxisOffset)
+          .attr("x", this.mobileView ? 0 : yAxisOffset)
           .attr("y", d => yScale(new Date(d.start)))
-          .attr("width", this.overlayWidth - yAxisOffset)
+          .attr("width", this.mobileView ? this.overlayWidth : this.overlayWidth - yAxisOffset)
           .attr("height", (d) => {
             return yScale(new Date(d.end)) - yScale(new Date(d.start))
           })
