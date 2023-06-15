@@ -845,7 +845,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 #radial-chart {
   grid-area: radial;
   place-self: center;
-  height: 100%;
+  height: 110%;
 }
 #region-map {
   grid-area: radial;
@@ -861,15 +861,15 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #wedges-svg {
   grid-area: radial;
+  place-self: center;
   display: flex;
-  width: 100%;
-  height: 100%;
+  width: 115%;
+  height: 115%;
 }
 .wedge path {
-  stroke: black;
+  stroke: none;
   fill: white;
   fill-opacity: 0;
-  stroke-width: 0.1px;
 }
 #region-description {
   grid-area: description;
