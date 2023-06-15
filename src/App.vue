@@ -135,6 +135,17 @@ h3{
       font-size: 1.5em;
   }  
 }
+h4{
+  font-size: 1em;
+  padding-top: 0em;
+  padding-bottom: .25em;
+  font-family: $SourceSans;
+  font-weight: 700;
+  color: $textcolor;
+  @media screen and (max-width: 600px) {
+      font-size: 0.75em;
+  }  
+}
 p, text {
   // padding: 1em 0 0 0; 
   font-family: $SourceSans;
