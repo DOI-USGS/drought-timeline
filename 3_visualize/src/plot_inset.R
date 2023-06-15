@@ -53,7 +53,7 @@ plot_inset <- function(station_data, station, us_data, regions, region_sf, focal
     # CRITICAL that row order of referenced dataframe MATCHES plotting order
     gridSVG::grid.garnish('GRID.pathgrob',
                           'class' = rep('CASC_region', nrow(us_data)),
-                          'id' = us_data$CASC,
+                          'id' = gsub(' ', '-', us_data$CASC),
                           group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
     
     gridSVG::grid.export(file_out, strict = FALSE)

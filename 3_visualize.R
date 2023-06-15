@@ -78,7 +78,7 @@ p3_targets <- list(
                                    timeline_end = "2020-12-31",
                                    color_scheme = p3_colors,
                                    file_out = sprintf("src/assets/images/duration-chart/vertical_violin_jd7d_2pct_%s.png", 
-                                                      unique(p2_expanded_2000_2pct_droughts_byCASC$CASC))),
+                                                      gsub(' ', '-', unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)))),
              pattern = map(p2_expanded_2000_2pct_droughts_byCASC),
              format = "file"),
 
@@ -95,7 +95,7 @@ p3_targets <- list(
                         focal_stations = FALSE,
                         focal_station_data = NA,
                         file_out = sprintf("src/assets/images/states_stations_%s.png", 
-                                           unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)),
+                                           gsub(' ', '-', unique(p2_expanded_2000_2pct_droughts_byCASC$CASC))),
                         svg_export = FALSE,
                         width = 9, height = 6,
                         color_scheme = p3_colors),

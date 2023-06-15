@@ -73,7 +73,7 @@ plot_radial_wedges <- function(CASC_data, file_out){
   # CRITICAL that row order of referenced dataframe MATCHES plotting order
   gridSVG::grid.garnish('geom_rect',
                'class' = rep('wedge', nrow(wedge_df)),
-               'id' = wedge_df$CASC_name,
+               'id' = gsub(' ', '-', wedge_df$CASC_name),
                group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
   
   gridSVG::grid.export(file_out, strict = FALSE)
