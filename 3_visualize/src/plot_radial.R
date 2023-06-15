@@ -1,6 +1,7 @@
 plot_radial_chart <- function(major_drought_periods, drought_events, 
-                              casc_angles, color_scheme, file_out){
-  drought_events <- left_join(drought_events, casc_angles, by = 'CASC')
+                              CASC_angles, color_scheme, file_out){
+  # Join angles data to drought events
+  drought_events <- left_join(drought_events, CASC_angles, by = 'CASC')
   
   # Using the major droughts, create concentric circles that are grey
   ggplot(data = major_drought_periods, aes(x = angle, y = start))+
@@ -41,7 +42,9 @@ plot_radial_chart <- function(major_drought_periods, drought_events,
   return(file_out)
 }
 
-plot_radial_wedges <- function(CASC_data, file_out){
+plot_radial_wedges <- function(CASC_data, CASC_angles, file_out){
+  # Join angles data to CASC data
+  CASC_data <- left_join(CASC_data, CASC_angles, by = 'CASC')
   
   wedge_df <- data.frame(
     group = factor(x = unique(CASC_data$CASC),
