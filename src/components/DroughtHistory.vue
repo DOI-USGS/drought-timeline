@@ -97,6 +97,16 @@
           :src="require(`@/assets/images/${regionMapFilename}.png`)"
           alt=""
         >
+        <div id="violin-container">
+          <img
+            v-for="description in regionDescriptions"
+            :id="`region-violin-${description.id}`"
+            :key="`violin-${description.id}`"
+            class="violin-chart hide"
+            :src="require(`@/assets/images/duration-chart/vertical_violin_jd7d_2pct_${description.id}.png`)"
+            :alt="`Violin chart of drought events in the ${description.name} United States from 1921-2020.`"
+          >
+        </div>
         <div id="region-description">
           <p id = "chart-instructions">
             Hover over the 
@@ -639,6 +649,10 @@ export default {
               self.d3.select("#" + regionID).selectAll('path')
                   .style("fill-opacity", 0)
 
+              // Show the regional violin chart
+              const regionalViolin = document.querySelector('#region-violin-' + regionID);
+              regionalViolin.classList.add("show");
+
               // Hide the interaction instructions
               chartInsructions.classList.add("hide");
 
@@ -650,6 +664,10 @@ export default {
             .on("mouseout", (event) => {
               // Pull the region identifier
               let regionID = event.target.parentElement.id
+
+              // Hide the regional violin chart
+              const regionalViolin = document.querySelector('#region-violin-' + regionID);
+              regionalViolin.classList.remove("show");
 
               // Hide the regional description
               const regionDescription = document.querySelector('#region-description-' + regionID);
@@ -936,6 +954,14 @@ $writeFont: 'Nanum Pen Script', cursive;
   stroke: none;
   fill: white;
   fill-opacity: 0;
+}
+#violin-container {
+  grid-area: violin;
+}
+.violin-chart {
+  transform: rotate(180deg);
+  place-self: center;
+  height: 100%;
 }
 #region-description {
   grid-area: description;
