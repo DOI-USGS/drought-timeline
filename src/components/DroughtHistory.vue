@@ -606,8 +606,23 @@ export default {
 
         // Add interaction to wedges
         wedgesSVG.selectAll('.wedge')
-           .on("mouseover", (event, d) => {
-               console.log(event.target.parentElement.id) // unique wedge id - use to tie to regional violin and map
+           .on("mouseover", (event) => {
+              let regionName = event.target.parentElement.id
+
+              this.regionMapFilename = `states_stations_${regionName}`
+               
+              self.d3.selectAll(".wedge").selectAll('path')
+                  .style("fill-opacity", 0.8)
+              self.d3.select("#"+regionName).selectAll('path')
+                  .style("fill-opacity", 0)
+            })
+
+        // Add mouseleave to wrapper, which is a group that contains the wedges
+        wedgesSVG.selectAll('#wrapper')
+            .on("mouseleave", () => {
+              this.regionMapFilename = "casc_regions_map"
+              self.d3.selectAll(".wedge").selectAll('path')
+                  .style("fill-opacity", 0)
             })
 
         // On mobile, set viewbox for svg with casc map
