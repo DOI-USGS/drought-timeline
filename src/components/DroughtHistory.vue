@@ -88,13 +88,13 @@
           src="@/assets/images/duration-chart/polar_background_plot.png"
           alt=""
         >
+        <cascMap v-if="mobileView" id="casc-svg" />
+        <polarWedges id="wedges-svg" />
         <img
           id="region-map"
           :src="require(`@/assets/images/${regionMapFilename}.png`)"
           alt=""
         >
-        <cascMap v-if="mobileView" id="casc-svg" />
-        <polarWedges id="wedges-svg" />
         <div id="region-description">
           <p>Placeholder for dynamically updating description of region</p>
         </div>
