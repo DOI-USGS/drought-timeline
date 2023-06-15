@@ -83,11 +83,21 @@
       <h3>Droughts in every region</h3>
       <p>The five major drought events described above stand out in the history of the conterminous U.S. (the lower 48 states) because of their large effects on agriculture, wildfires, and streamflow. But droughts happen in every region of the U.S., and dry years in some regions are wet years in others. How do the 100-year histories of drought compare across regions?</p>
       <div id="region-grid-container">
-        <cascMap id="casc-svg" />
+        <img
+          id="radial-chart"
+          src="@/assets/images/duration-chart/polar_background_plot.png"
+          alt=""
+        >
+        <img
+          id="region-map"
+          :src="require(`@/assets/images/${regionMapFilename}.png`)"
+          alt=""
+        >
+        <cascMap v-if="mobileView" id="casc-svg" />
         <polarWedges id="wedges-svg" />
-      </div>
-      <div id="region-description">
-        <p>Placeholder for dynamically updating description of region</p>
+        <div id="region-description">
+          <p>Placeholder for dynamically updating description of region</p>
+        </div>
       </div>
     </section>
     <section
@@ -160,7 +170,9 @@ export default {
         scrollToDates:  null,
         // dimensions
         overlayWidth: null,
-        overlayHeight: null
+        overlayHeight: null,
+        // source for regional map
+        regionMapFilename: "casc_regions_map",
       }
   },
   mounted(){      
@@ -598,18 +610,20 @@ export default {
                console.log(event.target.parentElement.id) // unique wedge id - use to tie to regional violin and map
             })
 
-        // set viewbox for svg with casc map
-        const cascSVG = self.d3.select("#casc-svg")
-            .attr("viewBox", "0 0 " + 648 + " " + 432)
-            .attr("preserveAspectRatio", "xMidYMid meet")
-            .attr("width", '100%')
-            .attr("height", '100%')
+        // On mobile, set viewbox for svg with casc map
+        if (self.mobileView) {
+          const cascSVG = self.d3.select("#casc-svg")
+              .attr("viewBox", "0 0 " + 648 + " " + 432)
+              .attr("preserveAspectRatio", "xMidYMid meet")
+              .attr("width", '100%')
+              .attr("height", '100%')
 
-        // add interaction to CASC regions map
-        cascSVG.selectAll('.CASC_region')
-           .on("mouseover", (event, d) => {
-               console.log(event.target.id) // unique wedge id - use to tie to regional violin and map
-            })
+          // add interaction to CASC regions map
+          cascSVG.selectAll('.CASC_region')
+            .on("mouseover", (event, d) => {
+                console.log(event.target.id) // unique wedge id - use to tie to regional violin and map
+              })
+        }
       },
       // function to wrap text added with d3 modified from
       // https://stackoverflow.com/questions/24784302/wrapping-text-in-d3
@@ -820,26 +834,45 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #region-grid-container {
   max-width: 95vw;
+  height: 90vh;
   display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: max-content max-content;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: 90% 10%;
   grid-template-areas:
-    "map"
-    "wedges";
+    "radial violin"
+    "description description";
+}
+#radial-chart {
+  grid-area: radial;
+  place-self: center;
+  height: 100%;
+}
+#region-map {
+  grid-area: radial;
+  place-self: center;
+  margin-left: 1%; //nudges map right
+  width: 8%;
 }
 #casc-svg {
-  grid-area: map;
-  display: flex;
+  max-height: 150px;
+  grid-area: radial;
   width: 100%;
   height: 100%;
 }
 #wedges-svg {
-  grid-area: wedges;
+  grid-area: radial;
   display: flex;
   width: 100%;
   height: 100%;
 }
+.wedge path {
+  stroke: black;
+  fill: white;
+  fill-opacity: 0;
+  stroke-width: 0.1px;
+}
 #region-description {
+  grid-area: description;
   height: 100px;
 }
 #methods-container {
