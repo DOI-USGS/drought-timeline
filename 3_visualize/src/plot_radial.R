@@ -1,5 +1,10 @@
 plot_radial_chart <- function(major_drought_periods, drought_events, 
                               CASC_angles, color_scheme, file_out){
+  supporting_font <- "Source Sans Pro"
+  sysfonts::font_add_google(supporting_font)
+  showtext::showtext_opts(dpi = 300, regular.wt = 200, bold.wt = 900)
+  showtext::showtext_auto(enable = TRUE)
+  
   # Join angles data to drought events
   drought_events <- left_join(drought_events, CASC_angles, by = 'CASC')
   
@@ -27,15 +32,21 @@ plot_radial_chart <- function(major_drought_periods, drought_events,
     theme(legend.position = "none",
           axis.text = element_blank(),
           axis.title = element_blank(),
+          panel.grid.minor = element_blank(),
+          # drop extra major grid line that coord_polar adds
+          panel.grid.major.y = element_line(color = c(rep('grey85', 13), 'NA')),
           panel.grid.major.x = element_blank(),
           panel.grid.minor.x = element_blank(),
           plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"))+
     # Manually add year labels
     annotate(geom = "text",
-             label = seq(1920, 2020, by = 10), 
-             x = rep(0, 11),
-             y = as.Date(sprintf("%s-01-01", seq(1920, 2020, by = 10))),
-             size = 2)
+             label = seq(1920, 2020, by = 20), 
+             x = rep(0, 6), #11
+             y = as.Date(sprintf("%s-01-01", seq(1920, 2020, by = 20))),
+             size = 3,
+             family = supporting_font,
+             fontface = 2,
+             color = 'grey10')
   
   ggsave(file_out,
          width = 5, height = 5, dpi = 300, limitsize = FALSE)
