@@ -43,27 +43,24 @@ plot_radial_chart <- function(major_drought_periods, drought_events,
   return(file_out)
 }
 
-plot_radial_wedges <- function(CASC_data, CASC_angles, file_out){
-  # Join angles data to CASC data
-  CASC_data <- left_join(CASC_data, CASC_angles, by = 'CASC')
+plot_radial_wedges <- function(CASC_angles, file_out){
+
+  wedge_df <- CASC_angles %>%
+    mutate(ymax = 2020) %>%
+    arrange(CASC_angle) %>%
+    mutate(angle_interval = CASC_angle - lag(CASC_angle))
   
-  wedge_df <- data.frame(
-    group = factor(x = unique(CASC_data$CASC),
-                   # these levels mean that the CASCs line up with violins
-                   levels = c("Southwest",
-                              "Northwest", "North Central", 
-                              "Midwest", "Northeast",
-                              "Southeast", "South Central")),
-    # Max year as "y" for the wedges
-    ymax = rep(2020, length(unique(CASC_data$CASC)))
-  ) %>%
-    arrange(group) %>% # svg order = group levels = plotting order
-    mutate(CASC_name = as.character(group))
+  # Add alphabetical plotting order field to sorted dataframe to control plotting order
+  wedge_df['plotting_order'] <- c('a','b','c','d','e','f','g')
   
+  # Pull out starting angle and angle interval, for computing offset for coord_polar()
+  starting_angle <- min(wedge_df$CASC_angle)
+  angle_interval <- mean(wedge_df$angle_interval, na.rm = TRUE)
+
   wedge_plot <- ggplot(data = wedge_df, 
-         aes(x = group, y = ymax)) +
-    geom_bar(width = 0.9, stat = "identity", aes(color = group), fill = 'white', alpha = 0) + 
-    coord_polar(start = 10) +
+                       aes(x = plotting_order, y = ymax)) +
+    geom_bar(width = 1, stat = "identity", aes(color = plotting_order), fill = 'white', alpha = 0) + 
+    coord_polar(start = (starting_angle - (angle_interval / 2)) * (pi/180)) + # start = value from 12 o'clock in radians
     theme_void() +
     theme(legend.position = "none")
    
@@ -78,7 +75,7 @@ plot_radial_wedges <- function(CASC_data, CASC_angles, file_out){
   # CRITICAL that row order of referenced dataframe MATCHES plotting order
   gridSVG::grid.garnish('geom_rect',
                'class' = rep('wedge', nrow(wedge_df)),
-               'id' = gsub(' ', '-', wedge_df$CASC_name),
+               'id' = gsub(' ', '-', wedge_df$CASC),
                group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
   
   gridSVG::grid.export(file_out, strict = FALSE)
