@@ -28,7 +28,8 @@ plot_radial_chart <- function(major_drought_periods, drought_events,
           axis.text = element_blank(),
           axis.title = element_blank(),
           panel.grid.major.x = element_blank(),
-          panel.grid.minor.x = element_blank())+
+          panel.grid.minor.x = element_blank(),
+          plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt"))+
     # Manually add year labels
     annotate(geom = "text",
              label = seq(1920, 2020, by = 10), 
