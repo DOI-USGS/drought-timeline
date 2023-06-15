@@ -84,6 +84,12 @@ plot_radial_wedges <- function(CASC_angles, file_out){
   # grid.garnish needs a handle - determine by running grid.ls() and checking
   # names under panel
   # CRITICAL that row order of referenced dataframe MATCHES plotting order
+  # Assign 'wrapper' id to first child of layout - the panel that holds the plot
+  # elements
+  gridSVG::grid.garnish('layout',
+                        'id' = 'wrapper',
+                        group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
+  # Assign ids and classes to each child within 'geom_rect' - the wedges
   gridSVG::grid.garnish('geom_rect',
                'class' = rep('wedge', nrow(wedge_df)),
                'id' = gsub(' ', '-', wedge_df$CASC),
