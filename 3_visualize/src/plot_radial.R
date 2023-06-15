@@ -1,5 +1,6 @@
 plot_radial_chart <- function(major_drought_periods, drought_events, 
-                              color_scheme, file_out){
+                              casc_angles, color_scheme, file_out){
+  drought_events <- left_join(drought_events, casc_angles, by = 'CASC')
   
   # Using the major droughts, create concentric circles that are grey
   ggplot(data = major_drought_periods, aes(x = angle, y = start))+

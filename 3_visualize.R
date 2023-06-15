@@ -150,16 +150,27 @@ p3_targets <- list(
              format = "file"),
   
   # plotting radial thumbnail plot
+  tar_target(p3_CASC_angles,
+             p2_CASCs %>%
+               # these angles are set ~51.4 degrees apart starting at Midwest for polar plot
+               mutate("CASC_angle" = case_when(CASC == "Midwest" ~ 39,
+                                               CASC == "Northeast" ~ 90,
+                                               CASC == "Southeast" ~ 143.8,
+                                               CASC == "South Central" ~ 195.2,
+                                               CASC == "Southwest" ~ 250,
+                                               CASC == "Northwest" ~ 302,
+                                               CASC == "North Central" ~ 348))),
   tar_target(p3_polar_violin_plot_png,
              plot_radial_chart(major_drought_periods = p2_major_droughts_expanded_radial,
                                drought_events = p2_expanded_2000_2pct_droughts_byCASC,
+                               casc_angles = p3_CASC_angles,
                                color_scheme = p3_colors,
                                file_out = "src/assets/images/duration-chart/polar_background_plot.png"),
              format = "file"),
   
   # plotting radial plot with wedges to svg 
   tar_target(p3_polar_wedge_plot_svg,
-             plot_radial_wedges(CASC_data = p2_CASCs,
+             plot_radial_wedges(CASC_data = p3_CASC_angles,
                                 file_out = "src/assets/svgs/polar_wedges.svg"),
              format = "file")
 )
