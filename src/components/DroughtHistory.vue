@@ -96,7 +96,16 @@
           alt=""
         >
         <div id="region-description">
-          <p>Placeholder for dynamically updating description of region</p>
+          <p id = "chart-instructions">Hover over the chart to explore drought histories in each region</p>
+          <div
+            v-for="description in regionDescriptions"
+            :id="`region-description-${description.id}`"
+            :key="description.id"
+            class="regionText hide"
+          >
+            <h4>Drought in the {{ description.region_name }} U.S.</h4>
+            <p>{{ description.region_description }}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -150,6 +159,7 @@ import droughtImages from "@/assets/text/droughtImages.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 import polarWedges from "@/assets/svgs/polar_wedges.svg";
 import cascMap from "@/assets/svgs/casc_regions_map.svg";
+import regionDroughtDescriptions from "@/assets/text/regionDroughtDescriptions.js";
 export default {
   name: "DroughtHistory",
     components: {
@@ -173,6 +183,7 @@ export default {
         overlayHeight: null,
         // source for regional map
         regionMapFilename: "casc_regions_map",
+        regionDescriptions: regionDroughtDescriptions.regionDescriptions
       }
   },
   mounted(){      
@@ -605,22 +616,50 @@ export default {
             .attr("height", '100%')
 
         // Add interaction to wedges
+        // select element containing chart itneraction instructions
+        const chartInsructions = document.querySelector('#chart-instructions')
         wedgesSVG.selectAll('.wedge')
            .on("mouseover", (event) => {
-              let regionName = event.target.parentElement.id
+              // Pull the region identifier
+              let regionID = event.target.parentElement.id
 
-              this.regionMapFilename = `states_stations_${regionName}`
+              // Show the region-specific map
+              this.regionMapFilename = `states_stations_${regionID}`
                
+              // Make all wedges _except_ the one hovered over partially opaque
+              // This highlights the current wedge
               self.d3.selectAll(".wedge").selectAll('path')
                   .style("fill-opacity", 0.8)
-              self.d3.select("#"+regionName).selectAll('path')
+              self.d3.select("#" + regionID).selectAll('path')
                   .style("fill-opacity", 0)
+
+              // Hide the interaction instructions
+              chartInsructions.classList.add("hide");
+
+              // Show the regional description
+              const regionDescription = document.querySelector('#region-description-' + regionID);
+              regionDescription.classList.add("show");
+              
+            })
+            .on("mouseout", (event) => {
+              // Pull the region identifier
+              let regionID = event.target.parentElement.id
+
+              // Hide the regional description
+              const regionDescription = document.querySelector('#region-description-' + regionID);
+              regionDescription.classList.remove("show");
+              
+              // Show the interaction instructions
+              chartInsructions.classList.remove("hide");
             })
 
         // Add mouseleave to wrapper, which is a group that contains the wedges
         wedgesSVG.selectAll('#wrapper')
             .on("mouseleave", () => {
+              // Show the default map
               this.regionMapFilename = "casc_regions_map"
+
+              // Make all wedges transparent
               self.d3.selectAll(".wedge").selectAll('path')
                   .style("fill-opacity", 0)
             })
@@ -830,6 +869,12 @@ $writeFont: 'Nanum Pen Script', cursive;
   opacity: 1;
   transition: opacity 0.3s linear;
 }
+.hide {
+  display: none;
+}
+.show {
+  display: inline;
+}
 .currentButton {
   background-color: black;
   border-color: black;
@@ -849,10 +894,10 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #region-grid-container {
   max-width: 95vw;
-  height: 90vh;
+  height: 92vh;
   display: grid;
   grid-template-columns: 3fr 1fr;
-  grid-template-rows: 90% 10%;
+  grid-template-rows: minmax(50vh, 80vh) auto max-content;
   grid-template-areas:
     "radial violin"
     "description description";
@@ -860,7 +905,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 #radial-chart {
   grid-area: radial;
   place-self: center;
-  height: 110%;
+  height: 115%;
 }
 #region-map {
   grid-area: radial;
@@ -878,8 +923,8 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-area: radial;
   place-self: center;
   display: flex;
-  width: 115%;
-  height: 115%;
+  width: 120%;
+  height: 120%;
 }
 .wedge path {
   stroke: none;
@@ -889,6 +934,9 @@ $writeFont: 'Nanum Pen Script', cursive;
 #region-description {
   grid-area: description;
   height: 100px;
+}
+#chart-instructions {
+  font-style: italic;
 }
 #methods-container {
   height: 300px;
