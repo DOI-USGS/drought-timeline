@@ -665,7 +665,7 @@ export default {
               .attr("height", '100%')
 
           // by default have Northwest region showing
-          // Highlight that region on the map adn show violin chart and description
+          // Highlight that region on the map and show violin chart and description
           const selectedRegion = "Northwest"
           self.showSelectedRegion(cascSVG, selectedRegion)
 
