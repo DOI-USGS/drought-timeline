@@ -40,8 +40,7 @@
         >
       </div>
       <div id="chart-overlay-dynamic">
-        <svg id="svg-dynamic">
-        </svg>
+        <svg id="svg-dynamic" />
       </div>
       <div id="chart-overlay-static">
         <annotationDrawings />
@@ -89,11 +88,20 @@
           src="@/assets/images/duration-chart/polar_background_plot.png"
           alt=""
         >
-        <cascMap v-if="mobileView" id="casc-svg" />
-        <p v-if="mobileView" id = "chart-instructions">
-            Click on the map to explore drought histories in each region
+        <cascMap
+          v-if="mobileView"
+          id="casc-svg"
+        />
+        <p
+          v-if="mobileView"
+          id="chart-instructions"
+        >
+          Click on the map to explore drought histories in each region
         </p>
-        <polarWedges v-if="!mobileView" id="wedges-svg" />
+        <polarWedges
+          v-if="!mobileView"
+          id="wedges-svg"
+        />
         <img
           v-if="!mobileView"
           id="region-map"
@@ -111,17 +119,22 @@
           >
         </div>
         <!--div id="region-description"-->
-          <p v-if="!mobileView" id = "chart-instructions" class="regionText">
-            Hover over the chart to explore drought histories in each region</p>
-          <div
-            v-for="description in regionDescriptions"
-            :id="`region-description-${description.id}`"
-            :key="description.id"
-            class="regionText hiddenText"
-          >
-            <h4>Drought in the {{ description.region_name }} U.S.</h4>
-            <p>{{ description.region_description }}</p>
-          </div>
+        <p
+          v-if="!mobileView"
+          id="chart-instructions"
+          class="regionText"
+        >
+          Hover over the chart to explore drought histories in each region
+        </p>
+        <div
+          v-for="description in regionDescriptions"
+          :id="`region-description-${description.id}`"
+          :key="description.id"
+          class="regionText hiddenText"
+        >
+          <h4>Drought in the {{ description.region_name }} U.S.</h4>
+          <p>{{ description.region_description }}</p>
+        </div>
         <!--/div-->
       </div>
     </section>
