@@ -917,10 +917,11 @@ $writeFont: 'Nanum Pen Script', cursive;
   max-width: 90vw;
 }
 #region-grid-container {
-  max-width: 95vw;
+  width: 89vw;
   height: 92vh;
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  justify-self: center;
+  grid-template-columns: 80% 20%;
   grid-template-rows: minmax(50vh, 80vh) auto max-content;
   grid-template-areas:
     "radial violin"
@@ -929,13 +930,14 @@ $writeFont: 'Nanum Pen Script', cursive;
 #radial-chart {
   grid-area: radial;
   place-self: center;
-  height: 115%;
+  max-height: 115%;
+  max-width: 115%;
 }
 #region-map {
   grid-area: radial;
   place-self: center;
-  margin-left: 1%; //nudges map right
-  width: 8%;
+  margin-left: 0.5%; //nudges map right
+  width: 6.5vw;
 }
 #casc-svg {
   max-height: 150px;
@@ -957,11 +959,16 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #violin-container {
   grid-area: violin;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .violin-chart {
   transform: rotate(180deg);
-  place-self: center;
-  height: 100%;
+  position: absolute;
+  max-height: 95%;
+  max-width: 100%;
 }
 #region-description {
   grid-area: description;
