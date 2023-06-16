@@ -107,22 +107,19 @@
             :alt="`Violin chart of drought events in the ${description.name} United States from 1921-2020.`"
           >
         </div>
-        <div id="region-description">
-          <p id = "chart-instructions">
-            Hover over the 
-            <span v-if="!mobileView">chart</span>
-            <span v-if="mobileView">map</span>
-             to explore drought histories in each region</p>
+        <!--div id="region-description"-->
+          <p v-if="!mobileView" id = "chart-instructions" class="regionText">
+            Hover over the chart to explore drought histories in each region</p>
           <div
             v-for="description in regionDescriptions"
             :id="`region-description-${description.id}`"
             :key="description.id"
-            class="regionText hide"
+            class="regionText hiddenText"
           >
             <h4>Drought in the {{ description.region_name }} U.S.</h4>
             <p>{{ description.region_description }}</p>
           </div>
-        </div>
+        <!--/div-->
       </div>
     </section>
     <section
@@ -658,7 +655,7 @@ export default {
 
               // Show the regional description
               const regionDescription = document.querySelector('#region-description-' + regionID);
-              regionDescription.classList.add("show");
+              regionDescription.classList.add("visibleText");
               
             })
             .on("mouseout", (event) => {
@@ -671,7 +668,7 @@ export default {
 
               // Hide the regional description
               const regionDescription = document.querySelector('#region-description-' + regionID);
-              regionDescription.classList.remove("show");
+              regionDescription.classList.remove("visibleText");
               
               // Show the interaction instructions
               chartInsructions.classList.remove("hide");
@@ -888,10 +885,18 @@ $writeFont: 'Nanum Pen Script', cursive;
   opacity: 0;
   transition: visibility 0s 0.3s, opacity 0.3s linear;
 }
+.hiddenText{
+  visibility: hidden;
+  opacity: 0;
+}
 .visible{
   visibility: visible;
   opacity: 1;
   transition: opacity 0.3s linear;
+}
+.visibleText{
+  visibility: visible;
+  opacity: 1;
 }
 .hide {
   display: none;
@@ -972,10 +977,18 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #region-description {
   grid-area: description;
-  height: 100px;
+  position: relative;
+}
+.regionText {
+  grid-area: description;
+  // position: absolute;
 }
 #chart-instructions {
   font-style: italic;
+  @media screen and (max-width: 600px) {
+    grid-area: instructions;
+    align-self: start;
+  }
 }
 #methods-container {
   height: 300px;
