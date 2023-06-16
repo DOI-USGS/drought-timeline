@@ -143,7 +143,7 @@ h4{
   font-weight: 700;
   color: $textcolor;
   @media screen and (max-width: 600px) {
-      font-size: 0.75em;
+    font-size: 18px;
   }  
 }
 p, text {

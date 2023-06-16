@@ -90,6 +90,9 @@
           alt=""
         >
         <cascMap v-if="mobileView" id="casc-svg" />
+        <p v-if="mobileView" id = "chart-instructions">
+            Click on the map to explore drought histories in each region
+        </p>
         <polarWedges v-if="!mobileView" id="wedges-svg" />
         <img
           v-if="!mobileView"
@@ -693,11 +696,47 @@ export default {
               .attr("width", '100%')
               .attr("height", '100%')
 
+          // by default have northwest region showing
+          // Highlight that region on the map
+          const selectedRegion = "Northwest"
+          cascSVG.select("#" + selectedRegion)
+            .style("fill", "#E48951")
+            .style("fill-opacity", 0.5)
+
+          // Show the regional violin chart
+          const regionalViolin = document.querySelector('#region-violin-' + selectedRegion);
+          regionalViolin.classList.add("show");
+
+          // Show the regional description
+          const regionDescription = document.querySelector('#region-description-' + selectedRegion);
+          regionDescription.classList.add("visibleText");
+
           // add interaction to CASC regions map
           cascSVG.selectAll('.CASC_region')
-            .on("mouseover", (event, d) => {
-                console.log(event.target.id) // unique wedge id - use to tie to regional violin and map
-              })
+            .on("click", (event, d) => {
+              // Pull the region identifier
+              let regionID = event.target.id // unique region id - use to tie to regional violin and map
+              
+              // Highlight that region on the map while dehighlightin other regions
+              cascSVG.selectAll(".CASC_region")
+                .style("fill", "#ffffff")
+                .style("opacity", 1)
+              cascSVG.select("#" + regionID)
+                .style("fill", "#E48951")
+                .style("fill-opacity", 0.5)
+
+              // Show the regional violin chart while hiding other violin charts
+              const allViolins = document.querySelectorAll('.violin-chart')
+              allViolins.forEach(violin => violin.classList.remove("show"))
+              const regionalViolin = document.querySelector('#region-violin-' + regionID);
+              regionalViolin.classList.add("show");
+
+              // Show the regional description while hiding other regional descriptions
+              const allDescriptions = document.querySelectorAll('.regionText')
+              allDescriptions.forEach(violin => violin.classList.remove("visibleText"))
+              const regionDescription = document.querySelector('#region-description-' + regionID);
+              regionDescription.classList.add("visibleText");
+            })
         }
       },
       // function to wrap text added with d3 modified from
@@ -922,15 +961,24 @@ $writeFont: 'Nanum Pen Script', cursive;
   max-width: 90vw;
 }
 #region-grid-container {
-  width: 89vw;
-  height: 92vh;
   display: grid;
-  justify-self: center;
+  width: 89vw;
+  height: 92vw;
   grid-template-columns: 80% 20%;
-  grid-template-rows: minmax(50vh, 80vh) auto max-content;
+  grid-template-rows: minmax(30vh, 75vh) max-content;
   grid-template-areas:
     "radial violin"
-    "description description";
+    "description description"; 
+  @media screen and (max-width: 600px) {
+    padding: 5px 0 0px 0;
+    height: 90vh;
+    grid-template-columns: 50% 50%;
+    grid-template-rows:  max-content auto max-content;
+    grid-template-areas:
+    "map violin"
+    "instructions violin"
+    "description description"; 
+  }
 }
 #radial-chart {
   grid-area: radial;
@@ -946,7 +994,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #casc-svg {
   max-height: 150px;
-  grid-area: radial;
+  grid-area: map;
   width: 100%;
   height: 100%;
 }
