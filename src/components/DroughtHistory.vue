@@ -134,7 +134,6 @@
           <h4>Drought in the {{ description.region_name }} U.S.</h4>
           <p>{{ description.region_description }}</p>
         </div>
-        <!--/div-->
       </div>
     </section>
     <section
