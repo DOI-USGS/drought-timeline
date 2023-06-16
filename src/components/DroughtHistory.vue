@@ -716,7 +716,7 @@ export default {
       mouseenterWrapper() {
         const self = this;
 
-        // Show the interaction instructions
+        // Hide the interaction instructions
         const chartInsructions = document.querySelector('#chart-instructions')
         chartInsructions.classList.add("hide");
       },
@@ -753,7 +753,7 @@ export default {
         // Pull the region identifier
         let regionID = event.target.id // unique region id - use to tie to regional violin and map
         
-        // Highlight that region on the map while dehighlightin other regions
+        // Highlight that region on the map while dehighlighting other regions
         const cascSVG = self.d3.select("#casc-svg")
         cascSVG.selectAll(".CASC_region")
           .style("fill", "#ffffff")
@@ -1058,13 +1058,8 @@ $writeFont: 'Nanum Pen Script', cursive;
   max-height: 95%;
   max-width: 100%;
 }
-#region-description {
-  grid-area: description;
-  position: relative;
-}
 .regionText {
   grid-area: description;
-  // position: absolute;
 }
 #chart-instructions {
   font-style: italic;
