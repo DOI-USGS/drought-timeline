@@ -82,12 +82,6 @@
       <h3>Droughts in every region</h3>
       <p>The five major drought events described above stand out in the history of the conterminous U.S. (the lower 48 states) because of their large effects on agriculture, wildfires, and streamflow. But droughts happen in every region of the U.S., and dry years in some regions are wet years in others. How do the 100-year histories of drought compare across regions?</p>
       <div id="region-grid-container">
-        <img
-          v-if="!mobileView"
-          id="radial-chart"
-          src="@/assets/images/duration-chart/polar_background_plot.png"
-          alt=""
-        >
         <cascMap
           v-if="mobileView"
           id="casc-svg"
@@ -98,6 +92,12 @@
         >
           Click on the map to explore drought histories in each region
         </p>
+        <img
+          v-if="!mobileView"
+          id="radial-chart"
+          src="@/assets/images/duration-chart/polar_background_plot.png"
+          alt=""
+        >
         <polarWedges
           v-if="!mobileView"
           id="wedges-svg"
@@ -118,7 +118,6 @@
             :alt="`Violin chart of drought events in the ${description.name} United States from 1921-2020.`"
           >
         </div>
-        <!--div id="region-description"-->
         <p
           v-if="!mobileView"
           id="chart-instructions"
