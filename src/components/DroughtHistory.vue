@@ -624,120 +624,144 @@ export default {
       addInteractions() {
         const self = this;
 
-        // set viewbox for svg with wedges
-        const wedgesSVG = self.d3.select("#wedges-svg")
-            .attr("viewBox", "0 0 " + 360 + " " + 360)
-            .attr("preserveAspectRatio", "xMidYMid meet")
-            .attr("width", '100%')
-            .attr("height", '100%')
+        // On desktop set up interactions
+        if (!this.mobileView) {
+          // set viewbox for svg with wedges
+          const wedgesSVG = self.d3.select("#wedges-svg")
+              .attr("viewBox", "0 0 " + 360 + " " + 360)
+              .attr("preserveAspectRatio", "xMidYMid meet")
+              .attr("width", '100%')
+              .attr("height", '100%')
 
-        // Add interaction to wedges
-        // select element containing chart itneraction instructions
-        const chartInsructions = document.querySelector('#chart-instructions')
-        wedgesSVG.selectAll('.wedge')
-           .on("mouseover", (event) => {
-              // Pull the region identifier
-              let regionID = event.target.parentElement.id
+          // Add interaction to wedges
+          wedgesSVG.selectAll('.wedge')
+              .on("mouseover", (event) => self.mouseoverWedge(event))
+              .on("mouseout", (event) => self.mouseoutWedge(event))
 
-              // Show the region-specific map
-              this.regionMapFilename = `states_stations_${regionID}`
-               
-              // Make all wedges _except_ the one hovered over partially opaque
-              // This highlights the current wedge
-              self.d3.selectAll(".wedge").selectAll('path')
-                  .style("fill-opacity", 0.8)
-              self.d3.select("#" + regionID).selectAll('path')
-                  .style("fill-opacity", 0)
+          // Add mouseleave to wrapper, which is a group that contains the wedges
+          wedgesSVG.selectAll('#wrapper')
+              .on("mouseenter", self.mouseenterWrapper)
+              .on("mouseleave", self.mouseleaveWrapper)
+        }
 
-              // Show the regional violin chart
-              const regionalViolin = document.querySelector('#region-violin-' + regionID);
-              regionalViolin.classList.add("show");
-
-              // Hide the interaction instructions
-              chartInsructions.classList.add("hide");
-
-              // Show the regional description
-              const regionDescription = document.querySelector('#region-description-' + regionID);
-              regionDescription.classList.add("visibleText");
-              
-            })
-            .on("mouseout", (event) => {
-              // Pull the region identifier
-              let regionID = event.target.parentElement.id
-
-              // Hide the regional violin chart
-              const regionalViolin = document.querySelector('#region-violin-' + regionID);
-              regionalViolin.classList.remove("show");
-
-              // Hide the regional description
-              const regionDescription = document.querySelector('#region-description-' + regionID);
-              regionDescription.classList.remove("visibleText");
-              
-              // Show the interaction instructions
-              chartInsructions.classList.remove("hide");
-            })
-
-        // Add mouseleave to wrapper, which is a group that contains the wedges
-        wedgesSVG.selectAll('#wrapper')
-            .on("mouseleave", () => {
-              // Show the default map
-              this.regionMapFilename = "casc_regions_map"
-
-              // Make all wedges transparent
-              self.d3.selectAll(".wedge").selectAll('path')
-                  .style("fill-opacity", 0)
-            })
-
-        // On mobile, set viewbox for svg with casc map
-        if (self.mobileView) {
+        // On mobile, set up interactions
+        if (this.mobileView) {
+          // Set viewbox for svg map of CASC regions
           const cascSVG = self.d3.select("#casc-svg")
               .attr("viewBox", "0 0 " + 648 + " " + 432)
               .attr("preserveAspectRatio", "xMidYMid meet")
               .attr("width", '100%')
               .attr("height", '100%')
 
-          // by default have northwest region showing
-          // Highlight that region on the map
+          // by default have Northwest region showing
+          // Highlight that region on the map adn show violin chart and description
           const selectedRegion = "Northwest"
-          cascSVG.select("#" + selectedRegion)
-            .style("fill", "#E48951")
-            .style("fill-opacity", 0.5)
-
-          // Show the regional violin chart
-          const regionalViolin = document.querySelector('#region-violin-' + selectedRegion);
-          regionalViolin.classList.add("show");
-
-          // Show the regional description
-          const regionDescription = document.querySelector('#region-description-' + selectedRegion);
-          regionDescription.classList.add("visibleText");
+          self.showSelectedRegion(cascSVG, selectedRegion)
 
           // add interaction to CASC regions map
           cascSVG.selectAll('.CASC_region')
-            .on("click", (event, d) => {
-              // Pull the region identifier
-              let regionID = event.target.id // unique region id - use to tie to regional violin and map
-              
-              // Highlight that region on the map while dehighlightin other regions
-              cascSVG.selectAll(".CASC_region")
-                .style("fill", "#ffffff")
-                .style("opacity", 1)
-              cascSVG.select("#" + regionID)
-                .style("fill", "#E48951")
-                .style("fill-opacity", 0.5)
-
-              // Show the regional violin chart while hiding other violin charts
-              const allViolins = document.querySelectorAll('.violin-chart')
-              allViolins.forEach(violin => violin.classList.remove("show"))
-              const regionalViolin = document.querySelector('#region-violin-' + regionID);
-              regionalViolin.classList.add("show");
-
-              // Show the regional description while hiding other regional descriptions
-              const allDescriptions = document.querySelectorAll('.regionText')
-              allDescriptions.forEach(violin => violin.classList.remove("visibleText"))
-              const regionDescription = document.querySelector('#region-description-' + regionID);
-              regionDescription.classList.add("visibleText");
-            })
+            .on("click", (event) => self.clickRegion(event))
         }
+      },
+      mouseoverWedge(event) {
+        const self = this;
+
+        // Pull the region identifier
+        let regionID = event.target.parentElement.id
+
+        // Show the region-specific map
+        this.regionMapFilename = `states_stations_${regionID}`
+        
+        // Make all wedges _except_ the one hovered over partially opaque
+        // This highlights the current wedge
+        self.d3.selectAll(".wedge").selectAll('path')
+            .style("fill-opacity", 0.8)
+        self.d3.select("#" + regionID).selectAll('path')
+            .style("fill-opacity", 0)
+
+        // Show the regional violin chart
+        const regionalViolin = document.querySelector('#region-violin-' + regionID);
+        regionalViolin.classList.add("show");
+
+        // Show the regional description
+        const regionDescription = document.querySelector('#region-description-' + regionID);
+        regionDescription.classList.add("visibleText");
+      },
+      mouseoutWedge(event) {
+        const self = this;
+
+        // Pull the region identifier
+        let regionID = event.target.parentElement.id
+
+        // Hide the regional violin chart
+        const regionalViolin = document.querySelector('#region-violin-' + regionID);
+        regionalViolin.classList.remove("show");
+
+        // Hide the regional description
+        const regionDescription = document.querySelector('#region-description-' + regionID);
+        regionDescription.classList.remove("visibleText");    
+
+      },
+      mouseenterWrapper() {
+        const self = this;
+
+        // Show the interaction instructions
+        const chartInsructions = document.querySelector('#chart-instructions')
+        chartInsructions.classList.add("hide");
+      },
+      mouseleaveWrapper() {
+        const self = this;
+
+        // Show the default map
+        this.regionMapFilename = "casc_regions_map"
+
+        // Show the interaction instructions
+        const chartInsructions = document.querySelector('#chart-instructions')
+        chartInsructions.classList.remove("hide");
+
+        // Make all wedges transparent
+        self.d3.selectAll(".wedge").selectAll('path')
+            .style("fill-opacity", 0)
+      },
+      showSelectedRegion(svg, region) {
+        svg.select("#" + region)
+            .style("fill", "#E48951")
+            .style("fill-opacity", 0.5)
+
+        // Show the regional violin chart
+        const regionalViolin = document.querySelector('#region-violin-' + region);
+        regionalViolin.classList.add("show");
+
+        // Show the regional description
+        const regionDescription = document.querySelector('#region-description-' + region);
+        regionDescription.classList.add("visibleText");
+      },
+      clickRegion(event) {
+        const self = this;
+
+        // Pull the region identifier
+        let regionID = event.target.id // unique region id - use to tie to regional violin and map
+        
+        // Highlight that region on the map while dehighlightin other regions
+        const cascSVG = self.d3.select("#casc-svg")
+        cascSVG.selectAll(".CASC_region")
+          .style("fill", "#ffffff")
+          .style("opacity", 1)
+        cascSVG.select("#" + regionID)
+          .style("fill", "#E48951")
+          .style("fill-opacity", 0.5)
+
+        // Show the regional violin chart while hiding other violin charts
+        const allViolins = document.querySelectorAll('.violin-chart')
+        allViolins.forEach(violin => violin.classList.remove("show"))
+        const regionalViolin = document.querySelector('#region-violin-' + regionID);
+        regionalViolin.classList.add("show");
+
+        // Show the regional description while hiding other regional descriptions
+        const allDescriptions = document.querySelectorAll('.regionText')
+        allDescriptions.forEach(violin => violin.classList.remove("visibleText"))
+        const regionDescription = document.querySelector('#region-description-' + regionID);
+        regionDescription.classList.add("visibleText");
       },
       // function to wrap text added with d3 modified from
       // https://stackoverflow.com/questions/24784302/wrapping-text-in-d3
