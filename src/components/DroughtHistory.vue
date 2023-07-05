@@ -33,15 +33,25 @@
         >
       </div>
       <div id="inset-container">
-        <img
-          id="inset-map"
-          src="@/assets/images/states_stations_inset.png"
-          alt=""
-        >
+        <div id="inset-image-container">
+          <img
+            id="inset-map-default"
+            class="inset-map default"
+            src="@/assets/images/states_stations_inset.png"
+            alt="Map of drought sites in the continental United States"
+          >
+          <img
+            v-for="drought in scrollToDates"
+            :id="`inset-map-${drought.id}`"
+            :key="drought.id"
+            class="inset-map drought-specific hide"
+            :src="require(`@/assets/images/drought_period_stations_${drought.id}.png`)"
+            :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${drought.name} are highlighted in red`"
+          >
+        </div>
       </div>
       <div id="chart-overlay-dynamic">
-        <svg id="svg-dynamic">
-        </svg>
+        <svg id="svg-dynamic" />
       </div>
       <div id="chart-overlay-static">
         <annotationDrawings />
@@ -69,7 +79,7 @@
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
           :key="narration.id"
-          :class="`droughtText narration hidden`"
+          class="droughtText narration hidden"
         >
           <p v-html="narration.text" />
         </div>
@@ -435,7 +445,18 @@ export default {
               trigger: `#${scrollIDFull}`,
               start: "top 25%",
               end: 'bottom 25%',
-              toggleClass: {targets: `#button-${scrollID}`, className:"currentButton"}, // adds class to target when triggered
+              toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
+              toggleActions: "restart reverse none reverse" 
+            },
+          })
+          // Show the map for each drought when in that drought period
+          tl.to(`#${scrollIDFull}`, {
+            scrollTrigger: {
+              markers: false,
+              trigger: `#${scrollIDFull}`,
+              start: "top 25%",
+              end: 'bottom 25%',
+              toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
               toggleActions: "restart reverse none reverse" 
             },
           })
@@ -729,15 +750,26 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-area: chart;
   justify-self: end;
 }
-#inset-map {
+#inset-image-container {
   position: sticky;
   top: 55px;
+  @media only screen and (max-width: 600px) {
+    top: 75px;
+  }
+}
+.inset-map {
   height: 150px;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
     height: 75px;
-    top: 75px;
   }
+}
+.inset-map.default {
+  position: sticky;
+}
+.inset-map.drought-specific {
+  position: absolute;
+  right: 0;
 }
 #chart-container {
   grid-area: chart;
@@ -800,6 +832,12 @@ $writeFont: 'Nanum Pen Script', cursive;
   visibility: visible;
   opacity: 1;
   transition: opacity 0.3s linear;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: inline;
 }
 .currentButton {
   background-color: black;

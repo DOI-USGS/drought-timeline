@@ -65,7 +65,7 @@ p3_targets <- list(
                       focal_station_data = NA,
                       file_out = 'src/assets/images/states_stations_inset.png',
                       svg_export = FALSE,
-                      width = 16, height = 9,
+                      width = 13, height = 7,
                       color_scheme = p3_colors),
            format = "file"),
   
@@ -115,7 +115,7 @@ p3_targets <- list(
                         file_out = sprintf("src/assets/images/drought_period_stations_%s.png", 
                                            unique(p2_expanded_droughts_during_major_drought_periods$major_drought_id)),
                         svg_export = FALSE,
-                        width = 9, height = 6,
+                        width = 13, height = 7,
                         color_scheme = p3_colors),
              pattern = map(p2_expanded_droughts_during_major_drought_periods),
              format = "file"),

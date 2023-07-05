@@ -105,14 +105,8 @@ export default {
       },
       {
         id: 'legend',
-        date: '1926-06-01',
-        text: 'Droughts are colored by duration where darker = longer.',
-        mobile_x_offset_per: 60
-      }    ,
-      {
-        id: 'legend-2',
-        date: '1927-04-01',
-        text: 'The shortest droughts were 43 days',
+        date: '1926-11-01',
+        text: 'Droughts are colored by duration where darker = longer. The shortest droughts were 43 days',
         mobile_x_offset_per: 60
       }   
     ]
