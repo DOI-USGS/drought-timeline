@@ -57,6 +57,9 @@ plot_radial_wedges <- function(CASC_angles, supporting_font, file_out) {
   start_date <- as.Date('1900-01-01')
   end_date <- as.Date('2020-12-31')
   
+  # define vector of years for labeling
+  label_years <- seq(1920, 2020, by = 20)
+  
   wedge_df <- CASC_angles %>%
     arrange(CASC_angle) %>%
     mutate(angle_interval = CASC_angle - lag(CASC_angle))
@@ -93,9 +96,9 @@ plot_radial_wedges <- function(CASC_angles, supporting_font, file_out) {
           plot.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")) +
     # Manually add year labels
     annotate(geom = "text",
-             label = seq(1920, 2020, by = 20),
+             label = label_years,
              x = rep(0, 6), #11
-             y = as.Date(sprintf("%s-01-01", seq(1920, 2020, by = 20))),
+             y = as.Date(sprintf("%s-01-01", label_years)),
              size = 3,
              family = supporting_font,
              fontface = 2,
@@ -121,6 +124,11 @@ plot_radial_wedges <- function(CASC_angles, supporting_font, file_out) {
                'class' = rep('wedge', nrow(wedge_df)),
                'id' = gsub(' ', '-', wedge_df$CASC),
                group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
+  # Assign class to each child within 'GRID.text' - the groups containing the
+  # axis labels
+  gridSVG::grid.garnish('GRID.text',
+                        'class' = rep('polarAxisText', length(label_years)),
+                        group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
   
   gridSVG::grid.export(file_out, strict = FALSE)
   showtext_end()

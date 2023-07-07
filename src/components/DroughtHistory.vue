@@ -1097,6 +1097,9 @@ $writeFont: 'Nanum Pen Script', cursive;
 .regionText {
   grid-area: description;
 }
+.polarAxisText {
+  pointer-events: none;
+}
 #chart-instructions {
   font-style: italic;
   @media screen and (max-width: 600px) {
