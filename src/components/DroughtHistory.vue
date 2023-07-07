@@ -1070,8 +1070,8 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-area: radial;
   place-self: center;
   display: flex;
-  width: 120%;
-  height: 120%;
+  width: 115%;
+  height: 115%;
 }
 .wedge path {
   stroke: none;
