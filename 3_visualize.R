@@ -4,7 +4,17 @@ source('3_visualize/src/plot_radial.R')
 
 
 p3_targets <- list(
-
+  # supporting font
+  tar_target(
+    p3_supporting_font,
+    {
+      supporting_font <- "Source Sans Pro"
+      sysfonts::font_add_google(supporting_font)
+      showtext::showtext_opts(dpi = 300, regular.wt = 200, bold.wt = 900)
+      showtext::showtext_auto(enable = TRUE)
+      return(supporting_font)
+    }
+  ),
   
   # Color scheme tibble
   tar_target(
@@ -76,6 +86,7 @@ p3_targets <- list(
                                    # add these in manually so that the y-scale has 1920 and 2020 by 5 yrs
                                    timeline_start = "1920-01-01",
                                    timeline_end = "2020-12-31",
+                                   supporting_font = p3_supporting_font,
                                    color_scheme = p3_colors,
                                    file_out = sprintf("src/assets/images/duration-chart/vertical_violin_jd7d_2pct_%s.png", 
                                                       gsub(' ', '-', unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)))),
@@ -164,6 +175,7 @@ p3_targets <- list(
              plot_radial_chart(major_drought_periods = p2_major_droughts_expanded_radial,
                                drought_events = p2_expanded_2000_2pct_droughts_byCASC,
                                CASC_angles = p3_CASC_angles,
+                               supporting_font = p3_supporting_font,
                                color_scheme = p3_colors,
                                file_out = "src/assets/images/duration-chart/polar_background_plot.png"),
              format = "file"),
@@ -171,6 +183,7 @@ p3_targets <- list(
   # plotting radial plot with wedges to svg 
   tar_target(p3_polar_wedge_plot_svg,
              plot_radial_wedges(CASC_angles = p3_CASC_angles,
+                                supporting_font = p3_supporting_font,
                                 file_out = "src/assets/svgs/polar_wedges.svg"),
              format = "file")
 )

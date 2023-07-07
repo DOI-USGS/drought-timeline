@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="360px" height="360px" viewBox="0 0 360 360" version="1.1">
   <metadata xmlns:gridsvg="http://www.stat.auckland.ac.nz/~paul/R/gridSVG/">
-    <gridsvg:generator name="gridSVG" version="1.7-5" time="2023-07-07 10:06:30"/>
+    <gridsvg:generator name="gridSVG" version="1.7-5" time="2023-07-07 10:39:21"/>
     <gridsvg:argument name="name" value="src/assets/svgs/polar_wedges.svg"/>
     <gridsvg:argument name="exportCoords" value="none"/>
     <gridsvg:argument name="exportMappings" value="none"/>
@@ -61,43 +61,43 @@
               <g id="GRID.text.27.1">
                 <g id="GRID.text.27.1.1" transform="translate(181.37, 204.99)" stroke-width="0.1">
                   <g id="GRID.text.27.1.1.scale" transform="scale(1, -1)">
-                    <text x="0" y="0" id="GRID.text.27.1.1.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
-                      <tspan id="GRID.text.27.1.1.tspan.1" dy="3.23" x="0">1920</tspan>
+                    <text x="0" y="0" id="GRID.text.27.1.1.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Source Sans Pro, Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
+                      <tspan id="GRID.text.27.1.1.tspan.1" dy="2.78" x="0">1920</tspan>
                     </text>
                   </g>
                 </g>
                 <g id="GRID.text.27.1.2" transform="translate(181.37, 228.61)" stroke-width="0.1">
                   <g id="GRID.text.27.1.2.scale" transform="scale(1, -1)">
-                    <text x="0" y="0" id="GRID.text.27.1.2.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
-                      <tspan id="GRID.text.27.1.2.tspan.1" dy="3.23" x="0">1940</tspan>
+                    <text x="0" y="0" id="GRID.text.27.1.2.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Source Sans Pro, Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
+                      <tspan id="GRID.text.27.1.2.tspan.1" dy="2.78" x="0">1940</tspan>
                     </text>
                   </g>
                 </g>
                 <g id="GRID.text.27.1.3" transform="translate(181.37, 252.23)" stroke-width="0.1">
                   <g id="GRID.text.27.1.3.scale" transform="scale(1, -1)">
-                    <text x="0" y="0" id="GRID.text.27.1.3.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
-                      <tspan id="GRID.text.27.1.3.tspan.1" dy="3.23" x="0">1960</tspan>
+                    <text x="0" y="0" id="GRID.text.27.1.3.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Source Sans Pro, Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
+                      <tspan id="GRID.text.27.1.3.tspan.1" dy="2.78" x="0">1960</tspan>
                     </text>
                   </g>
                 </g>
                 <g id="GRID.text.27.1.4" transform="translate(181.37, 275.85)" stroke-width="0.1">
                   <g id="GRID.text.27.1.4.scale" transform="scale(1, -1)">
-                    <text x="0" y="0" id="GRID.text.27.1.4.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
-                      <tspan id="GRID.text.27.1.4.tspan.1" dy="3.23" x="0">1980</tspan>
+                    <text x="0" y="0" id="GRID.text.27.1.4.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Source Sans Pro, Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
+                      <tspan id="GRID.text.27.1.4.tspan.1" dy="2.78" x="0">1980</tspan>
                     </text>
                   </g>
                 </g>
                 <g id="GRID.text.27.1.5" transform="translate(181.37, 299.47)" stroke-width="0.1">
                   <g id="GRID.text.27.1.5.scale" transform="scale(1, -1)">
-                    <text x="0" y="0" id="GRID.text.27.1.5.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
-                      <tspan id="GRID.text.27.1.5.tspan.1" dy="3.23" x="0">2000</tspan>
+                    <text x="0" y="0" id="GRID.text.27.1.5.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Source Sans Pro, Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
+                      <tspan id="GRID.text.27.1.5.tspan.1" dy="2.78" x="0">2000</tspan>
                     </text>
                   </g>
                 </g>
                 <g id="GRID.text.27.1.6" transform="translate(181.37, 323.09)" stroke-width="0.1">
                   <g id="GRID.text.27.1.6.scale" transform="scale(1, -1)">
-                    <text x="0" y="0" id="GRID.text.27.1.6.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
-                      <tspan id="GRID.text.27.1.6.tspan.1" dy="3.23" x="0">2020</tspan>
+                    <text x="0" y="0" id="GRID.text.27.1.6.text" text-anchor="middle" stroke="rgb(26,26,26)" font-size="8.54" font-family="Source Sans Pro, Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" fill="rgb(26,26,26)" stroke-opacity="1" fill-opacity="1" font-weight="bold" font-style="normal">
+                      <tspan id="GRID.text.27.1.6.tspan.1" dy="2.78" x="0">2020</tspan>
                     </text>
                   </g>
                 </g>

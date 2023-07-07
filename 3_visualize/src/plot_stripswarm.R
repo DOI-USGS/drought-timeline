@@ -30,11 +30,7 @@ event_swarm_plot_compressed_vertical <- function(swarm_data){
 
 event_violin_vertical <- function(drought_data, major_drought_periods, 
                                   timeline_start, timeline_end,
-                                  color_scheme, file_out){
-  supporting_font <- "Source Sans Pro"
-  sysfonts::font_add_google(supporting_font)
-  showtext::showtext_opts(dpi = 300, regular.wt = 200, bold.wt = 900)
-  showtext::showtext_auto(enable = TRUE)
+                                  supporting_font, color_scheme, file_out) {
   
   # focal CASC
   focal_CASC <- unique(drought_data$CASC)
@@ -56,7 +52,7 @@ event_violin_vertical <- function(drought_data, major_drought_periods,
     # Manually add major drought labels
     annotate(geom = "text",
              label = major_drought_annotations$name,
-             x = rep(2.7, length(major_drought_annotations$name)),
+             x = rep(2.75, length(major_drought_annotations$name)),
              y = major_drought_annotations$start_date,
              size = 2.5, angle = 180, hjust = 0, vjust = 0,
              family = supporting_font) +

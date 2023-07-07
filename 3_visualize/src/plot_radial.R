@@ -1,10 +1,7 @@
 plot_radial_chart <- function(major_drought_periods, drought_events, 
-                              CASC_angles, color_scheme, file_out){
-  supporting_font <- "Source Sans Pro"
-  sysfonts::font_add_google(supporting_font)
-  showtext::showtext_opts(dpi = 300, regular.wt = 200, bold.wt = 900)
-  showtext::showtext_auto(enable = TRUE)
-  
+                              CASC_angles, supporting_font, color_scheme, 
+                              file_out){
+
   # Join angles data to drought events
   drought_events <- left_join(drought_events, CASC_angles, by = 'CASC')
   
@@ -55,7 +52,7 @@ plot_radial_chart <- function(major_drought_periods, drought_events,
   return(file_out)
 }
 
-plot_radial_wedges <- function(CASC_angles, file_out){
+plot_radial_wedges <- function(CASC_angles, supporting_font, file_out) {
   # define start and end dates for wedges and y axis
   start_date <- as.Date('1900-01-01')
   end_date <- as.Date('2020-12-31')
@@ -100,13 +97,15 @@ plot_radial_wedges <- function(CASC_angles, file_out){
              x = rep(0, 6), #11
              y = as.Date(sprintf("%s-01-01", seq(1920, 2020, by = 20))),
              size = 3,
+             family = supporting_font,
              fontface = 2,
              color = 'grey10')
-   
+  
   # gridSVG approach modified from 
   # https://gist.github.com/jimjam-slam/1d988451ae15882c889f49cf20b99a64
   wedge_grob <- wedge_plot %>% ggplotGrob() %>% grid::grid.force()
   dev.new(width = 5, height = 5, units = 'in', res = 300)
+  showtext_begin()
   grid::grid.draw(wedge_grob)
   
   # grid.garnish needs a handle - determine by running grid.ls() and checking
@@ -124,6 +123,7 @@ plot_radial_wedges <- function(CASC_angles, file_out){
                group = FALSE, grep = TRUE, redraw = TRUE, global = FALSE)
   
   gridSVG::grid.export(file_out, strict = FALSE)
+  showtext_end()
   dev.off(which=dev.cur())
   
   return(file_out)
