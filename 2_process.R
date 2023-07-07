@@ -31,15 +31,7 @@ p2_targets <- list(
                                                      "Arkansas") ~ "Southeast",
                                          NAME %in% c("Arizona", "California", 
                                                      "Utah", "Nevada") ~ "Southwest",
-                                         TRUE ~ "not sorted"),
-                      # these angles are set ~51.4 degrees apart starting at Midwest for polar plot
-                      "CASC_angle" = case_when(CASC == "Midwest" ~ 39,
-                                               CASC == "Northeast" ~ 90,
-                                               CASC == "Southeast" ~ 143.8,
-                                               CASC == "South Central" ~ 195.2,
-                                               CASC == "Southwest" ~ 250,
-                                               CASC == "Northwest" ~ 302,
-                                               CASC == "North Central" ~ 348)) 
+                                         TRUE ~ "not sorted")) 
   ),
   # Attach CASCs to metadata
   tar_target(p2_metadata,

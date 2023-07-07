@@ -30,7 +30,8 @@ event_swarm_plot_compressed_vertical <- function(swarm_data){
 
 event_violin_vertical <- function(drought_data, major_drought_periods, 
                                   timeline_start, timeline_end,
-                                  color_scheme, file_out){
+                                  supporting_font, color_scheme, file_out) {
+  
   # focal CASC
   focal_CASC <- unique(drought_data$CASC)
   
@@ -51,9 +52,10 @@ event_violin_vertical <- function(drought_data, major_drought_periods,
     # Manually add major drought labels
     annotate(geom = "text",
              label = major_drought_annotations$name,
-             x = rep(2.7, length(major_drought_annotations$name)),
+             x = rep(2.75, length(major_drought_annotations$name)),
              y = major_drought_annotations$start_date,
-             size = 2, angle = 180, hjust = 0, vjust = 0) +
+             size = 2.5, angle = 180, hjust = 0, vjust = 0,
+             family = supporting_font) +
     geom_violin(data = drought_data,
                 aes(x = threshold, y = date),
                 color = NA, 
@@ -61,23 +63,25 @@ event_violin_vertical <- function(drought_data, major_drought_periods,
                 scale = "count",
                 adjust = 0.2) +
     theme_nothing() + 
-      theme(axis.text.x = element_blank(),
-            axis.text.y = element_text(size = 6, 
-                                       color = color_scheme$annotation_grey, 
-                                       angle = 180),
-            panel.grid.major.y = element_line(color = color_scheme$annotation_grey, 
-                                              linewidth = 0.2),
-            plot.title = element_text(size = 8, color = color_scheme$annotation_grey, 
-                                      angle = 180)) +
-      scale_y_date(breaks = scales::date_breaks(width = '5 years'),
-                   labels = scales::date_format('%Y'), 
-                   limits = c(as.Date(timeline_start), 
-                              as.Date(timeline_end)),
-                   expand = c(0,0),
-                   position = 'right')+
+    theme(axis.text.x = element_blank(),
+          axis.text.y = element_text(size = 6, 
+                                     color = color_scheme$annotation_grey, 
+                                     angle = 180,
+                                     family = supporting_font),
+          panel.grid.major.y = element_line(color = color_scheme$annotation_grey, 
+                                            linewidth = 0.2),
+          plot.title = element_text(size = 8, color = color_scheme$annotation_grey, 
+                                    angle = 180, family = supporting_font),
+          plot.margin = margin(t = 0, r = 0, b = 3, l = 0, unit = "pt")) +
+    scale_y_date(breaks = scales::date_breaks(width = '5 years'),
+                 labels = scales::date_format('%Y'), 
+                 limits = c(as.Date(timeline_start), 
+                            as.Date(timeline_end)),
+                 expand = c(0,0),
+                 position = 'right')+
     # Here this scale gives equidistant spacing on either side of "2" (the threshold)
     scale_x_continuous(limits = c(1.25, 2.75))+
-       ggtitle(focal_CASC) 
+    ggtitle(focal_CASC) 
 
   
   ggsave(file_out,

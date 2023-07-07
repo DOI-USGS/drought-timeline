@@ -4,7 +4,17 @@ source('3_visualize/src/plot_radial.R')
 
 
 p3_targets <- list(
-
+  # supporting font
+  tar_target(
+    p3_supporting_font,
+    {
+      supporting_font <- "Source Sans Pro"
+      sysfonts::font_add_google(supporting_font)
+      showtext::showtext_opts(dpi = 300, regular.wt = 200, bold.wt = 900)
+      showtext::showtext_auto(enable = TRUE)
+      return(supporting_font)
+    }
+  ),
   
   # Color scheme tibble
   tar_target(
@@ -13,7 +23,9 @@ p3_targets <- list(
       drought_period_shading = "#F1F1F1", #light orange option: "#DAA520"
       drought_event_dark = "#C34C4A", 
       drought_event_highlight = "#E48951",
-      annotation_grey = "#949494"
+      annotation_grey = "#949494",
+      dark_grey = "#6B6B6B",
+      light_grey = "#ADADAD"
       # colors in the main stripswarm from: scico(n = 5, palette = "lajolla", begin = 0.25)
       #c("#F1C659", "#E48951", "#C34C4A", "#69342A", "#191900")
     )
@@ -51,23 +63,25 @@ p3_targets <- list(
              p3_states |>
                left_join(p2_CASCs, by = "NAME") |>
                group_by(CASC) |>
-               summarise(id = unique(CASC)) 
+               summarise(id = unique(CASC)) |>
+               st_cast("MULTIPOLYGON") |>
+               st_cast("POLYGON")
              ),
 
   # plotting inset with stations
   tar_target(p3_inset_stations_map_png,
-           plot_inset(station = TRUE,
-                      station_data = p3_metadata_sf,
-                      us_data = p3_states,
-                      regions = FALSE,
-                      region_sf = NA,
-                      focal_stations = FALSE,
-                      focal_station_data = NA,
-                      file_out = 'src/assets/images/states_stations_inset.png',
-                      svg_export = FALSE,
-                      width = 13, height = 7,
-                      color_scheme = p3_colors),
-           format = "file"),
+             plot_inset(station = TRUE,
+                        station_data = p3_metadata_sf,
+                        us_data = p3_states,
+                        regions = FALSE,
+                        region_sf = NA,
+                        focal_stations = FALSE,
+                        focal_station_data = NA,
+                        file_out = 'src/assets/images/states_stations_inset.png',
+                        svg_export = FALSE,
+                        width = 13, height = 7,
+                        color_scheme = p3_colors),
+             format = "file"),
   
   # create CASC-level violins
   tar_target(p3_drought_violin_vertical_byCASC_png,
@@ -76,26 +90,26 @@ p3_targets <- list(
                                    # add these in manually so that the y-scale has 1920 and 2020 by 5 yrs
                                    timeline_start = "1920-01-01",
                                    timeline_end = "2020-12-31",
+                                   supporting_font = p3_supporting_font,
                                    color_scheme = p3_colors,
                                    file_out = sprintf("src/assets/images/duration-chart/vertical_violin_jd7d_2pct_%s.png", 
-                                                      unique(p2_expanded_2000_2pct_droughts_byCASC$CASC))),
+                                                      gsub(' ', '-', unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)))),
              pattern = map(p2_expanded_2000_2pct_droughts_byCASC),
              format = "file"),
 
   
-  # plotting inset with stations and regions
-  tar_target(p3_inset_stations_map_byCASC_png,
-             plot_inset(station = TRUE,
-                        station_data = p3_metadata_sf |> 
-                          filter(STATE %in% p2_expanded_2000_2pct_droughts_byCASC$STATE),
+  # plotting inset by region
+  tar_target(p3_inset_regions_map_byCASC_png,
+             plot_inset(station = FALSE,
+                        station_data = NA,
                         us_data = p3_states,
                         regions = TRUE,
                         region_sf = p3_CASCs_sf |> 
                           filter(CASC == unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)),
                         focal_stations = FALSE,
                         focal_station_data = NA,
-                        file_out = sprintf("src/assets/images/states_stations_%s.png", 
-                                           unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)),
+                        file_out = sprintf("src/assets/images/states_regions_%s.png", 
+                                           gsub(' ', '-', unique(p2_expanded_2000_2pct_droughts_byCASC$CASC))),
                         svg_export = FALSE,
                         width = 9, height = 6,
                         color_scheme = p3_colors),
@@ -138,9 +152,9 @@ p3_targets <- list(
   tar_target(p3_inset_regions_map_allCASC_svg,
              plot_inset(station = FALSE,
                         station_data = NA,
-                        us_data = p3_CASCs_sf,
-                        regions = FALSE,
-                        region_sf = NA,
+                        us_data = p3_states,
+                        regions = TRUE,
+                        region_sf = p3_CASCs_sf,
                         focal_stations = FALSE,
                         focal_station_data = NA,
                         file_out = "src/assets/svgs/casc_regions_map.svg",
@@ -150,16 +164,29 @@ p3_targets <- list(
              format = "file"),
   
   # plotting radial thumbnail plot
+  tar_target(p3_CASC_angles,
+             tibble(CASC = unique(p2_CASCs$CASC)) %>%
+               # these angles are set ~51.4 degrees apart starting at Midwest for polar plot
+               mutate(CASC_angle = case_when(CASC == "Midwest" ~ 26.5,
+                                               CASC == "Northeast" ~ 79.5,
+                                               CASC == "Southeast" ~ 132.5,
+                                               CASC == "South Central" ~ 185.5,
+                                               CASC == "Southwest" ~ 238.5,
+                                               CASC == "Northwest" ~ 291.5,
+                                               CASC == "North Central" ~ 344.5))),
   tar_target(p3_polar_violin_plot_png,
              plot_radial_chart(major_drought_periods = p2_major_droughts_expanded_radial,
                                drought_events = p2_expanded_2000_2pct_droughts_byCASC,
+                               CASC_angles = p3_CASC_angles,
+                               supporting_font = p3_supporting_font,
                                color_scheme = p3_colors,
                                file_out = "src/assets/images/duration-chart/polar_background_plot.png"),
              format = "file"),
   
   # plotting radial plot with wedges to svg 
   tar_target(p3_polar_wedge_plot_svg,
-             plot_radial_wedges(CASC_data = p2_CASCs,
+             plot_radial_wedges(CASC_angles = p3_CASC_angles,
+                                supporting_font = p3_supporting_font,
                                 file_out = "src/assets/svgs/polar_wedges.svg"),
              format = "file")
 )
