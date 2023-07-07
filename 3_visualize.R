@@ -23,7 +23,9 @@ p3_targets <- list(
       drought_period_shading = "#F1F1F1", #light orange option: "#DAA520"
       drought_event_dark = "#C34C4A", 
       drought_event_highlight = "#E48951",
-      annotation_grey = "#949494"
+      annotation_grey = "#949494",
+      dark_grey = "#6B6B6B",
+      light_grey = "#ADADAD"
       # colors in the main stripswarm from: scico(n = 5, palette = "lajolla", begin = 0.25)
       #c("#F1C659", "#E48951", "#C34C4A", "#69342A", "#191900")
     )
