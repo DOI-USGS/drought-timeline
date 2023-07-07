@@ -98,18 +98,17 @@ p3_targets <- list(
              format = "file"),
 
   
-  # plotting inset with stations and regions
-  tar_target(p3_inset_stations_map_byCASC_png,
-             plot_inset(station = TRUE,
-                        station_data = p3_metadata_sf |> 
-                          filter(STATE %in% p2_expanded_2000_2pct_droughts_byCASC$STATE),
+  # plotting inset by region
+  tar_target(p3_inset_regions_map_byCASC_png,
+             plot_inset(station = FALSE,
+                        station_data = NA,
                         us_data = p3_states,
                         regions = TRUE,
                         region_sf = p3_CASCs_sf |> 
                           filter(CASC == unique(p2_expanded_2000_2pct_droughts_byCASC$CASC)),
                         focal_stations = FALSE,
                         focal_station_data = NA,
-                        file_out = sprintf("src/assets/images/states_stations_%s.png", 
+                        file_out = sprintf("src/assets/images/states_regions_%s.png", 
                                            gsub(' ', '-', unique(p2_expanded_2000_2pct_droughts_byCASC$CASC))),
                         svg_export = FALSE,
                         width = 9, height = 6,

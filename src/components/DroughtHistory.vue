@@ -703,7 +703,7 @@ export default {
         let regionID = event.target.parentElement.id
 
         // Show the region-specific map
-        this.regionMapFilename = `states_stations_${regionID}`
+        this.regionMapFilename = `states_regions_${regionID}`
         
         // Make all wedges _except_ the one hovered over partially opaque
         // This highlights the current wedge
