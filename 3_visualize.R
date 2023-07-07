@@ -63,23 +63,25 @@ p3_targets <- list(
              p3_states |>
                left_join(p2_CASCs, by = "NAME") |>
                group_by(CASC) |>
-               summarise(id = unique(CASC)) 
+               summarise(id = unique(CASC)) |>
+               st_cast("MULTIPOLYGON") |>
+               st_cast("POLYGON")
              ),
 
   # plotting inset with stations
   tar_target(p3_inset_stations_map_png,
-           plot_inset(station = TRUE,
-                      station_data = p3_metadata_sf,
-                      us_data = p3_states,
-                      regions = FALSE,
-                      region_sf = NA,
-                      focal_stations = FALSE,
-                      focal_station_data = NA,
-                      file_out = 'src/assets/images/states_stations_inset.png',
-                      svg_export = FALSE,
-                      width = 13, height = 7,
-                      color_scheme = p3_colors),
-           format = "file"),
+             plot_inset(station = TRUE,
+                        station_data = p3_metadata_sf,
+                        us_data = p3_states,
+                        regions = FALSE,
+                        region_sf = NA,
+                        focal_stations = FALSE,
+                        focal_station_data = NA,
+                        file_out = 'src/assets/images/states_stations_inset.png',
+                        svg_export = FALSE,
+                        width = 13, height = 7,
+                        color_scheme = p3_colors),
+             format = "file"),
   
   # create CASC-level violins
   tar_target(p3_drought_violin_vertical_byCASC_png,
