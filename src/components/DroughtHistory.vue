@@ -757,6 +757,9 @@ export default {
             .style("fill-opacity", 0)
       },
       showSelectedRegion(svg, region) {
+        svg.selectAll(".CASC_region")
+          .style("fill", "#ffffff")
+          .style("opacity", 1)
         svg.select("#" + region)
             .style("fill", "#E48951")
             .style("fill-opacity", 0.5)
