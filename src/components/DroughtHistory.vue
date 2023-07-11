@@ -450,6 +450,7 @@ export default {
           .attr("y", d => yScale(new Date(d.date)))
           .attr("width", d => this.mobileView ? xScale(d.mobile_width_per) : xScale(d.desktop_width_per))
           .attr("xlink:href", d => d.url)
+          .attr("src", d => `@assets/images/drought_events/${d.name}`)
           .attr("alt", d => d.alt)
 
       },
