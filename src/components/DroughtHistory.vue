@@ -449,8 +449,8 @@ export default {
           .attr("x", d => this.mobileView ? xScale(d.mobile_x_offset_per) : xScale(d.desktop_x_offset_per))
           .attr("y", d => yScale(new Date(d.date)))
           .attr("width", d => this.mobileView ? xScale(d.mobile_width_per) : xScale(d.desktop_width_per))
-          .attr("xlink:href", d => d.url)
-          .attr("src", d => `@assets/images/drought_events/${d.name}`)
+          .attr("xlink:href", d => "require(~@assets/images/drought_events/" + `${d.name}` + ")")
+          .attr("src", d => "require(~@assets/images/drought_events/" + `${d.name}` + ")")
           .attr("alt", d => d.alt)
 
       },
