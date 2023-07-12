@@ -24,7 +24,7 @@ export default {
         },
         {
             id: '1960s_image_1',
-            date: '1954-06-01',
+            date: '1966-02-01',
             url: 'https://broadleafpapers.wordpress.com/the-broadleaf-papers/archived-posts/golden-anniversary-of-the-drought-most-northeasterners-have-forgotten-intro/',
             name: 'drought_1960s.jpg',
             alt: 'A large area of shoreline is exposed in a reservoir in Massachusetts, revealing old tree stumps and other debris. A sign on the shore reads, “Elevation 498.17,” and trees and hills are visible in the distance.',
@@ -37,7 +37,7 @@ export default {
             id: '1980s_image_1',
             date: '1988-01-01',
             url: 'https://www.flickr.com/photos/wolfriver/409499930/',
-            names: 'drought_1980s.jpg',
+            name: 'drought_1980s.jpg',
             alt: 'People explore the wreckages of wooden-hulled boats exposed by low water levels in the Mississippi River. The river is visible in the distance, along with a bridge and a shoreline with buildings and trees.',
             desktop_x_offset_per: 7,
             desktop_width_per: 30,
@@ -45,11 +45,11 @@ export default {
             mobile_width_per: 30
         },
         {
-            id: 'TOC_image_1',
-            date: '2004-01-01',
+            id: 'turnofcentury_image_1',
+            date: '2008-01-01',
             url: 'https://www.usgs.gov/media/images/california-drought-huntington-lake-august-2014',
-            names: 'drought_TOC.jpg',
-            alt: 'Extremely low water levels in a lake in California leave wooden floating docks stranded on land, far from the water’s edge. A small amount of water is visible beyond the shoreline, and trees cover the hills on the other side of the lake.',
+            name: 'drought_TOC.jpg',
+            alt: 'Extremely low water levels in a lake in California leave wooden floating docks stranded on land, far from the edge of the water. A small amount of water is visible beyond the shoreline, and trees cover the hills on the other side of the lake.',
             desktop_x_offset_per: 7,
             desktop_width_per: 30,
             mobile_x_offset_per: 67,
