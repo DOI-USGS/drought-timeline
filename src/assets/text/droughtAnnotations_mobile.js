@@ -50,15 +50,15 @@ export default {
       },
       {
         id: 'intro_text_1',
-        date: '1922-07-01',
+        date: '1922-06-01',
         text: 'Each streamflow drought event at a single stream site is represented by a vertical bar. The taller the bar, the longer the drought',
         mobile_x_offset_per: 20
       },
       {
         id: 'intro_text_3',
-        date: '1933-07-01',
-        text: 'When many sites are experiencing drought at the same time, the chart is really wide',
-        mobile_x_offset_per: 25
+        date: '1923-07-01',
+        text: 'The drought events are randomly scattered horizontally to create this beeswarm-like effect. So, when many sites are experiencing drought at the same time, the chart is really wide.',
+        mobile_x_offset_per: 55
       },
       {
         id: 'intro_text_2',
