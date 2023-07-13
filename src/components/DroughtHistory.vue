@@ -152,7 +152,11 @@
       class="page-section"
     >
       <h3>Methods</h3>
-      <p>These are the methods that we used to process the data</p>
+      <p>The USGS has thousands of streamgages all over the country, that all continuously monitor and measure water conditions, including streamflow. Streamflow conditions provide an accurate measure of local drought events. </p>
+      <p>Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (What is streamflow drought website). Here, we identified streamflow droughts that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a href="https://droughtmonitor.unl.edu/" target="_blank">U.S. Drought Monitor Map</a>)</p>
+      <img id="explainer_png" src="@/assets/images/drought_explainer.png">
+      <p>Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last (duration) and how dry they get (intensity) (<a href="https://doi.org/10.1029/2022WR031930" target="_blank">Hammond et al. 2022</a>)</p>
+      <img id="explainer_png" src="@/assets/images/severity_explainer.png">
     </section>
     <section
       id="references-container"
@@ -166,7 +170,7 @@
       class="page-section"
     >
       <h3>Authors</h3>
-      <p>These are the people who contributed to the site</p>
+      <p><a href="https://www.usgs.gov/staff-profiles/hayley-corson-dosch" target="_blank">Hayley Corson-Dosch</a> lead the development of this website with <a href="https://www.usgs.gov/staff-profiles/althea-a-archer" target="_blank">Althea A. Archer</a> and <a href="https://www.usgs.gov/staff-profiles/cee-nell" target="_blank">Cee Nell</a>. <a href="https://www.usgs.gov/staff-profiles/amanda-carr" target="_blank">Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. The USGS Vizlab, including Hayley Corson-Dosch, Althea Archer, Cee Nell, and <a href="https://www.usgs.gov/staff-profiles/elmera-azadpour" target="_blank">Elmera Adazpour</a> provided editorial and design review. This timeline was adapted from a similar drought visualization produced by <a href="https://www.usgs.gov/staff-profiles/scott-hamshaw" target="_blank">Scott Hanshaw</a>.</p>
     </section>
     <svg id="filter-svg">
       <filter
@@ -946,6 +950,15 @@ $writeFont: 'Nanum Pen Script', cursive;
   transform: rotate(180deg);
   pointer-events: none;
 }
+#explainer_png {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  @media screen and (max-width: 600px) {
+    width:100%;
+  }
+}
 #chart-overlay-dynamic {
   grid-area: chart;
 }
@@ -1034,7 +1047,6 @@ $writeFont: 'Nanum Pen Script', cursive;
 #region-grid-container {
   display: grid;
   width: 89vw;
-  height: 92vw;
   grid-template-columns: 80% 20%;
   grid-template-rows: minmax(30vh, 75vh) max-content;
   grid-template-areas:
@@ -1108,13 +1120,13 @@ $writeFont: 'Nanum Pen Script', cursive;
   }
 }
 #methods-container {
-  height: 300px;
+  
 }
 #references-container {
-  height: 300px;
+  height: auto;
 }
 #authors-container {
-  height: 300px;
+  height: auto;
 }
 </style>
 <style lang="scss">
