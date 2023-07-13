@@ -50,9 +50,20 @@ export default {
             url: 'https://www.usgs.gov/media/images/california-drought-huntington-lake-august-2014',
             name: 'drought_TOC.jpg',
             alt: 'Extremely low water levels in a lake in California leave wooden floating docks stranded on land, far from the edge of the water. A small amount of water is visible beyond the shoreline, and trees cover the hills on the other side of the lake.',
-            desktop_x_offset_per: 65,
+            desktop_x_offset_per: 15,
             desktop_width_per: 30,
             mobile_x_offset_per: 15,
+            mobile_width_per: 30
+        },
+        {
+            id: 'turnofcentury_image_2',
+            date: '2008-07-01',
+            url: 'https://www.usgs.gov/media/images/usgs-documents-2015-western-us-drought-0',
+            name: 'drought_TOC2.jpg',
+            alt: 'A hydrologic technician from the USGS Idaho Water Science Center measures streamflow in Lightning Creek at Clark Fork, ID. The riverbed is almost completely dry, showing exposed rocks. The technician stands on the dry riverbed, measuring a small trickle of water through the rocks. The background shows a bridge and surrounding forest.',
+            desktop_x_offset_per: 65,
+            desktop_width_per: 30,
+            mobile_x_offset_per: 65,
             mobile_width_per: 30
         }
     ]
