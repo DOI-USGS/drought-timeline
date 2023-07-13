@@ -41,8 +41,8 @@ export default {
             alt: 'People explore the wreckages of wooden-hulled boats exposed by low water levels in the Mississippi River. The river is visible in the distance, along with a bridge and a shoreline with buildings and trees.',
             desktop_x_offset_per: 7,
             desktop_width_per: 30,
-            mobile_x_offset_per: 67,
-            mobile_width_per: 30
+            mobile_x_offset_per: 12,
+            mobile_width_per: 25
         },
         {
             id: 'turnofcentury_image_1',
