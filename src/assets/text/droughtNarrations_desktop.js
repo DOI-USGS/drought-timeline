@@ -1,6 +1,12 @@
 export default {
     timelineEvents: [
       {
+        id: 'introduction_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
+        start_date: '1922-01-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
+        end_date: '1929-12-31', // Date marking end of annotation. Determines y trigger end position on deskop
+        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought.', // Narrative text
+      },
+      {
         id: 'dustbowl_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
         start_date: '1930-01-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
         end_date: '1935-12-31', // Date marking end of annotation. Determines y trigger end position on deskop

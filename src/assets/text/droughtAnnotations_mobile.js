@@ -51,13 +51,13 @@ export default {
       {
         id: 'intro_text_1',
         date: '1922-06-01',
-        text: 'Each streamflow drought event at a single stream site is represented by a vertical bar. The taller the bar, the longer the drought',
+        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought.',
         mobile_x_offset_per: 20
       },
       {
         id: 'intro_text_3',
         date: '1923-07-01',
-        text: 'The drought events are randomly scattered horizontally to create this beeswarm-like effect. So, when many sites are experiencing drought at the same time, the chart is really wide.',
+        text: 'Where the chart is wider, many gages were experiencing drought simultaneously.',
         mobile_x_offset_per: 55
       },
       {
