@@ -941,11 +941,13 @@ $writeFont: 'Nanum Pen Script', cursive;
 .scrollButton {
   padding: 3px 6px 4px 5px;
   margin-left: 5px;
-  border: 0.5px solid white;
+  border: 0.5px solid black;
+  font-weight: bold;
   border-radius: 3px;
   @media only screen and (max-width: 600px) {
     padding: 2px 4px 2px 3px;
     margin-left: 0px;
+    border-radius: 4px;
   }
 }
 #button-1950s {
@@ -953,15 +955,18 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 .scrollButton:hover {
   border-color: black;
+  font-weight: bold;
   @media only screen  and (max-width: 800px){
     border-color: white
   }
 }
 .scrollButton:focus {
-  border-color: white;
+  border: 0.5px solid black;
+  font-weight: bold;
 }
 .scrollButton:active {
   border-color: black;
+  font-weight: bold;
 }
 #inset-container {
   grid-area: chart;
