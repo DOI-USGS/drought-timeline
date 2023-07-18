@@ -9,7 +9,7 @@
           The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a
             href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
             target="_blank"
-          >What is Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
+          >What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
         </p>
       </div>
       <nav id="nav-button-container">
@@ -156,17 +156,17 @@
         The USGS has thousands of streamgages all over the country, that all continuously monitor and measure water conditions, including streamflow. Streamflow conditions provide an accurate measure of local drought events. But 100 years ago, the USGS only had a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. The maps below show the USGS streamgage network during these periods, with the gages that had one of the 2000 most severe drought events highlighted in red (<a
           href="https://doi.org/10.5066/P92FAASD"
           target="_blank"
-        >Simeone 2022</a>)
+        >Simeone 2022</a>).
       </p>
       <img
         id="explainer_png"
         src="@/assets/images/gage_explainer.png"
       >
       <p class="methods_text">
-        Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (What is streamflow drought website). Here, we identified streamflow droughts that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
+        Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). Here, we identified streamflow droughts that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
           href="https://droughtmonitor.unl.edu/"
           target="_blank"
-        >U.S. Drought Monitor Map</a>)
+        >U.S. Drought Monitor Map</a>).
       </p>
       <img
         id="explainer_png"
@@ -176,7 +176,7 @@
         Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last (duration) and how dry they get (intensity) (<a
           href="https://doi.org/10.1029/2022WR031930"
           target="_blank"
-        >Hammond et al. 2022</a>)
+        >Hammond et al. 2022</a>).
       </p>
       <img
         id="explainer_png"
@@ -199,7 +199,7 @@
         <a
           href="https://www.usgs.gov/staff-profiles/hayley-corson-dosch"
           target="_blank"
-        >Hayley Corson-Dosch</a> lead the development of this website with <a
+        >Hayley Corson-Dosch</a> led the development of this website with <a
           href="https://www.usgs.gov/staff-profiles/althea-a-archer"
           target="_blank"
         >Althea A. Archer</a> and <a
