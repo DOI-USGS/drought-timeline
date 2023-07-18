@@ -1102,13 +1102,14 @@ $writeFont: 'Nanum Pen Script', cursive;
     "description description"; 
   @media screen and (max-width: 600px) {
     padding: 5px 0 0px 0;
-    height: 90vh;
-    grid-template-columns: 50% 50%;
-    grid-template-rows:  max-content auto max-content;
+    //height: 100vh;
+    grid-template-columns: 100%;
+    grid-template-rows:  max-content max-content max-content 100vh ;
     grid-template-areas:
-    "map violin"
-    "instructions violin"
-    "description description"; 
+    "instructions"
+    "map"
+    "description"
+    "violin"; 
   }
 }
 #radial-chart {
