@@ -148,40 +148,42 @@
       </div>
     </section>
     <section
-      id="methods-container"
+      id="methods-section"
       class="page-section"
     >
       <h3>Methods</h3>
-      <p class="methods_text">
-        The USGS has thousands of streamgages all over the country, that all continuously monitor and measure water conditions, including streamflow. Streamflow conditions provide an accurate measure of local drought events. But 100 years ago, the USGS only had a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. The maps below show the USGS streamgage network during these periods, with the gages that had one of the 2000 most severe drought events highlighted in red (<a
-          href="https://doi.org/10.5066/P92FAASD"
-          target="_blank"
-        >Simeone 2022</a>).
-      </p>
-      <img
-        id="explainer_png"
-        src="@/assets/images/gage_explainer.png"
-      >
-      <p class="methods_text">
-        Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). Here, we identified streamflow droughts that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
-          href="https://droughtmonitor.unl.edu/"
-          target="_blank"
-        >U.S. Drought Monitor Map</a>).
-      </p>
-      <img
-        id="explainer_png"
-        src="@/assets/images/drought_explainer.png"
-      >
-      <p class="methods_text">
-        Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last (duration) and how dry they get (intensity) (<a
-          href="https://doi.org/10.1029/2022WR031930"
-          target="_blank"
-        >Hammond et al. 2022</a>).
-      </p>
-      <img
-        id="explainer_png"
-        src="@/assets/images/severity_explainer.png"
-      >
+      <div id="methods-container">
+        <p id="methods1" class="methods_text">
+          The USGS has thousands of streamgages all over the country, that all continuously monitor and measure water conditions, including streamflow. Streamflow conditions provide an accurate measure of local drought events. But 100 years ago, the USGS only had a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. The maps below show the USGS streamgage network during these periods, with the gages that had one of the 2000 most severe drought events highlighted in red (<a
+            href="https://doi.org/10.5066/P92FAASD"
+            target="_blank"
+          >Simeone 2022</a>).
+        </p>
+        <img
+          id="explainer1" class="explainer_image"
+          src="@/assets/images/gage_explainer.png"
+        >
+        <p id="methods2" class="methods_text">
+          Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). Here, we identified streamflow droughts that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
+            href="https://droughtmonitor.unl.edu/"
+            target="_blank"
+          >U.S. Drought Monitor Map</a>).
+        </p>
+        <img
+          id="explainer2" class="explainer_image"
+          src="@/assets/images/drought_explainer.png"
+        >
+        <p id="methods3" class="methods_text">
+          Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last (duration) and how dry they get (intensity) (<a
+            href="https://doi.org/10.1029/2022WR031930"
+            target="_blank"
+          >Hammond et al. 2022</a>).
+        </p>
+        <img
+          id="explainer3" class="explainer_image"
+          src="@/assets/images/severity_explainer.png"
+        >
+      </div>
     </section>
     <section
       id="references-container"
@@ -941,12 +943,12 @@ $writeFont: 'Nanum Pen Script', cursive;
 .scrollButton {
   padding: 3px 6px 4px 5px;
   margin-left: 5px;
-  border: 0.5px solid black;
+  border: 0.5px solid darkgrey;
   font-weight: bold;
   border-radius: 3px;
   @media only screen and (max-width: 600px) {
     padding: 2px 4px 2px 3px;
-    margin-left: 0px;
+    margin: 2px;
     border-radius: 4px;
   }
 }
@@ -954,18 +956,18 @@ $writeFont: 'Nanum Pen Script', cursive;
   margin-left: 0px;
 }
 .scrollButton:hover {
-  border-color: black;
+  border-color: darkgrey;
   font-weight: bold;
   @media only screen  and (max-width: 800px){
     border-color: white
   }
 }
 .scrollButton:focus {
-  border: 0.5px solid black;
+  border: 0.5px solid darkgrey;
   font-weight: bold;
 }
 .scrollButton:active {
-  border-color: black;
+  border-color: darkgrey;
   font-weight: bold;
 }
 #inset-container {
@@ -1000,16 +1002,6 @@ $writeFont: 'Nanum Pen Script', cursive;
   width: 100%;
   transform: rotate(180deg);
   pointer-events: none;
-}
-#explainer_png {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 5px;
-  width: 50%;
-  @media screen and (max-width: 600px) {
-    width:100%;
-  }
 }
 #chart-overlay-dynamic {
   grid-area: chart;
@@ -1085,7 +1077,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   color: white;
 }
 .currentButton:hover {
-  background-color: black;
+  background-color: darkgrey;
   color: white;
 }
 #filter-svg {
@@ -1173,8 +1165,56 @@ $writeFont: 'Nanum Pen Script', cursive;
     align-self: start;
   }
 }
+#methods-container{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "methods1 image_grid1"
+    "methods2 image_grid2"
+    "methods3 image_grid3";
+  @media screen and (max-width: 600px) {
+    padding: 5px 0 0px 0;
+    //height: 100vh;
+    grid-template-columns: 100%;
+    grid-template-rows:  auto ;
+    grid-template-areas:
+    "methods1" 
+    "image_grid1"
+    "methods2" 
+    "image_grid2"
+    "methods3" 
+    "image_grid3";
+  }
+}
+#explainer1 {
+  grid-area: image_grid1;
+}
+#explainer2 {
+  grid-area: image_grid2;
+}
+#explainer3 {
+  grid-area: image_grid3;
+}
+.explainer_image{
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+  width: 100%;
+}
+#methods1{
+  grid-area: methods1;
+}
+#methods2{
+  grid-area: methods2;
+}
+#methods3{
+  grid-area: methods3;
+}
 .methods_text {
   padding: 1em 0 1em 0; 
+  max-width: 700px;
 }
 #references-container {
   height: auto;
