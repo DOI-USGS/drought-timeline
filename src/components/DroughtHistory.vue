@@ -9,7 +9,10 @@
           The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a
             href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
             target="_blank"
-          >What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
+          >What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+            href="https://doi.org/10.1002/joc.7904"
+            target="_blank"
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
         </p>
       </div>
       <nav id="nav-button-container">
@@ -153,34 +156,49 @@
     >
       <h3>Methods</h3>
       <div id="methods-container">
-        <p id="methods1" class="methods_text">
+        <p
+          id="methods1"
+          class="methods_text"
+        >
           The USGS has thousands of streamgages all over the country, that all continuously monitor and measure water conditions, including streamflow. Streamflow conditions provide an accurate measure of local drought events. But 100 years ago, the USGS only had a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. The maps below show the USGS streamgage network during these periods, with the gages that had one of the 2000 most severe drought events highlighted in red (<a
             href="https://doi.org/10.5066/P92FAASD"
             target="_blank"
           >Simeone 2022</a>).
         </p>
         <img
-          id="explainer1" class="explainer_image"
+          id="explainer1"
+          class="explainer_image"
           src="@/assets/images/gage_explainer.png"
         >
-        <p id="methods2" class="methods_text">
-          Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). Here, we identified streamflow droughts that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
+        <p
+          id="methods2"
+          class="methods_text"
+        >
+          Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See <a
+            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
+            target="_blank"
+          >What is Streamflow Drought?</a>). Here, we identified streamflow droughts that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
             href="https://droughtmonitor.unl.edu/"
             target="_blank"
           >U.S. Drought Monitor Map</a>).
         </p>
         <img
-          id="explainer2" class="explainer_image"
+          id="explainer2"
+          class="explainer_image"
           src="@/assets/images/drought_explainer.png"
         >
-        <p id="methods3" class="methods_text">
+        <p
+          id="methods3"
+          class="methods_text"
+        >
           Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last (duration) and how dry they get (intensity) (<a
             href="https://doi.org/10.1029/2022WR031930"
             target="_blank"
           >Hammond et al. 2022</a>).
         </p>
         <img
-          id="explainer3" class="explainer_image"
+          id="explainer3"
+          class="explainer_image"
           src="@/assets/images/severity_explainer.png"
         >
       </div>
@@ -190,9 +208,10 @@
         <h3>References</h3>
         <h4>{{ referencesText.title }}</h4>
         <div>
-          <div  class="references-list"
+          <div
             v-for="reference in referencesText.references"
             :key="reference.id"
+            class="references-list"
           >
             <p>
               <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
@@ -204,9 +223,10 @@
         </div>
         <h4>{{ referencesQuotes.title }}</h4>
         <div>
-          <div  class="references-list"
-          v-for="reference in referencesQuotes.references"
+          <div
+            v-for="reference in referencesQuotes.references"
             :key="reference.id"
+            class="references-list"
           >
             <p>
               <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
@@ -218,9 +238,10 @@
         </div>
         <h4>{{ referencesPhotos.title }}</h4>
         <div>
-          <div  class="references-list"
+          <div
             v-for="reference in referencesPhotos.references"
             :key="reference.id"
+            class="references-list"
           >
             <p>
               <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
