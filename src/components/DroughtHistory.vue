@@ -274,7 +274,7 @@
         >Elmera Adazpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
           href="https://www.usgs.gov/staff-profiles/amanda-carr"
           target="_blank"
-        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. The USGS Vizlab, including Hayley Corson-Dosch, Althea Archer, Cee Nell, and Elmera Azadpour provided editorial and design review. This data visualization was inspired by a chart made by <a
+        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a chart made by <a
           href="https://www.usgs.gov/staff-profiles/scott-hamshaw"
           target="_blank"
         >Scott Hamshaw</a>.
