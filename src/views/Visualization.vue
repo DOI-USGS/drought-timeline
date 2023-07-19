@@ -10,7 +10,7 @@ export default {
     name: 'Visualization',
     components: {
       DroughtHistory: () => import( /* webpackPreload: true */ /*webpackChunkName: "section"*/ "./../components/DroughtHistory"),
-     //References: () => import( /*webpackChunkName: "References"*/ "./../components/References")
+      //References: () => import( /*webpackChunkName: "References"*/ "./../components/References")
     },
     computed: {
     },

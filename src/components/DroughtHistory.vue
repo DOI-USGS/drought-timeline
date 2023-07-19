@@ -185,12 +185,52 @@
         >
       </div>
     </section>
-    <section
-      id="references-container"
-      class="page-section"
-    >
-      <h3>References</h3>
-      <p>These are the references</p>
+    <section id="references">       
+      <div class="page-section">
+        <h3>References</h3>
+        <h4>{{ referencesText.title }}</h4>
+        <div>
+          <div  class="references-list"
+            v-for="reference in referencesText.references"
+            :key="reference.id"
+          >
+            <p>
+              <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
+                :href="reference.link"
+                target="_blank"
+              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
+            </p>
+          </div>
+        </div>
+        <h4>{{ referencesQuotes.title }}</h4>
+        <div>
+          <div  class="references-list"
+          v-for="reference in referencesQuotes.references"
+            :key="reference.id"
+          >
+            <p>
+              <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
+                :href="reference.link"
+                target="_blank"
+              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
+            </p>
+          </div>
+        </div>
+        <h4>{{ referencesPhotos.title }}</h4>
+        <div>
+          <div  class="references-list"
+            v-for="reference in referencesPhotos.references"
+            :key="reference.id"
+          >
+            <p>
+              <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
+                :href="reference.link"
+                target="_blank"
+              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
     <section
       id="authors-container"
@@ -249,6 +289,7 @@ import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 import polarWedges from "@/assets/svgs/polar_wedges.svg";
 import cascMap from "@/assets/svgs/casc_regions_map.svg";
 import regionDroughtDescriptions from "@/assets/text/regionDroughtDescriptions.js";
+import referencesText from "@/assets/text/referencesText";
 export default {
   name: "DroughtHistory",
     components: {
@@ -272,7 +313,11 @@ export default {
         overlayHeight: null,
         // source for regional map
         regionMapFilename: "casc_regions_map",
-        regionDescriptions: regionDroughtDescriptions.regionDescriptions
+        regionDescriptions: regionDroughtDescriptions.regionDescriptions,
+        // References source
+        referencesText: referencesText.referencesContent,
+        referencesQuotes: referencesText.referencesQuotes,
+        referencesPhotos: referencesText.referencesPhotos
       }
   },
   mounted(){      
@@ -1164,6 +1209,12 @@ $writeFont: 'Nanum Pen Script', cursive;
     grid-area: instructions;
     align-self: start;
   }
+}
+.references-list{
+  padding-left: 42px ;
+  padding-top: 3px;
+  padding-bottom: 7px;
+  text-indent: -22px ;
 }
 #methods-container{
   display: grid;
