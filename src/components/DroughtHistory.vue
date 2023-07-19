@@ -262,19 +262,19 @@
         <a
           href="https://www.usgs.gov/staff-profiles/hayley-corson-dosch"
           target="_blank"
-        >Hayley Corson-Dosch</a> led the development of this website with <a
+        >Hayley Corson-Dosch</a> led the development of this website with contributions from <a
           href="https://www.usgs.gov/staff-profiles/althea-a-archer"
           target="_blank"
-        >Althea A. Archer</a> and <a
+        >Althea A. Archer</a>, <a
           href="https://www.usgs.gov/staff-profiles/cee-nell"
           target="_blank"
-        >Cee Nell</a>. <a
-          href="https://www.usgs.gov/staff-profiles/amanda-carr"
-          target="_blank"
-        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. The USGS Vizlab, including Hayley Corson-Dosch, Althea Archer, Cee Nell, and <a
+        >Cee Nell</a>, and <a
           href="https://www.usgs.gov/staff-profiles/elmera-azadpour"
           target="_blank"
-        >Elmera Adazpour</a> provided editorial and design review. This data visualization was inspired by a chart made by <a
+        >Elmera Adazpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
+          href="https://www.usgs.gov/staff-profiles/amanda-carr"
+          target="_blank"
+        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. The USGS Vizlab, including Hayley Corson-Dosch, Althea Archer, Cee Nell, and Elmera Azadpour provided editorial and design review. This data visualization was inspired by a chart made by <a
           href="https://www.usgs.gov/staff-profiles/scott-hamshaw"
           target="_blank"
         >Scott Hamshaw</a>.
