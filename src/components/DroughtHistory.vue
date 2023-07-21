@@ -5,15 +5,6 @@
         <h2>Five droughts that changed history</h2>
       </div>
       <div id="intro-container">
-        <p>
-          The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a
-            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
-            target="_blank"
-          >What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
-            href="https://doi.org/10.1002/joc.7904"
-            target="_blank"
-          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
-        </p>
       </div>
       <nav id="nav-button-container">
         <p>
@@ -76,7 +67,6 @@
       <div
         v-if="!mobileView"
         id="annotation-container"
-        class="reveal"
       >
         <div
           v-for="narration in narrations" 
@@ -363,9 +353,7 @@ export default {
     
     this.addInteractions()
 
-    if (!this.mobileView) {
-      window.addEventListener("scroll", this.revealAnnotationContainer);
-    }
+
   },
     methods:{
       isMobile() {
@@ -597,47 +585,51 @@ export default {
           })
         })
 
-        // Add scrollTo animations
-        const scrollToTriggers = this.$gsap.utils.toArray(".scrollToSpot")
-        scrollToTriggers.forEach((scrollToTrigger) => {
 
-          // get unique ID for scroll step.
-          let scrollIDFull = scrollToTrigger.id
-          let scrollID = scrollIDFull.split('-')[1]
-
-          // Highlight the menu item for each drought
-          // when in that drought period
-          tl.to(`#${scrollIDFull}`, {
-            scrollTrigger: {
-              markers: false,
-              trigger: `#${scrollIDFull}`,
-              start: "top 25%",
-              end: 'bottom 25%',
-              toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
-              toggleActions: "restart reverse none reverse" 
-            },
-          })
-          // Show the map for each drought when in that drought period
-          tl.to(`#${scrollIDFull}`, {
-            scrollTrigger: {
-              markers: false,
-              trigger: `#${scrollIDFull}`,
-              start: "top 25%",
-              end: 'bottom 25%',
-              toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
-              toggleActions: "restart reverse none reverse" 
-            },
-          })
-
-        })
+        
 
         // Add text animations
         if (this.mobileView) {
           // On mobile...
 
+          // Add scrollTo animations
+          const scrollToTriggers = this.$gsap.utils.toArray(".scrollToSpot")
+
+          scrollToTriggers.forEach((scrollToTrigger) => {
+
+            // get unique ID for scroll step.
+            let scrollIDFull = scrollToTrigger.id
+            let scrollID = scrollIDFull.split('-')[1]
+
+            // Highlight the menu item for each drought
+            // when in that drought period
+            tl.to(`#${scrollIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${scrollIDFull}`,
+                start: "top 50%",
+                end: 'bottom 50%',
+                toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+              },
+            })
+            // Show the map for each drought when in that drought period
+            tl.to(`#${scrollIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${scrollIDFull}`,
+                start: "top 50%",
+                end: 'bottom 50%',
+                toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+              },
+            })
+          })
+
+
           // find all annotation text triggers (rectangles)
           const droughtTextTriggers = this.$gsap.utils.toArray(".droughtRect", dynamicSVG)
-
+          
           // For each trigger,
           droughtTextTriggers.forEach((droughtTextTrigger) => {
 
@@ -653,7 +645,7 @@ export default {
                   markers: false,
                   trigger: `#${rectIDFull}`,
                   start: `top 80%`,
-                  end: 'bottom 200',
+                  end: 'bottom 50%',
                   toggleClass: {targets: [`#drought-text-${rectlID}`, `#annotation-drawing-${rectlID}`], className:"visible"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
                 },
@@ -664,7 +656,7 @@ export default {
                   markers: false,
                   trigger: `#${rectIDFull}`,
                   start: `top 80%`,
-                  end: 'bottom 200',
+                  end: 'bottom 50%',
                   toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
                 },
@@ -672,10 +664,10 @@ export default {
             } else {
               tl.to(`#${rectIDFull}`, {
                 scrollTrigger: {
-                  markers: false,
+                  markers: true,
                   trigger: `#${rectIDFull}`,
-                  start: `top 200`,
-                  end: 'bottom 200',
+                  start: `top 50%`,
+                  end: 'bottom 50%',
                   toggleClass: {targets: [`#drought-text-${rectlID}`, `#annotation-drawing-${rectlID}`], className:"visible"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
                 },
@@ -685,8 +677,8 @@ export default {
                 scrollTrigger: {
                   markers: false,
                   trigger: `#${rectIDFull}`,
-                  start: `top 200`,
-                  end: 'bottom 200',
+                  start: `top 50%`,
+                  end: 'bottom 50%',
                   toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
                 },
@@ -696,6 +688,40 @@ export default {
           })
         } else {
           // On desktop...
+
+          // Add scrollTo animations
+          const scrollToTriggers = this.$gsap.utils.toArray(".scrollToSpot")
+          scrollToTriggers.forEach((scrollToTrigger) => {
+
+            // get unique ID for scroll step.
+            let scrollIDFull = scrollToTrigger.id
+            let scrollID = scrollIDFull.split('-')[1]
+
+            // Highlight the menu item for each drought
+            // when in that drought period
+            tl.to(`#${scrollIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${scrollIDFull}`,
+                start: "top 67%",
+                end: 'bottom 67%',
+                toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+              },
+            })
+            // Show the map for each drought when in that drought period
+            tl.to(`#${scrollIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${scrollIDFull}`,
+                start: "top 67%",
+                end: 'bottom 67%',
+                toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+              },
+            })
+          })
+
 
           const droughtTexts = this.$gsap.utils.toArray(".droughtText", dynamicSVG)
 
@@ -738,8 +764,8 @@ export default {
               scrollTrigger: {
                 markers: false,
                 trigger: `#${rectIDFull}`,
-                start: `top 25%`,
-                end: 'bottom 25%',
+                start: `top 67%`,
+                end: 'bottom 67%',
                 toggleClass: {targets: `#drought-text-${rectlID}`, className:"visible"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
@@ -952,20 +978,6 @@ export default {
                 }
             }
         });
-      },
-      revealAnnotationContainer() {
-        const self = this;
-
-        const scrollDistance = window.scrollY
-        const annotationContainer = document.querySelector('#annotation-container')
-        const annotationContainerHeight = annotationContainer.getBoundingClientRect().height
-
-        // Once scrolled x distance (currently annotationContainerHeight / 2), reveal annotation container
-        if (scrollDistance > annotationContainerHeight / 2) {
-          annotationContainer.classList.add("active");
-        } else {
-          annotationContainer.classList.remove("active")
-        }
       }
     }
 }
@@ -1085,7 +1097,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 #annotation-container {
   //grid-area: chart; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
   //align-self: end; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
-  height: 20vh;
+  height: 200px;
   width: 100vw;
   padding: 20px 0 10px 0;
   position: sticky;
@@ -1094,17 +1106,11 @@ $writeFont: 'Nanum Pen Script', cursive;
   background-color: white;
   opacity: 0.9;
   box-shadow: 0px -5px 5px #B9B9B9;
+  @media screen and (max-width: 600px) {
+    height: 30vh;
+  }
 }
-.reveal{
-  position: relative;
-  transform: translateY(21vh);
-  opacity: 0;
-  transition: 1s all ease;
-}
-.reveal.active {
-  transform: translateY(0);
-  opacity: 1;
-}
+
 .droughtText.mobile {
   margin: 0 5vw 0 5vw;
   position: absolute;
@@ -1299,7 +1305,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 .droughtText {
   z-index: 10;
   font-weight: 400;
-  font-size: 1em;
+  font-size: 0.9em;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
