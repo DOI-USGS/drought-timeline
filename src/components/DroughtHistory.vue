@@ -1097,7 +1097,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 #annotation-container {
   //grid-area: chart; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
   //align-self: end; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
-  height: 200px;
+  height: 25vh;
   width: 100vw;
   padding: 20px 0 10px 0;
   position: sticky;
