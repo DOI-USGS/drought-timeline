@@ -13,7 +13,7 @@ export default {
         {
             id: "North-Central",
             region_name: "North Central",
-            region_description: "All five major national drought events in the last 100 years hit the North Central U.S. This region was hit harder by the Dust Bowl Drought than any other region in the U.S. The 1950s, 1960s, 1980s, and Turn-of-the-Century Droughts also affected much of the region, and each event lasted for multiple years."
+            region_description: "All five major national drought events in the last 100 years hit the North Central U.S. This region was hit harder by the Dust Bowl Drought than any other region in the country. The 1950s, 1960s, 1980s, and Turn-of-the-Century Droughts also affected much of the region, and each event lasted for multiple years."
         },
         {
             id: "Northeast",

@@ -20,6 +20,14 @@
     <path class="cls-1" d="M387.4,245.1c9.3,9.6,19.9,12.5,31.1,11.3"/>
     <path class="cls-1" d="M387.1,254.2c0.7-3.1,0.8-6.2,0.3-9.1c3.2,0.2,6.6-0.3,10.2-1.7"/>
   </g>
+  <g id="annotation-drawing-map">
+      <path class="cls-1" d="M558.4,93.9c11.2,1.2,21.8-1.7,31.1-11.3"/>
+			<path class="cls-1" d="M579.3,80.9c3.6,1.4,7,1.9,10.2,1.7c-0.5,2.9-0.4,6,0.3,9.1"/>
+  </g>
+  <g id="annotation-drawing-mapHighlight">
+			<path class="cls-1" d="M558.4,643.9c11.2,1.2,21.8-1.7,31.1-11.3"/>
+			<path class="cls-1" d="M579.3,630.9c3.6,1.4,7,1.9,10.2,1.7c-0.5,2.9-0.4,6,0.3,9.1"/>
+		</g>
   <g id="annotation-drawing-legend">
   	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="404.4706" y1="405.8866" x2="404.4706" y2="331.0959">
       <stop  offset="0" style="stop-color:#F1C659"/>

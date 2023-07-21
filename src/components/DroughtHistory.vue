@@ -5,12 +5,6 @@
         <h2>Five droughts that changed history</h2>
       </div>
       <div id="intro-container">
-        <p>
-          The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a
-            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
-            target="_blank"
-          >What is Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
-        </p>
       </div>
       <nav id="nav-button-container">
         <p>
@@ -73,7 +67,6 @@
       <div
         v-if="!mobileView"
         id="annotation-container"
-        class="reveal"
       >
         <div
           v-for="narration in narrations" 
@@ -148,47 +141,107 @@
       </div>
     </section>
     <section
-      id="methods-container"
+      id="methods-section"
       class="page-section"
     >
       <h3>Methods</h3>
-      <p class="methods_text">
-        The USGS has thousands of streamgages all over the country, that all continuously monitor and measure water conditions, including streamflow. Streamflow conditions provide an accurate measure of local drought events. But 100 years ago, the USGS only had a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. The maps below show the USGS streamgage network during these periods, with the gages that had one of the 2000 most severe drought events highlighted in red (<a
-          href="https://doi.org/10.5066/P92FAASD"
-          target="_blank"
-        >Simeone 2022</a>)
-      </p>
-      <img
-        id="explainer_png"
-        src="@/assets/images/gage_explainer.png"
-      >
-      <p class="methods_text">
-        Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (What is streamflow drought website). Here, we identified streamflow droughts that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
-          href="https://droughtmonitor.unl.edu/"
-          target="_blank"
-        >U.S. Drought Monitor Map</a>)
-      </p>
-      <img
-        id="explainer_png"
-        src="@/assets/images/drought_explainer.png"
-      >
-      <p class="methods_text">
-        Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last (duration) and how dry they get (intensity) (<a
-          href="https://doi.org/10.1029/2022WR031930"
-          target="_blank"
-        >Hammond et al. 2022</a>)
-      </p>
-      <img
-        id="explainer_png"
-        src="@/assets/images/severity_explainer.png"
-      >
+      <div id="methods-container">
+        <p
+          id="methods1"
+          class="methods_text"
+        >
+          The USGS has thousands of streamgages all over the country, that all continuously monitor and measure water conditions, including streamflow. Streamflow conditions provide an accurate measure of local drought events. But 100 years ago, the USGS only had a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. The maps below show the USGS streamgage network during these periods, with the gages that had one of the 2000 most severe drought events highlighted in red (<a
+            href="https://doi.org/10.5066/P92FAASD"
+            target="_blank"
+          >Simeone 2022</a>).
+        </p>
+        <img
+          id="explainer1"
+          class="explainer_image"
+          src="@/assets/images/gage_explainer.png"
+        >
+        <p
+          id="methods2"
+          class="methods_text"
+        >
+          Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See <a
+            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
+            target="_blank"
+          >What is Streamflow Drought?</a>). Here, we identified streamflow droughts that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
+            href="https://droughtmonitor.unl.edu/"
+            target="_blank"
+          >U.S. Drought Monitor Map</a>).
+        </p>
+        <img
+          id="explainer2"
+          class="explainer_image"
+          src="@/assets/images/drought_explainer.png"
+        >
+        <p
+          id="methods3"
+          class="methods_text"
+        >
+          Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last (duration) and how dry they get (intensity) (<a
+            href="https://doi.org/10.1029/2022WR031930"
+            target="_blank"
+          >Hammond et al. 2022</a>).
+        </p>
+        <img
+          id="explainer3"
+          class="explainer_image"
+          src="@/assets/images/severity_explainer.png"
+        >
+      </div>
     </section>
-    <section
-      id="references-container"
-      class="page-section"
-    >
-      <h3>References</h3>
-      <p>These are the references</p>
+    <section id="references">       
+      <div class="page-section">
+        <h3>References</h3>
+        <h4>{{ referencesText.title }}</h4>
+        <div>
+          <div
+            v-for="reference in referencesText.references"
+            :key="reference.id"
+            class="references-list"
+          >
+            <p>
+              <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
+                :href="reference.link"
+                target="_blank"
+              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
+            </p>
+          </div>
+        </div>
+        <h4>{{ referencesQuotes.title }}</h4>
+        <div>
+          <div
+            v-for="reference in referencesQuotes.references"
+            :key="reference.id"
+            class="references-list"
+          >
+            <p>
+              <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
+                :href="reference.link"
+                target="_blank"
+              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
+            </p>
+          </div>
+        </div>
+        <h4>{{ referencesPhotos.title }}</h4>
+        <div>
+          <div
+            v-for="reference in referencesPhotos.references"
+            :key="reference.id"
+            class="references-list"
+          >
+            <p>
+              <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
+                :href="reference.link"
+                target="_blank"
+              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
     <section
       id="authors-container"
@@ -199,19 +252,19 @@
         <a
           href="https://www.usgs.gov/staff-profiles/hayley-corson-dosch"
           target="_blank"
-        >Hayley Corson-Dosch</a> lead the development of this website with <a
+        >Hayley Corson-Dosch</a> led the development of this website with contributions from <a
           href="https://www.usgs.gov/staff-profiles/althea-a-archer"
           target="_blank"
-        >Althea A. Archer</a> and <a
+        >Althea A. Archer</a>, <a
           href="https://www.usgs.gov/staff-profiles/cee-nell"
           target="_blank"
-        >Cee Nell</a>. <a
-          href="https://www.usgs.gov/staff-profiles/amanda-carr"
-          target="_blank"
-        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. The USGS Vizlab, including Hayley Corson-Dosch, Althea Archer, Cee Nell, and <a
+        >Cee Nell</a>, and <a
           href="https://www.usgs.gov/staff-profiles/elmera-azadpour"
           target="_blank"
-        >Elmera Adazpour</a> provided editorial and design review. This data visualization was inspired by a chart made by <a
+        >Elmera Adazpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
+          href="https://www.usgs.gov/staff-profiles/amanda-carr"
+          target="_blank"
+        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a chart made by <a
           href="https://www.usgs.gov/staff-profiles/scott-hamshaw"
           target="_blank"
         >Scott Hamshaw</a>.
@@ -247,6 +300,7 @@ import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 import polarWedges from "@/assets/svgs/polar_wedges.svg";
 import cascMap from "@/assets/svgs/casc_regions_map.svg";
 import regionDroughtDescriptions from "@/assets/text/regionDroughtDescriptions.js";
+import referencesText from "@/assets/text/referencesText";
 export default {
   name: "DroughtHistory",
     components: {
@@ -270,7 +324,11 @@ export default {
         overlayHeight: null,
         // source for regional map
         regionMapFilename: "casc_regions_map",
-        regionDescriptions: regionDroughtDescriptions.regionDescriptions
+        regionDescriptions: regionDroughtDescriptions.regionDescriptions,
+        // References source
+        referencesText: referencesText.referencesContent,
+        referencesQuotes: referencesText.referencesQuotes,
+        referencesPhotos: referencesText.referencesPhotos
       }
   },
   mounted(){      
@@ -295,9 +353,7 @@ export default {
     
     this.addInteractions()
 
-    if (!this.mobileView) {
-      window.addEventListener("scroll", this.revealAnnotationContainer);
-    }
+
   },
     methods:{
       isMobile() {
@@ -529,47 +585,51 @@ export default {
           })
         })
 
-        // Add scrollTo animations
-        const scrollToTriggers = this.$gsap.utils.toArray(".scrollToSpot")
-        scrollToTriggers.forEach((scrollToTrigger) => {
 
-          // get unique ID for scroll step.
-          let scrollIDFull = scrollToTrigger.id
-          let scrollID = scrollIDFull.split('-')[1]
-
-          // Highlight the menu item for each drought
-          // when in that drought period
-          tl.to(`#${scrollIDFull}`, {
-            scrollTrigger: {
-              markers: false,
-              trigger: `#${scrollIDFull}`,
-              start: "top 25%",
-              end: 'bottom 25%',
-              toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
-              toggleActions: "restart reverse none reverse" 
-            },
-          })
-          // Show the map for each drought when in that drought period
-          tl.to(`#${scrollIDFull}`, {
-            scrollTrigger: {
-              markers: false,
-              trigger: `#${scrollIDFull}`,
-              start: "top 25%",
-              end: 'bottom 25%',
-              toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
-              toggleActions: "restart reverse none reverse" 
-            },
-          })
-
-        })
+        
 
         // Add text animations
         if (this.mobileView) {
           // On mobile...
 
+          // Add scrollTo animations
+          const scrollToTriggers = this.$gsap.utils.toArray(".scrollToSpot")
+
+          scrollToTriggers.forEach((scrollToTrigger) => {
+
+            // get unique ID for scroll step.
+            let scrollIDFull = scrollToTrigger.id
+            let scrollID = scrollIDFull.split('-')[1]
+
+            // Highlight the menu item for each drought
+            // when in that drought period
+            tl.to(`#${scrollIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${scrollIDFull}`,
+                start: "top 50%",
+                end: 'bottom 50%',
+                toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+              },
+            })
+            // Show the map for each drought when in that drought period
+            tl.to(`#${scrollIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${scrollIDFull}`,
+                start: "top 50%",
+                end: 'bottom 50%',
+                toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+              },
+            })
+          })
+
+
           // find all annotation text triggers (rectangles)
           const droughtTextTriggers = this.$gsap.utils.toArray(".droughtRect", dynamicSVG)
-
+          
           // For each trigger,
           droughtTextTriggers.forEach((droughtTextTrigger) => {
 
@@ -585,7 +645,7 @@ export default {
                   markers: false,
                   trigger: `#${rectIDFull}`,
                   start: `top 80%`,
-                  end: 'bottom 200',
+                  end: 'bottom 50%',
                   toggleClass: {targets: [`#drought-text-${rectlID}`, `#annotation-drawing-${rectlID}`], className:"visible"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
                 },
@@ -596,7 +656,7 @@ export default {
                   markers: false,
                   trigger: `#${rectIDFull}`,
                   start: `top 80%`,
-                  end: 'bottom 200',
+                  end: 'bottom 50%',
                   toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
                 },
@@ -604,10 +664,10 @@ export default {
             } else {
               tl.to(`#${rectIDFull}`, {
                 scrollTrigger: {
-                  markers: false,
+                  markers: true,
                   trigger: `#${rectIDFull}`,
-                  start: `top 200`,
-                  end: 'bottom 200',
+                  start: `top 50%`,
+                  end: 'bottom 50%',
                   toggleClass: {targets: [`#drought-text-${rectlID}`, `#annotation-drawing-${rectlID}`], className:"visible"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
                 },
@@ -617,8 +677,8 @@ export default {
                 scrollTrigger: {
                   markers: false,
                   trigger: `#${rectIDFull}`,
-                  start: `top 200`,
-                  end: 'bottom 200',
+                  start: `top 50%`,
+                  end: 'bottom 50%',
                   toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
                   toggleActions: "restart reverse none reverse" 
                 },
@@ -628,6 +688,40 @@ export default {
           })
         } else {
           // On desktop...
+
+          // Add scrollTo animations
+          const scrollToTriggers = this.$gsap.utils.toArray(".scrollToSpot")
+          scrollToTriggers.forEach((scrollToTrigger) => {
+
+            // get unique ID for scroll step.
+            let scrollIDFull = scrollToTrigger.id
+            let scrollID = scrollIDFull.split('-')[1]
+
+            // Highlight the menu item for each drought
+            // when in that drought period
+            tl.to(`#${scrollIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${scrollIDFull}`,
+                start: "top 67%",
+                end: 'bottom 67%',
+                toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+              },
+            })
+            // Show the map for each drought when in that drought period
+            tl.to(`#${scrollIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${scrollIDFull}`,
+                start: "top 67%",
+                end: 'bottom 67%',
+                toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+              },
+            })
+          })
+
 
           const droughtTexts = this.$gsap.utils.toArray(".droughtText", dynamicSVG)
 
@@ -670,8 +764,8 @@ export default {
               scrollTrigger: {
                 markers: false,
                 trigger: `#${rectIDFull}`,
-                start: `top 25%`,
-                end: 'bottom 25%',
+                start: `top 67%`,
+                end: 'bottom 67%',
                 toggleClass: {targets: `#drought-text-${rectlID}`, className:"visible"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
@@ -884,20 +978,6 @@ export default {
                 }
             }
         });
-      },
-      revealAnnotationContainer() {
-        const self = this;
-
-        const scrollDistance = window.scrollY
-        const annotationContainer = document.querySelector('#annotation-container')
-        const annotationContainerHeight = annotationContainer.getBoundingClientRect().height
-
-        // Once scrolled x distance (currently annotationContainerHeight / 2), reveal annotation container
-        if (scrollDistance > annotationContainerHeight / 2) {
-          annotationContainer.classList.add("active");
-        } else {
-          annotationContainer.classList.remove("active")
-        }
       }
     }
 }
@@ -941,27 +1021,32 @@ $writeFont: 'Nanum Pen Script', cursive;
 .scrollButton {
   padding: 3px 6px 4px 5px;
   margin-left: 5px;
-  border: 0.5px solid white;
+  border: 0.5px solid darkgrey;
+  font-weight: bold;
   border-radius: 3px;
   @media only screen and (max-width: 600px) {
     padding: 2px 4px 2px 3px;
-    margin-left: 0px;
+    margin: 2px;
+    border-radius: 4px;
   }
 }
 #button-1950s {
   margin-left: 0px;
 }
 .scrollButton:hover {
-  border-color: black;
+  border-color: darkgrey;
+  font-weight: bold;
   @media only screen  and (max-width: 800px){
     border-color: white
   }
 }
 .scrollButton:focus {
-  border-color: white;
+  border: 0.5px solid darkgrey;
+  font-weight: bold;
 }
 .scrollButton:active {
-  border-color: black;
+  border-color: darkgrey;
+  font-weight: bold;
 }
 #inset-container {
   grid-area: chart;
@@ -996,16 +1081,6 @@ $writeFont: 'Nanum Pen Script', cursive;
   transform: rotate(180deg);
   pointer-events: none;
 }
-#explainer_png {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 5px;
-  width: 50%;
-  @media screen and (max-width: 600px) {
-    width:100%;
-  }
-}
 #chart-overlay-dynamic {
   grid-area: chart;
 }
@@ -1022,7 +1097,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 #annotation-container {
   //grid-area: chart; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
   //align-self: end; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
-  height: 20vh;
+  height: 200px;
   width: 100vw;
   padding: 20px 0 10px 0;
   position: sticky;
@@ -1031,17 +1106,11 @@ $writeFont: 'Nanum Pen Script', cursive;
   background-color: white;
   opacity: 0.9;
   box-shadow: 0px -5px 5px #B9B9B9;
+  @media screen and (max-width: 600px) {
+    height: 30vh;
+  }
 }
-.reveal{
-  position: relative;
-  transform: translateY(21vh);
-  opacity: 0;
-  transition: 1s all ease;
-}
-.reveal.active {
-  transform: translateY(0);
-  opacity: 1;
-}
+
 .droughtText.mobile {
   margin: 0 5vw 0 5vw;
   position: absolute;
@@ -1080,7 +1149,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   color: white;
 }
 .currentButton:hover {
-  background-color: black;
+  background-color: darkgrey;
   color: white;
 }
 #filter-svg {
@@ -1102,13 +1171,14 @@ $writeFont: 'Nanum Pen Script', cursive;
     "description description"; 
   @media screen and (max-width: 600px) {
     padding: 5px 0 0px 0;
-    height: 90vh;
-    grid-template-columns: 50% 50%;
-    grid-template-rows:  max-content auto max-content;
+    //height: 100vh;
+    grid-template-columns: 100%;
+    grid-template-rows:  max-content max-content max-content 100vh ;
     grid-template-areas:
-    "map violin"
-    "instructions violin"
-    "description description"; 
+    "instructions"
+    "map"
+    "description"
+    "violin"; 
   }
 }
 #radial-chart {
@@ -1167,8 +1237,62 @@ $writeFont: 'Nanum Pen Script', cursive;
     align-self: start;
   }
 }
+.references-list{
+  padding-left: 42px ;
+  padding-top: 3px;
+  padding-bottom: 7px;
+  text-indent: -22px ;
+}
+#methods-container{
+  display: grid;
+  width: 100%;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "methods1 image_grid1"
+    "methods2 image_grid2"
+    "methods3 image_grid3";
+  @media screen and (max-width: 600px) {
+    padding: 5px 0 0px 0;
+    //height: 100vh;
+    grid-template-columns: 100%;
+    grid-template-rows:  auto ;
+    grid-template-areas:
+    "methods1" 
+    "image_grid1"
+    "methods2" 
+    "image_grid2"
+    "methods3" 
+    "image_grid3";
+  }
+}
+#explainer1 {
+  grid-area: image_grid1;
+}
+#explainer2 {
+  grid-area: image_grid2;
+}
+#explainer3 {
+  grid-area: image_grid3;
+}
+.explainer_image{
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+  width: 100%;
+}
+#methods1{
+  grid-area: methods1;
+}
+#methods2{
+  grid-area: methods2;
+}
+#methods3{
+  grid-area: methods3;
+}
 .methods_text {
   padding: 1em 0 1em 0; 
+  max-width: 700px;
 }
 #references-container {
   height: auto;
@@ -1181,7 +1305,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 .droughtText {
   z-index: 10;
   font-weight: 400;
-  font-size: 1em;
+  font-size: 0.9em;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */

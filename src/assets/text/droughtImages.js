@@ -2,14 +2,14 @@ export default {
     timelineEvents: [
         {
             id: 'dustbowl_image_1', // Unique id for image - order and # value don't matter - images are later sorted by date
-            date: '1930-08-01', // Date marking start of period image is shown. Determines y placement AND scroll order
+            date: '1931-04-01', // Date marking start of period image is shown. Determines y placement AND scroll order
             url: 'https://www.loc.gov/resource/fsa.8b38290/',
             name: 'drought_dustbowl.png',
             alt: 'Results of a dust storm in Cimarron County, Oklahoma, in 1936. A dilapidated wooden building and parts of a wagon sit buried in dust after a dust storm, with bare trees and a windmill in the background.', // alt text for image
             desktop_x_offset_per: 7, //x placement of image, as percent of chart width (0 = left edge, 100 = right edge)
             desktop_width_per: 30, // width of image, as percentage of chart width
-            mobile_x_offset_per: 63, // x placement of image on mobile
-            mobile_width_per: 35 // width of image on mobile
+            mobile_x_offset_per: 12, // x placement of image on mobile
+            mobile_width_per: 30 // width of image on mobile
         },
         {
             id: '1950s_image_1',

@@ -3,7 +3,7 @@ export default {
       {
         id: 'quote_dustbowl', // Unique id for annotation - order and # value don't matter - annotations are later sorted by date
         date: '1934-06-01', // Date marking start of annotation. Determines y placement on mobile AND scroll order for annotations on mobile
-        text: '"Dust to eat, and dust to breathe and dust to drink. Dust in the beds and in the flour bin, on dishes and walls and windows, in hair and eyes and ears and teeth and throats, to say nothing of the heaped up accumulation on floors and window sills after one of the bad days.” - <a href="https://vigilantpostergirl.com/2021/03/01/7-descriptive-dust-bowl-quotes-by-caroline-henderson/" target="_blank">Letter from Caroline Henderson to Secretary of Agriculture Henry A. Wallace, 1935"</a>', // Text of annotation
+        text: '"Dust to eat, and dust to breathe and dust to drink. Dust in the beds and in the flour bin, on dishes and walls and windows, in hair and eyes and ears and teeth and throats, to say nothing of the heaped up accumulation on floors and window sills after one of the bad days.” - <a href="https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/" target="_blank">Letter from Caroline Henderson to Secretary of Agriculture Henry A. Wallace, 1935"</a>', // Text of annotation
         quote: true, // required for quote, for styling
         mobile_x_offset_per: 30 // x placement of circle on mobile, as percent of chart width (0 = left edge, 100 = right edge)
       },
@@ -43,57 +43,45 @@ export default {
         mobile_x_offset_per: 40
       },
       {
-        id: '2',
-        date: '1925-05-01',
-        text: 'Longest drought on record, lasted 705 days!',
-        mobile_x_offset_per: 61
-      },
-      {
         id: 'intro_text_1',
-        date: '1922-06-01',
-        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought.',
-        mobile_x_offset_per: 20
+        date: '1929-03-01',
+        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought. Where the chart is wider, many gages were experiencing drought simultaneously.',
+        mobile_x_offset_per: 57
       },
       {
-        id: 'intro_text_3',
-        date: '1923-07-01',
-        text: 'Where the chart is wider, many gages were experiencing drought simultaneously.',
-        mobile_x_offset_per: 55
-      },
-      {
-        id: 'intro_text_2',
-        date: '1924-06-01',
-        text: 'This drought was 126 days long',
-        mobile_x_offset_per: 38
+        id: 'intro_narration',
+        date: '1922-07-01',
+        text: 'The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.',
+        mobile_x_offset_per: 45
       },
       {
         id: 'dustbowl_1',
-        date: '1930-06-01',
-        text: 'Drought hit most of the U.S. in the 1930s, but the farmers and ranchers of the Great Plains were hit hardest. Not enough rain combined with too much farming and grazing made the top layer of soil loose and dry. Heavy winds blew the dry soil into massive dust storms, which is why we call this period in history the “dust bowl.”',
+        date: '1930-03-01',
+        text: 'Dust Bowl: Drought hit most of the U.S. in the 1930s, but the farmers and ranchers of the Great Plains were hit hardest. Not enough rain combined with too much farming and grazing made the top layer of soil loose and dry. Heavy winds blew the dry soil into massive dust storms, which is why we call this period in history the “dust bowl.”',
         mobile_x_offset_per: 24
       },
       {
         id: 'dustbowl_2',
         date: '1940-06-01',
-        text: 'The drought ended in 1941, but the lessons learned from the dust bowl continue to shape the farming and grazing practices we use today. ',
+        text: 'The Dust Bowl Drought ended in 1941, but the lessons learned from the dust bowl continue to shape the farming and grazing practices we use today. ',
         mobile_x_offset_per: 24
       },
       {
         id: '1950s_1',
         date: '1953-04-01',
-        text: 'The drought of the 1950s was the biggest in terms of area of land affected. About 80% of hydrologic units (areas of connected streams) received less than half the normal amount of precipitation (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>).',
+        text: '1950s Drought: The drought of the 1950s was the biggest in terms of area of land affected. About 80% of hydrologic units (areas of connected streams) received less than half the normal amount of precipitation (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>).',
         mobile_x_offset_per: 28
       } ,
       {
         id: '1950s_2',
         date: '1957-04-01',
-        text: 'The lessons learned from the dust bowl helped people prepare for and respond to the drought, but farmers and ranchers still experienced great hardship, especially in already dry areas like Texas. Texas developed its modern approach to water planning because of how badly the 1950s drought hurt its rural communities.',
+        text: 'The lessons learned from the dust bowl helped people prepare for and respond to the 1950s drought, but farmers and ranchers still experienced great hardship, especially in already dry areas like Texas. Texas developed its modern approach to water planning because of how badly the 1950s drought hurt its rural communities.',
         mobile_x_offset_per: 28
       } ,
       {
         id: '1960s_1',
         date: '1963-05-01',
-        text: 'The 1960s drought was the most severe drought to hit the northeastern U.S. in the last 100 years. The northeastern states did not have experience with droughts, so their emergency reserves of water were not large enough to cover a long dry period.',
+        text: '1960s Drought: The 1960s drought was the most severe drought to hit the northeastern U.S. in the last 100 years. The northeastern states did not have experience with droughts, so their emergency reserves of water were not large enough to cover a long dry period.',
         mobile_x_offset_per: 27
       },
       {
@@ -103,9 +91,23 @@ export default {
         mobile_x_offset_per: 45
       },
       {
+        id: '1970s_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
+        date: '1976-03-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
+        text: 'The 1976-1977 drought was short, so it is not considered one of the five major drought events in the last 100 years. But this two-year drought caused agricultural losses and hydropower shortages across much of the western U.S.', // Narrative text
+        quote: false,
+        mobile_x_offset_per: 45
+      },
+      {
+        id: '1970sQuote',
+        date: '1978-03-01',
+        text: '"There is no assurance that the next drought is not just beyond the horizon. We can be assured, however, that drought will return, and, considering the greater needs of that future time, its impact, unless prepared for, will be much greater." - <a href="https://cawaterlibrary.net/wp-content/uploads/2017/05/Drought-1976-77.pdf" target="_blank">Ronald B. Robie</a>, CA Department of Water Resources',
+        quote: true,
+        mobile_x_offset_per: 65
+      },
+      {
         id: '1980s_1',
         date: '1987-09-15',
-        text: 'The 1980s drought affected areas from northern Minnesota to southern California. A study in 1989 called for better climate data and predictions to help people prepare for and respond to drought (<a href="https://doi.org/10.1175/1520-0477(1989)070%3C1092:TDBAD%3E2.0.CO;2" target="_blank">Changnon 1989</a>). To this day, USGS scientists are working hard to address that need (<a href="https://www.usgs.gov/mission-areas/water-resources/science/drought-prediction-science" target="_blank">Drought Prediction Science Website</a>).',
+        text: '1980s Drought: The 1980s drought affected areas from northern Minnesota to southern California. A study in 1989 called for better climate data and predictions to help people prepare for and respond to drought (<a href="https://doi.org/10.1175/1520-0477(1989)070%3C1092:TDBAD%3E2.0.CO;2" target="_blank">Changnon 1989</a>). To this day, USGS scientists are working hard to address that need (<a href="https://www.usgs.gov/mission-areas/water-resources/science/drought-prediction-science" target="_blank">Drought Prediction Science Website</a>).',
         mobile_x_offset_per: 27
       },
       {
@@ -117,7 +119,7 @@ export default {
       {
         id: 'turn_of_century_1',
         date: '2000-03-15',
-        text: 'The turn-of-the-century drought is one of the worst droughts to hit the southwestern U.S. in the last 1200 years. Like previous droughts, low amounts of rain led to big drops in available water. But high temperatures drove the loss of soil moisture during this most recent drought (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>).',
+        text: 'Turn-of-the-Century Drought: The turn-of-the-century drought is one of the worst droughts to hit the southwestern U.S. in the last 1200 years. Like previous droughts, low amounts of rain led to big drops in available water. But high temperatures drove the loss of soil moisture during this most recent drought (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>).',
         mobile_x_offset_per: 25
       },
       {
@@ -125,12 +127,6 @@ export default {
         date: '2007-01-01',
         text: 'The national-level drought event ended in 2015, but the turn-of-the-century drought in the southwestern U.S. has continued, earning it the title of “megadrought.” The USGS is working with partners to understand this ongoing megadrought and to predict and communicate drought risk (<a href="https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought" target="_blank">Video of drought at Lake Powell</a>).',
         mobile_x_offset_per: 60
-      },
-      {
-        id: 'legend',
-        date: '1926-11-01',
-        text: 'Droughts are colored by duration where darker = longer. The shortest droughts were 43 days',
-        mobile_x_offset_per: 60
-      }   
+      }
     ]
 };
