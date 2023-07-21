@@ -664,7 +664,7 @@ export default {
             } else {
               tl.to(`#${rectIDFull}`, {
                 scrollTrigger: {
-                  markers: true,
+                  markers: false,
                   trigger: `#${rectIDFull}`,
                   start: `top 50%`,
                   end: 'bottom 50%',
