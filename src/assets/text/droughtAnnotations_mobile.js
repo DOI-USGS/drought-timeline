@@ -43,40 +43,22 @@ export default {
         mobile_x_offset_per: 40
       },
       {
-        id: '2',
-        date: '1925-05-01',
-        text: 'Longest drought on record, lasted 705 days!',
-        mobile_x_offset_per: 61
-      },
-      {
         id: 'intro_text_1',
-        date: '1922-06-01',
+        date: '1929-03-01',
         text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought. Where the chart is wider, many gages were experiencing drought simultaneously.',
-        mobile_x_offset_per: 20
+        mobile_x_offset_per: 57
       },
       {
-        id: 'map',
-        date: '1923-07-01',
-        text: 'Map of streamgage locations that had one of the 2000 most severe droughts.',
-        mobile_x_offset_per: 65
-      },
-      {
-        id: 'intro_text_2',
-        date: '1924-06-01',
-        text: 'This drought was 126 days long.',
-        mobile_x_offset_per: 38
+        id: 'intro_narration',
+        date: '1922-07-01',
+        text: 'The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.',
+        mobile_x_offset_per: 45
       },
       {
         id: 'dustbowl_1',
         date: '1930-03-01',
         text: 'Dust Bowl: Drought hit most of the U.S. in the 1930s, but the farmers and ranchers of the Great Plains were hit hardest. Not enough rain combined with too much farming and grazing made the top layer of soil loose and dry. Heavy winds blew the dry soil into massive dust storms, which is why we call this period in history the “dust bowl.”',
         mobile_x_offset_per: 24
-      },
-      {
-        id: 'mapHighlight',
-        date: '1930-10-01',
-        text: 'Streamgage locations in drought during the Dust Bowl are highlighted on the map in red.',
-        mobile_x_offset_per: 73
       },
       {
         id: 'dustbowl_2',
@@ -93,7 +75,7 @@ export default {
       {
         id: '1950s_2',
         date: '1957-04-01',
-        text: 'The lessons learned from the dust bowl helped people prepare for and respond to the drought, but farmers and ranchers still experienced great hardship, especially in already dry areas like Texas. Texas developed its modern approach to water planning because of how badly the 1950s drought hurt its rural communities.',
+        text: 'The lessons learned from the dust bowl helped people prepare for and respond to the 1950s drought, but farmers and ranchers still experienced great hardship, especially in already dry areas like Texas. Texas developed its modern approach to water planning because of how badly the 1950s drought hurt its rural communities.',
         mobile_x_offset_per: 28
       } ,
       {
@@ -145,12 +127,6 @@ export default {
         date: '2007-01-01',
         text: 'The national-level drought event ended in 2015, but the turn-of-the-century drought in the southwestern U.S. has continued, earning it the title of “megadrought.” The USGS is working with partners to understand this ongoing megadrought and to predict and communicate drought risk (<a href="https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought" target="_blank">Video of drought at Lake Powell</a>).',
         mobile_x_offset_per: 60
-      },
-      {
-        id: 'legend',
-        date: '1926-11-01',
-        text: 'Droughts are colored by duration where darker = longer. The shortest droughts were 43 days',
-        mobile_x_offset_per: 60
-      }   
+      }
     ]
 };
