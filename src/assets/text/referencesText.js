@@ -141,57 +141,57 @@ export default {
     references: [
       {
         reference:
-          "Dust and drought",
+          "Results of a dust storm. Cimarron County, Oklahoma digital file from original neg.",
         num: "1",
-        authors: "Smithsonian American Art Museum",
-        title: "Dust and drought.",
-        link: "https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/",
-        ref: " https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/"
+        authors: "Rothstein, A. (1936)",
+        title: "Results of a dust storm. Cimarron County, Oklahoma digital file from original neg.",
+        link: "https://www.loc.gov/resource/fsa.8b38290/",
+        ref: "https://www.loc.gov/resource/fsa.8b38290/"
       },
       {
         reference:
-          "When the sky ran dry",
+          "Cracked dry land in West Texas, 1951",
         num: "2",
-        authors: "Burnett, J. (2012)",
-        title: "When the sky ran dry.",
-        link: "https://www.texasmonthly.com/articles/when-the-sky-ran-dry/",
-        ref: " https://www.texasmonthly.com/articles/when-the-sky-ran-dry/"
+        authors: "Texas Commission on Environmental Quality. (2009)",
+        title: "Cracked dry land in West Texas, 1951.",
+        link: "https://www.tsl.texas.gov/lobbyexhibits/water-droughts",
+        ref: "https://www.tsl.texas.gov/lobbyexhibits/water-droughts"
       },
       {
         reference:
-          "The northeast water supply crisis of the 1960's",
+          "Quabbin Reservoir in central Massachusetts on Oct 13, 1966",
         num: "3",
-        authors: "Barksdale, H.C. (1968)",
-        title: "The northeast water supply crisis of the 1960's.",
-        link: "https://www.usgs.gov/publications/northeast-water-supply-crisis-1960s",
-        ref: " https://www.usgs.gov/publications/northeast-water-supply-crisis-1960s"
+        authors: "Massachusetts Department of Cultural Resources. (1966)",
+        title: "Quabbin Reservoir in central Massachusetts on Oct 13, 1966.",
+        link: "https://broadleafpapers.wordpress.com/the-broadleaf-papers/archived-posts/golden-anniversary-of-the-drought-most-northeasterners-have-forgotten-intro/",
+        ref: "https://broadleafpapers.wordpress.com/the-broadleaf-papers/archived-posts/golden-anniversary-of-the-drought-most-northeasterners-have-forgotten-intro/"
       },
       {
         reference:
-          "Drought of 1988",
+          "Ghost boats on the Mississippi",
         num: "4",
-        authors: "Department of Minnesota Natural Resources Division of Waters",
-        title: "Drought of 1988.",
-        link: "https://files.dnr.state.mn.us/natural_resources/climate/summaries_and_publications/drought1988.pdf",
-        ref: " https://files.dnr.state.mn.us/natural_resources/climate/summaries_and_publications/drought1988.pdf"
+        authors: "Campbell, D. (1988)",
+        title: "Ghost boats on the Mississippi.",
+        link: "https://www.flickr.com/photos/wolfriver/409499930/",
+        ref: "https://www.flickr.com/photos/wolfriver/409499930/"
       },
       {
         reference:
-          "Rapid intensification of the emerging southwestern North American megadrought in 2020–2021",
+          "California drought, Huntington Lake (August, 2014)",
         num: "5",
-        authors: "Williams, A.P., Cook, B.I., and Smerdon, J.E. (2022)",
-        title: "Rapid intensification of the emerging southwestern North American megadrought in 2020–2021.",
-        link: "https://doi.org/10.1038/s41558-022-01290-z",
-        ref: " https://doi.org/10.1038/s41558-022-01290-z"
+        authors: "Myrick, R./USGS California Water Science Center. (2014)",
+        title: "California drought, Huntington Lake (August, 2014).",
+        link: "https://www.usgs.gov/media/images/california-drought-huntington-lake-august-2014",
+        ref: "https://www.usgs.gov/media/images/california-drought-huntington-lake-august-2014"
       },
       {
         reference:
-          "U.S. megadrought worst in at least 1,200 years, researchers say",
+          "USGS documents 2015 western U.S. drought",
         num: "6",
-        authors: "Chow, D. (2022)",
-        title: "U.S. megadrought worst in at least 1,200 years, researchers say.",
-        link: "https://www.nbcnews.com/science/environment/us-megadrought-worst-least-1200-years-researchers-say-rcna16202",
-        ref: " https://www.nbcnews.com/science/environment/us-megadrought-worst-least-1200-years-researchers-say-rcna16202"
+        authors: "Smith, R./USGS Idaho Water Science Center. (2015)",
+        title: "USGS documents 2015 western U.S. drought.",
+        link: "https://www.usgs.gov/media/images/usgs-documents-2015-western-us-drought-0",
+        ref: "https://www.usgs.gov/media/images/usgs-documents-2015-western-us-drought-0"
       }
     ],
   },
