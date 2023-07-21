@@ -12,13 +12,13 @@ export default {
       },
       {
         id: '1950sQuote',
-        date: '1955-01-01',
+        date: '1954-03-01',
         text: '“It started out west. It tended to get dry out there and not rain, and that lack of rainfall just moved east. My dad kept saying, ‘We have these things; they’ll just go about eighteen months. It’ll break.’ But that’s what caught everybody off guard: it didn’t break. It just kept on going, and it lasted about seven years.” - Mort Mertz, West Texas rancher since 1954',
         url: "https://www.texasmonthly.com/articles/when-the-sky-ran-dry/",
         quote: true,
         desktop_x_offset_per: 5,
         desktop_text_anchor: 'start',
-        desktop_text_width: 350
+        desktop_text_width: 300
       },
       {
         id: '1970s_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
@@ -91,7 +91,7 @@ export default {
         id: 'map',
         date: '1923-02-01',
         text: 'Map of streamgage locations that had one of the 2000 most severe droughts.',
-        desktop_x_offset_per: 65,
+        desktop_x_offset_per: 60,
         desktop_text_anchor: 'start',
         desktop_text_width: 200
       },
@@ -105,7 +105,7 @@ export default {
       },
       {
         id: 'intro_text_label',
-        date: '1922-05-01',
+        date: '1922-04-01',
         text: 'How to read this chart.',
         quote: true,
         desktop_x_offset_per: 10,
