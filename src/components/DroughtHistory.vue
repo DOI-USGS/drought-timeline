@@ -1239,8 +1239,9 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 .references-list{
   padding-left: 42px ;
-  padding-top: 3px;
+  padding-top: 7px;
   padding-bottom: 7px;
+  margin-top: 5px;
   text-indent: -22px ;
 }
 #methods-container{
