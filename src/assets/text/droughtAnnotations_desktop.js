@@ -90,16 +90,8 @@ export default {
       {
         id: 'map',
         date: '1923-02-01',
-        text: 'Map of streamgage locations that had one of the 2000 most severe droughts.',
+        text: 'Map of streamgage locations that had one of the 2000 most severe droughts. Streamgage locations in each major drought are highlighted on the map in red. ',
         desktop_x_offset_per: 60,
-        desktop_text_anchor: 'start',
-        desktop_text_width: 200
-      },
-      {
-        id: 'mapHighlight',
-        date: '1930-09-01',
-        text: 'Streamgage locations in drought during the Dust Bowl are highlighted on the map in red.',
-        desktop_x_offset_per: 63,
         desktop_text_anchor: 'start',
         desktop_text_width: 200
       },
