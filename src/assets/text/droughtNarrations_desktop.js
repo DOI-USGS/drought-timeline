@@ -1,12 +1,6 @@
 export default {
     timelineEvents: [
       {
-        id: 'introduction_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
-        start_date: '1922-01-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
-        end_date: '1929-12-31', // Date marking end of annotation. Determines y trigger end position on deskop
-        text: 'The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.', // Narrative text
-      },
-      {
         id: 'dustbowl_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
         start_date: '1930-01-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
         end_date: '1943-08-31', // Date marking end of annotation. Determines y trigger end position on deskop
