@@ -1078,16 +1078,27 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-area: chart;
 }
 #swarm_vertical {
-  width: 100%;
+  width: 70vw; // has to match char-overlay-dynamic and -static size.
   transform: rotate(180deg);
   pointer-events: none;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 }
 #chart-overlay-dynamic {
+  width: 70vw;
   grid-area: chart;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 }
 #chart-overlay-static {
+  width: 70vw;
   grid-area: chart;
   pointer-events: none;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 }
 // Class for paths in AI-generated annotation_drawings-01.svg
 .cls-1 {
@@ -1099,16 +1110,18 @@ $writeFont: 'Nanum Pen Script', cursive;
   //grid-area: chart; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
   //align-self: end; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
   height: 25vh;
-  width: 100vw;
+  width: 20vw;
   padding: 20px 0 10px 0;
   position: sticky;
-  justify-self: center;
+  justify-self:right;
   bottom: 0;
   background-color: white;
-  opacity: 0.9;
-  box-shadow: 0px -5px 5px #B9B9B9;
   @media screen and (max-width: 600px) {
     height: 30vh;
+    width: 100vw;
+    justify-self:center;
+    opacity: 0.9;
+    box-shadow: 0px -5px 5px #B9B9B9;
   }
 }
 
