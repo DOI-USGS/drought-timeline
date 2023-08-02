@@ -992,17 +992,27 @@ $writeFont: 'Nanum Pen Script', cursive;
   display: grid;
   padding: 20px 0 20px 0;
   gap: 5px;
-  grid-template-columns: 100%;
+  grid-template-columns: 70% 30%;
   grid-template-rows: max-content max-content max-content max-content;
   grid-template-areas:
-    "title"
-    "intro"
-    "buttons"
-    "chart";
+    "title narration"
+    "intro narration"
+    "buttons narration"
+    "chart narration";
   justify-content: center;
   margin: auto;
   max-width: 90vw;
   min-width: 90vw;
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 100%;
+    grid-template-rows: max-content max-content max-content max-content max-content;
+    grid-template-areas:
+      "title"
+      "intro"
+      "buttons"
+      "chart"
+      "narration"
+  }
 }
 #title-container {
   grid-area: title;
@@ -1075,6 +1085,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   right: 0;
 }
 #chart-container {
+  width: 70vw;
   grid-area: chart;
 }
 #swarm_vertical {
@@ -1109,14 +1120,17 @@ $writeFont: 'Nanum Pen Script', cursive;
 #annotation-container {
   //grid-area: chart; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
   //align-self: end; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
-  height: 70vh;
+  grid-area: narration;
+  height: 100%;
   width: 20vw;
+  min-height: 0;
   padding: 0px 0 10px 0;
-  position: sticky;
+  position: fixed;
   justify-self: right;
-  bottom: 0;
-  background-color: white;
+  //bottom: 0;
+  background-color: transparent;
   @media screen and (max-width: 600px) {
+    background-color: white;
     height: 30vh;
     width: 100vw;
     justify-self:center;
@@ -1124,6 +1138,7 @@ $writeFont: 'Nanum Pen Script', cursive;
     box-shadow: 0px -5px 5px #B9B9B9;
     padding: 20px 0 10px 0;
     position: sticky;
+    bottom:0;
   }
 }
 
