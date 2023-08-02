@@ -406,7 +406,7 @@ export default {
         this.svgChartDynamic = this.d3.select("#svg-dynamic")
 
         // set dimensions for overlay svg
-        this.overlayWidth = window.innerWidth*0.9 //MUST MATCH max-width of grid, which controls chart image width
+        this.overlayWidth = window.innerWidth*0.7 //MUST MATCH max-width of grid, which controls chart image width
         this.overlayHeight = this.overlayWidth*10 //Based on image aspect ratio
         this.svgChartDynamic
           .attr("viewBox", "0 0 " + this.overlayWidth + " " + this.overlayHeight)
@@ -1109,11 +1109,11 @@ $writeFont: 'Nanum Pen Script', cursive;
 #annotation-container {
   //grid-area: chart; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
   //align-self: end; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
-  height: 25vh;
+  height: 70vh;
   width: 20vw;
-  padding: 20px 0 10px 0;
+  padding: 0px 0 10px 0;
   position: sticky;
-  justify-self:right;
+  justify-self: right;
   bottom: 0;
   background-color: white;
   @media screen and (max-width: 600px) {
@@ -1122,6 +1122,8 @@ $writeFont: 'Nanum Pen Script', cursive;
     justify-self:center;
     opacity: 0.9;
     box-shadow: 0px -5px 5px #B9B9B9;
+    padding: 20px 0 10px 0;
+    position: sticky;
   }
 }
 
@@ -1130,7 +1132,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   position: absolute;
 }
 .droughtText.narration {
-  margin: 0 5vw 0 5vw;
+  margin: 1em ;
   position: absolute;
 }
 .hidden{
@@ -1320,7 +1322,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 .droughtText {
   z-index: 10;
   font-weight: 400;
-  font-size: 0.9em;
+  font-size: 1.0em;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
