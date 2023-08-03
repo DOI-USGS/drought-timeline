@@ -69,6 +69,22 @@
         v-if="!mobileView"
         id="annotation-container"
       >
+        <div id="drought-image-container">
+          <img
+            id="drought-image-default"
+            class="drought-image"
+            src="@/assets/images/drought_events/drought_TOC2.jpg"
+            alt="Map of drought sites in the continental United States"
+          >
+<!--           <img
+            v-for="title in titles"
+            :id="`drought-image-${title.id}`"
+            :key="title.id"
+            class="drought-image drought-specific hide"
+            :src="require(`@/assets/images/drought_events/drought_${drought.id}.jpg`)"
+            :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${drought.name} are highlighted in red`"
+          > -->
+        </div>
         <div
           v-for="title in titles" 
           :id="`drought-title-${title.id}`"
@@ -986,7 +1002,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   display: grid;
   padding: 20px 0 20px 0;
   gap: 5px;
-  grid-template-columns: 65% 35%;
+  grid-template-columns: 65vw 25vw;
   grid-template-rows: max-content max-content max-content max-content;
   grid-template-areas:
     "title narration"
@@ -1059,11 +1075,12 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #inset-image-container {
   position: sticky;
-  top: 55px;
+  top: 80px;
   @media only screen and (max-width: 600px) {
     top: 75px;
   }
 }
+
 .inset-map {
   height: 150px;
   filter: url(#shadow2);
@@ -1078,9 +1095,29 @@ $writeFont: 'Nanum Pen Script', cursive;
   position: absolute;
   right: 0;
 }
+#drought-image-container {
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 200px;
+  margin: 0 0 5px 0;
+  top: 25px;
+}
+#drought-image-default {
+  height: 150px;
+  position: absolute;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%
+}
 #chart-container {
   width: 65vw;
   grid-area: chart;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 }
 #swarm_vertical {
   width: 65vw; // has to match char-overlay-dynamic and -static size.
@@ -1116,10 +1153,11 @@ $writeFont: 'Nanum Pen Script', cursive;
   //align-self: end; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
   grid-area: narration;
   height: 100%;
-  width: 20vw;
+  width: 24vw;
   min-height: 0;
   padding: 0px;
-  position: fixed;
+  position: sticky;
+  top: 0px;
   justify-self: right;
   background-color: transparent;
   @media screen and (max-width: 600px) {
@@ -1161,12 +1199,14 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 .droughtText.narration {
   margin: 2.2em 0em 1em 1em ;
-  position: absolute;
+  position: sticky;
+  top: 250px;
 }
 .droughtText.droughtTitle {
-  position: absolute;
+  position: sticky;
   font-weight: 700;
   margin: 0em 0em 0em 0.4em ;
+  top: 225px;
 }
 .hidden{
   visibility: hidden;

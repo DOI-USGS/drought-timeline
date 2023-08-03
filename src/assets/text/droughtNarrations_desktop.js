@@ -2,7 +2,7 @@ export default {
     timelineEvents: [
       {
         id: 'intro_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
-        start_date: '1922-04-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
+        start_date: '1920-04-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
         end_date: '1926-08-31', // Date marking end of annotation. Determines y trigger end position on deskop
         text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought. Where the chart is wider, many streamgages were experiencing drought simultaneously.', // Narrative text
         title: false,
@@ -48,7 +48,7 @@ export default {
         id: 'intro_1',
         start_date: '1922-04-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
         end_date: '1926-08-31', // Date marking end of annotation. Determines y trigger end position on deskop
-        text: 'How to read this chart',
+        text: 'How to read the timeline',
         title: true,
       },
       {
