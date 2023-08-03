@@ -552,21 +552,22 @@ export default {
             .attr("cx", d => xScale(d.mobile_x_offset_per))
             .attr("cy", d => yScale(new Date(d.date)))
             .attr("r", 4)
+          // Set up images
+          const annotationImages = this.svgChartDynamic.selectAll('annotationImages')
+            .data(image_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
+            .enter()
+            .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
+            .append("svg:image")
+            .attr("id", d => "annotation-image-" + d.id)
+            .attr("class", "droughtImage hidden")
+            .attr("x", d => this.mobileView ? xScale(d.mobile_x_offset_per) : xScale(d.desktop_x_offset_per))
+            .attr("y", d => yScale(new Date(d.date)))
+            .attr("width", d => this.mobileView ? xScale(d.mobile_width_per) : xScale(d.desktop_width_per))
+            .attr("xlink:href", d => d.name ? require("@/assets/images/drought_events/" + d.name) : '')
+            .attr("alt", d => d.alt)
         }
 
-        // Set up images
-        const annotationImages = this.svgChartDynamic.selectAll('annotationImages')
-          .data(image_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
-          .enter()
-          .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
-          .append("svg:image")
-          .attr("id", d => "annotation-image-" + d.id)
-          .attr("class", "droughtImage hidden")
-          .attr("x", d => this.mobileView ? xScale(d.mobile_x_offset_per) : xScale(d.desktop_x_offset_per))
-          .attr("y", d => yScale(new Date(d.date)))
-          .attr("width", d => this.mobileView ? xScale(d.mobile_width_per) : xScale(d.desktop_width_per))
-          .attr("xlink:href", d => d.name ? require("@/assets/images/drought_events/" + d.name) : '')
-          .attr("alt", d => d.alt)
+
 
       },
       addAnimations() {
