@@ -444,22 +444,6 @@ export default {
           .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
           .attr("opacity", 1)
 
-        // On desktop, Add names of major droughts to drought event scrollTo rectangles
-        if (!this.mobileView) {
-          const formatYear = this.d3.timeFormat("%Y")
-          const titleOffsetX = 15
-          const titleOffsetY = 30
-          const droughtTitles = this.svgChartDynamic.selectAll('droughtTitle')
-            .data(this.scrollToDates)
-            .enter()
-            .append('text')
-            .attr("id", d => "droughtTitle-" + d.id)
-            .attr("class", "droughtTitle")
-            .attr("x", yAxisOffset + titleOffsetX)
-            .attr("y", d => yScale(new Date(d.start)) + titleOffsetY)
-            .text(d => `${d.name} (${formatYear(new Date(d.start))} - ${formatYear(new Date(d.end))})`)
-        }
-
         // Add y axis
         const yAxis = this.d3.axisLeft(yScale)
           .ticks(this.d3.timeYear.every(1))
@@ -1127,7 +1111,6 @@ $writeFont: 'Nanum Pen Script', cursive;
   padding: 0px 0 10px 0;
   position: fixed;
   justify-self: right;
-  //bottom: 0;
   background-color: transparent;
   @media screen and (max-width: 600px) {
     background-color: white;
