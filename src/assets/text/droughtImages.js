@@ -59,7 +59,7 @@ export default {
             id: 'turnofcentury_image_2',
             date: '2008-07-01',
             url: 'https://www.usgs.gov/media/images/usgs-documents-2015-western-us-drought-0',
-            name: 'drought_TOC2.png',
+            name: 'drought_1922.png',
             alt: 'A hydrologic technician from the USGS Idaho Water Science Center measures streamflow in Lightning Creek at Clark Fork, ID. The riverbed is almost completely dry, showing exposed rocks. The technician stands on the dry riverbed, measuring a small trickle of water through the rocks. The background shows a bridge and surrounding forest.',
             desktop_x_offset_per: 65,
             desktop_width_per: 30,

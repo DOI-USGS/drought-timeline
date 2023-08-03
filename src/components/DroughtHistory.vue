@@ -70,28 +70,28 @@
         id="annotation-container"
       >
         <div id="drought-image-container">
-          <img
+<!--           <img
             id="drought-image-default"
             class="drought-image"
-            src="@/assets/images/drought_events/drought_TOC2.png"
+            src="@/assets/images/drought_events/drought_1922.png"
             alt="Map of drought sites in the continental United States"
-          >
+          > -->
           <img
-            v-for="drought in scrollToDates"
-            :id="`drought-image-${drought.id}`"
-            :key="drought.id"
+            v-for="narration in narrations"
+            :id="`drought-image-${narration.id}`"
+            :key="narration.id"
             class="drought-image-specific hide"
-            :src="require(`@/assets/images/drought_events/drought_${drought.id}.png`)"
-            :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${drought.name} are highlighted in red`"
+            :src="require(`@/assets/images/drought_events/drought_${narration.id}.png`)"
+            :alt="`${narration.image_alt}`"
            >
         </div>
         <div
-          v-for="title in titles" 
-          :id="`drought-title-${title.id}`"
-          :key="title.id"
+          v-for="narration in narrations" 
+          :id="`drought-text-${narration.id}`"
+          :key="narration.id"
           class="droughtText droughtTitle hidden"
         >
-          <p v-html="title.text" />
+          <p v-html="narration.title" />
         </div>
         <div
           v-for="narration in narrations" 
@@ -728,7 +728,7 @@ export default {
                 trigger: `#${scrollIDFull}`,
                 start: "top 67%",
                 end: 'bottom 67%',
-                toggleClass: {targets: [`#inset-map-${scrollID}`, `#drought-image-${scrollID}`], className: "show"}, // adds class to target when triggered
+                toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
             })
@@ -778,7 +778,18 @@ export default {
                 trigger: `#${rectIDFull}`,
                 start: `top 67%`,
                 end: 'bottom 67%',
-                toggleClass: {targets: [`#drought-text-${rectlID}`, `#drought-title-${rectlID}`], className:"visible"}, // adds class to target when triggered
+                toggleClass: {targets: `#drought-text-${rectlID}`, className:"visible"}, // adds class to target when triggered
+                toggleActions: "restart reverse none reverse" 
+              },
+            })
+            // Show the image for each drought when in that drought period
+            tl.to(`#${rectIDFull}`, {
+              scrollTrigger: {
+                markers: false,
+                trigger: `#${rectIDFull}`,
+                start: "top 67%",
+                end: 'bottom 67%',
+                toggleClass: {targets: `#drought-image-${rectlID}`, className: "show"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
             })
@@ -1097,23 +1108,23 @@ $writeFont: 'Nanum Pen Script', cursive;
   right: 0;
 }
 #drought-image-container {
-  position: sticky;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   height: 200px;
   margin: 0 0 5px 0;
-  top: 25px;
+  top: 100px;
 }
 .drought-image{
-  position: absolute;
+  //position: absolute;
   flex-shrink: 0;
   min-width: 100%;
   min-height: 100%;
 }
 .drought-image-specific{
-  position: absolute;
+  //position: absolute;
   flex-shrink: 0;
   min-width: 100%;
   min-height: 100%;
@@ -1205,14 +1216,14 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 .droughtText.narration {
   margin: 2.2em 0em 1em 1em ;
-  position: sticky;
-  top: 250px;
+  position: fixed;
+  top: 332px;
 }
 .droughtText.droughtTitle {
-  position: sticky;
+  position: fixed;
   font-weight: 700;
   margin: 0em 0em 0em 0.4em ;
-  top: 225px;
+  top: 330px;
 }
 .hidden{
   visibility: hidden;
