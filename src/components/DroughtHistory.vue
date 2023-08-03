@@ -73,17 +73,17 @@
           <img
             id="drought-image-default"
             class="drought-image"
-            src="@/assets/images/drought_events/drought_TOC2.jpg"
+            src="@/assets/images/drought_events/drought_TOC2.png"
             alt="Map of drought sites in the continental United States"
           >
-<!--           <img
-            v-for="title in titles"
-            :id="`drought-image-${title.id}`"
-            :key="title.id"
-            class="drought-image drought-specific hide"
-            :src="require(`@/assets/images/drought_events/drought_${drought.id}.jpg`)"
+          <img
+            v-for="drought in scrollToDates"
+            :id="`drought-image-${drought.id}`"
+            :key="drought.id"
+            class="drought-image-specific hide"
+            :src="require(`@/assets/images/drought_events/drought_${drought.id}.png`)"
             :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${drought.name} are highlighted in red`"
-          > -->
+           >
         </div>
         <div
           v-for="title in titles" 
@@ -631,7 +631,7 @@ export default {
                 trigger: `#${scrollIDFull}`,
                 start: "top 50%",
                 end: 'bottom 50%',
-                toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
+                toggleClass: {targets: [`#inset-map-${scrollID}`, `#drought-image-${scrollID}`], className: "show"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
             })
@@ -1105,7 +1105,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   margin: 0 0 5px 0;
   top: 25px;
 }
-#drought-image-default {
+.drought-image{
   height: 150px;
   position: absolute;
   flex-shrink: 0;
