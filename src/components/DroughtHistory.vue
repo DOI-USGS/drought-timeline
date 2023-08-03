@@ -632,7 +632,7 @@ export default {
                 trigger: `#${scrollIDFull}`,
                 start: "top 50%",
                 end: 'bottom 50%',
-                toggleClass: {targets: [`#inset-map-${scrollID}`, `#drought-image-${scrollID}`], className: "show"}, // adds class to target when triggered
+                toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
             })
@@ -728,7 +728,7 @@ export default {
                 trigger: `#${scrollIDFull}`,
                 start: "top 67%",
                 end: 'bottom 67%',
-                toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
+                toggleClass: {targets: [`#inset-map-${scrollID}`, `#drought-image-${scrollID}`], className: "show"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
             })
@@ -1107,11 +1107,16 @@ $writeFont: 'Nanum Pen Script', cursive;
   top: 25px;
 }
 .drought-image{
-  height: 150px;
   position: absolute;
   flex-shrink: 0;
   min-width: 100%;
-  min-height: 100%
+  min-height: 100%;
+}
+.drought-image-specific{
+  position: absolute;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
 #chart-container {
   width: 65vw;
