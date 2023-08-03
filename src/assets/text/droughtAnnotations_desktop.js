@@ -96,23 +96,6 @@ export default {
         desktop_text_width: 200
       },
       {
-        id: 'intro_text_label',
-        date: '1922-04-01',
-        text: 'How to read this chart.',
-        quote: true,
-        desktop_x_offset_per: 10,
-        desktop_text_anchor: 'start',
-        desktop_text_width: 400
-      },
-      {
-        id: 'intro_text_1',
-        date: '1922-07-01',
-        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought. Where the chart is wider, many streamgages were experiencing drought simultaneously.',
-        desktop_x_offset_per: 12,
-        desktop_text_anchor: 'start',
-        desktop_text_width: 400
-      },
-      {
         id: 'intro_text_2',
         date: '1924-06-01',
         text: 'This drought was 126 days long',

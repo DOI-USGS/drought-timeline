@@ -70,6 +70,14 @@
         id="annotation-container"
       >
         <div
+          v-for="title in titles" 
+          :id="`drought-title-${title.id}`"
+          :key="title.id"
+          class="droughtText droughtTitle hidden"
+        >
+          <p v-html="title.text" />
+        </div>
+        <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
           :key="narration.id"
@@ -296,6 +304,7 @@ import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.js";
 import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
 import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
+import droughtTitles_desktop from "@/assets/text/droughtNarrations_desktop.js";
 import droughtImages from "@/assets/text/droughtImages.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 import polarWedges from "@/assets/svgs/polar_wedges.svg";
@@ -318,6 +327,7 @@ export default {
         mobileView: isMobile, // test for mobile
         annotations: null,
         narrations: droughtNarrations_desktop.timelineEvents,
+        titles: droughtTitles_desktop.timelineTitles,
         images: droughtImages.timelineEvents,
         scrollToDates:  null,
         // dimensions
@@ -406,7 +416,7 @@ export default {
         this.svgChartDynamic = this.d3.select("#svg-dynamic")
 
         // set dimensions for overlay svg
-        this.overlayWidth = window.innerWidth*0.7 //MUST MATCH max-width of grid, which controls chart image width
+        this.overlayWidth = window.innerWidth*0.65 //MUST MATCH max-width of grid, which controls chart image width
         this.overlayHeight = this.overlayWidth*10 //Based on image aspect ratio
         this.svgChartDynamic
           .attr("viewBox", "0 0 " + this.overlayWidth + " " + this.overlayHeight)
@@ -751,7 +761,7 @@ export default {
                 trigger: `#${rectIDFull}`,
                 start: `top 67%`,
                 end: 'bottom 67%',
-                toggleClass: {targets: `#drought-text-${rectlID}`, className:"visible"}, // adds class to target when triggered
+                toggleClass: {targets: [`#drought-text-${rectlID}`, `#drought-title-${rectlID}`], className:"visible"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
             })
@@ -976,7 +986,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   display: grid;
   padding: 20px 0 20px 0;
   gap: 5px;
-  grid-template-columns: 70% 30%;
+  grid-template-columns: 65% 35%;
   grid-template-rows: max-content max-content max-content max-content;
   grid-template-areas:
     "title narration"
@@ -1069,11 +1079,11 @@ $writeFont: 'Nanum Pen Script', cursive;
   right: 0;
 }
 #chart-container {
-  width: 70vw;
+  width: 65vw;
   grid-area: chart;
 }
 #swarm_vertical {
-  width: 70vw; // has to match char-overlay-dynamic and -static size.
+  width: 65vw; // has to match char-overlay-dynamic and -static size.
   transform: rotate(180deg);
   pointer-events: none;
   @media screen and (max-width: 600px) {
@@ -1081,14 +1091,14 @@ $writeFont: 'Nanum Pen Script', cursive;
   }
 }
 #chart-overlay-dynamic {
-  width: 70vw;
+  width: 65vw;
   grid-area: chart;
   @media screen and (max-width: 600px) {
     width: 100%;
   }
 }
 #chart-overlay-static {
-  width: 70vw;
+  width: 65vw;
   grid-area: chart;
   pointer-events: none;
   @media screen and (max-width: 600px) {
@@ -1108,7 +1118,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   height: 100%;
   width: 20vw;
   min-height: 0;
-  padding: 0px 0 10px 0;
+  padding: 0px;
   position: fixed;
   justify-self: right;
   background-color: transparent;
@@ -1124,14 +1134,39 @@ $writeFont: 'Nanum Pen Script', cursive;
     bottom:0;
   }
 }
-
+.droughtText {
+  z-index: 10;
+  font-weight: 400;
+  font-size: 0.85em;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
 .droughtText.mobile {
+  z-index: 10;
+  font-weight: 500;
+  font-size: 1em;
   margin: 0 5vw 0 5vw;
   position: absolute;
 }
+.droughtText.quote {
+  font-style: italic;
+}
+.droughtText.desktop.quote {
+  text-shadow: 2px 4px 4px rgba(179,179,179,0.6);
+}
+.droughtText.desktop.quote:hover {
+  font-style: italic;
+  font-weight: 500;
+}
 .droughtText.narration {
-  margin: 1em ;
+  margin: 2.2em 0em 1em 1em ;
   position: absolute;
+}
+.droughtText.droughtTitle {
+  position: absolute;
+  font-weight: 700;
+  margin: 0em 0em 0em 0.4em ;
 }
 .hidden{
   visibility: hidden;
@@ -1317,32 +1352,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 </style>
 <style lang="scss">
-.droughtText {
-  z-index: 10;
-  font-weight: 400;
-  font-size: 1.0em;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-}
-.droughtText.mobile {
-  z-index: 10;
-  font-weight: 500;
-  font-size: 1em;
-}
-.droughtText.quote {
-  font-style: italic;
-}
-.droughtText.desktop.quote {
-  text-shadow: 2px 4px 4px rgba(179,179,179,0.6);
-}
-.droughtText.desktop.quote:hover {
-  font-style: italic;
-  font-weight: 500;
-}
-.droughtTitle {
-  font-weight: 700;
-}
+
 .yAxisText {
   font-size: 2em;
   @media only screen and (max-width: 600px) {
