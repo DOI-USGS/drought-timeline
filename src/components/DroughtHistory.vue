@@ -52,6 +52,21 @@
         <annotationDrawings />
       </div>
       <div
+        v-if="!mobileView"
+        id="drought-quote-container"
+      >
+        <div
+          v-for="narration in narrations" 
+          :id="`drought-text-${narration.id}`"
+          :key="narration.id"
+          class="droughtQuote hidden"
+        >
+            <p v-html="narration.quote" />
+            <p v-html="narration.quote_source" class="droughtQuoteSource"/>
+        </div>
+      </div>
+
+      <div
         v-if="mobileView"
         id="annotation-container"
       >
@@ -70,12 +85,6 @@
         id="annotation-container"
       >
         <div id="drought-image-container">
-<!--           <img
-            id="drought-image-default"
-            class="drought-image"
-            src="@/assets/images/drought_events/drought_1922.png"
-            alt="Map of drought sites in the continental United States"
-          > -->
           <img
             v-for="narration in narrations"
             :id="`drought-image-${narration.id}`"
@@ -1121,18 +1130,62 @@ $writeFont: 'Nanum Pen Script', cursive;
   height: 200px;
   margin: 0 0 5px 0;
   top: 100px;
+  padding: 0 5px 0 0;
 }
 .drought-image{
-  //position: absolute;
   flex-shrink: 0;
   min-width: 100%;
   min-height: 100%;
 }
 .drought-image-specific{
-  //position: absolute;
   flex-shrink: 0;
   min-width: 100%;
   min-height: 100%;
+}
+#drought-quote-container {
+  position: fixed;
+  margin: 10px 100px 10px 100px;
+  top: 80vh;
+}
+.droughtQuote {
+  display:block;
+  background: #fff;
+  padding: 15px 20px 15px 50px;
+  margin: 0 0 20px;
+  position: fixed;
+  width: 55vw;
+  text-align: justify;
+  font-style: italic;
+
+  /*Borders - (Optional)*/
+  border-left: 15px solid #c76c0c;
+  border-right: 2px solid #c76c0c;
+  
+  /*Box Shadow - (Optional)*/
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 15px #ccc;
+
+  font-size: 20px;
+}
+.droughtQuoteSource{
+  font-style: normal;
+  font-size: 14px;
+  text-align: right;
+}
+.droughtQuote:before{
+  content: "\201C"; /*Unicode for Left Double Quote*/
+  
+  /*Font*/
+  font-family: Georgia, serif;
+  font-size: 50px;
+  font-weight: bold;
+  color: #999;
+
+  /*Positioning*/
+  position: absolute;
+  left: 10px;
+  top:5px;
 }
 #chart-container {
   width: 65vw;
@@ -1177,7 +1230,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   height: 100%;
   width: 24vw;
   min-height: 0;
-  padding: 0px;
+  padding: 0px 0px 0px 0px;
   position: sticky;
   top: 0px;
   justify-self: right;
@@ -1197,7 +1250,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 .droughtText {
   z-index: 10;
   font-weight: 400;
-  font-size: 0.85em;
+  font-size: 20px;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */

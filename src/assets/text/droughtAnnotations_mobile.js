@@ -24,7 +24,7 @@ export default {
       {
         id: 'quote1980s',
         date: '1992-08-10',
-        text: '"1988 will be remembered as the Year of the Drought.” - <a href="https://files.dnr.state.mn.us/natural_resources/climate/summaries_and_publications/drought1988.pdf" target="_blank">Minnesota Department of Natural Resources, Division of Waters, 1989</a>',
+        text: '"The 1988 drought dramatically illustrates how quickly several years of excess precipitation can change to widespread drought.” - <a href="https://files.dnr.state.mn.us/natural_resources/climate/summaries_and_publications/drought1988.pdf" target="_blank">Minnesota Department of Natural Resources, Division of Waters, 1989</a>',
         quote: true,
         mobile_x_offset_per: 60
       },
@@ -34,13 +34,6 @@ export default {
         text: '“2000-2021 ranks as the driest 22-year period since at least 800 CE.” - <a href="https://www.nature.com/articles/s41558-022-01290-z" target="_blank">A. Park Williams, Benjamin I. Cook, and Jason E. Smerdon, 2022</a>',
         quote: true,
         mobile_x_offset_per: 65
-      },
-      {
-        id: 'quoteTOC2',
-        date: '2015-01-01',
-        text: '"Twenty-two years in, some of these big megadroughts in the past were starting to peter out. This drought is not petering out. Instead, it is in full swing and is as strong now as it ever was before." - <a href="https://www.nbcnews.com/science/environment/us-megadrought-worst-least-1200-years-researchers-say-rcna16202" target="_blank">A. Park Williams, 2022</a>',
-        quote: true,
-        mobile_x_offset_per: 70
       },
       {
         id: 'intro_map_1',
