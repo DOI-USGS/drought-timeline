@@ -1083,13 +1083,18 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #inset-container {
   grid-area: chart;
-  justify-self: end;
+  justify-self:left;
+  @media only screen and (max-width: 600px) {
+    justify-self: end;
+  }
 }
 #inset-image-container {
   position: sticky;
   top: 80px;
+  margin: 0 0 0 50px;
   @media only screen and (max-width: 600px) {
     top: 75px;
+    margin: 0;
   }
 }
 
