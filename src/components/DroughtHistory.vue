@@ -5,7 +5,15 @@
         <h2>Five droughts that changed history</h2>
       </div>
       <div id="intro-container">
-        <p>The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.</p>
+        <p>
+          The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a
+            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
+            target="_blank"
+          >What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+            href="https://doi.org/10.1002/joc.7904"
+            target="_blank"
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
+        </p>
       </div>
       <nav id="nav-button-container">
         <p>
@@ -48,9 +56,9 @@
       <div id="chart-overlay-dynamic">
         <svg id="svg-dynamic" />
       </div>
-        <div id="chart-overlay-static">
-          <annotationDrawings />
-        </div>
+      <div id="chart-overlay-static">
+        <annotationDrawings />
+      </div>
 
       <div
         v-if="!mobileView"
@@ -62,8 +70,11 @@
           :key="narration.id"
           class="droughtQuote hidden"
         >
-            <p v-html="narration.quote" />
-            <p v-html="narration.quote_source" class="droughtQuoteSource"/>
+          <p v-html="narration.quote" />
+          <p
+            class="droughtQuoteSource"
+            v-html="narration.quote_source"
+          />
         </div>
       </div>
 
@@ -93,7 +104,7 @@
             class="drought-image-specific hide"
             :src="require(`@/assets/images/drought_events/drought_${narration.id}.png`)"
             :alt="`${narration.image_alt}`"
-           >
+          >
         </div>
         <div
           v-for="narration in narrations" 
