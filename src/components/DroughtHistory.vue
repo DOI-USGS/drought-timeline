@@ -48,9 +48,10 @@
       <div id="chart-overlay-dynamic">
         <svg id="svg-dynamic" />
       </div>
-      <div id="chart-overlay-static">
-        <annotationDrawings />
-      </div>
+        <div id="chart-overlay-static">
+          <annotationDrawings />
+        </div>
+
       <div
         v-if="!mobileView"
         id="drought-quote-container"
@@ -68,7 +69,7 @@
 
       <div
         v-if="mobileView"
-        id="annotation-container"
+        id="annotation-container-mobile"
       >
         <div
           v-for="annotation in annotations" 
@@ -82,7 +83,7 @@
       </div>
       <div
         v-if="!mobileView"
-        id="annotation-container"
+        id="annotation-container-desktop"
       >
         <div id="drought-image-container">
           <img
@@ -1121,27 +1122,8 @@ $writeFont: 'Nanum Pen Script', cursive;
   position: absolute;
   right: 0;
 }
-#drought-image-container {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  height: 200px;
-  margin: 0 0 5px 0;
-  top: 100px;
-  padding: 0 5px 0 0;
-}
-.drought-image{
-  flex-shrink: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
-.drought-image-specific{
-  flex-shrink: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
+
+
 #drought-quote-container {
   position: fixed;
   margin: 10px 100px 10px 100px;
@@ -1223,10 +1205,10 @@ $writeFont: 'Nanum Pen Script', cursive;
   stroke: black;
   stroke-width: 1;
 }
-#annotation-container {
-  //grid-area: chart; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
-  //align-self: end; // places annotation-container in grid, on top of chart - blocks end of chart unless transition added
+#annotation-container-desktop {
   grid-area: narration;
+  display: grid;
+  grid-template-columns: 100%;
   height: 100%;
   width: 24vw;
   min-height: 0;
@@ -1235,17 +1217,42 @@ $writeFont: 'Nanum Pen Script', cursive;
   top: 0px;
   justify-self: right;
   background-color: transparent;
-  @media screen and (max-width: 600px) {
-    background-color: white;
-    height: 30vh;
-    width: 100vw;
-    justify-self:center;
-    opacity: 0.9;
-    box-shadow: 0px -5px 5px #B9B9B9;
-    padding: 20px 0 10px 0;
-    position: sticky;
-    bottom:0;
-  }
+}
+#drought-image-container {
+  width: 24vw;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 200px;
+  margin: 0 0 5px 0;
+  top: 100px;
+  padding: 0 5px 0 0;
+}
+.drought-image{
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+.drought-image-specific{
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+#annotation-container-mobile {
+  grid-area: narration;
+  height: 30vh;
+  width: 100vw;
+  min-height: 0;
+  padding: 20px 0 10px 0;
+  position: sticky;
+  top: 0px;
+  bottom:0;
+  justify-self: center;
+  background-color: white;
+  opacity: 0.9;
+  box-shadow: 0px -5px 5px #B9B9B9;
 }
 .droughtText {
   z-index: 10;
@@ -1273,9 +1280,10 @@ $writeFont: 'Nanum Pen Script', cursive;
   font-weight: 500;
 }
 .droughtText.narration {
-  margin: 2.2em 0em 1em 1em ;
+  padding: 2.2em 0em 1em 1em ;
   position: fixed;
   top: 332px;
+  width: 24vw;
 }
 .droughtText.droughtTitle {
   position: fixed;

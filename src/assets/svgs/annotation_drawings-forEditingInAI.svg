@@ -31,8 +31,8 @@
 			<path class="st1" d="M387.1,254.2c0.7-3.1,0.8-6.2,0.3-9.1c3.2,0.2,6.6-0.3,10.2-1.7"/>
 		</g>
 		<g id="annotation-drawing-intro_text_map">
-			<path class="st1" d="M558.4,93.9c11.2,1.2,21.8-1.7,31.1-11.3"/>
-			<path class="st1" d="M579.3,80.9c3.6,1.4,7,1.9,10.2,1.7c-0.5,2.9-0.4,6,0.3,9.1"/>
+			<path class="st1" d="M243.5,112.3c-5.1-10-13.4-17.3-26.5-19.8"/>
+			<path class="st1" d="M221.2,102c-0.8-3.8-2.3-6.9-4.2-9.5c2.7-1.2,5.2-3,7.4-5.2"/>
 		</g>
 		<g id="annotation-drawing-intro_highlight_map">
 			<path class="st1" d="M558.4,643.9c11.2,1.2,21.8-1.7,31.1-11.3"/>
@@ -40,7 +40,7 @@
 		</g>
 	</g>
 	
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="404.45" y1="-10994.0996" x2="404.45" y2="-11068.9004" gradientTransform="matrix(1 0 0 1 0 11400)">
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="404.45" y1="18194.0996" x2="404.45" y2="18268.9004" gradientTransform="matrix(1 0 0 -1 0 18600)">
 		<stop  offset="0" style="stop-color:#F1C659"/>
 		<stop  offset="0.2927" style="stop-color:#E48951"/>
 		<stop  offset="0.5063" style="stop-color:#C34C4A"/>

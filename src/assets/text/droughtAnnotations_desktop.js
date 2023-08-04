@@ -20,18 +20,10 @@ export default {
       {
         id: 'map',
         date: '1923-10-01',
-        text: 'Map of streamgage locations.',
+        text: 'Map of streamgage locations that had one of the 2000 most severe droughts.',
         desktop_x_offset_per: 15,
         desktop_text_anchor: 'start',
         desktop_text_width: 250
-      },
-      {
-        id: 'intro_text_2',
-        date: '1924-06-01',
-        text: 'This drought was 126 days long',
-        desktop_x_offset_per: 40,
-        desktop_text_anchor: 'end',
-        desktop_text_width: 370
       },
       {
         id: 'legend',
