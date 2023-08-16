@@ -35,7 +35,9 @@
           alt=""
         >
       </div>
-      <div id="inset-container">
+      <div 
+        v-if="mobileView"
+        id="inset-container">
         <div id="inset-image-container">
           <img
             id="inset-map-default"
@@ -96,16 +98,24 @@
         v-if="!mobileView"
         id="annotation-container-desktop"
       >
-        <div id="drought-image-container">
+      <div 
+        id="inset-container">
+        <div id="inset-image-container">
           <img
-            v-for="narration in narrations"
-            :id="`drought-image-${narration.id}`"
-            :key="narration.id"
-            class="drought-image-specific hide"
-            :src="require(`@/assets/images/drought_events/drought_${narration.id}.png`)"
-            :alt="`${narration.image_alt}`"
+            id="inset-map-default"
+            class="inset-map default"
+            src="@/assets/images/states_stations_inset.png"
+            alt="Map of drought sites in the continental United States"
           >
-
+          <img
+            v-for="drought in scrollToDates"
+            :id="`inset-map-${drought.id}`"
+            :key="drought.id"
+            class="inset-map drought-specific hide"
+            :src="require(`@/assets/images/drought_period_stations_${drought.id}.png`)"
+            :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${drought.name} are highlighted in red`"
+          >
+        </div>
         </div>
         <div
             v-for="narration in narrations" 
@@ -575,18 +585,7 @@ export default {
             .attr("cy", d => yScale(new Date(d.date)))
             .attr("r", 4)
           // Set up images
-          const annotationImages = this.svgChartDynamic.selectAll('annotationImages')
-            .data(image_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
-            .enter()
-            .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
-            .append("svg:image")
-            .attr("id", d => "annotation-image-" + d.id)
-            .attr("class", "droughtImage hidden")
-            .attr("x", d => this.mobileView ? xScale(d.mobile_x_offset_per) : xScale(d.desktop_x_offset_per))
-            .attr("y", d => yScale(new Date(d.date)))
-            .attr("width", d => this.mobileView ? xScale(d.mobile_width_per) : xScale(d.desktop_width_per))
-            .attr("xlink:href", d => d.name ? require("@/assets/images/drought_events/" + d.name) : '')
-            .attr("alt", d => d.alt)
+
         }
 
 
@@ -1041,7 +1040,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-template-areas:
     "title title"
     "intro intro"
-    "buttons narration"
+    "buttons buttons"
     "chart narration";
   justify-content: center;
   margin: auto;
@@ -1104,9 +1103,10 @@ $writeFont: 'Nanum Pen Script', cursive;
   font-weight: bold;
 }
 #inset-container {
-  grid-area: chart;
+  grid-area: annotation-image;
   justify-self:left;
   @media only screen and (max-width: 600px) {
+    grid-area: chart;
     justify-self: end;
   }
 }
@@ -1221,7 +1221,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-area: narration;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 200px 20px auto;
+  grid-template-rows: 205px 20px auto;
   grid-template-areas: 
     "annotation-image"
     "annotation-title"
@@ -1235,29 +1235,8 @@ $writeFont: 'Nanum Pen Script', cursive;
   justify-self: right;
   background-color: transparent;
 }
-#drought-image-container {
-  grid-area: annotation-image;
-  width: 24vw;
-  position: absolute;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  height: 200px;
-  margin: 0 20px 5px 0;
-  //top: 90px;
-  padding: 0 5px 0 0;
-}
-.drought-image{
-  flex-shrink: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
-.drought-image-specific{
-  flex-shrink: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
+
+
 #annotation-container-mobile {
   grid-area: narration;
   height: 30vh;
