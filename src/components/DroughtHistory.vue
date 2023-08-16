@@ -141,7 +141,7 @@
       class="page-section"
     >
       <h3>Droughts in every region</h3>
-      <p>The five major drought events described above stand out in the history of the conterminous U.S. (the lower 48 states) because of their large effects on agriculture, wildfires, and streamflow. But droughts happen in every region of the U.S., and dry years in some regions are wet years in others. How do the 100-year histories of drought compare across regions?</p>
+      <p>Droughts happen in every region of the U.S. These charts show the same 2000 drought events as the national timeline above, but now they are shown by region. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.</p>
       <div id="region-grid-container">
         <cascMap
           v-if="mobileView"
@@ -207,7 +207,7 @@
           id="methods1"
           class="methods_text"
         >
-          The USGS has thousands of streamgages all over the country, that all continuously monitor and measure water conditions, including streamflow. Streamflow conditions provide an accurate measure of local drought events. But 100 years ago, the USGS only had a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. The maps below show the USGS streamgage network during these periods, with the gages that had one of the 2000 most severe drought events highlighted in red (<a
+        The USGS maintains and operates thousands of streamgages for the Nation that continuously monitor and measure water conditions, including streamflow. Streamflow conditions can provide an assessment of local drought events, but 100 years ago, the USGS only operated a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for the conterminous U.S. during three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. Note these periods are not reflective of drought conditions at the time, but rather changes in the number of streamgages on the landscape. These maps show the USGS streamgage network in the lower 48 states during these periods (<a
             href="https://doi.org/10.5066/P92FAASD"
             target="_blank"
           >Simeone 2022</a>).
@@ -220,14 +220,14 @@
         <p
           id="methods2"
           class="methods_text"
-        >
-          Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See <a
-            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
-            target="_blank"
-          >What is Streamflow Drought?</a>). Here, we identified streamflow droughts that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
+        >Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See 
+        <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
+           target="_blank"
+          >What is Streamflow Drought?</a>
+          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
             href="https://droughtmonitor.unl.edu/"
             target="_blank"
-          >U.S. Drought Monitor Map</a>).
+          >U.S. Drought Monitor Map</a>). We excluded states and regions outside of the conterminous U.S. because of a lack of data.
         </p>
         <img
           id="explainer2"
@@ -238,7 +238,7 @@
           id="methods3"
           class="methods_text"
         >
-          Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last (duration) and how dry they get (intensity) (<a
+        Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
             href="https://doi.org/10.1029/2022WR031930"
             target="_blank"
           >Hammond et al. 2022</a>).
