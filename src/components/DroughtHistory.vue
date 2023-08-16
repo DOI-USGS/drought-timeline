@@ -1344,7 +1344,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-area: radial;
   place-self: center;
   margin-left: 0.5%; //nudges map right
-  width: 6.5vw;
+  width: 7.0vw;
 }
 #casc-svg {
   max-height: 150px;
