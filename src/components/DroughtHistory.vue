@@ -519,7 +519,7 @@ export default {
             .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
             .append("text")
             .attr("id", d => "annotation-text-" + d.id)
-            .attr("class", d => d.quote ? "droughtText desktop quote hidden" : "droughtText desktop hidden")
+            .attr("class", d => "droughtText notesText hidden")
             .attr("x", d => xScale(d.desktop_x_offset_per))
             .attr("y", d => yScale(new Date(d.date)))
             .attr("text-anchor", d => d.desktop_text_anchor)
@@ -1253,12 +1253,8 @@ $writeFont: 'Nanum Pen Script', cursive;
 .droughtText.quote {
   font-style: italic;
 }
-.droughtText.desktop.quote {
-  text-shadow: 2px 4px 4px rgba(179,179,179,0.6);
-}
-.droughtText.desktop.quote:hover {
+.droughtText.notesText{
   font-style: italic;
-  font-weight: 500;
 }
 .droughtText.narration {
   grid-area: annotation-narration;
