@@ -1159,19 +1159,19 @@ $writeFont: 'Nanum Pen Script', cursive;
   -webkit-box-shadow: 2px 2px 15px #ccc;
   box-shadow: 2px 2px 15px #ccc;
 
-  font-size: 20px;
+  font-size: 2.0rem;
 }
 .droughtQuoteSource{
   font-style: normal;
-  font-size: 14px;
+  font-size: 1.4rem;
   text-align: right;
 }
 .droughtQuote:before{
   content: "\201C"; /*Unicode for Left Double Quote*/
   
-  /*Font*/
+  /*Font for quotation marks */ 
   font-family: Georgia, serif;
-  font-size: 50px;
+  font-size: 5.0rem;
   font-weight: bold;
   color: #999;
 
@@ -1268,7 +1268,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 .droughtText {
   z-index: 10;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 2.0rem;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
@@ -1276,7 +1276,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 .droughtText.mobile {
   z-index: 10;
   font-weight: 500;
-  font-size: 1em;
+  font-size: 1.8rem;
   margin: 0 5vw 0 5vw;
   position: absolute;
 }
@@ -1488,9 +1488,9 @@ $writeFont: 'Nanum Pen Script', cursive;
 <style lang="scss">
 
 .yAxisText {
-  font-size: 2em;
+  font-size: 1.8rem;
   @media only screen and (max-width: 600px) {
-    font-size: 1.6em;
+    font-size: 1.2em;
   }
 }
 .yAxisTick {
