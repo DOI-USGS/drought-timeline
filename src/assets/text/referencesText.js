@@ -14,15 +14,6 @@ export default {
       }, 
       {
         reference:
-          "A hydrologic perspective of major U.S. droughts",
-        num: "2",
-        authors: "McCabe, G.J., et al. (2022)",
-        title: "A hydrologic perspective of major U.S. droughts.",
-        link: "https://doi.org/10.1002/joc.7904",
-        ref: " https://doi.org/10.1002/joc.7904"
-      },
-      {
-        reference:
           "The 1988 drought, barges, and diversion",
         num: "3",
         authors: "Changnon, S.A. (1989)",
@@ -32,21 +23,30 @@ export default {
       },
       {
         reference:
-          "Drought prediction science",
-        num: "4",
-        authors: "USGS Water Resources Mission Area",
-        title: "Drought prediction science.",
-        link: "https://www.usgs.gov/mission-areas/water-resources/science/drought-prediction-science",
-        ref: " https://www.usgs.gov/mission-areas/water-resources/science/drought-prediction-science"
-      },
-      {
-        reference:
           "Image of the week: Lake Powell and the megadrought",
         num: "5",
         authors: "Earth Resources Observation and Science (EROS) Center",
         title: "Image of the week: Lake Powell and the megadrought.",
         link: "https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought",
         ref: " https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought"
+      },
+      {
+        reference:
+          "Going beyond low flows: streamflow drought deficit and duration illuminate distinct spatiotemporal drought patterns and trends in the U.S. during the last century",
+        num: "8",
+        authors: "Hammond, J.C., et al. (2022)",
+        title: "Going beyond low flows: streamflow drought deficit and duration illuminate distinct spatiotemporal drought patterns and trends in the U.S. during the last century.",
+        link: "https://doi.org/10.1029/2022WR031930",
+        ref: " https://doi.org/10.1029/2022WR031930"
+      } ,
+      {
+        reference:
+          "A hydrologic perspective of major U.S. droughts",
+        num: "2",
+        authors: "McCabe, G.J., et al. (2022)",
+        title: "A hydrologic perspective of major U.S. droughts.",
+        link: "https://doi.org/10.1002/joc.7904",
+        ref: " https://doi.org/10.1002/joc.7904"
       },
       {
         reference:
@@ -68,13 +68,13 @@ export default {
       },
       {
         reference:
-          "Going beyond low flows: streamflow drought deficit and duration illuminate distinct spatiotemporal drought patterns and trends in the U.S. during the last century",
-        num: "8",
-        authors: "Hammond, J.C., et al. (2022)",
-        title: "Going beyond low flows: streamflow drought deficit and duration illuminate distinct spatiotemporal drought patterns and trends in the U.S. during the last century.",
-        link: "https://doi.org/10.1029/2022WR031930",
-        ref: " https://doi.org/10.1029/2022WR031930"
-      } 
+          "Drought prediction science",
+        num: "4",
+        authors: "USGS Water Resources Mission Area",
+        title: "Drought prediction science.",
+        link: "https://www.usgs.gov/mission-areas/water-resources/science/drought-prediction-science",
+        ref: " https://www.usgs.gov/mission-areas/water-resources/science/drought-prediction-science"
+      },
     ],
   },
   referencesQuotes: {
@@ -82,12 +82,12 @@ export default {
     references: [
       {
         reference:
-          "Dust and drought",
-        num: "1",
-        authors: "Smithsonian American Art Museum",
-        title: "Dust and drought.",
-        link: "https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/",
-        ref: " https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/"
+          "The northeast water supply crisis of the 1960's",
+        num: "3",
+        authors: "Barksdale, H.C. (1968)",
+        title: "The northeast water supply crisis of the 1960's.",
+        link: "https://www.usgs.gov/publications/northeast-water-supply-crisis-1960s",
+        ref: " https://www.usgs.gov/publications/northeast-water-supply-crisis-1960s"
       },
       {
         reference:
@@ -100,12 +100,12 @@ export default {
       },
       {
         reference:
-          "The northeast water supply crisis of the 1960's",
-        num: "3",
-        authors: "Barksdale, H.C. (1968)",
-        title: "The northeast water supply crisis of the 1960's.",
-        link: "https://www.usgs.gov/publications/northeast-water-supply-crisis-1960s",
-        ref: " https://www.usgs.gov/publications/northeast-water-supply-crisis-1960s"
+          "U.S. megadrought worst in at least 1,200 years, researchers say",
+        num: "6",
+        authors: "Chow, D. (2022)",
+        title: "U.S. megadrought worst in at least 1,200 years, researchers say.",
+        link: "https://www.nbcnews.com/science/environment/us-megadrought-worst-least-1200-years-researchers-say-rcna16202",
+        ref: " https://www.nbcnews.com/science/environment/us-megadrought-worst-least-1200-years-researchers-say-rcna16202"
       },
       {
         reference:
@@ -118,6 +118,15 @@ export default {
       },
       {
         reference:
+          "Dust and drought",
+        num: "1",
+        authors: "Smithsonian American Art Museum",
+        title: "Dust and drought.",
+        link: "https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/",
+        ref: " https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/"
+      },
+      {
+        reference:
           "Rapid intensification of the emerging southwestern North American megadrought in 2020–2021",
         num: "5",
         authors: "Williams, A.P., Cook, B.I., and Smerdon, J.E. (2022)",
@@ -125,15 +134,6 @@ export default {
         link: "https://doi.org/10.1038/s41558-022-01290-z",
         ref: " https://doi.org/10.1038/s41558-022-01290-z"
       },
-      {
-        reference:
-          "U.S. megadrought worst in at least 1,200 years, researchers say",
-        num: "6",
-        authors: "Chow, D. (2022)",
-        title: "U.S. megadrought worst in at least 1,200 years, researchers say.",
-        link: "https://www.nbcnews.com/science/environment/us-megadrought-worst-least-1200-years-researchers-say-rcna16202",
-        ref: " https://www.nbcnews.com/science/environment/us-megadrought-worst-least-1200-years-researchers-say-rcna16202"
-      }
     ],
   },
 };
