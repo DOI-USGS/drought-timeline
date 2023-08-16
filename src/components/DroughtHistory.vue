@@ -307,7 +307,7 @@
         >Elmera Adazpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
           href="https://www.usgs.gov/staff-profiles/amanda-carr"
           target="_blank"
-        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a chart made by <a
+        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a href="https://twitter.com/USGS_DataSci/status/1516447170437726208" target="_blank">chart</a> made by <a
           href="https://www.usgs.gov/staff-profiles/scott-hamshaw"
           target="_blank"
         >Scott Hamshaw</a>.
@@ -803,28 +803,7 @@ export default {
           })
         }
 
-        // Add image animations
-        const droughtImages = this.$gsap.utils.toArray(".droughtImage", dynamicSVG)
-
-        // For each trigger,
-        droughtImages.forEach((droughtImage) => {
-
-          // get unique ID for text step.
-          let imageIDFull = droughtImage.id
-          let imagelID = imageIDFull.split('-')[2]
-          
-          // Make the image for the step visible
-          tl.to(`#${imageIDFull}`, {
-            scrollTrigger: {
-              markers: false,
-              trigger: `#${imageIDFull}`,
-              start: `top 75%`,
-              end: 'bottom 25%',
-              toggleClass: {targets: `#annotation-image-${imagelID}`, className:"visible"}, // adds class to target when triggered
-              toggleActions: "restart reverse none reverse" 
-            },
-          })
-        })
+        
 
       },
       addInteractions() {
@@ -1106,7 +1085,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 
 .inset-map {
-  height: 200px;
+  height: 175px;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
     height: 75px;
@@ -1124,7 +1103,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 #drought-quote-container {
   position: fixed;
   margin: 10px 100px 10px 100px;
-  top: 80vh;
+  bottom: 25vh;
 }
 .droughtQuote {
   display:block;
@@ -1146,6 +1125,9 @@ $writeFont: 'Nanum Pen Script', cursive;
   box-shadow: 2px 2px 15px #ccc;
 
   font-size: 2.0rem;
+}
+.droughtQuote:first-child {
+  display: none;
 }
 .droughtQuoteSource{
   font-style: normal;
@@ -1206,7 +1188,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-area: narration;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 205px 20px auto;
+  grid-template-rows: max-content 20px auto;
   grid-template-areas: 
     "annotation-image"
     "annotation-title"
@@ -1316,7 +1298,8 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #region-grid-container {
   display: grid;
-  width: 100%;
+  width: 95vw;
+  max-width: 1200px;
   grid-template-columns: 80% 20%;
   grid-template-rows:  max-content minmax(30vh, 80vh);
   grid-template-areas:

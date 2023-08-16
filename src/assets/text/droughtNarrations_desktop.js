@@ -6,8 +6,10 @@ export default {
         start_date: '1920-04-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
         end_date: '1928-12-31', // Date marking end of annotation. Determines y trigger end position on deskop
         text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller and darker the bar, the longer the drought. Where the chart is wider, many streamgages were experiencing drought simultaneously. The map above shows the gages with one of the 2000 most severe droughts in the record.', // Narrative text
-        quote: 'There is no assurance that the next drought is not just beyond the horizon. We can be assured, however, that drought will return, and, considering the greater needs of that future time, its impact, unless prepared for, will be much greater.',
-        quote_source: '<a href="https://cawaterlibrary.net/wp-content/uploads/2017/05/Drought-1976-77.pdf" target="_blank">Ronald B. Robie, CA Department of Water Resources, 1978</a>'
+        quote: '',
+        quote_source: '',
+        //quote: 'There is no assurance that the next drought is not just beyond the horizon. We can be assured, however, that drought will return, and, considering the greater needs of that future time, its impact, unless prepared for, will be much greater.',
+        //quote_source: '<a href="https://cawaterlibrary.net/wp-content/uploads/2017/05/Drought-1976-77.pdf" target="_blank">Ronald B. Robie, CA Department of Water Resources, 1978</a>'
       },
       {
         id: '1930', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
