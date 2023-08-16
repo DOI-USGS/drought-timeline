@@ -294,13 +294,14 @@
         <a
           href="https://www.usgs.gov/staff-profiles/hayley-corson-dosch"
           target="_blank"
-        >Hayley Corson-Dosch</a> led the development of this website with contributions from <a
+        >Hayley Corson-Dosch</a> and 
+        <a
           href="https://www.usgs.gov/staff-profiles/althea-a-archer"
           target="_blank"
-        >Althea A. Archer</a>, <a
+        >Althea A. Archer</a> led the development of this website with contributions from <a
           href="https://www.usgs.gov/staff-profiles/cee-nell"
           target="_blank"
-        >Cee Nell</a>, and <a
+        >Cee Nell</a> and <a
           href="https://www.usgs.gov/staff-profiles/elmera-azadpour"
           target="_blank"
         >Elmera Adazpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
