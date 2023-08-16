@@ -154,6 +154,10 @@ p, text {
   font-family: $SourceSans;
   color: $textcolor;
 }
+.droughtText.notesText{
+  font-family: $writeFont;
+  font-size: 2.5rem;
+}
 input[type=button] {
         font-family: $SourceSans;
     }
