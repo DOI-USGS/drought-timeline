@@ -85,11 +85,7 @@ button:not([disabled]):focus{
     color: white;
   }
 }
-.target p{
-  padding: 0;
-  font-size: 1em;
-  line-height: 1.5em; 
-}
+
 p { 
   font-family: $familyMain;
 }
@@ -98,7 +94,7 @@ p {
   font-weight: 600;
   text-align: left;
   font-family:$familyMain;
-  font-size: 1.3em;
+  font-size: 6.0rem;
   margin-top: 5px;
   line-height: 1.2;
   @media screen and (max-width: 600px) {

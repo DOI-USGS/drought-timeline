@@ -85,23 +85,26 @@ $writeFont: 'Nanum Pen Script', cursive;
 
 // Type
 html,
+:root {
+  font-size: 62.5%;
+}
 body {
       height: 100%;
       background-color: white;
       margin: 0;
       padding: 0;
       line-height: 1.2;
-      font-size: 20px;
+      font-size: 2rem;
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       width: 100%;
       @media screen and (max-width: 600px) {
-        font-size: 16px;
+        font-size: 1.6rem;
       }
   }
 h1{
-  font-size: 4.5em;
+  font-size: 4.5rem;
   font-weight: 500;
   font-family: $SourceSans;
   line-height: 1;
@@ -109,47 +112,63 @@ h1{
   text-shadow: 1px 1px 100px rgba(0,0,0,.8);
     color: $textcolor;
   @media screen and (max-width: 600px) {
-    font-size: 4.75em;
+    font-size: 4.75rem;
   }
 }
 h2{
   font-weight: 700;
   text-align: left;
   font-family: $SourceSans;
-  font-size: 3em;
+  font-size: 6rem;
   margin-top: 5px;
   line-height: 1.2;
   color: $textcolor;
   @media screen and (max-width: 600px) {
-    font-size: 2em;
+    font-size: 4rem;
   }
 }
 h3{
-  font-size: 2em;
+  font-size: 3.5rem;
   padding-top: 1em;
   padding-bottom: .25em;
   font-family: $SourceSans;
   font-weight: 700;
   color: $textcolor;
   @media screen and (max-width: 600px) {
-      font-size: 1.5em;
+      font-size: 3.2rem;
   }  
 }
 h4{
-  font-size: 1em;
+  font-size: 2.5rem;
   padding-top: 0em;
   padding-bottom: .25em;
   font-family: $SourceSans;
-  font-weight: 700;
+  font-weight: 600;
   color: $textcolor;
   @media screen and (max-width: 600px) {
-    font-size: 18px;
+    font-size: 1.8rem;
   }  
 }
 p, text {
   // padding: 1em 0 0 0; 
   font-family: $SourceSans;
   color: $textcolor;
+}
+a:link {
+  color:#032a56;
+}
+a:visited {
+  color: #032a56;
+}
+a:hover {
+  color: #032a56;
+}
+a:active {
+  color: #032a56;
+}
+.droughtText.notesText{
+  font-family: $writeFont;
+  font-size: 2.5rem;
 }
 input[type=button] {
         font-family: $SourceSans;
@@ -210,11 +229,11 @@ input[type=button] {
 .legend-text {
     fill: black;
     font-family: $SourceSans;
-    font-size: 16px;
+    font-size: 1.6rem;
   }
 .viz-comment {
   font-family: $SourceSans;
-  font-size: 26px;
+  font-size: 2.6rem;
   font-weight: 400;
   fill:rgb(224, 222, 222);
 }
@@ -222,7 +241,7 @@ input[type=button] {
   font-weight:700;
   fill: white;
   font-family: $SourceSans;
-  font-size: 26px;
+  font-size: 2.6rem;
 }
 .emph {
   font-weight: bold;
@@ -231,7 +250,7 @@ input[type=button] {
   font-style: italic;
 }
 .pseudo-caption {
-  font-size: .9em;
+  font-size: 1.0rem;
   margin: 0 10px;
 }
 // Link Styling

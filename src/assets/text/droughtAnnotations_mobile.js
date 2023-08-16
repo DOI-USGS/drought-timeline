@@ -5,53 +5,46 @@ export default {
         date: '1934-06-01', // Date marking start of annotation. Determines y placement on mobile AND scroll order for annotations on mobile
         text: '"Dust to eat, and dust to breathe and dust to drink. Dust in the beds and in the flour bin, on dishes and walls and windows, in hair and eyes and ears and teeth and throats, to say nothing of the heaped up accumulation on floors and window sills after one of the bad days.” - <a href="https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/" target="_blank">Letter from Caroline Henderson to Secretary of Agriculture Henry A. Wallace, 1935"</a>', // Text of annotation
         quote: true, // required for quote, for styling
-        mobile_x_offset_per: 30 // x placement of circle on mobile, as percent of chart width (0 = left edge, 100 = right edge)
+        mobile_x_offset_per: 70 // x placement of circle on mobile, as percent of chart width (0 = left edge, 100 = right edge)
       },
       {
         id: 'quote_1950s',
         date: '1955-06-01',
         text: '“It started out west. It tended to get dry out there and not rain, and that lack of rainfall just moved east. My dad kept saying, ‘We have these things; they’ll just go about eighteen months. It’ll break.’ But that’s what caught everybody off guard: it didn’t break. It just kept on going, and it lasted about seven years.” - <a href="https://www.texasmonthly.com/articles/when-the-sky-ran-dry/" target="_blank">Mort Mertz, West Texas rancher since 1954</a>',
         quote: true,
-        mobile_x_offset_per: 20
+        mobile_x_offset_per: 95
       },
       {
         id: 'quote_1960s',
-        date: '1968-04-01',
+        date: '1965-04-01',
         text: '“The unusually long and severe water shortages in the Northeast during the 1960s emphasized the fact that drought is a national problem, and is not limited to any single geographic region or climate.” - <a href="https://www.usgs.gov/publications/northeast-water-supply-crisis-1960s" target="_blank">Henry C. Barksdale, 1968</a>',
         quote: true,
-        mobile_x_offset_per: 20
+        mobile_x_offset_per: 70
       },
       {
         id: 'quote1980s',
-        date: '1992-09-10',
-        text: '"1988 will be remembered as the Year of the Drought.” - <a href="https://files.dnr.state.mn.us/natural_resources/climate/summaries_and_publications/drought1988.pdf" target="_blank">Minnesota Department of Natural Resources, Division of Waters, 1989</a>',
+        date: '1992-08-10',
+        text: '"The 1988 drought dramatically illustrates how quickly several years of excess precipitation can change to widespread drought.” - <a href="https://files.dnr.state.mn.us/natural_resources/climate/summaries_and_publications/drought1988.pdf" target="_blank">Minnesota Department of Natural Resources, Division of Waters, 1989</a>',
         quote: true,
-        mobile_x_offset_per: 35
+        mobile_x_offset_per: 60
       },
       {
         id: 'quoteTOC',
-        date: '2005-01-01',
+        date: '2003-08-01',
         text: '“2000-2021 ranks as the driest 22-year period since at least 800 CE.” - <a href="https://www.nature.com/articles/s41558-022-01290-z" target="_blank">A. Park Williams, Benjamin I. Cook, and Jason E. Smerdon, 2022</a>',
         quote: true,
         mobile_x_offset_per: 65
       },
       {
-        id: 'quoteTOC2',
-        date: '2015-01-01',
-        text: '"Twenty-two years in, some of these big megadroughts in the past were starting to peter out. This drought is not petering out. Instead, it is in full swing and is as strong now as it ever was before." - <a href="https://www.nbcnews.com/science/environment/us-megadrought-worst-least-1200-years-researchers-say-rcna16202" target="_blank">A. Park Williams, 2022</a>',
-        quote: true,
-        mobile_x_offset_per: 40
-      },
-      {
-        id: 'intro_text_1',
-        date: '1929-03-01',
-        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought. Where the chart is wider, many gages were experiencing drought simultaneously.',
-        mobile_x_offset_per: 57
+        id: 'intro_map_1',
+        date: '1924-03-01',
+        text: 'Map of streamgage locations that had one of the 2000 most severe droughts. Streamgage locations in each major drought are highlighted on the map in red.',
+        mobile_x_offset_per: 70
       },
       {
         id: 'intro_narration',
         date: '1922-07-01',
-        text: 'The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.',
+        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought. Where the chart is wider, many streamgages were experiencing drought simultaneously.',
         mobile_x_offset_per: 45
       },
       {
@@ -74,9 +67,9 @@ export default {
       } ,
       {
         id: '1950s_2',
-        date: '1957-04-01',
+        date: '1958-04-01',
         text: 'The lessons learned from the dust bowl helped people prepare for and respond to the 1950s drought, but farmers and ranchers still experienced great hardship, especially in already dry areas like Texas. Texas developed its modern approach to water planning because of how badly the 1950s drought hurt its rural communities.',
-        mobile_x_offset_per: 28
+        mobile_x_offset_per: 58
       } ,
       {
         id: '1960s_1',
@@ -86,9 +79,9 @@ export default {
       },
       {
         id: '1960s_2',
-        date: '1966-05-01',
+        date: '1968-05-01',
         text: 'As the region drained its water reserves, the concentration of hazardous pollutants in the water went up, making the remaining water less safe to use. The northeastern states and federal agencies worked together to develop new water conservation and management policies, which provided some relief until the rains returned.',
-        mobile_x_offset_per: 45
+        mobile_x_offset_per: 60
       },
       {
         id: '1970s_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
@@ -112,20 +105,20 @@ export default {
       },
       {
         id: '1980s_2',
-        date: '1989-09-15',
+        date: '1990-02-15',
         text: 'In the summer of 1988, streamflow in the Mississippi River was so low that barges could not go up and down the lower section of the river. That same summer, wildfires burned 36% of Yellowstone National Park, triggering the largest fire-fighting effort in the U.S. at that time.',
-        mobile_x_offset_per: 40
+        mobile_x_offset_per: 70
       },
       {
         id: 'turn_of_century_1',
         date: '2000-03-15',
-        text: 'Turn-of-the-Century Drought: The turn-of-the-century drought is one of the worst droughts to hit the southwestern U.S. in the last 1200 years. Like previous droughts, low amounts of rain led to big drops in available water. But high temperatures drove the loss of soil moisture during this most recent drought (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>).',
+        text: 'Turn-of-the-Century Drought: The turn-of-the-century drought is one of the worst droughts to hit the southwestern U.S. in the last 1200 years. Like previous droughts, low amounts of rain led to big drops in available water, but high temperatures drove the loss of soil moisture during this most recent drought (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>).',
         mobile_x_offset_per: 25
       },
       {
         id: 'turn_of_century_2',
         date: '2007-01-01',
-        text: 'The national-level drought event ended in 2015, but the turn-of-the-century drought in the southwestern U.S. has continued, earning it the title of “megadrought.” The USGS is working with partners to understand this ongoing megadrought and to predict and communicate drought risk (<a href="https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought" target="_blank">Video of drought at Lake Powell</a>).',
+        text: 'The national-level drought event ended in 2015, but the turn-of-the-century drought in the southwestern U.S. has continued. The USGS is working with partners to understand this ongoing drought and to predict and communicate drought risk (<a href="https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought" target="_blank">Video of drought at Lake Powell</a>).',
         mobile_x_offset_per: 60
       }
     ]

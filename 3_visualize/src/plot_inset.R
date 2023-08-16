@@ -35,7 +35,7 @@ plot_inset <- function(station_data, station, us_data, regions, region_sf, focal
     p <- p + geom_sf(data = region_sf,
                      color = NA,
                      alpha = 0.5,
-                     fill = color_scheme$drought_event_highlight)
+                     fill = color_scheme$drought_event_dark)
   
   if (station)
     # add stations
