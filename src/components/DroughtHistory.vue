@@ -1254,7 +1254,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   font-style: italic;
 }
 .droughtText.notesText{
-  font-style: italic;
+  font-family: $writeFont;
 }
 .droughtText.narration {
   grid-area: annotation-narration;
