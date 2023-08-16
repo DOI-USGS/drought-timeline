@@ -176,7 +176,7 @@
             :key="`violin-${description.id}`"
             class="violin-chart hide"
             :src="require(`@/assets/images/duration-chart/vertical_violin_jd7d_2pct_${description.id}.png`)"
-            :alt="`Violin chart of drought events in the ${description.name} United States from 1921-2020.`"
+            :alt="`${description.alt}`"
           >
         </div>
         <p
@@ -193,7 +193,7 @@
           class="regionText hiddenText"
         >
           <h4>Drought in the {{ description.region_name }} U.S.</h4>
-          <p>{{ description.region_description }}</p>
+
         </div>
       </div>
     </section>
@@ -1318,10 +1318,10 @@ $writeFont: 'Nanum Pen Script', cursive;
   display: grid;
   width: 100%;
   grid-template-columns: 80% 20%;
-  grid-template-rows: minmax(30vh, 80vh) max-content;
+  grid-template-rows:  max-content minmax(30vh, 80vh);
   grid-template-areas:
-    "radial violin"
-    "description description"; 
+    "description description" 
+    "radial violin";
   @media screen and (max-width: 600px) {
     padding: 5px 0 0px 0;
     //height: 100vh;
@@ -1379,6 +1379,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 .regionText {
   grid-area: description;
+  padding: 1rem 0 0 0;
 }
 .polarAxisText {
   pointer-events: none;

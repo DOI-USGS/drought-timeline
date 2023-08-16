@@ -154,6 +154,18 @@ p, text {
   font-family: $SourceSans;
   color: $textcolor;
 }
+a:link {
+  color:#032a56;
+}
+a:visited {
+  color: #032a56;
+}
+a:hover {
+  color: #032a56;
+}
+a:active {
+  color: #032a56;
+}
 .droughtText.notesText{
   font-family: $writeFont;
   font-size: 2.5rem;
