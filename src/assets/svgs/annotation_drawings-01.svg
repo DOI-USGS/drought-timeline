@@ -16,19 +16,16 @@
     <path class="cls-1" d="M387.4,245.1c9.3,9.6,19.9,12.5,31.1,11.3"/>
     <path class="cls-1" d="M387.1,254.2c0.7-3.1,0.8-6.2,0.3-9.1c3.2,0.2,6.6-0.3,10.2-1.7"/>
   </g>
-  <g id="annotation-drawing-map">
-      <path class="cls-1" d="M243.5,112.3c-5.1-10-13.4-17.3-26.5-19.8"/>
-			<path class="cls-1" d="M221.2,102c-0.8-3.8-2.3-6.9-4.2-9.5c2.7-1.2,5.2-3,7.4-5.2"/>
-  </g>
+
   <g id="annotation-drawing-legend">
-  	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="404.4706" y1="405.8866" x2="404.4706" y2="331.0959">
+  	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="77.45" y1="-17587.6992" x2="77.45" y2="-17662.5" gradientTransform="matrix(1 0 0 1 0 17700)">
       <stop  offset="0" style="stop-color:#F1C659"/>
       <stop  offset="0.2927" style="stop-color:#E48951"/>
       <stop  offset="0.5063" style="stop-color:#C34C4A"/>
       <stop  offset="0.7211" style="stop-color:#69342A"/>
       <stop  offset="1" style="stop-color:#191900"/>
 	  </linearGradient>
-    <path class="st2" d="M409.5,405.9h-10.1c-1,0-1.8-0.8-1.8-1.8v-71.2c0-1,0.8-1.8,1.8-1.8h10.1c1,0,1.8,0.8,1.8,1.8v71.2
-		C411.3,405.1,410.5,405.9,409.5,405.9z"/>
+    <path class="st2" d="M82.5,112.3H72.4c-1,0-1.8-0.8-1.8-1.8V39.3c0-1,0.8-1.8,1.8-1.8h10.1c1,0,1.8,0.8,1.8,1.8v71.2
+		C84.3,111.5,83.5,112.3,82.5,112.3z"/>
   </g>
 </svg>

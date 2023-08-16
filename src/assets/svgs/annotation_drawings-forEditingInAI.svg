@@ -40,15 +40,15 @@
 		</g>
 	</g>
 	
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="404.45" y1="18194.0996" x2="404.45" y2="18268.9004" gradientTransform="matrix(1 0 0 -1 0 18600)">
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="77.45" y1="-17587.6992" x2="77.45" y2="-17662.5" gradientTransform="matrix(1 0 0 1 0 17700)">
 		<stop  offset="0" style="stop-color:#F1C659"/>
 		<stop  offset="0.2927" style="stop-color:#E48951"/>
 		<stop  offset="0.5063" style="stop-color:#C34C4A"/>
 		<stop  offset="0.7211" style="stop-color:#69342A"/>
 		<stop  offset="1" style="stop-color:#191900"/>
 	</linearGradient>
-	<path class="st2" d="M409.5,405.9h-10.1c-1,0-1.8-0.8-1.8-1.8v-71.2c0-1,0.8-1.8,1.8-1.8h10.1c1,0,1.8,0.8,1.8,1.8v71.2
-		C411.3,405.1,410.5,405.9,409.5,405.9z"/>
+	<path class="st2" d="M82.5,112.3H72.4c-1,0-1.8-0.8-1.8-1.8V39.3c0-1,0.8-1.8,1.8-1.8h10.1c1,0,1.8,0.8,1.8,1.8v71.2
+		C84.3,111.5,83.5,112.3,82.5,112.3z"/>
 	<g>
 		<g>
 			<path d="M412.8,404.2c0-2.5,0.8-4,2.3-4s2.3,1.4,2.3,4c0,2.5-0.8,4-2.3,4S412.8,406.7,412.8,404.2z M416.8,404.2

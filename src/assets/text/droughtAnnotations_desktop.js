@@ -2,12 +2,12 @@ export default {
     timelineEvents: [
       {
         id: '1970s_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
-        date: '1976-03-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
+        date: '1975-04-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
         text: 'The 1976-1977 drought was short, so it is not considered one of the five major drought events in the last 100 years. But this two-year drought caused agricultural losses and hydropower shortages across much of the western U.S.', // Narrative text
         quote: false,
         desktop_x_offset_per: 10,
         desktop_text_anchor: 'start',
-        desktop_text_width: 400
+        desktop_text_width: 300
       },
       {
         id: '2',
@@ -18,28 +18,20 @@ export default {
         desktop_text_width: 100
       },
       {
-        id: 'map',
-        date: '1923-10-01',
-        text: 'Map of streamgage locations that had one of the 2000 most severe droughts.',
-        desktop_x_offset_per: 15,
-        desktop_text_anchor: 'start',
-        desktop_text_width: 250
-      },
-      {
         id: 'legend',
-        date: '1926-06-01',
+        date: '1922-06-01',
         text: 'Droughts are colored by duration where darker = longer.',
-        desktop_x_offset_per: 58,
+        desktop_x_offset_per: 14,
         desktop_text_anchor: 'start',
-        desktop_text_width: 370
+        desktop_text_width: 300
       }    ,
       {
         id: 'legend-2',
-        date: '1927-04-01',
+        date: '1923-04-01',
         text: 'The shortest droughts were 43 days',
-        desktop_x_offset_per: 58,
+        desktop_x_offset_per: 14,
         desktop_text_anchor: 'start',
-        desktop_text_width: 370
+        desktop_text_width: 300
       }   
     ]
 };

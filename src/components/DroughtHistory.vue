@@ -261,7 +261,7 @@
             class="references-list"
           >
             <p>
-              <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
+              <span v-html="reference.authors" /> <a
                 :href="reference.link"
                 target="_blank"
               ><span v-html="reference.title" /></a><span v-html="reference.ref" />
@@ -276,22 +276,7 @@
             class="references-list"
           >
             <p>
-              <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
-                :href="reference.link"
-                target="_blank"
-              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
-            </p>
-          </div>
-        </div>
-        <h4>{{ referencesPhotos.title }}</h4>
-        <div>
-          <div
-            v-for="reference in referencesPhotos.references"
-            :key="reference.id"
-            class="references-list"
-          >
-            <p>
-              <span v-html="reference.num" />. <span v-html="reference.authors" /> <a
+              <span v-html="reference.authors" /> <a
                 :href="reference.link"
                 target="_blank"
               ><span v-html="reference.title" /></a><span v-html="reference.ref" />
@@ -1040,7 +1025,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-template-areas:
     "title title"
     "intro intro"
-    "buttons buttons"
+    "buttons narration"
     "chart narration";
   justify-content: center;
   margin: auto;
@@ -1067,7 +1052,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 #nav-button-container {
   grid-area: buttons;
   position: sticky;
-  top: 0px;
+  top: 15px;
   padding: 10px 0px 10px 0px;
   z-index: 20;
   background-color: white;
@@ -1112,16 +1097,15 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 #inset-image-container {
   position: sticky;
-  top: 80px;
-  margin: 0 0 0 50px;
+  margin: 0 ;
   @media only screen and (max-width: 600px) {
-    top: 75px;
+    top: 100px;
     margin: 0;
   }
 }
 
 .inset-map {
-  height: 150px;
+  height: 200px;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
     height: 75px;
@@ -1231,7 +1215,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   min-height: 0;
   padding: 0px 0px 0px 0px;
   position: sticky;
-  top: 80px;
+  top: 15px;
   justify-self: right;
   background-color: transparent;
 }
