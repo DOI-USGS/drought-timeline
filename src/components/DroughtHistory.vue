@@ -105,15 +105,16 @@
             :src="require(`@/assets/images/drought_events/drought_${narration.id}.png`)"
             :alt="`${narration.image_alt}`"
           >
+
         </div>
         <div
-          v-for="narration in narrations" 
-          :id="`drought-text-${narration.id}`"
-          :key="narration.id"
-          class="droughtText droughtTitle hidden"
-        >
-          <p v-html="narration.title" />
-        </div>
+            v-for="narration in narrations" 
+            :id="`drought-text-${narration.id}`"
+            :key="narration.id"
+            class="droughtText droughtTitle hidden"
+          >
+            <p v-html="narration.title" />
+          </div>
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
@@ -1038,8 +1039,8 @@ $writeFont: 'Nanum Pen Script', cursive;
   grid-template-columns: 65vw 25vw;
   grid-template-rows: max-content max-content max-content max-content;
   grid-template-areas:
-    "title narration"
-    "intro narration"
+    "title title"
+    "intro intro"
     "buttons narration"
     "chart narration";
   justify-content: center;
@@ -1219,26 +1220,32 @@ $writeFont: 'Nanum Pen Script', cursive;
 #annotation-container-desktop {
   grid-area: narration;
   display: grid;
-  grid-template-columns: 100%;
-  height: 100%;
+  grid-template-columns: auto;
+  grid-template-rows: 200px 20px auto;
+  grid-template-areas: 
+    "annotation-image"
+    "annotation-title"
+    "annotation-narration";
+  height: 100vh;
   width: 24vw;
   min-height: 0;
   padding: 0px 0px 0px 0px;
   position: sticky;
-  top: 0px;
+  top: 80px;
   justify-self: right;
   background-color: transparent;
 }
 #drought-image-container {
+  grid-area: annotation-image;
   width: 24vw;
-  position: fixed;
-  display: flex;
+  position: absolute;
+  display:flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   height: 200px;
-  margin: 0 0 5px 0;
-  top: 100px;
+  margin: 0 20px 5px 0;
+  //top: 90px;
   padding: 0 5px 0 0;
 }
 .drought-image{
@@ -1258,7 +1265,7 @@ $writeFont: 'Nanum Pen Script', cursive;
   min-height: 0;
   padding: 20px 0 10px 0;
   position: sticky;
-  top: 0px;
+  top: 80px;
   bottom:0;
   justify-self: center;
   background-color: white;
@@ -1291,19 +1298,21 @@ $writeFont: 'Nanum Pen Script', cursive;
   font-weight: 500;
 }
 .droughtText.narration {
-  padding: 2.2em 0em 1em 1em ;
-  position: fixed;
-  top: 332px;
+  grid-area: annotation-narration;
+  padding: 2.2rem 1em 1em 1em ;
+  position: absolute;
+  //top: 522px;
   width: 24vw;
 }
 .droughtText.droughtTitle {
-  position: fixed;
+  grid-area: annotation-title;
+  position: absolute;
   font-weight: 700;
-  margin: 0em 0em 0em 0.4em ;
-  top: 330px;
+  margin: 1rem 1rem 1rem 0rem ;
 }
 .hidden{
   visibility: hidden;
+  display: none;
   opacity: 0;
   transition: visibility 0s 0.3s, opacity 0.3s linear;
 }
@@ -1313,6 +1322,7 @@ $writeFont: 'Nanum Pen Script', cursive;
 }
 .visible{
   visibility: visible;
+  display:inline;
   opacity: 1;
   transition: opacity 0.3s linear;
 }
