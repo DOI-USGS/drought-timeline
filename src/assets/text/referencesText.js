@@ -44,7 +44,7 @@ export default {
           "A hydrologic perspective of major U.S. droughts",
         num: "2",
         authors: "McCabe, G.J., et al. (2022)",
-        title: "A hydrologic perspective of major U.S. droughts.",
+        title: "A hydrologic perspective of major U.S. droughts. (Full text available on ResearchGate)",
         link: "https://doi.org/10.1002/joc.7904",
         ref: " https://doi.org/10.1002/joc.7904"
       },
@@ -82,10 +82,10 @@ export default {
     references: [
       {
         reference:
-          "The northeast water supply crisis of the 1960's",
+          "The northeast water supply crisis of the 1960s",
         num: "3",
         authors: "Barksdale, H.C. (1968)",
-        title: "The northeast water supply crisis of the 1960's.",
+        title: "The northeast water supply crisis of the 1960s.",
         link: "https://www.usgs.gov/publications/northeast-water-supply-crisis-1960s",
         ref: " https://www.usgs.gov/publications/northeast-water-supply-crisis-1960s"
       },
@@ -94,18 +94,18 @@ export default {
           "When the sky ran dry",
         num: "2",
         authors: "Burnett, J. (2012)",
-        title: "When the sky ran dry.",
+        title: "When the sky ran dry. (About the 1950s Drought)",
         link: "https://www.texasmonthly.com/articles/when-the-sky-ran-dry/",
         ref: " https://www.texasmonthly.com/articles/when-the-sky-ran-dry/"
       },
       {
         reference:
-          "U.S. megadrought worst in at least 1,200 years, researchers say",
+          "The 1976-1977 California Drought: A Review",
         num: "6",
-        authors: "Chow, D. (2022)",
-        title: "U.S. megadrought worst in at least 1,200 years, researchers say.",
-        link: "https://www.nbcnews.com/science/environment/us-megadrought-worst-least-1200-years-researchers-say-rcna16202",
-        ref: " https://www.nbcnews.com/science/environment/us-megadrought-worst-least-1200-years-researchers-say-rcna16202"
+        authors: "California Department of Water Resources",
+        title: "The 1976-1977 California Drought: A Review.",
+        link: "https://cawaterlibrary.net/wp-content/uploads/2017/05/Drought-1976-77.pdf",
+        ref: " https://cawaterlibrary.net/wp-content/uploads/2017/05/Drought-1976-77.pdf"
       },
       {
         reference:
