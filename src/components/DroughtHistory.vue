@@ -993,8 +993,8 @@ export default {
 </script>
 <style scoped lang="scss">
 // handwriting font
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
-$writeFont: 'Nanum Pen Script', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+$writeFont: 'Special Elite', cursive;
 
 #grid-container {
   display: grid;

@@ -39,6 +39,15 @@ export default {
         quote_source: '<a href="https://www.usgs.gov/publications/northeast-water-supply-crisis-1960s" target="_blank">Henry C. Barksdale, 1968</a>',
       },
       {
+        id: '1976',
+        title: '1970s Drought (1976 - 1978)',
+        start_date: '1976-05-01',
+        end_date: '1979-03-01',
+        text: 'The 1976-1977 drought was short, so it is not considered one of the five major drought events in the last 100 years. But this two-year drought caused agricultural losses and hydropower shortages across much of the western U.S.',
+        quote: 'There is no assurance that the next drought is not just beyond the horizon. We can be assured, however, that drought will return, and, considering the greater needs of that future time, its impact, unless prepared for, will be much greater.',
+        quote_source: '<a href="https://cawaterlibrary.net/wp-content/uploads/2017/05/Drought-1976-77.pdf" target="_blank">Ronald B. Robie, CA Department of Water Resources, 1978</a>',
+      },
+      {
         id: '1987',
         title: '1980s Drought (1987 - 1992)',
         start_date: '1987-05-01',
