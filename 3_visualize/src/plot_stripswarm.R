@@ -57,7 +57,7 @@ event_violin_vertical <- function(drought_data, major_drought_periods,
              size = 2.5, angle = 180, hjust = 0, vjust = 0,
              family = supporting_font) +
     geom_violin(data = drought_data,
-                aes(x = threshold, y = date),
+                aes(x = 2, y = date),
                 color = NA, 
                 fill = color_scheme$drought_event_highlight,
                 scale = "count",
