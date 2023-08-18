@@ -44,7 +44,7 @@ export default {
       {
         id: 'intro_narration',
         date: '1922-07-01',
-        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought. Where the chart is wider, many streamgages were experiencing drought simultaneously.',
+        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS streamgage. The taller the bar, the longer the drought. Where the chart is wider, many streamgages recorded drought conditions simultaneously.',
         mobile_x_offset_per: 45
       },
       {

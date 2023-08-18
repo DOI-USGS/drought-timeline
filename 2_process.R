@@ -60,7 +60,7 @@ p2_targets <- list(
              join_and_filter_full_drought_record(df_1921 = p2_1921_2020_drought_prop_jd_7d,
                                                  df_1951 = p2_1951_2020_drought_prop_jd_7d,
                                                  df_1981 = p2_1981_2020_drought_prop_jd_7d,
-                                                 percentile = 2)
+                                                 percentile = 20)
   ),
   
   # determine the 2000 most severe droughts
@@ -69,6 +69,14 @@ p2_targets <- list(
                slice_max(order_by = severity,
                          n = 2000)
   ),
+  
+  # identify specific drought events that happened during major events
+  tar_target(p2_2000_severe_2pct_droughts_joined,
+             p2_2000_severe_2pct_droughts |> 
+               filter(start >= p2_major_droughts_with1970$start,
+                      start <= p2_major_droughts_with1970$end) |>
+               mutate(drought_name = p2_major_droughts_with1970$major_drought_id),
+             pattern = map(p2_major_droughts_with1970)),
   
   # Identify drought chunks
   tar_target(p2_drought_chunks,
@@ -102,6 +110,18 @@ p2_targets <- list(
                                  "1987-05-01", "1999-09-01")),
                end = as.Date(c("1941-08-31", "1957-08-31", "1968-10-31",
                                "1992-10-31", "2015-09-30"))
+             ) |>
+               mutate(duration = as.duration(interval(start, end)) / ddays(1))),
+  # add 1970s drought for summaries for website
+  tar_target(p2_major_droughts_with1970,
+             tibble(
+               name = c("Dust Bowl", "1950s Drought", "1960s Drought", 
+                        "1980s Drought", "Turn-of-the-Century Drought", "1970s Drought"),
+               major_drought_id = c("1930", "1952", "1962", "1987", "1999", "1976"),
+               start = as.Date(c("1930-02-01", "1952-11-01", "1962-12-01",
+                                 "1987-05-01", "1999-09-01", "1976-01-01")),
+               end = as.Date(c("1941-08-31", "1957-08-31", "1968-10-31",
+                               "1992-10-31", "2015-09-30", "1978-03-01"))
              ) |>
                mutate(duration = as.duration(interval(start, end)) / ddays(1))),
   
