@@ -6,7 +6,7 @@
       </div>
       <div id="intro-container">
         <p>
-          The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a
+          The U.S. has experienced thousands of droughts that can cause water-related problems for humans and ecosystems (see <a
             href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
             target="_blank"
           >What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
@@ -224,7 +224,7 @@
         <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
            target="_blank"
           >What is Streamflow Drought?</a>
-          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
+          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all considered "moderate droughts” (<a
             href="https://droughtmonitor.unl.edu/"
             target="_blank"
           >U.S. Drought Monitor Map</a>). We excluded states and regions outside of the conterminous U.S. because of a lack of data.
@@ -238,7 +238,7 @@
           id="methods3"
           class="methods_text"
         >
-        Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
+        Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
             href="https://doi.org/10.1029/2022WR031930"
             target="_blank"
           >Hammond et al. 2022</a>).
