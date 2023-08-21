@@ -43,7 +43,7 @@ export default {
       {
         id: '1930s',
         date: '1932-09-01',
-        text: 'Usually known for its flooding, the worst drought during this period was on the Red River of the North in Fargo, ND, which lasted over 1000 days.',
+        text: 'Usually known for its flooding, the worst drought during this period was on the Red River of the North in Fargo, ND, which lasted over 1,000 days.',
         desktop_x_offset_per: 60,
         desktop_text_anchor: 'start',
         desktop_text_width: 250
