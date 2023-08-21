@@ -85,7 +85,7 @@ export default {
         id: '2000s-fact1',
         date: '2000-06-01',
         text: 'Over 31% of the 2000 most severe droughts happened during this period',
-        desktop_x_offset_per: 10,
+        desktop_x_offset_per: 62,
         desktop_text_anchor: 'start',
         desktop_text_width: 250
       },     
