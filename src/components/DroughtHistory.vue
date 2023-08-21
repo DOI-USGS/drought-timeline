@@ -974,8 +974,8 @@ export default {
 </script>
 <style scoped lang="scss">
 // handwriting font
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-$writeFont: 'Special Elite', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+$writeFont: 'Neucha', cursive;
 
 #grid-container {
   display: grid;

@@ -75,8 +75,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;500;600;700;800&display=swap');
 $SourceSans: 'Source Sans Pro', sans-serif;
 $textcolor: #333534;
-@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
-$writeFont: 'Special Elite', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+$writeFont: 'Neucha', cursive;
 // whole page except header fit within viewport - no scrolling
 #app {
   width: 100%;
@@ -168,7 +168,7 @@ a:active {
 }
 .droughtText.notesText{
   font-family: $writeFont;
-  font-size: 2.0rem;
+  font-size: 1.9rem;
 }
 input[type=button] {
         font-family: $SourceSans;
