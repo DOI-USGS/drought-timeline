@@ -6,10 +6,7 @@
       </div>
       <div id="intro-container">
         <p>
-          The U.S. has experienced thousands of droughts that can cause water-related problems for humans and ecosystems (see <a
-            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
-            target="_blank"
-          >What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+          The U.S. has experienced thousands of droughts that can cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
           >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
@@ -253,25 +250,9 @@
     <section id="references">       
       <div class="page-section">
         <h3>References</h3>
-        <h4>{{ referencesText.title }}</h4>
         <div>
           <div
             v-for="reference in referencesText.references"
-            :key="reference.id"
-            class="references-list"
-          >
-            <p>
-              <span v-html="reference.authors" /> <a
-                :href="reference.link"
-                target="_blank"
-              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
-            </p>
-          </div>
-        </div>
-        <h4>{{ referencesQuotes.title }}</h4>
-        <div>
-          <div
-            v-for="reference in referencesQuotes.references"
             :key="reference.id"
             class="references-list"
           >
