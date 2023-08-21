@@ -8,14 +8,22 @@ export default {
         desktop_text_anchor: 'start',
         desktop_text_width: 250
       },
-/*       {
-        id: '1154',
-        date: '1924-01-01',
-        text: 'This drought was 1,154 days long',
-        desktop_x_offset_per: 14,
+       {
+        id: 'map',
+        date: '1921-06-01',
+        text: 'Map of streamgages that had one of the 2000 most severe droughts.',
+        desktop_x_offset_per: 60,
         desktop_text_anchor: 'start',
         desktop_text_width: 250
-      }    , */
+      }    ,
+      {
+       id: 'redmap',
+       date: '1930-06-01',
+       text: 'Streamgage locations in each major drought period are highlighted on the map in red.',
+       desktop_x_offset_per: 60,
+       desktop_text_anchor: 'start',
+       desktop_text_width: 250
+     }    ,
       {
         id: 'yaxis',
         date: '1921-08-01',

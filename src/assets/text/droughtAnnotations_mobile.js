@@ -44,7 +44,7 @@ export default {
       {
         id: 'intro_narration',
         date: '1921-07-01',
-        text: 'This timeline shows the 2,000 most severe streamflow drought events at a USGS streamgages over the last 100 years (<a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). Each bar shows the duration of drought at a single gage so that the taller and darker the bar, the longer the drought event. When multiple streamgages experienced drought conditions simultaneously, the chart is wider.',
+        text: 'This timeline shows the 2,000 most severe streamflow drought events at USGS streamgages over 100 years (<a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). Each bar shows the duration of drought at a single gage so that the taller and darker the bar, the longer the drought event. When multiple streamgages experienced drought conditions simultaneously, the chart is wider.',
         mobile_x_offset_per: 45
       },
       {
