@@ -2,10 +2,10 @@ export default {
     timelineEvents: [
       {
         id: '1922', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
-        title: 'How to read the timeline',
+        title: 'How to read this timeline',
         start_date: '1920-04-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
         end_date: '1928-12-31', // Date marking end of annotation. Determines y trigger end position on deskop
-        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller and darker the bar, the longer the drought. Where the chart is wider, many streamgages recorded drought conditions simultaneously. The map above shows the gages with one of the 2000 most severe droughts in the record.', // Narrative text
+        text: 'This timeline shows the 2,000 most severe streamflow drought events at a USGS streamgages over the last 100 years (<a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). Each bar shows the duration of drought at a single gage so that the taller and darker the bar, the longer the drought event. When multiple streamgages experienced drought conditions simultaneously, the chart is wider. The map above shows the gage locations for the 2,000 most severe droughts in the record.', // Narrative text
         quote: '',
         quote_source: '',
         //quote: 'There is no assurance that the next drought is not just beyond the horizon. We can be assured, however, that drought will return, and, considering the greater needs of that future time, its impact, unless prepared for, will be much greater.',

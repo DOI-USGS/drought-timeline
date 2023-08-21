@@ -44,7 +44,7 @@ export default {
       {
         id: 'intro_narration',
         date: '1922-07-01',
-        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS streamgage. The taller the bar, the longer the drought. Where the chart is wider, many streamgages recorded drought conditions simultaneously.',
+        text: 'This timeline shows the 2,000 most severe streamflow drought events at a USGS streamgages over the last 100 years (<a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). Each bar shows the duration of drought at a single gage so that the taller and darker the bar, the longer the drought event. When multiple streamgages experienced drought conditions simultaneously, the chart is wider. The map above shows the gage locations for the 2,000 most severe droughts in the record.',
         mobile_x_offset_per: 45
       },
       {
