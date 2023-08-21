@@ -75,8 +75,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;500;600;700;800&display=swap');
 $SourceSans: 'Source Sans Pro', sans-serif;
 $textcolor: #333534;
-@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
-$writeFont: 'Neucha', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner&display=swap');
+$writeFont: 'Edu TAS Beginner', cursive;
 // whole page except header fit within viewport - no scrolling
 #app {
   width: 100%;

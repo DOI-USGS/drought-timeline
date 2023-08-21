@@ -14,9 +14,9 @@ event_swarm_plot_compressed_vertical <- function(swarm_data){
     theme_nothing() +
     # To check line-up of scales on website, uncomment out lines 17-19, comment
     # out line 21, and uncomment out line 22
-    # theme(axis.text.x = element_blank(),
-    #       axis.text.y = element_text(size = 14, color = 'blue', angle = 180),
-    #       panel.grid.major.y = element_line(color = 'blue', linetype = "dashed")) +
+    #theme(axis.text.x = element_blank(),
+    #      axis.text.y = element_text(size = 14, color = 'blue', angle = 180),
+    #      panel.grid.major.y = element_line(color = 'blue', linetype = "dashed")) +
     scale_y_date(breaks = scales::date_breaks(width = '1 years'),
                  labels = NULL,
                  #labels = scales::date_format('%Y'), # use to check line-up on website

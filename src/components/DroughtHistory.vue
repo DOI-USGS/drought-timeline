@@ -439,7 +439,7 @@ export default {
           .attr("width", '100%')
 
         // Define y scale based on timeline start and end dates
-        const timelineDates = ['1921-10-01','2020-04-01']
+        const timelineDates = ['1920-12-09','2020-04-01']
         const yScale = this.d3.scaleTime()
           .domain([new Date(timelineDates[0]), new Date(timelineDates[1])])
           .range([0, this.overlayHeight]);
@@ -973,9 +973,8 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-// handwriting font
-@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
-$writeFont: 'Neucha', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner&display=swap');
+$writeFont: 'Edu TAS Beginner', cursive;
 
 #grid-container {
   display: grid;
