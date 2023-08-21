@@ -1,45 +1,52 @@
 export default {
     timelineEvents: [
       {
-        id: '2',
-        date: '1924-09-01',
-        text: 'Droughts are colored by duration where darker = longer',
-        desktop_x_offset_per: 59,
+        id: '285',
+        date: '1923-03-01',
+        text: 'The drought at this streamgage was 285 days long',
+        desktop_x_offset_per: 58,
         desktop_text_anchor: 'start',
-        desktop_text_width: 200
+        desktop_text_width: 220
       },
-      {
-        id: 'legend',
-        date: '1922-06-01',
-        text: 'The longest drought was 2208 days',
+/*       {
+        id: '1154',
+        date: '1924-01-01',
+        text: 'This drought was 1,154 days long',
         desktop_x_offset_per: 14,
         desktop_text_anchor: 'start',
         desktop_text_width: 250
-      }    ,
+      }    , */
       {
-        id: 'legend-2',
-        date: '1923-06-01',
-        text: 'The shortest was 219 days',
-        desktop_x_offset_per: 14,
+        id: 'yaxis',
+        date: '1922-03-01',
+        text: 'Time',
+        desktop_x_offset_per: 17,
         desktop_text_anchor: 'start',
         desktop_text_width: 250
       },
-      
       {
-        id: '1930s-fact',
+        id: 'xaxis',
+        date: '1925-08-01',
+        text: 'Wider = more simultaneous droughts',
+        desktop_x_offset_per: 65,
+        desktop_text_anchor: 'start',
+        desktop_text_width: 250
+      },
+      {
+        id: '1930s',
         date: '1933-06-01',
         text: 'Usually known for its flooding, the worst drought during this period was on the Red River of the North in Fargo, ND, which lasted over 1000 days.',
-        desktop_x_offset_per: 10,
+        desktop_x_offset_per: 60,
         desktop_text_anchor: 'start',
         desktop_text_width: 220
       },
       {
-        id: '1950s-fact',
-        date: '1953-06-01',
+        id: '1950s',
+        date: '1953-01-01',
         text: 'The most severe drought in this period was near San Antonio, Texas.',
         desktop_x_offset_per: 10,
         desktop_text_anchor: 'start',
-        desktop_text_width: 150
+        desktop_text_width: 250
       },
       {
         id: '1960s-fact',
