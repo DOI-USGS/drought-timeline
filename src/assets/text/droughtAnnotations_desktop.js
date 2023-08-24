@@ -18,7 +18,7 @@ export default {
       }    ,
       {
        id: 'redmap',
-       date: '1930-06-01',
+       date: '1929-03-01',
        text: 'Streamgage locations in each major drought period are highlighted on the map in red.',
        desktop_x_offset_per: 60,
        desktop_text_anchor: 'start',
