@@ -6,10 +6,7 @@
       </div>
       <div id="intro-container">
         <p>
-          The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems (see <a
-            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
-            target="_blank"
-          >What is Streamflow Drought?</a>). But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+          The U.S. has experienced thousands of droughts that can cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
           >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
@@ -224,7 +221,7 @@
         <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
            target="_blank"
           >What is Streamflow Drought?</a>
-          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 2% variable 7-day threshold – in other words, these drought events were all considered “exceptional droughts” (<a
+          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all considered "moderate droughts” (<a
             href="https://droughtmonitor.unl.edu/"
             target="_blank"
           >U.S. Drought Monitor Map</a>). We excluded states and regions outside of the conterminous U.S. because of a lack of data.
@@ -238,7 +235,7 @@
           id="methods3"
           class="methods_text"
         >
-        Of all the exceptional droughts from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
+        Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
             href="https://doi.org/10.1029/2022WR031930"
             target="_blank"
           >Hammond et al. 2022</a>).
@@ -253,25 +250,9 @@
     <section id="references">       
       <div class="page-section">
         <h3>References</h3>
-        <h4>{{ referencesText.title }}</h4>
         <div>
           <div
             v-for="reference in referencesText.references"
-            :key="reference.id"
-            class="references-list"
-          >
-            <p>
-              <span v-html="reference.authors" /> <a
-                :href="reference.link"
-                target="_blank"
-              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
-            </p>
-          </div>
-        </div>
-        <h4>{{ referencesQuotes.title }}</h4>
-        <div>
-          <div
-            v-for="reference in referencesQuotes.references"
             :key="reference.id"
             class="references-list"
           >
@@ -458,7 +439,7 @@ export default {
           .attr("width", '100%')
 
         // Define y scale based on timeline start and end dates
-        const timelineDates = ['1921-10-01','2020-04-01']
+        const timelineDates = ['1920-12-09','2020-04-01']
         const yScale = this.d3.scaleTime()
           .domain([new Date(timelineDates[0]), new Date(timelineDates[1])])
           .range([0, this.overlayHeight]);
@@ -992,9 +973,8 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-// handwriting font
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
-$writeFont: 'Nanum Pen Script', cursive;
+@import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner&display=swap');
+$writeFont: 'Edu TAS Beginner', cursive;
 
 #grid-container {
   display: grid;

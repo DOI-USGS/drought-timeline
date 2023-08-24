@@ -26,7 +26,7 @@ export default {
         date: '1992-08-10',
         text: '"The 1988 drought dramatically illustrates how quickly several years of excess precipitation can change to widespread drought.” - <a href="https://files.dnr.state.mn.us/natural_resources/climate/summaries_and_publications/drought1988.pdf" target="_blank">Minnesota Department of Natural Resources, Division of Waters, 1989</a>',
         quote: true,
-        mobile_x_offset_per: 60
+        mobile_x_offset_per: 70
       },
       {
         id: 'quoteTOC',
@@ -37,14 +37,14 @@ export default {
       },
       {
         id: 'intro_map_1',
-        date: '1924-03-01',
-        text: 'Map of streamgage locations that had one of the 2000 most severe droughts. Streamgage locations in each major drought are highlighted on the map in red.',
+        date: '1923-03-01',
+        text: 'Map of streamgage locations that had one of the 2000 most severe droughts. Streamgage locations in each major drought period are highlighted on the map in red.',
         mobile_x_offset_per: 70
       },
       {
         id: 'intro_narration',
-        date: '1922-07-01',
-        text: 'Each bar represents one of the 2000 most severe streamflow drought events measured at a USGS  streamgage. The taller the bar, the longer the drought. Where the chart is wider, many streamgages were experiencing drought simultaneously.',
+        date: '1921-07-01',
+        text: 'This timeline shows the 2,000 most severe streamflow drought events at USGS streamgages over 100 years (<a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). Each bar shows the duration of drought at a single gage so that the taller and darker the bar, the longer the drought event. When multiple streamgages experienced drought conditions simultaneously, the chart is wider.',
         mobile_x_offset_per: 45
       },
       {
@@ -88,7 +88,7 @@ export default {
         date: '1976-03-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
         text: 'The 1976-1977 drought was short, so it is not considered one of the five major drought events in the last 100 years. But this two-year drought caused agricultural losses and hydropower shortages across much of the western U.S.', // Narrative text
         quote: false,
-        mobile_x_offset_per: 45
+        mobile_x_offset_per: 35
       },
       {
         id: '1970sQuote',
@@ -107,7 +107,7 @@ export default {
         id: '1980s_2',
         date: '1990-02-15',
         text: 'In the summer of 1988, streamflow in the Mississippi River was so low that barges could not go up and down the lower section of the river. That same summer, wildfires burned 36% of Yellowstone National Park, triggering the largest fire-fighting effort in the U.S. at that time.',
-        mobile_x_offset_per: 70
+        mobile_x_offset_per: 80
       },
       {
         id: 'turn_of_century_1',
@@ -119,7 +119,7 @@ export default {
         id: 'turn_of_century_2',
         date: '2007-01-01',
         text: 'The national-level drought event ended in 2015, but the turn-of-the-century drought in the southwestern U.S. has continued. The USGS is working with partners to understand this ongoing drought and to predict and communicate drought risk (<a href="https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought" target="_blank">Video of drought at Lake Powell</a>).',
-        mobile_x_offset_per: 60
+        mobile_x_offset_per: 70
       }
     ]
 };
