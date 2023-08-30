@@ -127,7 +127,7 @@ p2_targets <- list(
   
   ## Expand to determine all days within drought
   tar_target(p2_major_droughts_expanded,
-             expand_drought_prop(drought_prop = p2_major_droughts)),
+             expand_drought_prop(drought_prop = p2_major_droughts_with1970)),
   
   ## Expand for plotting geom ribbons (shading on regional plots)
   # here, these produce a row for each degree from 0 to 380 (n = 381)

@@ -50,7 +50,7 @@ export default {
       {
         id: 'dustbowl_1',
         date: '1930-03-01',
-        text: 'Dust Bowl: Drought hit most of the U.S. in the 1930s, but the farmers and ranchers of the Great Plains were hit hardest. Not enough rain combined with too much farming and grazing made the top layer of soil loose and dry. Heavy winds blew the dry soil into massive dust storms, which is why we call this period in history the “dust bowl.”',
+        text: 'Dust Bowl: Drought hit much of the U.S. in the 1930s, bringing great hardship to the farmers and ranchers of the Great Plains. Not enough rain combined with too much farming and grazing made the top layer of soil loose and dry. Heavy winds blew the dry soil into massive dust storms, which is why we call this period in history the “dust bowl.”',
         mobile_x_offset_per: 24
       },
       {
