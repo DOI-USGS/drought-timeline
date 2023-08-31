@@ -9,7 +9,7 @@
           The U.S. has experienced thousands of droughts that can cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
-          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred at USGS streamgages (<a href="https://dashboard.waterdata.usgs.gov/" target="_blank">USGS Streamgage Network</a>) across the lower 48 states.
         </p>
       </div>
       <nav id="nav-button-container">
@@ -105,12 +105,12 @@
             alt="Map of drought sites in the continental United States"
           >
           <img
-            v-for="drought in scrollToDates"
-            :id="`inset-map-${drought.id}`"
-            :key="drought.id"
+            v-for="narration in narrations"
+            :id="`inset-map-${narration.id}`"
+            :key="narration.id"
             class="inset-map drought-specific hide"
-            :src="require(`@/assets/images/drought_period_stations_${drought.id}.png`)"
-            :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${drought.name} are highlighted in red`"
+            :src="require(`@/assets/images/${narration.img_source}`)"
+            :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${narration.title} are highlighted in red`"
           >
         </div>
         </div>
@@ -137,7 +137,7 @@
       id="region-container"
       class="page-section"
     >
-      <h3>Droughts in every region</h3>
+      <h3>Drought in Regions of the Conterminous U.S.</h3>
       <p>Droughts happen in every region of the U.S. These charts show the same 2000 drought events as the national timeline above, but now they are shown by region. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.</p>
       <div id="region-grid-container">
         <cascMap
@@ -221,7 +221,7 @@
         <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
            target="_blank"
           >What is Streamflow Drought?</a>
-          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all considered "moderate droughts” (<a
+          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all moderate, severe, extreme, or exceptional (<a
             href="https://droughtmonitor.unl.edu/"
             target="_blank"
           >U.S. Drought Monitor Map</a>). We excluded states and regions outside of the conterminous U.S. because of a lack of data.
@@ -709,17 +709,6 @@ export default {
                 toggleActions: "restart reverse none reverse" 
               },
             })
-            // Show the map for each drought when in that drought period
-            tl.to(`#${scrollIDFull}`, {
-              scrollTrigger: {
-                markers: false,
-                trigger: `#${scrollIDFull}`,
-                start: "top 67%",
-                end: 'bottom 67%',
-                toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
-                toggleActions: "restart reverse none reverse" 
-              },
-            })
           })
 
 
@@ -770,14 +759,14 @@ export default {
                 toggleActions: "restart reverse none reverse" 
               },
             })
-            // Show the image for each drought when in that drought period
+            // Show the map for each drought when in that drought period
             tl.to(`#${rectIDFull}`, {
               scrollTrigger: {
                 markers: false,
                 trigger: `#${rectIDFull}`,
                 start: "top 67%",
-                end: 'bottom 67%',
-                toggleClass: {targets: `#drought-image-${rectlID}`, className: "show"}, // adds class to target when triggered
+                end: "bottom 67%",
+                toggleClass: {targets: `#inset-map-${rectlID}`, className: "show"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
             })
