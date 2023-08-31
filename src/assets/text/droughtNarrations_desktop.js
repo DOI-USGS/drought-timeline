@@ -5,7 +5,7 @@ export default {
         title: 'How to read this timeline',
         start_date: '1920-04-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
         end_date: '1928-12-31', // Date marking end of annotation. Determines y trigger end position on deskop
-        text: 'This timeline shows the 2,000 most severe streamflow drought events at USGS streamgages over 100 years (<a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). Each bar shows the duration of drought at a single gage so that the taller and darker the bar, the longer the drought event. The map above shows streamgages that had one of the 2,000 most severe droughts, with gages in drought highlighted in red for each major drought period.', // Narrative text
+        text: 'This timeline shows the 2,000 most severe streamflow drought events at USGS streamgages over 100 years (<a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/" target="_blank">What is Streamflow Drought?</a>). The map above shows all of the streamgage locations, with red used to show gages in drought during each major drought period.', // Narrative text
         quote: '',
         quote_source: '',
         img_source: 'states_stations_inset.png',

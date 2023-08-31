@@ -3,7 +3,7 @@ export default {
       {
         id: '285',
         date: '1922-06-01',
-        text: 'The drought at this streamgage was 285 days long',
+        text: 'Each bar shows the duration of drought at a single gage. The taller and darker the bar, the longer the drought event was.',
         desktop_x_offset_per: 58,
         desktop_text_anchor: 'start',
         desktop_text_width: 250
@@ -11,8 +11,16 @@ export default {
       {
         id: 'yaxis',
         date: '1921-08-01',
-        text: 'Time',
+        text: 'Scroll through time',
         desktop_x_offset_per: 22,
+        desktop_text_anchor: 'start',
+        desktop_text_width: 250
+      },
+      {
+        id: 'map',
+        date: '1925-11-01',
+        text: 'The drought at this streamgage was 1,154 days long.',
+        desktop_x_offset_per: 58,
         desktop_text_anchor: 'start',
         desktop_text_width: 250
       },
@@ -27,7 +35,7 @@ export default {
       {
         id: 'xaxis',
         date: '1925-05-01',
-        text: 'Wider = more simultaneous droughts',
+        text: 'Number of gages in drought',
         desktop_x_offset_per: 55,
         desktop_text_anchor: 'start',
         desktop_text_width: 275
