@@ -1028,6 +1028,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .scrollButton {
   padding: 3px 6px 4px 5px;
   margin-left: 5px;
+  margin-bottom: 5px;
   border: 0.5px solid darkgrey;
   font-weight: bold;
   border-radius: 3px;
