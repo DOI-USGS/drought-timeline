@@ -30,6 +30,7 @@
           id="swarm_vertical"
           src="@/assets/images/duration-chart/swarm_jd7d_2pct_compressed_vertical.png"
           alt=""
+          :style="{ margin: `${overlayTopMargin}px 0px 0px 0px` }"
         >
       </div>
       <div 
@@ -350,6 +351,7 @@ export default {
         // dimensions
         overlayWidth: null,
         overlayHeight: null,
+        overlayTopMargin: 2,
         // source for regional map
         regionMapFilename: "casc_regions_map",
         regionDescriptions: regionDroughtDescriptions.regionDescriptions,
@@ -425,8 +427,10 @@ export default {
           .attr("height", '100%')
 
         // hide all elements of static svg to start
+        // Transform vertically based on set overlayTopMargin (for some reason / 2 lines up)
         svgChartStatic.selectAll('g')
           .classed('hidden', true)
+          .style("transform", `translate(0, ${this.overlayTopMargin/2}px)`)
 
         // select svg that will hold dynamically added overlay content
         this.svgChartDynamic = this.d3.select("#svg-dynamic")
@@ -438,6 +442,12 @@ export default {
           .attr("viewBox", "0 0 " + this.overlayWidth + " " + this.overlayHeight)
           .attr("preserveAspectRatio", "xMidYMid meet")
           .attr("width", '100%')
+
+        // Add single group to contain all chart elements
+        // Transform vertically based on set overlayTopMargin
+        const chartGroup = this.svgChartDynamic
+          .append("g")
+          .style("transform", `translate(0, ${this.overlayTopMargin}px)`)
 
         // Define y scale based on timeline start and end dates
         const timelineDates = ['1920-12-09','2020-04-01']
@@ -454,7 +464,7 @@ export default {
           .range([0, this.overlayWidth])
 
         // Add scroll to elements (only used for scroll navigation)
-        const scrollToSpot = this.svgChartDynamic.selectAll('scrollToSpot')
+        const scrollToSpot = chartGroup.selectAll('scrollToSpot')
           .data(this.scrollToDates)
           .enter()
           .append('rect')
@@ -476,7 +486,7 @@ export default {
           .tickSize(-this.overlayWidth-yAxisOffset) // ticks spanning width of chart
           .tickSizeOuter(0)
 
-        const yAxisDom = this.svgChartDynamic.append("g")
+        const yAxisDom = chartGroup.append("g")
           .call(yAxis)
           .attr("class", "y_axis")
           .attr("transform", "translate(" + yAxisOffset + ",0)")
@@ -496,7 +506,7 @@ export default {
         // Set up annotations
         if (!this.mobileView) {
           // On desktop, place annotations as text
-          const annotationItems = this.svgChartDynamic.selectAll('annotationText')
+          const annotationItems = chartGroup.selectAll('annotationText')
             .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
             .enter()
             .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
@@ -510,7 +520,7 @@ export default {
             .text(d => d.text)
             .call(self.wrap);
           // On desktop, set up rectangles to trigger narrations in box at bottom
-          const narrationRects = this.svgChartDynamic.selectAll('narrationRect')
+          const narrationRects = chartGroup.selectAll('narrationRect')
             .data(narration_data.sort((a,b) => this.d3.ascending(a.start_date, b.start_date)))
             .enter()
             .append("rect")
@@ -526,7 +536,7 @@ export default {
             .style('opacity', 0)
         } else {
           // On mobile, set up rectangles to trigger annotations
-          const annotationRects = this.svgChartDynamic.selectAll('annotationRect')
+          const annotationRects = chartGroup.selectAll('annotationRect')
             .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
             .enter()
             .append("rect")
@@ -543,7 +553,7 @@ export default {
             })
             .style('opacity', 0)
           // On mobile, place circles at annotation locations
-          const annotationCircles = this.svgChartDynamic.selectAll('annotationCircle')
+          const annotationCircles = chartGroup.selectAll('annotationCircle')
             .data(annotation_data)
             .enter()
             .append("circle")
