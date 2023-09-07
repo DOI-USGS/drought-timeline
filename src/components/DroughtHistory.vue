@@ -1079,11 +1079,11 @@ $writeFont: 'Edu TAS Beginner', cursive;
   display:block;
   background: #fff;
   padding: 15px 20px 15px 50px;
-  margin: 0 0 20px;
   position: fixed;
   width: 55vw;
   text-align: justify;
   font-style: italic;
+  bottom: 5vh;
 
   /*Borders - (Optional)*/
   border-left: 15px solid #c76c0c;
