@@ -9,7 +9,10 @@
           The U.S. has experienced thousands of droughts that can cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
-          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred at USGS streamgages (<a href="https://dashboard.waterdata.usgs.gov/" target="_blank">USGS Streamgage Network</a>) across the lower 48 states.
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred at USGS streamgages (<a
+            href="https://dashboard.waterdata.usgs.gov/"
+            target="_blank"
+          >USGS Streamgage Network</a>) across the lower 48 states.
         </p>
       </div>
       <nav id="nav-button-container">
@@ -35,7 +38,8 @@
       </div>
       <div 
         v-if="mobileView"
-        id="inset-container">
+        id="inset-container"
+      >
         <div id="inset-image-container">
           <img
             id="inset-map-default"
@@ -96,33 +100,34 @@
         v-if="!mobileView"
         id="annotation-container-desktop"
       >
-      <div 
-        id="inset-container">
-        <div id="inset-image-container">
-          <img
-            id="inset-map-default"
-            class="inset-map default"
-            src="@/assets/images/states_stations_inset.png"
-            alt="Map of drought sites in the continental United States"
-          >
-          <img
-            v-for="narration in narrations"
-            :id="`inset-map-${narration.id}`"
-            :key="narration.id"
-            class="inset-map drought-specific hide"
-            :src="require(`@/assets/images/${narration.img_source}`)"
-            :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${narration.title} are highlighted in red`"
-          >
-        </div>
+        <div 
+          id="inset-container"
+        >
+          <div id="inset-image-container">
+            <img
+              id="inset-map-default"
+              class="inset-map default"
+              src="@/assets/images/states_stations_inset.png"
+              alt="Map of drought sites in the continental United States"
+            >
+            <img
+              v-for="narration in narrations"
+              :id="`inset-map-${narration.id}`"
+              :key="narration.id"
+              class="inset-map drought-specific hide"
+              :src="require(`@/assets/images/${narration.img_source}`)"
+              :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${narration.title} are highlighted in red`"
+            >
+          </div>
         </div>
         <div
-            v-for="narration in narrations" 
-            :id="`drought-text-${narration.id}`"
-            :key="narration.id"
-            class="droughtText droughtTitle hidden"
-          >
-            <p v-html="narration.title" />
-          </div>
+          v-for="narration in narrations" 
+          :id="`drought-text-${narration.id}`"
+          :key="narration.id"
+          class="droughtText droughtTitle hidden"
+        >
+          <p v-html="narration.title" />
+        </div>
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
@@ -191,7 +196,6 @@
           class="regionText hiddenText"
         >
           <h4>Drought in the {{ description.region_name }} U.S.</h4>
-
         </div>
       </div>
     </section>
@@ -205,7 +209,7 @@
           id="methods1"
           class="methods_text"
         >
-        The USGS maintains and operates thousands of streamgages for the Nation that continuously monitor and measure water conditions, including streamflow. Streamflow conditions can provide an assessment of local drought events, but 100 years ago, the USGS only operated a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for the conterminous U.S. during three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. Note these periods are not reflective of drought conditions at the time, but rather changes in the number of streamgages on the landscape. These maps show the USGS streamgage network in the lower 48 states during these periods (<a
+          The USGS maintains and operates thousands of streamgages for the Nation that continuously monitor and measure water conditions, including streamflow. Streamflow conditions can provide an assessment of local drought events, but 100 years ago, the USGS only operated a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for the conterminous U.S. during three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. Note these periods are not reflective of drought conditions at the time, but rather changes in the number of streamgages on the landscape. These maps show the USGS streamgage network in the lower 48 states during these periods (<a
             href="https://doi.org/10.5066/P92FAASD"
             target="_blank"
           >Simeone 2022</a>).
@@ -218,9 +222,11 @@
         <p
           id="methods2"
           class="methods_text"
-        >Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See 
-        <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
-           target="_blank"
+        >
+          Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See 
+          <a
+            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
+            target="_blank"
           >What is Streamflow Drought?</a>
           ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all moderate, severe, extreme, or exceptional (<a
             href="https://droughtmonitor.unl.edu/"
@@ -236,7 +242,7 @@
           id="methods3"
           class="methods_text"
         >
-        Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
+          Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
             href="https://doi.org/10.1029/2022WR031930"
             target="_blank"
           >Hammond et al. 2022</a>).
@@ -293,7 +299,10 @@
         >Elmera Adazpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
           href="https://www.usgs.gov/staff-profiles/amanda-carr"
           target="_blank"
-        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a href="https://twitter.com/USGS_DataSci/status/1516447170437726208" target="_blank">chart</a> made by <a
+        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a
+          href="https://twitter.com/USGS_DataSci/status/1516447170437726208"
+          target="_blank"
+        >chart</a> made by <a
           href="https://www.usgs.gov/staff-profiles/scott-hamshaw"
           target="_blank"
         >Scott Hamshaw</a>.
