@@ -247,7 +247,7 @@
         >
       </div>
     </section>
-    <section id="references">       
+    <section id="references-container">       
       <div class="page-section">
         <h3>References</h3>
         <div>
@@ -257,10 +257,14 @@
             class="references-list"
           >
             <p>
-              <span v-html="reference.authors" /> <a
+              {{ reference.authors }} 
+              <a
                 :href="reference.link"
                 target="_blank"
-              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
+              >
+                {{ reference.title }}
+              </a>
+              {{ reference.ref }}
             </p>
           </div>
         </div>
@@ -1351,6 +1355,10 @@ $writeFont: 'Edu TAS Beginner', cursive;
   padding-bottom: 7px;
   margin-top: 5px;
   text-indent: -22px ;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
 }
 #methods-container{
   display: grid;
