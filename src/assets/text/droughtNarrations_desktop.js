@@ -27,7 +27,7 @@ export default {
         title: 'Dust Bowl (1930 - 1941)',
         start_date: '1937-08-31', // Date marking start of annotation. Determines y trigger start position on deskop and order
         end_date: '1943-08-31', // Date marking end of annotation. Determines y trigger end position on deskop
-        text: 'The drought ended in 1941, but the lessons learned from the dust bowl continue to shape the farming and grazing practices we use today. </a>', // Narrative text
+        text: 'The drought ended in 1941, but the lessons learned from the dust bowl continue to shape the farming and grazing practices we use today. Because USGS did not have many streamgages on the landscape during the Dust Bowl, we do not have as good record of how widespread streamflow drought was at this time.</a>', // Narrative text
         quote: 'Dust to eat, and dust to breathe and dust to drink. Dust in the beds and in the flour bin, on dishes and walls and windows, in hair and eyes and ears and teeth and throats, to say nothing of the heaped up accumulation on floors and window sills after one of the bad days.',
         quote_source: '<a href="https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/" target="_blank">Letter from Caroline Henderson to Secretary of Agriculture Henry A. Wallace, 1935</a>',
         img_source: 'drought_period_stations_1930.png',
