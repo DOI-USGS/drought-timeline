@@ -6,7 +6,7 @@
       </div>
       <div id="intro-container">
         <p>
-          The U.S. has experienced thousands of droughts that can cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+          The U.S. has experienced thousands of droughts that have caused water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
           >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred at USGS streamgages (<a
