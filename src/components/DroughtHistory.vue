@@ -1015,7 +1015,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 #intro-container {
   grid-area: intro;
-  padding-left: 5px;
+  padding: 5px 0px 5px 5px;
 }
 #nav-button-container {
   grid-area: buttons;
