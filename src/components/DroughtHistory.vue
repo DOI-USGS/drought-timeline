@@ -1054,7 +1054,8 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 
 .inset-map {
-  height: 175px;
+  max-height: 175px;
+  max-width: 25vw;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
     height: 75px;
