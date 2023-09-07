@@ -324,7 +324,6 @@ import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.
 import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
 import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
 import droughtTitles_desktop from "@/assets/text/droughtNarrations_desktop.js";
-import droughtImages from "@/assets/text/droughtImages.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 import polarWedges from "@/assets/svgs/polar_wedges.svg";
 import cascMap from "@/assets/svgs/casc_regions_map.svg";
@@ -347,7 +346,6 @@ export default {
         annotations: null,
         narrations: droughtNarrations_desktop.timelineEvents,
         titles: droughtTitles_desktop.timelineTitles,
-        images: droughtImages.timelineEvents,
         scrollToDates:  null,
         // dimensions
         overlayWidth: null,
@@ -418,7 +416,6 @@ export default {
 
         const annotation_data = this.annotations
         const narration_data = this.narrations
-        const image_data = this.images
 
         // set viewbox for svg with static overlay drawings
         const svgChartStatic = this.d3.select("#svg-static")
@@ -555,7 +552,6 @@ export default {
             .attr("cx", d => xScale(d.mobile_x_offset_per))
             .attr("cy", d => yScale(new Date(d.date)))
             .attr("r", 4)
-          // Set up images
 
         }
 
