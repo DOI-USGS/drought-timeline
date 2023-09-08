@@ -1104,7 +1104,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
   width: 55vw;
   text-align: justify;
   font-style: italic;
-  bottom: 5vh;
+  bottom: 7vh;
 
   /*Borders - (Optional)*/
   border-left: 15px solid #c76c0c;
