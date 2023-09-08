@@ -1179,7 +1179,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
   grid-area: narration;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: max-content 20px auto;
+  grid-template-rows: max-content max-content auto;
   grid-template-areas: 
     "annotation-image"
     "annotation-title"
@@ -1232,14 +1232,13 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 .droughtText.narration {
   grid-area: annotation-narration;
-  padding: 2.2rem 1em 1em 1em ;
+  padding: 0.25rem 1em 1em 1em ;
   position: absolute;
   //top: 522px;
   width: 24vw;
 }
 .droughtText.droughtTitle {
   grid-area: annotation-title;
-  position: absolute;
   font-weight: 700;
   margin: 1rem 1rem 1rem 0rem ;
 }
