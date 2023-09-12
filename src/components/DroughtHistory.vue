@@ -6,10 +6,13 @@
       </div>
       <div id="intro-container">
         <p>
-          The U.S. has experienced thousands of droughts that can cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+          The U.S. has experienced thousands of droughts that have caused water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
-          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred at USGS streamgages (<a href="https://dashboard.waterdata.usgs.gov/" target="_blank">USGS Streamgage Network</a>) across the lower 48 states.
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred at USGS streamgages (<a
+            href="https://dashboard.waterdata.usgs.gov/"
+            target="_blank"
+          >USGS Streamgage Network</a>) across the lower 48 states.
         </p>
       </div>
       <nav id="nav-button-container">
@@ -30,11 +33,13 @@
           id="swarm_vertical"
           src="@/assets/images/duration-chart/swarm_jd7d_2pct_compressed_vertical.png"
           alt=""
+          :style="{ margin: `${overlayTopMargin}px 0px 0px 0px` }"
         >
       </div>
       <div 
         v-if="mobileView"
-        id="inset-container">
+        id="inset-container"
+      >
         <div id="inset-image-container">
           <img
             id="inset-map-default"
@@ -95,33 +100,34 @@
         v-if="!mobileView"
         id="annotation-container-desktop"
       >
-      <div 
-        id="inset-container">
-        <div id="inset-image-container">
-          <img
-            id="inset-map-default"
-            class="inset-map default"
-            src="@/assets/images/states_stations_inset.png"
-            alt="Map of drought sites in the continental United States"
-          >
-          <img
-            v-for="narration in narrations"
-            :id="`inset-map-${narration.id}`"
-            :key="narration.id"
-            class="inset-map drought-specific hide"
-            :src="require(`@/assets/images/${narration.img_source}`)"
-            :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${narration.title} are highlighted in red`"
-          >
-        </div>
+        <div 
+          id="inset-container"
+        >
+          <div id="inset-image-container">
+            <img
+              id="inset-map-default"
+              class="inset-map default"
+              src="@/assets/images/states_stations_inset.png"
+              alt="Map of drought sites in the continental United States"
+            >
+            <img
+              v-for="narration in narrations"
+              :id="`inset-map-${narration.id}`"
+              :key="narration.id"
+              class="inset-map drought-specific hide"
+              :src="require(`@/assets/images/${narration.img_source}`)"
+              :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${narration.title} are highlighted in red`"
+            >
+          </div>
         </div>
         <div
-            v-for="narration in narrations" 
-            :id="`drought-text-${narration.id}`"
-            :key="narration.id"
-            class="droughtText droughtTitle hidden"
-          >
-            <p v-html="narration.title" />
-          </div>
+          v-for="narration in narrations" 
+          :id="`drought-text-${narration.id}`"
+          :key="narration.id"
+          class="droughtText droughtTitle hidden"
+        >
+          <p v-html="narration.title" />
+        </div>
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
@@ -190,7 +196,6 @@
           class="regionText hiddenText"
         >
           <h4>Drought in the {{ description.region_name }} U.S.</h4>
-
         </div>
       </div>
     </section>
@@ -204,7 +209,7 @@
           id="methods1"
           class="methods_text"
         >
-        The USGS maintains and operates thousands of streamgages for the Nation that continuously monitor and measure water conditions, including streamflow. Streamflow conditions can provide an assessment of local drought events, but 100 years ago, the USGS only operated a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for the conterminous U.S. during three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. Note these periods are not reflective of drought conditions at the time, but rather changes in the number of streamgages on the landscape. These maps show the USGS streamgage network in the lower 48 states during these periods (<a
+          The USGS maintains and operates thousands of streamgages for the Nation that continuously monitor and measure water conditions, including streamflow. Streamflow conditions can provide an assessment of local drought events, but 100 years ago, the USGS only operated a few hundred streamgages. As such, the drought events in this timeline have been selected from the most complete gage network possible for the conterminous U.S. during three different time periods: 1920 to 1950, 1951 to 1980, and 1981 to 2020. Note these periods are not reflective of drought conditions at the time, but rather changes in the number of streamgages on the landscape. These maps show the USGS streamgage network in the lower 48 states during these periods (<a
             href="https://doi.org/10.5066/P92FAASD"
             target="_blank"
           >Simeone 2022</a>).
@@ -217,9 +222,11 @@
         <p
           id="methods2"
           class="methods_text"
-        >Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See 
-        <a href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
-           target="_blank"
+        >
+          Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See 
+          <a
+            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
+            target="_blank"
           >What is Streamflow Drought?</a>
           ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all moderate, severe, extreme, or exceptional (<a
             href="https://droughtmonitor.unl.edu/"
@@ -235,7 +242,7 @@
           id="methods3"
           class="methods_text"
         >
-        Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
+          Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
             href="https://doi.org/10.1029/2022WR031930"
             target="_blank"
           >Hammond et al. 2022</a>).
@@ -247,7 +254,7 @@
         >
       </div>
     </section>
-    <section id="references">       
+    <section id="references-container">       
       <div class="page-section">
         <h3>References</h3>
         <div>
@@ -257,10 +264,14 @@
             class="references-list"
           >
             <p>
-              <span v-html="reference.authors" /> <a
+              {{ reference.authors }} 
+              <a
                 :href="reference.link"
                 target="_blank"
-              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
+              >
+                {{ reference.title }}
+              </a>
+              {{ reference.ref }}
             </p>
           </div>
         </div>
@@ -288,7 +299,10 @@
         >Elmera Adazpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
           href="https://www.usgs.gov/staff-profiles/amanda-carr"
           target="_blank"
-        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a href="https://twitter.com/USGS_DataSci/status/1516447170437726208" target="_blank">chart</a> made by <a
+        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a
+          href="https://twitter.com/USGS_DataSci/status/1516447170437726208"
+          target="_blank"
+        >chart</a> made by <a
           href="https://www.usgs.gov/staff-profiles/scott-hamshaw"
           target="_blank"
         >Scott Hamshaw</a>.
@@ -320,7 +334,6 @@ import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.
 import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
 import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
 import droughtTitles_desktop from "@/assets/text/droughtNarrations_desktop.js";
-import droughtImages from "@/assets/text/droughtImages.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 import polarWedges from "@/assets/svgs/polar_wedges.svg";
 import cascMap from "@/assets/svgs/casc_regions_map.svg";
@@ -343,11 +356,11 @@ export default {
         annotations: null,
         narrations: droughtNarrations_desktop.timelineEvents,
         titles: droughtTitles_desktop.timelineTitles,
-        images: droughtImages.timelineEvents,
         scrollToDates:  null,
         // dimensions
         overlayWidth: null,
         overlayHeight: null,
+        overlayTopMargin: 2,
         // source for regional map
         regionMapFilename: "casc_regions_map",
         regionDescriptions: regionDroughtDescriptions.regionDescriptions,
@@ -414,7 +427,6 @@ export default {
 
         const annotation_data = this.annotations
         const narration_data = this.narrations
-        const image_data = this.images
 
         // set viewbox for svg with static overlay drawings
         const svgChartStatic = this.d3.select("#svg-static")
@@ -424,8 +436,10 @@ export default {
           .attr("height", '100%')
 
         // hide all elements of static svg to start
+        // Transform vertically based on set overlayTopMargin (for some reason / 2 lines up)
         svgChartStatic.selectAll('g')
           .classed('hidden', true)
+          .style("transform", `translate(0, ${this.overlayTopMargin/2}px)`)
 
         // select svg that will hold dynamically added overlay content
         this.svgChartDynamic = this.d3.select("#svg-dynamic")
@@ -437,6 +451,12 @@ export default {
           .attr("viewBox", "0 0 " + this.overlayWidth + " " + this.overlayHeight)
           .attr("preserveAspectRatio", "xMidYMid meet")
           .attr("width", '100%')
+
+        // Add single group to contain all chart elements
+        // Transform vertically based on set overlayTopMargin
+        const chartGroup = this.svgChartDynamic
+          .append("g")
+          .style("transform", `translate(0, ${this.overlayTopMargin}px)`)
 
         // Define y scale based on timeline start and end dates
         const timelineDates = ['1920-12-09','2020-04-01']
@@ -453,7 +473,7 @@ export default {
           .range([0, this.overlayWidth])
 
         // Add scroll to elements (only used for scroll navigation)
-        const scrollToSpot = this.svgChartDynamic.selectAll('scrollToSpot')
+        const scrollToSpot = chartGroup.selectAll('scrollToSpot')
           .data(this.scrollToDates)
           .enter()
           .append('rect')
@@ -475,7 +495,7 @@ export default {
           .tickSize(-this.overlayWidth-yAxisOffset) // ticks spanning width of chart
           .tickSizeOuter(0)
 
-        const yAxisDom = this.svgChartDynamic.append("g")
+        const yAxisDom = chartGroup.append("g")
           .call(yAxis)
           .attr("class", "y_axis")
           .attr("transform", "translate(" + yAxisOffset + ",0)")
@@ -495,7 +515,7 @@ export default {
         // Set up annotations
         if (!this.mobileView) {
           // On desktop, place annotations as text
-          const annotationItems = this.svgChartDynamic.selectAll('annotationText')
+          const annotationItems = chartGroup.selectAll('annotationText')
             .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
             .enter()
             .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
@@ -509,7 +529,7 @@ export default {
             .text(d => d.text)
             .call(self.wrap);
           // On desktop, set up rectangles to trigger narrations in box at bottom
-          const narrationRects = this.svgChartDynamic.selectAll('narrationRect')
+          const narrationRects = chartGroup.selectAll('narrationRect')
             .data(narration_data.sort((a,b) => this.d3.ascending(a.start_date, b.start_date)))
             .enter()
             .append("rect")
@@ -525,7 +545,7 @@ export default {
             .style('opacity', 0)
         } else {
           // On mobile, set up rectangles to trigger annotations
-          const annotationRects = this.svgChartDynamic.selectAll('annotationRect')
+          const annotationRects = chartGroup.selectAll('annotationRect')
             .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
             .enter()
             .append("rect")
@@ -542,7 +562,7 @@ export default {
             })
             .style('opacity', 0)
           // On mobile, place circles at annotation locations
-          const annotationCircles = this.svgChartDynamic.selectAll('annotationCircle')
+          const annotationCircles = chartGroup.selectAll('annotationCircle')
             .data(annotation_data)
             .enter()
             .append("circle")
@@ -551,7 +571,6 @@ export default {
             .attr("cx", d => xScale(d.mobile_x_offset_per))
             .attr("cy", d => yScale(new Date(d.date)))
             .attr("r", 4)
-          // Set up images
 
         }
 
@@ -996,7 +1015,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 #intro-container {
   grid-area: intro;
-  padding-left: 5px;
+  padding: 5px 0px 5px 5px;
 }
 #nav-button-container {
   grid-area: buttons;
@@ -1009,6 +1028,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .scrollButton {
   padding: 3px 6px 4px 5px;
   margin-left: 5px;
+  margin-bottom: 5px;
   border: 0.5px solid darkgrey;
   font-weight: bold;
   border-radius: 3px;
@@ -1054,10 +1074,12 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 
 .inset-map {
-  height: 175px;
+  max-height: 175px;
+  max-width: 25vw;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
-    height: 75px;
+    max-height: 75px;
+    max-width: 35vw;
   }
 }
 .inset-map.default {
@@ -1078,11 +1100,11 @@ $writeFont: 'Edu TAS Beginner', cursive;
   display:block;
   background: #fff;
   padding: 15px 20px 15px 50px;
-  margin: 0 0 20px;
   position: fixed;
   width: 55vw;
   text-align: justify;
   font-style: italic;
+  bottom: 7vh;
 
   /*Borders - (Optional)*/
   border-left: 15px solid #c76c0c;
@@ -1157,7 +1179,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
   grid-area: narration;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: max-content 20px auto;
+  grid-template-rows: max-content max-content auto;
   grid-template-areas: 
     "annotation-image"
     "annotation-title"
@@ -1210,14 +1232,13 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 .droughtText.narration {
   grid-area: annotation-narration;
-  padding: 2.2rem 1em 1em 1em ;
+  padding: 0.25rem 1em 1em 1em ;
   position: absolute;
   //top: 522px;
   width: 24vw;
 }
 .droughtText.droughtTitle {
   grid-area: annotation-title;
-  position: absolute;
   font-weight: 700;
   margin: 1rem 1rem 1rem 0rem ;
 }
@@ -1274,6 +1295,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
   grid-template-areas:
     "description description" 
     "radial violin";
+  @media screen and (max-width: 1300px) {
+    grid-template-columns: 65% 35%;
+  }
   @media screen and (max-width: 600px) {
     padding: 5px 0 0px 0;
     //height: 100vh;
@@ -1320,7 +1344,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
   grid-area: violin;
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 .violin-chart {
@@ -1349,6 +1373,10 @@ $writeFont: 'Edu TAS Beginner', cursive;
   padding-bottom: 7px;
   margin-top: 5px;
   text-indent: -22px ;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
 }
 #methods-container{
   display: grid;

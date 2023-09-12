@@ -56,7 +56,7 @@ export default {
       {
         id: 'dustbowl_2',
         date: '1940-06-01',
-        text: 'The Dust Bowl Drought ended in 1941, but the lessons learned from the dust bowl continue to shape the farming and grazing practices we use today. ',
+        text: 'The Dust Bowl Drought ended in 1941, but the lessons learned from the dust bowl continue to shape the farming and grazing practices we use today. Because USGS did not have many streamgages on the landscape during the Dust Bowl, we do not have as a good record of how widespread streamflow drought was at this time.',
         mobile_x_offset_per: 24
       },
       {
