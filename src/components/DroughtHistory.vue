@@ -1295,6 +1295,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
   grid-template-areas:
     "description description" 
     "radial violin";
+  @media screen and (max-width: 1300px) {
+    grid-template-columns: 65% 35%;
+  }
   @media screen and (max-width: 600px) {
     padding: 5px 0 0px 0;
     //height: 100vh;
@@ -1341,7 +1344,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
   grid-area: violin;
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 .violin-chart {
