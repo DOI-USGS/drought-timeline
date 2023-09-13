@@ -478,7 +478,7 @@ export default {
           .range([0, this.overlayHeight]);
 
         // set y-axis offset
-        const yAxisOffset = this.mobileView ? 40: 45;
+        const yAxisOffset = this.mobileView ? 30: 45;
 
         // Set up linear scale for chart width
         const xScale = this.d3.scaleLinear()
