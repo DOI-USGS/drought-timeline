@@ -1232,7 +1232,6 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .droughtText {
   z-index: 10;
   font-weight: 400;
-  font-size: 2.0rem;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
@@ -1240,7 +1239,6 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .droughtText.mobile {
   z-index: 10;
   font-weight: 500;
-  font-size: 1.8rem;
   margin: 0 5vw 0 5vw;
   position: absolute;
 }
