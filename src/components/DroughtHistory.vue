@@ -5,7 +5,9 @@
         <h2>Five droughts that changed history</h2>
       </div>
       <div id="intro-container">
-        <p>
+        <p
+          v-if="!mobileView"
+        >
           The U.S. has experienced thousands of droughts that have caused water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
@@ -13,6 +15,17 @@
             href="https://dashboard.waterdata.usgs.gov/"
             target="_blank"
           >USGS Streamgage Network</a>) across the lower 48 states.
+        </p>
+        <p
+          v-if="mobileView"
+        >
+          The U.S. has experienced thousands of droughts. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+            href="https://doi.org/10.1002/joc.7904"
+            target="_blank"
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major droughts occurred at <a
+            href="https://dashboard.waterdata.usgs.gov/"
+            target="_blank"
+          >USGS streamgages</a> across the lower 48 states.
         </p>
       </div>
       <nav id="nav-button-container">
