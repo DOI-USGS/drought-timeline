@@ -97,7 +97,7 @@ export default {
         title: '1980s Drought (1987 - 1992)',
         start_date: '1990-10-31',
         end_date: '1994-10-31',
-        text: 'In the summer of 1988, streamflow in the Mississippi River was so low that barges could not go up and down the lower section of the river. That same summer, wildfires burned 36% of Yellowstone National Park, triggering the largest fire-fighting effort in the U.S. at that time. ',
+        text: 'In the summer of 1988, streamflow in the Mississippi River was so low that barges could not go up and down the lower section of the river. That same summer, wildfires burned 36% of Yellowstone National Park, triggering a large fire-fighting effort.',
         quote: 'The 1988 drought dramatically illustrates how quickly several years of excess precipitation can change to widespread drought.',
         quote_source: '<a href="https://files.dnr.state.mn.us/natural_resources/climate/summaries_and_publications/drought1988.pdf" target="_blank">Minnesota Department of Natural Resources, Division of Waters, 1989</a>',
         img_source: 'drought_period_stations_1987.png',
