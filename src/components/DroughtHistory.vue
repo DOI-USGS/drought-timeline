@@ -360,7 +360,7 @@ export default {
         // dimensions
         overlayWidth: null,
         overlayHeight: null,
-        overlayTopMargin: 2,
+        overlayTopMargin: 3,
         // source for regional map
         regionMapFilename: "casc_regions_map",
         regionDescriptions: regionDroughtDescriptions.regionDescriptions,
