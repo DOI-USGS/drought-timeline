@@ -159,7 +159,12 @@
       class="page-section"
     >
       <h3>Drought in Regions of the Conterminous U.S.</h3>
-      <p>Droughts happen in every region of the U.S. These charts show the same 2000 drought events as the national timeline above, but now they are shown by <a href="https://www.usgs.gov/programs/climate-adaptation-science-centers" target="_blank">Climate Adaptation Science Center</a> regions. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.</p>
+      <p>
+        Droughts happen in every region of the U.S. These charts show the same 2000 drought events as the national timeline above, but now they are shown by <a
+          href="https://www.usgs.gov/programs/climate-adaptation-science-centers"
+          target="_blank"
+        >Climate Adaptation Science Center</a> regions. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.
+      </p>
       <div id="region-grid-container">
         <cascMap
           v-if="mobileView"
