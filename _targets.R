@@ -21,7 +21,8 @@ tar_option_set(packages = c("retry",
                             'rmapshaper',
                             'grid',
                             'gridSVG',
-                            'sysfonts'))
+                            'sysfonts',
+                            'magick'))
 
 # Phase target makefiles
 source("0_config.R")
