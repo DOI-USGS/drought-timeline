@@ -1067,7 +1067,8 @@ $writeFont: 'Edu TAS Beginner', cursive;
   border-color: darkgrey;
   font-weight: bold;
   @media only screen  and (max-width: 800px){
-    border-color: white
+    background-color: darkgrey;
+    color: white;
   }
 }
 .scrollButton:focus {
@@ -1296,6 +1297,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .currentButton:hover {
   background-color: darkgrey;
   color: white;
+  @media screen and (max-width: 600px) {
+    background-color: black;
+  }
 }
 #filter-svg {
   width: 0;
