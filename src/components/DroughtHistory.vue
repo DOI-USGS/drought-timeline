@@ -1013,6 +1013,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
   max-width: 90vw;
   min-width: 90vw;
   @media screen and (max-width: 600px) {
+    padding: 0px 0 20px 0;
     grid-template-columns: 100%;
     grid-template-rows: max-content max-content max-content max-content max-content;
     grid-template-areas:
@@ -1029,6 +1030,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
 #intro-container {
   grid-area: intro;
   padding: 5px 0px 5px 5px;
+  @media screen and (max-width: 600px) {
+    padding: 1px 0px 0px 5px;
+  }
 }
 #nav-button-container {
   grid-area: buttons;
@@ -1037,6 +1041,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
   padding: 10px 0px 10px 0px;
   z-index: 20;
   background-color: white;
+  @media screen and (max-width: 600px) {
+    padding: 5px 0px 10px 0px;
+  }
 }
 .scrollButton {
   padding: 3px 6px 4px 5px;
