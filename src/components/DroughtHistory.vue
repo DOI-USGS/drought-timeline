@@ -167,7 +167,7 @@
           v-if="mobileView"
           id="chart-instructions"
         >
-          Click on the map to explore drought histories in each region
+          Tap on the map to explore drought histories in each region
         </p>
         <img
           v-if="!mobileView"
