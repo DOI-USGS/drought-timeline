@@ -1346,6 +1346,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
   display: flex;
   justify-content: start;
   align-items: center;
+  @media screen and (max-width: 600px) {
+    justify-content: center;
+  }
 }
 .violin-chart {
   transform: rotate(180deg);
