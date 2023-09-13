@@ -15,46 +15,82 @@ casc_viz_instagram <- function(file_out, drought_data, major_drought_periods,
     group_by(name) |>
     summarise(start_date = min(start))
   
-  # plot violin vertically
-  main_plot <- 
-    major_drought_periods |> 
-    ggplot(aes(y = start)) +
-    # drought events shaded
-    geom_ribbon(aes(ymin = start, ymax = end, x = xfill - 2,
-                    group = name),
-                fill = color_scheme$drought_period_shading, alpha = 0.7) +
-    # Manually add major drought labels
-    annotate(geom = "text",
-             label = major_drought_annotations$name,
-             x = rep(0.75, length(major_drought_annotations$name)),
-             y = major_drought_annotations$start_date,
-             size = 2.5, hjust = 0, vjust = 0,
-             family = supporting_font,
-             angle = 180) +
-    ggdist::geom_dots(data = drought_data, 
-                      aes(y = date, color = severity), 
-                      side = "both",
-                      layout = "weave")+
-    theme_nothing() + 
-    theme(axis.text.x = element_blank(),
-          axis.text.y = element_text(size = 6, 
-                                     color = color_scheme$annotation_grey, 
-                                     angle = 180,
-                                     family = supporting_font),
-          panel.grid.major.y = element_line(color = color_scheme$annotation_grey, 
-                                            linewidth = 0.2),
-          plot.title = element_text(size = 8, color = color_scheme$annotation_grey, 
-                                    angle = 180, family = supporting_font),
-          plot.margin = margin(t = 0, r = 0, b = 3, l = 0, unit = "pt")) +
-    scale_y_date(breaks = scales::date_breaks(width = '5 years'),
-                 labels = scales::date_format('%Y'), 
-                 limits = c(as.Date(timeline_start), 
-                            as.Date(timeline_end)),
-                 expand = c(0,0),
-                 position = 'right')+
-      scale_color_scico(palette = "lajolla", begin = 0.25, end = 1 , 
-                       direction = 1,
-                       breaks = c(5, 100, 200, 300))
+  # plot swarm vertically
+  p <- drought_data %>% 
+    ggplot()+
+      # drought events shaded
+      geom_ribbon(data = major_drought_periods,
+                  aes(ymin = start, ymax = end, x = xfill - 2,
+                      group = name),
+                  fill = color_scheme$drought_period_shading, alpha = 0.7) +
+    geom_tile(aes(y = (date + (duration/2)), x = rnum, 
+                  fill = duration, height = duration), width = 0.5)+ # tiles plot centered, so offset x by 1/2 of duration
+    scale_fill_scico(values = scaledBreaks, palette = "lajolla", begin = 0.25, end = 1 , 
+                     direction = 1,
+                     breaks = c(5, 100, 200, 300))+
+    theme_nothing() +
+      scale_y_date(breaks = scales::date_breaks(width = '5 years'),
+                   labels = scales::date_format('%Y'),
+                   limits = c(as.Date(timeline_start),
+                              as.Date(timeline_end)),
+                   expand = c(0,0),
+                   position = 'right')
+    
+  
+  # # To check line-up of scales on website, uncomment out lines 17-19, comment
+  #   # out line 21, and uncomment out line 22
+  #   #theme(axis.text.x = element_blank(),
+  #   #      axis.text.y = element_text(size = 14, color = 'blue', angle = 180),
+  #   #      panel.grid.major.y = element_line(color = 'blue', linetype = "dashed")) +
+  #   scale_y_date(breaks = scales::date_breaks(width = '1 years'),
+  #                labels = NULL,
+  #                #labels = scales::date_format('%Y'), # use to check line-up on website
+  #                limits = c(as.Date(min(drought_data$date)), as.Date(max(drought_data$date + drought_data$duration))),
+  #                expand = c(0,0),
+  #                position = 'right')
+  
+  
+  
+  # # plot violin vertically
+  # main_plot <- 
+  #   major_drought_periods |> 
+  #   ggplot(aes(y = start)) +
+  #   # drought events shaded
+  #   geom_ribbon(aes(ymin = start, ymax = end, x = xfill - 2,
+  #                   group = name),
+  #               fill = color_scheme$drought_period_shading, alpha = 0.7) +
+  #   # Manually add major drought labels
+  #   annotate(geom = "text",
+  #            label = major_drought_annotations$name,
+  #            x = rep(0.75, length(major_drought_annotations$name)),
+  #            y = major_drought_annotations$start_date,
+  #            size = 2.5, hjust = 0, vjust = 0,
+  #            family = supporting_font,
+  #            angle = 180) +
+  #   ggdist::geom_dots(data = drought_data, 
+  #                     aes(y = date, color = severity), 
+  #                     side = "both",
+  #                     layout = "weave")+
+  #   theme_nothing() + 
+  #   theme(axis.text.x = element_blank(),
+  #         axis.text.y = element_text(size = 6, 
+  #                                    color = color_scheme$annotation_grey, 
+  #                                    angle = 180,
+  #                                    family = supporting_font),
+  #         panel.grid.major.y = element_line(color = color_scheme$annotation_grey, 
+  #                                           linewidth = 0.2),
+  #         plot.title = element_text(size = 8, color = color_scheme$annotation_grey, 
+  #                                   angle = 180, family = supporting_font),
+  #         plot.margin = margin(t = 0, r = 0, b = 3, l = 0, unit = "pt")) +
+  #   scale_y_date(breaks = scales::date_breaks(width = '5 years'),
+  #                labels = scales::date_format('%Y'), 
+  #                limits = c(as.Date(timeline_start), 
+  #                           as.Date(timeline_end)),
+  #                expand = c(0,0),
+  #                position = 'right')+
+  #     scale_color_scico(palette = "lajolla", begin = 0.25, end = 1 , 
+  #                      direction = 1,
+  #                      breaks = c(5, 100, 200, 300))
   
   
   canvas <- grid::rectGrob(
@@ -71,7 +107,7 @@ casc_viz_instagram <- function(file_out, drought_data, major_drought_periods,
               height = 9, width = 9,
               hjust = 0, vjust = 1) +
     # the main plot
-    draw_plot(main_plot,
+    draw_plot(p,
               x = 0.5,
               y = 0.01,
               height = 1,

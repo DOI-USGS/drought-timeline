@@ -238,14 +238,15 @@ p3_targets <- list(
   # Creating CASC viz for social media
   tar_target(p3_instagram_CASCs_png,
              casc_viz_instagram(file_out = sprintf("3_visualize/out/instagram_release_%s.png", 
-                                                   gsub(' ', '-', unique(p2_expanded_2000_2pct_droughts_byCASC$CASC))),
-                                drought_data = p2_expanded_2000_2pct_droughts_byCASC,
+                                                   gsub(' ', '-', unique(p2_CASCs_pattern$CASC))),
+                                drought_data = p2_drought_swarm_compressed_byCASC |>
+                                  filter(CASC == unique(p2_CASCs_pattern$CASC)),
                                 major_drought_periods = p2_major_droughts_expanded_radial,
                                 # add these in manually so that the y-scale has 1920 and 2020 by 5 yrs
                                 timeline_start = "1920-01-01",
                                 timeline_end = "2020-12-31",
                                 supporting_font = p3_supporting_font,
                                 color_scheme = p3_colors),
-             pattern = map(p2_expanded_2000_2pct_droughts_byCASC),
+             pattern = map(p2_CASCs_pattern),
              format = "file")
 )
