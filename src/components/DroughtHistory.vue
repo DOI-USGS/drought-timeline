@@ -435,7 +435,9 @@ export default {
         const scrollLength =  scrollDistance/scrollSpeed;
         
         // scroll to position of specified drought
-        this.$gsap.to(window, {duration: scrollLength, scrollTo: {y: "#scrollStop-" + scrollDroughtYear, offsetY: 100}});
+        // set vertical scroll offset based on device and window height
+        const scrollOffset = this.mobileView ? window.innerHeight*0.47: window.innerHeight*0.6;
+        this.$gsap.to(window, {duration: scrollLength, scrollTo: {y: "#scrollStop-" + scrollDroughtYear, offsetY: scrollOffset}});
       },
       addOverlay() {
         const self = this;
