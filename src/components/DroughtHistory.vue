@@ -84,7 +84,7 @@
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
-          :key="narration.id"
+          :key="`quote-${narration.id}`"
           class="droughtQuote hidden"
         >
           <p v-html="narration.quote" />
@@ -126,7 +126,7 @@
             <img
               v-for="narration in narrations"
               :id="`inset-map-${narration.id}`"
-              :key="narration.id"
+              :key="`map-${narration.id}`"
               class="inset-map drought-specific hide"
               :src="require(`@/assets/images/${narration.img_source}`)"
               :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${narration.title} are highlighted in red`"
@@ -136,7 +136,7 @@
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
-          :key="narration.id"
+          :key="`title-${narration.id}`"
           class="droughtText droughtTitle hidden"
         >
           <p v-html="narration.title" />
@@ -144,14 +144,16 @@
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
-          :key="narration.id"
+          :key="`text-${narration.id}`"
           class="droughtText narration hidden"
         >
           <p v-html="narration.text" />
         </div>
       </div>
     </section>
-    <hr>
+    <hr
+      v-if="mobileView"
+    >
     <section
       id="region-container"
       class="page-section"
