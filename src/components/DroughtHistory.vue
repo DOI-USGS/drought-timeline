@@ -740,7 +740,7 @@ export default {
                 markers: false,
                 trigger: `#${scrollIDFull}`,
                 start: "top 67%",
-                end: 'bottom 67%',
+                end: 'bottom 50%',
                 toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
