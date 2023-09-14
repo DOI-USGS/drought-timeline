@@ -427,7 +427,10 @@ export default {
         // determine which year we are in on the timeline
         // currently, scroll trigger start and end set up so that there is always 1+ year 'inView'
         const currentYearElement = document.querySelector('.inView'); // pulls first element w/ class
-        let currentYear = currentYearElement.id.split('-')[1];
+        
+        // If a year element is in view, pull the year, otherwise we are past the end if
+        // the timeline and should just set the currrent year to 2020
+        let currentYear = currentYearElement ? currentYearElement.id.split('-')[1] : 2020;
 
         // determine which year should be scrolled to, based on selected drought
         const scrollButton = e.target;
