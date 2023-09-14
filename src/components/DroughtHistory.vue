@@ -5,7 +5,9 @@
         <h2>Five droughts that changed history</h2>
       </div>
       <div id="intro-container">
-        <p>
+        <p
+          v-if="!mobileView"
+        >
           The U.S. has experienced thousands of droughts that have caused water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
@@ -13,6 +15,17 @@
             href="https://dashboard.waterdata.usgs.gov/"
             target="_blank"
           >USGS Streamgage Network</a>) across the lower 48 states.
+        </p>
+        <p
+          v-if="mobileView"
+        >
+          The U.S. has experienced thousands of droughts. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+            href="https://doi.org/10.1002/joc.7904"
+            target="_blank"
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major droughts occurred at <a
+            href="https://dashboard.waterdata.usgs.gov/"
+            target="_blank"
+          >USGS streamgages</a> across the lower 48 states.
         </p>
       </div>
       <nav id="nav-button-container">
@@ -71,7 +84,7 @@
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
-          :key="narration.id"
+          :key="`quote-${narration.id}`"
           class="droughtQuote hidden"
         >
           <p v-html="narration.quote" />
@@ -113,7 +126,7 @@
             <img
               v-for="narration in narrations"
               :id="`inset-map-${narration.id}`"
-              :key="narration.id"
+              :key="`map-${narration.id}`"
               class="inset-map drought-specific hide"
               :src="require(`@/assets/images/${narration.img_source}`)"
               :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${narration.title} are highlighted in red`"
@@ -123,7 +136,7 @@
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
-          :key="narration.id"
+          :key="`title-${narration.id}`"
           class="droughtText droughtTitle hidden"
         >
           <p v-html="narration.title" />
@@ -131,20 +144,27 @@
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
-          :key="narration.id"
+          :key="`text-${narration.id}`"
           class="droughtText narration hidden"
         >
           <p v-html="narration.text" />
         </div>
       </div>
     </section>
-    <hr>
+    <hr
+      v-if="mobileView"
+    >
     <section
       id="region-container"
       class="page-section"
     >
       <h3>Drought in Regions of the Conterminous U.S.</h3>
-      <p>Droughts happen in every region of the U.S. These charts show the same 2000 drought events as the national timeline above, but now they are shown by region. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.</p>
+      <p>
+        Droughts happen in every region of the U.S. These charts show the same 2000 drought events as the national timeline above, but now they are shown by <a
+          href="https://www.usgs.gov/programs/climate-adaptation-science-centers"
+          target="_blank"
+        >Climate Adaptation Science Center</a> regions. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.
+      </p>
       <div id="region-grid-container">
         <cascMap
           v-if="mobileView"
@@ -154,7 +174,7 @@
           v-if="mobileView"
           id="chart-instructions"
         >
-          Click on the map to explore drought histories in each region
+          Tap on the map to explore drought histories in each region
         </p>
         <img
           v-if="!mobileView"
@@ -360,7 +380,7 @@ export default {
         // dimensions
         overlayWidth: null,
         overlayHeight: null,
-        overlayTopMargin: 2,
+        overlayTopMargin: 3,
         // source for regional map
         regionMapFilename: "casc_regions_map",
         regionDescriptions: regionDroughtDescriptions.regionDescriptions,
@@ -420,7 +440,9 @@ export default {
         const scrollLength =  scrollDistance/scrollSpeed;
         
         // scroll to position of specified drought
-        this.$gsap.to(window, {duration: scrollLength, scrollTo: {y: "#scrollStop-" + scrollDroughtYear, offsetY: 100}});
+        // set vertical scroll offset based on device and window height
+        const scrollOffset = this.mobileView ? window.innerHeight*0.47: window.innerHeight*0.6;
+        this.$gsap.to(window, {duration: scrollLength, scrollTo: {y: "#scrollStop-" + scrollDroughtYear, offsetY: scrollOffset}});
       },
       addOverlay() {
         const self = this;
@@ -448,7 +470,7 @@ export default {
         this.overlayWidth = window.innerWidth*0.65 //MUST MATCH max-width of grid, which controls chart image width
         this.overlayHeight = this.overlayWidth*10 //Based on image aspect ratio
         this.svgChartDynamic
-          .attr("viewBox", "0 0 " + this.overlayWidth + " " + this.overlayHeight)
+          .attr("viewBox", "0 0 " + this.overlayWidth + " " + (this.overlayHeight + this.overlayTopMargin))
           .attr("preserveAspectRatio", "xMidYMid meet")
           .attr("width", '100%')
 
@@ -465,7 +487,7 @@ export default {
           .range([0, this.overlayHeight]);
 
         // set y-axis offset
-        const yAxisOffset = this.mobileView ? 40: 45;
+        const yAxisOffset = this.mobileView ? 30: 45;
 
         // Set up linear scale for chart width
         const xScale = this.d3.scaleLinear()
@@ -627,7 +649,7 @@ export default {
                 markers: false,
                 trigger: `#${scrollIDFull}`,
                 start: "top 50%",
-                end: 'bottom 50%',
+                end: 'bottom 40%',
                 toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
@@ -723,7 +745,7 @@ export default {
                 markers: false,
                 trigger: `#${scrollIDFull}`,
                 start: "top 67%",
-                end: 'bottom 67%',
+                end: 'bottom 50%',
                 toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
@@ -1000,6 +1022,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
   max-width: 90vw;
   min-width: 90vw;
   @media screen and (max-width: 600px) {
+    padding: 0px 0 20px 0;
     grid-template-columns: 100%;
     grid-template-rows: max-content max-content max-content max-content max-content;
     grid-template-areas:
@@ -1016,6 +1039,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
 #intro-container {
   grid-area: intro;
   padding: 5px 0px 5px 5px;
+  @media screen and (max-width: 600px) {
+    padding: 1px 0px 0px 5px;
+  }
 }
 #nav-button-container {
   grid-area: buttons;
@@ -1024,6 +1050,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
   padding: 10px 0px 10px 0px;
   z-index: 20;
   background-color: white;
+  @media screen and (max-width: 600px) {
+    padding: 5px 0px 10px 0px;
+  }
 }
 .scrollButton {
   padding: 3px 6px 4px 5px;
@@ -1045,7 +1074,8 @@ $writeFont: 'Edu TAS Beginner', cursive;
   border-color: darkgrey;
   font-weight: bold;
   @media only screen  and (max-width: 800px){
-    border-color: white
+    background-color: darkgrey;
+    color: white;
   }
 }
 .scrollButton:focus {
@@ -1212,7 +1242,6 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .droughtText {
   z-index: 10;
   font-weight: 400;
-  font-size: 2.0rem;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
@@ -1220,7 +1249,6 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .droughtText.mobile {
   z-index: 10;
   font-weight: 500;
-  font-size: 1.8rem;
   margin: 0 5vw 0 5vw;
   position: absolute;
 }
@@ -1276,6 +1304,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .currentButton:hover {
   background-color: darkgrey;
   color: white;
+  @media screen and (max-width: 600px) {
+    background-color: black;
+  }
 }
 #filter-svg {
   width: 0;
@@ -1346,6 +1377,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
   display: flex;
   justify-content: start;
   align-items: center;
+  @media screen and (max-width: 600px) {
+    justify-content: center;
+  }
 }
 .violin-chart {
   transform: rotate(180deg);

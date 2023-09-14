@@ -125,6 +125,7 @@ h2{
   color: $textcolor;
   @media screen and (max-width: 600px) {
     font-size: 4rem;
+    line-height: 1.1;
   }
 }
 h3{
