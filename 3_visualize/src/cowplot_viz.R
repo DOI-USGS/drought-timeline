@@ -22,7 +22,9 @@ casc_viz_instagram <- function(file_out,
   swarm_flipped <- magick::image_read(swarm_pngs) |> 
     magick::image_rotate(180)
   
-  
+  # Load in map
+  map_image <- magick::image_read(sprintf("src/assets/images/states_regions_%s.png",
+                                          gsub(' ', '-', casc_name)))
   
   canvas <- grid::rectGrob(
     x = 0, y = 0, 
@@ -49,6 +51,32 @@ casc_viz_instagram <- function(file_out,
               x = 0.08,
               y = 0.15,
               height = 0.8) +
+    draw_image(map_image,
+               x = -0.31,
+               y = 0.1,
+               height = 0.2)+
+    # annotations
+    draw_label("Each bar is one\nstreamflow drought",
+               x = 0.25, y = 0.52,
+               fontfamily = fancy_font,
+               size = 18,
+               hjust = 0,
+               vjust = 0,
+               fontface = "bold",
+               color = text_color) +
+    draw_label("Darker bars =\nlonger droughts",
+               x = ifelse(casc_name %in% c("Southeast", "South Central"), 0.68, 0.66), 
+               y = ifelse(casc_name %in% c("Southeast", "South Central"), 0.35, 0.23),
+               fontfamily = fancy_font,
+               size = 18,
+               hjust = 0,
+               vjust = 0,
+               fontface = "bold",
+               color = text_color) +
+    # cowplot::draw_line(x = c(0.2, 0.3), # straight line
+    #                    y = c(0.5, 0.6))+
+    # cowplot::draw_line(x = c(0.1, 0.2), # arrow head
+    #                    y = c(0.1, 0.1))+
     # title
     draw_label("Explore 100 years of\nstreamflow drought\nin the",
                fontfamily = supporting_font,
@@ -190,9 +218,9 @@ casc_viz_instagram <- function(file_out,
                color = color_scheme$annotation_grey)+
     # Add logo
     draw_image(usgs_logo, 
-               x = 0.75,
+               x = 0.8,
                y = 0.05,
-               width = 0.2, 
+               width = 0.16, 
                hjust = 0, vjust = 0, 
                halign = 0, valign = 0)
 
@@ -245,6 +273,11 @@ casc_swarms <- function(file_out, drought_data, major_drought_periods,
                               as.Date(timeline_end)),
                    expand = c(0,0),
                    position = 'left')+
+    # geom_curve(aes(x = 40, y = as.Date("1972-01-01"),
+    #                xend = 21, yend = as.Date("1958-01-01")),
+    #            arrow = grid::arrow(length = unit(0.5, 'lines')), 
+    #            curvature = -0.3, angle = 100, ncp = 10,
+    #            color ='black')
       theme(axis.text.x = element_blank(),
             # axis.text.y = element_text(size = 14,
             #                            color = text_color,
