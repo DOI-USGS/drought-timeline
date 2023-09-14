@@ -1038,7 +1038,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 #intro-container {
   grid-area: intro;
-  padding: 5px 0px 5px 5px;
+  padding: 5px 0px 0px 5px;
   @media screen and (max-width: 600px) {
     padding: 1px 0px 0px 5px;
   }
@@ -1046,8 +1046,8 @@ $writeFont: 'Edu TAS Beginner', cursive;
 #nav-button-container {
   grid-area: buttons;
   position: sticky;
-  top: 15px;
-  padding: 10px 0px 10px 0px;
+  top: 0px;
+  padding: 15px 0px 10px 0px;
   z-index: 20;
   background-color: white;
   @media screen and (max-width: 600px) {
