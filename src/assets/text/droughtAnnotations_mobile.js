@@ -106,7 +106,7 @@ export default {
       {
         id: '1980s_2',
         date: '1990-02-15',
-        text: 'In the summer of 1988, streamflow in the Mississippi River was so low that barges could not go up and down the lower section of the river. That same summer, wildfires burned 36% of Yellowstone National Park, triggering a large fire-fighting effort.',
+        text: 'In the summer of 1988, streamflow in the Mississippi River was so low that barges could not go up and down the lower section of the river. That same summer, wildfires burned 36% of Yellowstone National Park, triggering the largest wildland fire-fighting effort in the U.S. up to that time.',
         mobile_x_offset_per: 80
       },
       {
