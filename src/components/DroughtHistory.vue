@@ -22,7 +22,7 @@
           The U.S. has a long history of droughts. But in the last 100 years, five periods of drought stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
-          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major droughts periods occurred at <a
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought periods occurred at <a
             href="https://dashboard.waterdata.usgs.gov/"
             target="_blank"
           >USGS streamgages</a> across the lower 48 states.
