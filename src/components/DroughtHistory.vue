@@ -428,7 +428,7 @@ export default {
         // currently, scroll trigger start and end set up so that there is always 1+ year 'inView'
         const currentYearElement = document.querySelector('.inView'); // pulls first element w/ class
         
-        // If a year element is in view, pull the year, otherwise we are past the end if
+        // If a year element is in view, pull the year, otherwise we are past the end of
         // the timeline and should just set the currrent year to 2020
         let currentYear = currentYearElement ? currentYearElement.id.split('-')[1] : 2020;
 
