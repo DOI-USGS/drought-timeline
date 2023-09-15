@@ -247,8 +247,7 @@
           <a
             href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
             target="_blank"
-          >What is Streamflow Drought?</a>
-          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow drought events in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all moderate, severe, extreme, or exceptional (<a
+          >What is Streamflow Drought?</a>). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow drought events in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all moderate, severe, extreme, or exceptional (<a
             href="https://droughtmonitor.unl.edu/"
             target="_blank"
           >U.S. Drought Monitor Map</a>). We excluded states and regions outside of the conterminous U.S. because of a lack of data.
