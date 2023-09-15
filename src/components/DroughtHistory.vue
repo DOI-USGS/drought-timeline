@@ -160,7 +160,7 @@
     >
       <h3>Drought in Regions of the Conterminous U.S.</h3>
       <p>
-        Droughts happen in every region of the U.S. These charts show the same 2000 drought events as the national timeline above, but now they are shown by <a
+        Droughts happen in every region of the U.S. These charts show the same 2,000 drought events as the national timeline above, but now they are shown by <a
           href="https://www.usgs.gov/programs/climate-adaptation-science-centers"
           target="_blank"
         >Climate Adaptation Science Center</a> regions. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.
@@ -262,7 +262,7 @@
           id="methods3"
           class="methods_text"
         >
-          Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
+          Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2,000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
             href="https://doi.org/10.1029/2022WR031930"
             target="_blank"
           >Hammond et al. 2022</a>).
