@@ -86,7 +86,7 @@ export default {
       {
         id: '1970s_1', // Unique id for annotation - order and # value don't matter - annotations are later sorted by start_date
         date: '1976-03-01', // Date marking start of annotation. Determines y trigger start position on deskop and order
-        text: 'The 1976-1977 drought was short, so it is not considered one of the five major drought events in the last 100 years. But this two-year drought caused agricultural losses and hydropower shortages across much of the western U.S.', // Narrative text
+        text: 'The 1976-1977 drought was short, so it is not considered one of the five major drought periods in the last 100 years. But this two-year drought caused agricultural losses and hydropower shortages across much of the western U.S.', // Narrative text
         quote: false,
         mobile_x_offset_per: 35
       },
@@ -112,13 +112,13 @@ export default {
       {
         id: 'turn_of_century_1',
         date: '2000-03-15',
-        text: 'Turn-of-the-Century Drought: The turn-of-the-century drought is one of the worst droughts to hit the southwestern U.S. in the last 1,200 years. Like previous droughts, low amounts of rain led to big drops in available water, but high temperatures drove the loss of soil moisture during this most recent drought (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>).',
+        text: 'Turn-of-the-Century Drought: The turn-of-the-century drought was one of the worst drought periods to hit the southwestern U.S. in the last 1,200 years. Like previous droughts, low amounts of rain led to big drops in available water, but high temperatures drove the loss of soil moisture during this most recent drought (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>).',
         mobile_x_offset_per: 25
       },
       {
         id: 'turn_of_century_2',
         date: '2011-07-01',
-        text: 'The national-level drought event ended in 2015, but the turn-of-the-century drought in the southwestern U.S. has continued. The USGS is working with partners to understand this ongoing drought and to predict and communicate drought risk (<a href="https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought" target="_blank">Video of drought at Lake Powell</a>).',
+        text: 'The national-level drought period ended in 2015, but the turn-of-the-century drought in the southwestern U.S. has continued. The USGS is working with partners to understand this ongoing drought and to predict and communicate drought risk (<a href="https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought" target="_blank">Video of drought at Lake Powell</a>).',
         mobile_x_offset_per: 85
       }
     ]
