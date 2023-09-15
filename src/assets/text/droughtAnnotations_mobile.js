@@ -117,9 +117,9 @@ export default {
       },
       {
         id: 'turn_of_century_2',
-        date: '2007-01-01',
+        date: '2011-07-01',
         text: 'The national-level drought event ended in 2015, but the turn-of-the-century drought in the southwestern U.S. has continued. The USGS is working with partners to understand this ongoing drought and to predict and communicate drought risk (<a href="https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought" target="_blank">Video of drought at Lake Powell</a>).',
-        mobile_x_offset_per: 70
+        mobile_x_offset_per: 85
       }
     ]
 };
