@@ -23,10 +23,10 @@ export default {
       },
       {
         id: 'quote1980s',
-        date: '1992-08-10',
+        date: '1990-02-15',
         text: '"The 1988 drought dramatically illustrates how quickly several years of excess precipitation can change to widespread drought.” - <a href="https://files.dnr.state.mn.us/natural_resources/climate/summaries_and_publications/drought1988.pdf" target="_blank">Minnesota Department of Natural Resources, Division of Waters, 1989</a>',
         quote: true,
-        mobile_x_offset_per: 70
+        mobile_x_offset_per: 80
       },
       {
         id: 'quoteTOC',
@@ -100,14 +100,14 @@ export default {
       {
         id: '1980s_1',
         date: '1987-09-15',
-        text: '1980s Drought: The 1980s drought affected areas from northern Minnesota to southern California. A study in 1989 called for better climate data and predictions to help people prepare for and respond to drought (<a href="https://doi.org/10.1175/1520-0477(1989)070%3C1092:TDBAD%3E2.0.CO;2" target="_blank">Changnon 1989</a>). To this day, USGS scientists are working hard to address that need (<a href="https://www.usgs.gov/mission-areas/water-resources/science/drought-prediction-science" target="_blank">Drought Prediction Science Website</a>).',
+        text: '1980s Drought: The 1980s drought affected areas from northern Minnesota to southern California. In the summer of 1988, streamflow in the Mississippi River was so low that barges could not go up and down the lower section of the river. That same summer, wildfires burned 36% of Yellowstone National Park, triggering the largest wildland fire-fighting effort in the U.S. up to that time.',
         mobile_x_offset_per: 27
       },
       {
         id: '1980s_2',
-        date: '1990-02-15',
-        text: 'In the summer of 1988, streamflow in the Mississippi River was so low that barges could not go up and down the lower section of the river. That same summer, wildfires burned 36% of Yellowstone National Park, triggering the largest wildland fire-fighting effort in the U.S. up to that time.',
-        mobile_x_offset_per: 80
+        date: '1992-08-10',
+        text: 'A study in 1989 called for better climate data and predictions to help people prepare for and respond to drought (<a href="https://doi.org/10.1175/1520-0477(1989)070%3C1092:TDBAD%3E2.0.CO;2" target="_blank">Changnon 1989</a>). To this day, USGS scientists are working hard to address that need (<a href="https://www.usgs.gov/mission-areas/water-resources/science/drought-prediction-science" target="_blank">Drought Prediction Science Website</a>).',
+        mobile_x_offset_per: 70
       },
       {
         id: 'turn_of_century_1',
