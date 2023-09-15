@@ -50,13 +50,13 @@ export default {
       {
         id: 'dustbowl_1',
         date: '1930-03-01',
-        text: 'Dust Bowl: Drought hit much of the U.S. in the 1930s, bringing great hardship to the farmers and ranchers of the Great Plains. Not enough rain combined with too much farming and grazing made the top layer of soil loose and dry. Heavy winds blew the dry soil into massive dust storms, which is why we call this period in history the “dust bowl.”',
+        text: 'Dust Bowl: Drought hit much of the U.S. in the 1930s, bringing hardship to the farmers and ranchers of the Great Plains. Not enough rain combined with too much farming and grazing made the top layer of soil loose and dry. Heavy winds blew the dry soil into massive dust storms, which is why we call this period in history the “Dust Bowl.”',
         mobile_x_offset_per: 24
       },
       {
         id: 'dustbowl_2',
         date: '1940-06-01',
-        text: 'The Dust Bowl Drought ended in 1941, but the lessons learned from the dust bowl continue to shape the farming and grazing practices we use today. Because USGS did not have many streamgages on the landscape during the Dust Bowl, we do not have as a good record of how widespread streamflow drought was at this time.',
+        text: 'The Dust Bowl Drought ended in 1941, but the lessons learned from the Dust Bowl continue to shape the farming and grazing practices we use today. Because USGS did not have many streamgages on the landscape during the Dust Bowl, we do not have a strong record of how widespread streamflow drought was at this time.',
         mobile_x_offset_per: 24
       },
       {
@@ -68,7 +68,7 @@ export default {
       {
         id: '1950s_2',
         date: '1958-04-01',
-        text: 'The lessons learned from the dust bowl helped people prepare for and respond to the 1950s drought, but farmers and ranchers still experienced great hardship, especially in already dry areas like Texas. Texas developed its modern approach to water planning because of how badly the 1950s drought hurt its rural communities.',
+        text: 'The lessons learned from the Dust Bowl helped people prepare for and respond to the 1950s drought, but farmers and ranchers still experienced hardship, especially in already dry areas like Texas. Texas developed its modern approach to water planning because of how badly the 1950s drought hurt its rural communities.',
         mobile_x_offset_per: 58
       } ,
       {
