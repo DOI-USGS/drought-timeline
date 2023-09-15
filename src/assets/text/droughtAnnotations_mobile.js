@@ -3,7 +3,7 @@ export default {
       {
         id: 'quote_dustbowl', // Unique id for annotation - order and # value don't matter - annotations are later sorted by date
         date: '1934-06-01', // Date marking start of annotation. Determines y placement on mobile AND scroll order for annotations on mobile
-        text: '"Dust to eat, and dust to breathe and dust to drink. Dust in the beds and in the flour bin, on dishes and walls and windows, in hair and eyes and ears and teeth and throats, to say nothing of the heaped up accumulation on floors and window sills after one of the bad days.” - <a href="https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/" target="_blank">Letter from Caroline Henderson to Secretary of Agriculture Henry A. Wallace, 1935"</a>', // Text of annotation
+        text: '"Dust to eat, and dust to breathe and dust to drink. Dust in the beds and in the flour bin, on dishes and walls and windows, in hair and eyes and ears and teeth and throats, to say nothing of the heaped up accumulation on floors and window sills after one of the bad days.” - <a href="https://americanexperience.si.edu/historical-eras/the-great-depression-wwii/pair-dust-bowl-valley-farms/" target="_blank">Letter from Caroline Henderson to Secretary of Agriculture Henry A. Wallace, 1935</a>', // Text of annotation
         quote: true, // required for quote, for styling
         mobile_x_offset_per: 70 // x placement of circle on mobile, as percent of chart width (0 = left edge, 100 = right edge)
       },
@@ -23,10 +23,10 @@ export default {
       },
       {
         id: 'quote1980s',
-        date: '1992-08-10',
+        date: '1990-02-15',
         text: '"The 1988 drought dramatically illustrates how quickly several years of excess precipitation can change to widespread drought.” - <a href="https://files.dnr.state.mn.us/natural_resources/climate/summaries_and_publications/drought1988.pdf" target="_blank">Minnesota Department of Natural Resources, Division of Waters, 1989</a>',
         quote: true,
-        mobile_x_offset_per: 70
+        mobile_x_offset_per: 80
       },
       {
         id: 'quoteTOC',
@@ -50,13 +50,13 @@ export default {
       {
         id: 'dustbowl_1',
         date: '1930-03-01',
-        text: 'Dust Bowl: Drought hit much of the U.S. in the 1930s, bringing great hardship to the farmers and ranchers of the Great Plains. Not enough rain combined with too much farming and grazing made the top layer of soil loose and dry. Heavy winds blew the dry soil into massive dust storms, which is why we call this period in history the “dust bowl.”',
+        text: 'Dust Bowl: Drought hit much of the U.S. in the 1930s, bringing hardship to the farmers and ranchers of the Great Plains. Not enough rain combined with too much farming and grazing made the top layer of soil loose and dry. Heavy winds blew the dry soil into massive dust storms, which is why we call this period in history the “Dust Bowl.”',
         mobile_x_offset_per: 24
       },
       {
         id: 'dustbowl_2',
         date: '1940-06-01',
-        text: 'The Dust Bowl Drought ended in 1941, but the lessons learned from the dust bowl continue to shape the farming and grazing practices we use today. Because USGS did not have many streamgages on the landscape during the Dust Bowl, we do not have as a good record of how widespread streamflow drought was at this time.',
+        text: 'The Dust Bowl Drought ended in 1941, but the lessons learned from the Dust Bowl continue to shape the farming and grazing practices we use today. Because USGS did not have many streamgages on the landscape during the Dust Bowl, we do not have a strong record of how widespread streamflow drought was at this time.',
         mobile_x_offset_per: 24
       },
       {
@@ -68,7 +68,7 @@ export default {
       {
         id: '1950s_2',
         date: '1958-04-01',
-        text: 'The lessons learned from the dust bowl helped people prepare for and respond to the 1950s drought, but farmers and ranchers still experienced great hardship, especially in already dry areas like Texas. Texas developed its modern approach to water planning because of how badly the 1950s drought hurt its rural communities.',
+        text: 'The lessons learned from the Dust Bowl helped people prepare for and respond to the 1950s drought, but farmers and ranchers still experienced hardship, especially in already dry areas like Texas. Texas developed its modern approach to water planning because of how badly the 1950s drought hurt its rural communities.',
         mobile_x_offset_per: 58
       } ,
       {
@@ -100,26 +100,26 @@ export default {
       {
         id: '1980s_1',
         date: '1987-09-15',
-        text: '1980s Drought: The 1980s drought affected areas from northern Minnesota to southern California. A study in 1989 called for better climate data and predictions to help people prepare for and respond to drought (<a href="https://doi.org/10.1175/1520-0477(1989)070%3C1092:TDBAD%3E2.0.CO;2" target="_blank">Changnon 1989</a>). To this day, USGS scientists are working hard to address that need (<a href="https://www.usgs.gov/mission-areas/water-resources/science/drought-prediction-science" target="_blank">Drought Prediction Science Website</a>).',
+        text: '1980s Drought: The 1980s drought affected areas from northern Minnesota to southern California. In the summer of 1988, streamflow in the Mississippi River was so low that barges could not go up and down the lower section of the river. That same summer, wildfires burned 36% of Yellowstone National Park, triggering the largest wildland fire-fighting effort in the U.S. up to that time.',
         mobile_x_offset_per: 27
       },
       {
         id: '1980s_2',
-        date: '1990-02-15',
-        text: 'In the summer of 1988, streamflow in the Mississippi River was so low that barges could not go up and down the lower section of the river. That same summer, wildfires burned 36% of Yellowstone National Park, triggering the largest wildland fire-fighting effort in the U.S. up to that time.',
-        mobile_x_offset_per: 80
+        date: '1992-08-10',
+        text: 'A study in 1989 called for better climate data and predictions to help people prepare for and respond to drought (<a href="https://doi.org/10.1175/1520-0477(1989)070%3C1092:TDBAD%3E2.0.CO;2" target="_blank">Changnon 1989</a>). To this day, USGS scientists are working hard to address that need (<a href="https://www.usgs.gov/mission-areas/water-resources/science/drought-prediction-science" target="_blank">Drought Prediction Science Website</a>).',
+        mobile_x_offset_per: 70
       },
       {
         id: 'turn_of_century_1',
         date: '2000-03-15',
-        text: 'Turn-of-the-Century Drought: The turn-of-the-century drought is one of the worst droughts to hit the southwestern U.S. in the last 1200 years. Like previous droughts, low amounts of rain led to big drops in available water, but high temperatures drove the loss of soil moisture during this most recent drought (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>).',
+        text: 'Turn-of-the-Century Drought: The turn-of-the-century drought is one of the worst droughts to hit the southwestern U.S. in the last 1,200 years. Like previous droughts, low amounts of rain led to big drops in available water, but high temperatures drove the loss of soil moisture during this most recent drought (<a href="https://doi.org/10.1002/joc.7904" target="_blank">McCabe et al. 2022</a>).',
         mobile_x_offset_per: 25
       },
       {
         id: 'turn_of_century_2',
-        date: '2007-01-01',
+        date: '2011-07-01',
         text: 'The national-level drought event ended in 2015, but the turn-of-the-century drought in the southwestern U.S. has continued. The USGS is working with partners to understand this ongoing drought and to predict and communicate drought risk (<a href="https://www.usgs.gov/media/videos/image-week-lake-powell-and-megadrought" target="_blank">Video of drought at Lake Powell</a>).',
-        mobile_x_offset_per: 70
+        mobile_x_offset_per: 85
       }
     ]
 };

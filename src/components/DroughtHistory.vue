@@ -160,7 +160,7 @@
     >
       <h3>Drought in Regions of the Conterminous U.S.</h3>
       <p>
-        Droughts happen in every region of the U.S. These charts show the same 2000 drought events as the national timeline above, but now they are shown by <a
+        Droughts happen in every region of the U.S. These charts show the same 2,000 drought events as the national timeline above, but now they are shown by <a
           href="https://www.usgs.gov/programs/climate-adaptation-science-centers"
           target="_blank"
         >Climate Adaptation Science Center</a> regions. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.
@@ -262,7 +262,7 @@
           id="methods3"
           class="methods_text"
         >
-          Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
+          Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2,000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
             href="https://doi.org/10.1029/2022WR031930"
             target="_blank"
           >Hammond et al. 2022</a>).
@@ -427,7 +427,10 @@ export default {
         // determine which year we are in on the timeline
         // currently, scroll trigger start and end set up so that there is always 1+ year 'inView'
         const currentYearElement = document.querySelector('.inView'); // pulls first element w/ class
-        let currentYear = currentYearElement.id.split('-')[1];
+        
+        // If a year element is in view, pull the year, otherwise we are past the end of
+        // the timeline and should just set the currrent year to 2020
+        let currentYear = currentYearElement ? currentYearElement.id.split('-')[1] : 2020;
 
         // determine which year should be scrolled to, based on selected drought
         const scrollButton = e.target;
@@ -1038,7 +1041,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 #intro-container {
   grid-area: intro;
-  padding: 5px 0px 5px 5px;
+  padding: 5px 0px 0px 5px;
   @media screen and (max-width: 600px) {
     padding: 1px 0px 0px 5px;
   }
@@ -1046,8 +1049,8 @@ $writeFont: 'Edu TAS Beginner', cursive;
 #nav-button-container {
   grid-area: buttons;
   position: sticky;
-  top: 15px;
-  padding: 10px 0px 10px 0px;
+  top: 0px;
+  padding: 15px 0px 10px 0px;
   z-index: 20;
   background-color: white;
   @media screen and (max-width: 600px) {
