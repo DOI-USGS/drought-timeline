@@ -8,10 +8,10 @@
         <p
           v-if="!mobileView"
         >
-          The U.S. has experienced thousands of droughts that have caused water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+          The U.S. has a long history of droughts that have caused water-related problems for humans and ecosystems. But in the last 100 years, five periods of drought stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
-          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred at USGS streamgages (<a
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought periods occurred at USGS streamgages (<a
             href="https://dashboard.waterdata.usgs.gov/"
             target="_blank"
           >USGS Streamgage Network</a>) across the lower 48 states.
@@ -19,10 +19,10 @@
         <p
           v-if="mobileView"
         >
-          The U.S. has experienced thousands of droughts. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+          The U.S. has a long history of droughts. But in the last 100 years, five periods of drought stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
-          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major droughts occurred at <a
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major droughts periods occurred at <a
             href="https://dashboard.waterdata.usgs.gov/"
             target="_blank"
           >USGS streamgages</a> across the lower 48 states.
@@ -160,7 +160,7 @@
     >
       <h3>Drought in Regions of the Conterminous U.S.</h3>
       <p>
-        Droughts happen in every region of the U.S. These charts show the same 2,000 drought events as the national timeline above, but now they are shown by <a
+        Droughts happen in every region of the U.S. These charts show the same 2,000 streamflow drought events as the national timeline above, but now they are shown by <a
           href="https://www.usgs.gov/programs/climate-adaptation-science-centers"
           target="_blank"
         >Climate Adaptation Science Center</a> regions. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.
@@ -248,7 +248,7 @@
             href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
             target="_blank"
           >What is Streamflow Drought?</a>
-          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all moderate, severe, extreme, or exceptional (<a
+          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow drought events in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all moderate, severe, extreme, or exceptional (<a
             href="https://droughtmonitor.unl.edu/"
             target="_blank"
           >U.S. Drought Monitor Map</a>). We excluded states and regions outside of the conterminous U.S. because of a lack of data.
@@ -262,7 +262,7 @@
           id="methods3"
           class="methods_text"
         >
-          Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2,000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
+          Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2,000 most severe streamflow drought events to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
             href="https://doi.org/10.1029/2022WR031930"
             target="_blank"
           >Hammond et al. 2022</a>).
