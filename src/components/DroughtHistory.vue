@@ -315,7 +315,7 @@
         >Cee Nell</a> and <a
           href="https://www.usgs.gov/staff-profiles/elmera-azadpour"
           target="_blank"
-        >Elmera Adazpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
+        >Elmera Azadpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
           href="https://www.usgs.gov/staff-profiles/amanda-carr"
           target="_blank"
         >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a
