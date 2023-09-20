@@ -260,7 +260,7 @@ p3_targets <- list(
              pattern = map(p2_CASCs_pattern),
              format = "file"),
   tar_target(p3_instagram_CASCs_png,
-             casc_viz_instagram(file_out = sprintf("3_visualize/out/instagram_release_%s.png", 
+             casc_viz_instagram(file_out = sprintf("3_visualize/out/drought_timeline_release_%s.png", 
                                                    gsub(' ', '-', unique(p2_CASCs_pattern$CASC))),
                                 casc_name = unique(p2_CASCs_pattern$CASC),
                                 swarm_pngs = p3_CASC_swarms_png,

@@ -53,22 +53,22 @@ casc_viz_instagram <- function(file_out,
               height = 0.8) +
     draw_image(map_image,
                x = -0.31,
-               y = 0.1,
+               y = 0.13,
                height = 0.2)+
     # annotations
     draw_label("Each bar is one\nstreamflow drought",
-               x = 0.25, y = 0.525,
+               x = 0.05, y = 0.61,
                fontfamily = fancy_font,
-               size = 18,
+               size = 22,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
                color = text_color) +
     draw_label("Darker bars =\nlonger droughts",
-               x = ifelse(casc_name %in% c("Southeast", "South Central"), 0.68, 0.66), 
-               y = ifelse(casc_name %in% c("Southeast", "South Central"), 0.35, 0.23),
+               x = 0.05, 
+               y = 0.46,
                fontfamily = fancy_font,
-               size = 18,
+               size = 22,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
@@ -95,7 +95,7 @@ casc_viz_instagram <- function(file_out,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$drought_event_highlight)+
+               color = color_scheme$drought_event_dark)+
     draw_label("United States",
                fontfamily = supporting_font,
                x = 0.05,
@@ -106,12 +106,12 @@ casc_viz_instagram <- function(file_out,
                fontface = "bold",
                color = text_color)+
     # explainer text
-    draw_label(sprintf("1000 of the most severe streamflow droughts \nat USGS gages in the %s from 1920-2020.",
+    draw_label(sprintf("The 1000 most severe streamflow droughts at USGS\ngages in the %s from 1920-2020. See more at:\nlabs.waterdata.usgs.gov/visualizations/drought-timeline",
                        casc_name),
                fontfamily = supporting_font,
                x = 0.05,   
                y = 0.05,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
@@ -121,101 +121,101 @@ casc_viz_instagram <- function(file_out,
                x = 0.9,
                y = 0.938,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     draw_label("1930",
                x = 0.9,
                y = 0.938-gap,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     draw_label("1940",
                x = 0.9,
                y = 0.938-2*gap,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     draw_label("1950",
                x = 0.9,
                y = 0.938-3*gap,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     draw_label("1960",
                x = 0.9,
                y = 0.938-4*gap,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     draw_label("1970",
                x = 0.9,
                y = 0.938-5*gap,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     draw_label("1980",
                x = 0.9,
                y = 0.938-6*gap,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     draw_label("1990",
                x = 0.9,
                y = 0.938-7*gap,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     draw_label("2000",
                x = 0.9,
                y = 0.938-8*gap,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     draw_label("2010",
                x = 0.9,
                y = 0.938-9*gap,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     draw_label("2020",
                x = 0.9,
                y = 0.938-10*gap,
                fontfamily = supporting_font,
-               size = 18,
+               size = 17,
                hjust = 0,
                vjust = 0,
                fontface = "bold",
-               color = color_scheme$annotation_grey)+
+               color = text_color)+
     # Add logo
     draw_image(usgs_logo, 
                x = 0.8,
@@ -250,108 +250,26 @@ casc_swarms <- function(file_out, drought_data, major_drought_periods,
   # plot swarm vertically
   p <- drought_data %>% 
     ggplot()+
-    # drought events shaded
-    # geom_ribbon(data = major_drought_periods,
-    #             aes(ymin = start, ymax = end, x = (xfill - 2)*50,
-    #                 group = name),
-    #             fill = color_scheme$drought_period_shading, alpha = 0.7) +
     geom_tile(aes(y = (date + (duration/2)), x = rnum, 
                   fill = duration, height = duration), width = 0.5)+ # tiles plot centered, so offset x by 1/2 of duration
     scale_fill_scico(values = scaledBreaks, palette = "lajolla", begin = 0.25, end = 1 , 
                      direction = 1,
                      breaks = c(5, 100, 200, 300))+
     theme_nothing() +
-    # scale_y_date(breaks = scales::date_breaks(width = '5 years'),
-    #              labels = scales::date_format('%Y'),
-    #              limits = c(as.Date(timeline_start),
-    #                         as.Date(timeline_end)),
-    #              expand = c(0,0),
-    #              position = 'right')+
       scale_y_date(breaks = scales::date_breaks(width = '10 years'),
                    labels = scales::date_format('%Y'),
                    limits = c(as.Date(timeline_start),
                               as.Date(timeline_end)),
                    expand = c(0,0),
                    position = 'left')+
-    # geom_curve(aes(x = 40, y = as.Date("1972-01-01"),
-    #                xend = 21, yend = as.Date("1958-01-01")),
-    #            arrow = grid::arrow(length = unit(0.5, 'lines')), 
-    #            curvature = -0.3, angle = 100, ncp = 10,
-    #            color ='black')
       theme(axis.text.x = element_blank(),
-            # axis.text.y = element_text(size = 14,
-            #                            color = text_color,
-            #                            angle = 180,
-            #                            family = supporting_font),
             axis.text.y = element_blank(),
             panel.grid.major.y = element_line(color = color_scheme$annotation_grey,
                                               linewidth = 0.2),
             plot.title = element_text(size = 8, color = color_scheme$annotation_grey,
                                       angle = 0, family = supporting_font),
             plot.margin = margin(t = 0, r = 0, b = 3, l = 0, unit = "pt"))
-      # annotate(geom = "text",
-      #          label = major_drought_annotations$name,
-      #          x = rep(0.75, length(major_drought_annotations$name)),
-      #          y = major_drought_annotations$start_date,
-      #          size = 2.5, hjust = 0, vjust = 0,
-      #          family = supporting_font,
-      #          angle = 180)
-  
-  
-  # # To check line-up of scales on website, uncomment out lines 17-19, comment
-  #   # out line 21, and uncomment out line 22
-  #   #theme(axis.text.x = element_blank(),
-  #   #      axis.text.y = element_text(size = 14, color = 'blue', angle = 180),
-  #   #      panel.grid.major.y = element_line(color = 'blue', linetype = "dashed")) +
-  #   scale_y_date(breaks = scales::date_breaks(width = '1 years'),
-  #                labels = NULL,
-  #                #labels = scales::date_format('%Y'), # use to check line-up on website
-  #                limits = c(as.Date(min(drought_data$date)), as.Date(max(drought_data$date + drought_data$duration))),
-  #                expand = c(0,0),
-  #                position = 'right')
-  
-  
-  
-  # # plot violin vertically
-  # main_plot <- 
-  #   major_drought_periods |> 
-  #   ggplot(aes(y = start)) +
-  #   # drought events shaded
-  #   geom_ribbon(aes(ymin = start, ymax = end, x = xfill - 2,
-  #                   group = name),
-  #               fill = color_scheme$drought_period_shading, alpha = 0.7) +
-  #   # Manually add major drought labels
-  #   annotate(geom = "text",
-  #            label = major_drought_annotations$name,
-  #            x = rep(0.75, length(major_drought_annotations$name)),
-  #            y = major_drought_annotations$start_date,
-  #            size = 2.5, hjust = 0, vjust = 0,
-  #            family = supporting_font,
-  #            angle = 180) +
-  #   ggdist::geom_dots(data = drought_data, 
-  #                     aes(y = date, color = severity), 
-  #                     side = "both",
-  #                     layout = "weave")+
-  #   theme_nothing() + 
-  #   theme(axis.text.x = element_blank(),
-  #         axis.text.y = element_text(size = 6, 
-  #                                    color = color_scheme$annotation_grey, 
-  #                                    angle = 180,
-  #                                    family = supporting_font),
-  #         panel.grid.major.y = element_line(color = color_scheme$annotation_grey, 
-  #                                           linewidth = 0.2),
-  #         plot.title = element_text(size = 8, color = color_scheme$annotation_grey, 
-  #                                   angle = 180, family = supporting_font),
-  #         plot.margin = margin(t = 0, r = 0, b = 3, l = 0, unit = "pt")) +
-  #   scale_y_date(breaks = scales::date_breaks(width = '5 years'),
-  #                labels = scales::date_format('%Y'), 
-  #                limits = c(as.Date(timeline_start), 
-  #                           as.Date(timeline_end)),
-  #                expand = c(0,0),
-  #                position = 'right')+
-  #     scale_color_scico(palette = "lajolla", begin = 0.25, end = 1 , 
-  #                      direction = 1,
-  #                      breaks = c(5, 100, 200, 300))
+
   
   
   
