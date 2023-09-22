@@ -4,7 +4,7 @@
     "organization": "U.S. Geological Survey",
     "description": "A history of hydrological drought in the U.S.",
     "version": "main",
-    "status": "Development",
+    "status": "Production",
     "permissions": {
       "usageType": "openSource",
       "licenses": [
@@ -19,7 +19,7 @@
     "disclaimerURL": "https://github.com/USGS-VIZLAB/drought-timeline/blob/main/DISCLAIMER.md",
     "repositoryURL": "https://github.com/USGS-VIZLAB/drought-timeline.git",
     "vcs": "git",
-    "laborHours": 50,
+    "laborHours": 70,
     "tags": [
       "R",
       "USGS"
@@ -34,7 +34,7 @@
       "email": "aaarcher@usgs.gov"
     },
     "date": {
-      "metadataLastUpdated": "2023-05-25"
+      "metadataLastUpdated": "2023-09-22"
     }
   }
 ]
