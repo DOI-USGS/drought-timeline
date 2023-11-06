@@ -7,6 +7,7 @@ _targets
 */out/*
 !*/out/CONUS_1951_2020/
 */out/CONUS_1951_2020/*
+*dist/
 
 # Eventually ignore images (can build locally with R and then put on S3)
 # for now, commit them.

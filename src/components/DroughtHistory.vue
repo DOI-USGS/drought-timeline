@@ -5,14 +5,27 @@
         <h2>Five droughts that changed history</h2>
       </div>
       <div id="intro-container">
-        <p>
-          The U.S. has experienced thousands of droughts that can cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow (<a
+        <p
+          v-if="!mobileView"
+        >
+          The U.S. has a long history of droughts that have caused water-related problems for humans and ecosystems. But in the last 100 years, five periods of drought stand out in their effects on agriculture, wildfires, and streamflow (<a
             href="https://doi.org/10.1002/joc.7904"
             target="_blank"
-          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought events occurred at USGS streamgages (<a
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought periods occurred at USGS streamgages (<a
             href="https://dashboard.waterdata.usgs.gov/"
             target="_blank"
           >USGS Streamgage Network</a>) across the lower 48 states.
+        </p>
+        <p
+          v-if="mobileView"
+        >
+          The U.S. has a long history of droughts. But in the last 100 years, five periods of drought stand out in their effects on agriculture, wildfires, and streamflow (<a
+            href="https://doi.org/10.1002/joc.7904"
+            target="_blank"
+          >McCabe et al. 2022</a>). Scroll through the timeline to see when and where these major drought periods occurred at <a
+            href="https://dashboard.waterdata.usgs.gov/"
+            target="_blank"
+          >USGS streamgages</a> across the lower 48 states.
         </p>
       </div>
       <nav id="nav-button-container">
@@ -33,6 +46,7 @@
           id="swarm_vertical"
           src="@/assets/images/duration-chart/swarm_jd7d_2pct_compressed_vertical.png"
           alt=""
+          :style="{ margin: `${overlayTopMargin}px 0px 0px 0px` }"
         >
       </div>
       <div 
@@ -70,7 +84,7 @@
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
-          :key="narration.id"
+          :key="`quote-${narration.id}`"
           class="droughtQuote hidden"
         >
           <p v-html="narration.quote" />
@@ -112,7 +126,7 @@
             <img
               v-for="narration in narrations"
               :id="`inset-map-${narration.id}`"
-              :key="narration.id"
+              :key="`map-${narration.id}`"
               class="inset-map drought-specific hide"
               :src="require(`@/assets/images/${narration.img_source}`)"
               :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${narration.title} are highlighted in red`"
@@ -122,7 +136,7 @@
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
-          :key="narration.id"
+          :key="`title-${narration.id}`"
           class="droughtText droughtTitle hidden"
         >
           <p v-html="narration.title" />
@@ -130,20 +144,27 @@
         <div
           v-for="narration in narrations" 
           :id="`drought-text-${narration.id}`"
-          :key="narration.id"
+          :key="`text-${narration.id}`"
           class="droughtText narration hidden"
         >
           <p v-html="narration.text" />
         </div>
       </div>
     </section>
-    <hr>
+    <hr
+      v-if="mobileView"
+    >
     <section
       id="region-container"
       class="page-section"
     >
       <h3>Drought in Regions of the Conterminous U.S.</h3>
-      <p>Droughts happen in every region of the U.S. These charts show the same 2000 drought events as the national timeline above, but now they are shown by region. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.</p>
+      <p>
+        Droughts happen in every region of the U.S. These charts show the same 2,000 streamflow drought events as the national timeline above, but now they are shown by <a
+          href="https://www.usgs.gov/programs/climate-adaptation-science-centers"
+          target="_blank"
+        >Climate Adaptation Science Center</a> regions. Where the orange violin-like shapes are wider, more streamgages were in drought at one time in that region.
+      </p>
       <div id="region-grid-container">
         <cascMap
           v-if="mobileView"
@@ -153,7 +174,7 @@
           v-if="mobileView"
           id="chart-instructions"
         >
-          Click on the map to explore drought histories in each region
+          Tap on the map to explore drought histories in each region
         </p>
         <img
           v-if="!mobileView"
@@ -226,8 +247,7 @@
           <a
             href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
             target="_blank"
-          >What is Streamflow Drought?</a>
-          ). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow droughts in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all moderate, severe, extreme, or exceptional (<a
+          >What is Streamflow Drought?</a>). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow drought events in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all moderate, severe, extreme, or exceptional (<a
             href="https://droughtmonitor.unl.edu/"
             target="_blank"
           >U.S. Drought Monitor Map</a>). We excluded states and regions outside of the conterminous U.S. because of a lack of data.
@@ -241,7 +261,7 @@
           id="methods3"
           class="methods_text"
         >
-          Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2000 most severe droughts to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
+          Of all the droughts identified in this dataset from 1920 to 2020, we selected the 2,000 most severe streamflow drought events to build this timeline. Streamflow drought severity is a measure of how long conditions last through time (duration) and how low streamflow is compared to normal (intensity) (<a
             href="https://doi.org/10.1029/2022WR031930"
             target="_blank"
           >Hammond et al. 2022</a>).
@@ -253,7 +273,7 @@
         >
       </div>
     </section>
-    <section id="references">       
+    <section id="references-container">       
       <div class="page-section">
         <h3>References</h3>
         <div>
@@ -263,10 +283,14 @@
             class="references-list"
           >
             <p>
-              <span v-html="reference.authors" /> <a
+              {{ reference.authors }} 
+              <a
                 :href="reference.link"
                 target="_blank"
-              ><span v-html="reference.title" /></a><span v-html="reference.ref" />
+              >
+                {{ reference.title }}
+              </a>
+              {{ reference.ref }}
             </p>
           </div>
         </div>
@@ -291,7 +315,7 @@
         >Cee Nell</a> and <a
           href="https://www.usgs.gov/staff-profiles/elmera-azadpour"
           target="_blank"
-        >Elmera Adazpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
+        >Elmera Azadpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
           href="https://www.usgs.gov/staff-profiles/amanda-carr"
           target="_blank"
         >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a
@@ -329,7 +353,6 @@ import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.
 import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
 import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
 import droughtTitles_desktop from "@/assets/text/droughtNarrations_desktop.js";
-import droughtImages from "@/assets/text/droughtImages.js";
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
 import polarWedges from "@/assets/svgs/polar_wedges.svg";
 import cascMap from "@/assets/svgs/casc_regions_map.svg";
@@ -352,11 +375,11 @@ export default {
         annotations: null,
         narrations: droughtNarrations_desktop.timelineEvents,
         titles: droughtTitles_desktop.timelineTitles,
-        images: droughtImages.timelineEvents,
         scrollToDates:  null,
         // dimensions
         overlayWidth: null,
         overlayHeight: null,
+        overlayTopMargin: 3,
         // source for regional map
         regionMapFilename: "casc_regions_map",
         regionDescriptions: regionDroughtDescriptions.regionDescriptions,
@@ -403,7 +426,10 @@ export default {
         // determine which year we are in on the timeline
         // currently, scroll trigger start and end set up so that there is always 1+ year 'inView'
         const currentYearElement = document.querySelector('.inView'); // pulls first element w/ class
-        let currentYear = currentYearElement.id.split('-')[1];
+        
+        // If a year element is in view, pull the year, otherwise we are past the end of
+        // the timeline and should just set the currrent year to 2020
+        let currentYear = currentYearElement ? currentYearElement.id.split('-')[1] : 2020;
 
         // determine which year should be scrolled to, based on selected drought
         const scrollButton = e.target;
@@ -416,14 +442,15 @@ export default {
         const scrollLength =  scrollDistance/scrollSpeed;
         
         // scroll to position of specified drought
-        this.$gsap.to(window, {duration: scrollLength, scrollTo: {y: "#scrollStop-" + scrollDroughtYear, offsetY: 100}});
+        // set vertical scroll offset based on device and window height
+        const scrollOffset = this.mobileView ? window.innerHeight*0.47: window.innerHeight*0.6;
+        this.$gsap.to(window, {duration: scrollLength, scrollTo: {y: "#scrollStop-" + scrollDroughtYear, offsetY: scrollOffset}});
       },
       addOverlay() {
         const self = this;
 
         const annotation_data = this.annotations
         const narration_data = this.narrations
-        const image_data = this.images
 
         // set viewbox for svg with static overlay drawings
         const svgChartStatic = this.d3.select("#svg-static")
@@ -433,8 +460,10 @@ export default {
           .attr("height", '100%')
 
         // hide all elements of static svg to start
+        // Transform vertically based on set overlayTopMargin (for some reason / 2 lines up)
         svgChartStatic.selectAll('g')
           .classed('hidden', true)
+          .style("transform", `translate(0, ${this.overlayTopMargin/2}px)`)
 
         // select svg that will hold dynamically added overlay content
         this.svgChartDynamic = this.d3.select("#svg-dynamic")
@@ -443,9 +472,15 @@ export default {
         this.overlayWidth = window.innerWidth*0.65 //MUST MATCH max-width of grid, which controls chart image width
         this.overlayHeight = this.overlayWidth*10 //Based on image aspect ratio
         this.svgChartDynamic
-          .attr("viewBox", "0 0 " + this.overlayWidth + " " + this.overlayHeight)
+          .attr("viewBox", "0 0 " + this.overlayWidth + " " + (this.overlayHeight + this.overlayTopMargin))
           .attr("preserveAspectRatio", "xMidYMid meet")
           .attr("width", '100%')
+
+        // Add single group to contain all chart elements
+        // Transform vertically based on set overlayTopMargin
+        const chartGroup = this.svgChartDynamic
+          .append("g")
+          .style("transform", `translate(0, ${this.overlayTopMargin}px)`)
 
         // Define y scale based on timeline start and end dates
         const timelineDates = ['1920-12-09','2020-04-01']
@@ -454,7 +489,7 @@ export default {
           .range([0, this.overlayHeight]);
 
         // set y-axis offset
-        const yAxisOffset = this.mobileView ? 40: 45;
+        const yAxisOffset = this.mobileView ? 30: 45;
 
         // Set up linear scale for chart width
         const xScale = this.d3.scaleLinear()
@@ -462,7 +497,7 @@ export default {
           .range([0, this.overlayWidth])
 
         // Add scroll to elements (only used for scroll navigation)
-        const scrollToSpot = this.svgChartDynamic.selectAll('scrollToSpot')
+        const scrollToSpot = chartGroup.selectAll('scrollToSpot')
           .data(this.scrollToDates)
           .enter()
           .append('rect')
@@ -484,7 +519,7 @@ export default {
           .tickSize(-this.overlayWidth-yAxisOffset) // ticks spanning width of chart
           .tickSizeOuter(0)
 
-        const yAxisDom = this.svgChartDynamic.append("g")
+        const yAxisDom = chartGroup.append("g")
           .call(yAxis)
           .attr("class", "y_axis")
           .attr("transform", "translate(" + yAxisOffset + ",0)")
@@ -504,7 +539,7 @@ export default {
         // Set up annotations
         if (!this.mobileView) {
           // On desktop, place annotations as text
-          const annotationItems = this.svgChartDynamic.selectAll('annotationText')
+          const annotationItems = chartGroup.selectAll('annotationText')
             .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
             .enter()
             .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
@@ -518,7 +553,7 @@ export default {
             .text(d => d.text)
             .call(self.wrap);
           // On desktop, set up rectangles to trigger narrations in box at bottom
-          const narrationRects = this.svgChartDynamic.selectAll('narrationRect')
+          const narrationRects = chartGroup.selectAll('narrationRect')
             .data(narration_data.sort((a,b) => this.d3.ascending(a.start_date, b.start_date)))
             .enter()
             .append("rect")
@@ -534,7 +569,7 @@ export default {
             .style('opacity', 0)
         } else {
           // On mobile, set up rectangles to trigger annotations
-          const annotationRects = this.svgChartDynamic.selectAll('annotationRect')
+          const annotationRects = chartGroup.selectAll('annotationRect')
             .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
             .enter()
             .append("rect")
@@ -551,7 +586,7 @@ export default {
             })
             .style('opacity', 0)
           // On mobile, place circles at annotation locations
-          const annotationCircles = this.svgChartDynamic.selectAll('annotationCircle')
+          const annotationCircles = chartGroup.selectAll('annotationCircle')
             .data(annotation_data)
             .enter()
             .append("circle")
@@ -560,7 +595,6 @@ export default {
             .attr("cx", d => xScale(d.mobile_x_offset_per))
             .attr("cy", d => yScale(new Date(d.date)))
             .attr("r", 4)
-          // Set up images
 
         }
 
@@ -617,7 +651,7 @@ export default {
                 markers: false,
                 trigger: `#${scrollIDFull}`,
                 start: "top 50%",
-                end: 'bottom 50%',
+                end: 'bottom 40%',
                 toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
@@ -713,7 +747,7 @@ export default {
                 markers: false,
                 trigger: `#${scrollIDFull}`,
                 start: "top 67%",
-                end: 'bottom 67%',
+                end: 'bottom 50%',
                 toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
                 toggleActions: "restart reverse none reverse" 
               },
@@ -990,6 +1024,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
   max-width: 90vw;
   min-width: 90vw;
   @media screen and (max-width: 600px) {
+    padding: 0px 0 20px 0;
     grid-template-columns: 100%;
     grid-template-rows: max-content max-content max-content max-content max-content;
     grid-template-areas:
@@ -1005,19 +1040,26 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 #intro-container {
   grid-area: intro;
-  padding-left: 5px;
+  padding: 5px 0px 0px 5px;
+  @media screen and (max-width: 600px) {
+    padding: 1px 0px 0px 5px;
+  }
 }
 #nav-button-container {
   grid-area: buttons;
   position: sticky;
-  top: 15px;
-  padding: 10px 0px 10px 0px;
+  top: 0px;
+  padding: 15px 0px 10px 0px;
   z-index: 20;
   background-color: white;
+  @media screen and (max-width: 600px) {
+    padding: 5px 0px 10px 0px;
+  }
 }
 .scrollButton {
   padding: 3px 6px 4px 5px;
   margin-left: 5px;
+  margin-bottom: 5px;
   border: 0.5px solid darkgrey;
   font-weight: bold;
   border-radius: 3px;
@@ -1034,7 +1076,8 @@ $writeFont: 'Edu TAS Beginner', cursive;
   border-color: darkgrey;
   font-weight: bold;
   @media only screen  and (max-width: 800px){
-    border-color: white
+    background-color: darkgrey;
+    color: white;
   }
 }
 .scrollButton:focus {
@@ -1063,10 +1106,12 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 
 .inset-map {
-  height: 175px;
+  max-height: 175px;
+  max-width: 25vw;
   filter: url(#shadow2);
   @media only screen and (max-width: 600px) {
-    height: 75px;
+    max-height: 75px;
+    max-width: 35vw;
   }
 }
 .inset-map.default {
@@ -1087,11 +1132,11 @@ $writeFont: 'Edu TAS Beginner', cursive;
   display:block;
   background: #fff;
   padding: 15px 20px 15px 50px;
-  margin: 0 0 20px;
   position: fixed;
   width: 55vw;
   text-align: justify;
   font-style: italic;
+  bottom: 7vh;
 
   /*Borders - (Optional)*/
   border-left: 15px solid #c76c0c;
@@ -1166,7 +1211,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
   grid-area: narration;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: max-content 20px auto;
+  grid-template-rows: max-content max-content auto;
   grid-template-areas: 
     "annotation-image"
     "annotation-title"
@@ -1199,7 +1244,6 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .droughtText {
   z-index: 10;
   font-weight: 400;
-  font-size: 2.0rem;
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
@@ -1207,7 +1251,6 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .droughtText.mobile {
   z-index: 10;
   font-weight: 500;
-  font-size: 1.8rem;
   margin: 0 5vw 0 5vw;
   position: absolute;
 }
@@ -1219,14 +1262,13 @@ $writeFont: 'Edu TAS Beginner', cursive;
 }
 .droughtText.narration {
   grid-area: annotation-narration;
-  padding: 2.2rem 1em 1em 1em ;
+  padding: 0.25rem 1em 1em 1em ;
   position: absolute;
   //top: 522px;
   width: 24vw;
 }
 .droughtText.droughtTitle {
   grid-area: annotation-title;
-  position: absolute;
   font-weight: 700;
   margin: 1rem 1rem 1rem 0rem ;
 }
@@ -1264,6 +1306,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
 .currentButton:hover {
   background-color: darkgrey;
   color: white;
+  @media screen and (max-width: 600px) {
+    background-color: black;
+  }
 }
 #filter-svg {
   width: 0;
@@ -1283,6 +1328,9 @@ $writeFont: 'Edu TAS Beginner', cursive;
   grid-template-areas:
     "description description" 
     "radial violin";
+  @media screen and (max-width: 1300px) {
+    grid-template-columns: 65% 35%;
+  }
   @media screen and (max-width: 600px) {
     padding: 5px 0 0px 0;
     //height: 100vh;
@@ -1329,8 +1377,11 @@ $writeFont: 'Edu TAS Beginner', cursive;
   grid-area: violin;
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  @media screen and (max-width: 600px) {
+    justify-content: center;
+  }
 }
 .violin-chart {
   transform: rotate(180deg);
@@ -1358,6 +1409,10 @@ $writeFont: 'Edu TAS Beginner', cursive;
   padding-bottom: 7px;
   margin-top: 5px;
   text-indent: -22px ;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
 }
 #methods-container{
   display: grid;

@@ -94,7 +94,7 @@ body {
       margin: 0;
       padding: 0;
       line-height: 1.2;
-      font-size: 2rem;
+      font-size: 1.95rem;
       font-weight: 400;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
@@ -125,6 +125,7 @@ h2{
   color: $textcolor;
   @media screen and (max-width: 600px) {
     font-size: 4rem;
+    line-height: 1.1;
   }
 }
 h3{
