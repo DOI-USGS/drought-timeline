@@ -82,7 +82,6 @@ event_violin_vertical <- function(drought_data, major_drought_periods,
     # Here this scale gives equidistant spacing on either side of "2" (the threshold)
     scale_x_continuous(limits = c(1.25, 2.75))#+
     #ggtitle(focal_CASC) 
-
   
   ggsave(file_out,
          width = 1.5, height = 5, dpi = 300, limitsize = FALSE)

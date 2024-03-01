@@ -33,6 +33,13 @@ p2_targets <- list(
                                                      "Utah", "Nevada") ~ "Southwest",
                                          TRUE ~ "not sorted")) 
   ),
+  tar_target(p2_CASCs_pattern,
+             p2_CASCs |> 
+               select(CASC) |>
+               group_by(CASC) |>
+               distinct(CASC) |>
+               tar_group(),
+             iteration = "group"),
   # Attach CASCs to metadata
   tar_target(p2_metadata,
              p2_metadata_raw |> left_join(p2_CASCs, by = "STATE")),
@@ -56,7 +63,7 @@ p2_targets <- list(
   
   ### Prep drought properties for "strip swarm" duration chart
   # Join full record and then filter to droughts defined using the target percentile
-  tar_target(p2_all_2pct_droughts,
+  tar_target(p2_all_droughts,
              join_and_filter_full_drought_record(df_1921 = p2_1921_2020_drought_prop_jd_7d,
                                                  df_1951 = p2_1951_2020_drought_prop_jd_7d,
                                                  df_1981 = p2_1981_2020_drought_prop_jd_7d,
@@ -64,15 +71,29 @@ p2_targets <- list(
   ),
   
   # determine the 2000 most severe droughts
-  tar_target(p2_2000_severe_2pct_droughts,
-             p2_all_2pct_droughts |>
+  tar_target(p2_2000_severe_droughts,
+             p2_all_droughts |>
                slice_max(order_by = severity,
                          n = 2000)
   ),
+  tar_target(p2_2000_severe_droughts_byCASC,
+             p2_2000_severe_droughts |>
+               group_by(CASC) |>               
+               tar_group(),
+             iteration = "group"),
+  tar_target(p2_1000_severe_droughts_eachCASC,
+             p2_all_droughts |>
+               filter(!is.na(CASC)) |>
+               group_by(CASC) |>
+               slice_max(order_by = severity,
+                         n = 1000) |>
+               tar_group(),
+             iteration = "group"
+  ),
   
   # identify specific drought events that happened during major events
-  tar_target(p2_2000_severe_2pct_droughts_joined,
-             p2_2000_severe_2pct_droughts |> 
+  tar_target(p2_2000_severe_droughts_joined,
+             p2_2000_severe_droughts |> 
                filter(start >= p2_major_droughts_with1970$start,
                       start <= p2_major_droughts_with1970$end) |>
                mutate(drought_name = p2_major_droughts_with1970$major_drought_id),
@@ -80,22 +101,36 @@ p2_targets <- list(
   
   # Identify drought chunks
   tar_target(p2_drought_chunks,
-             identify_drought_chunks(drought_prop = p2_2000_severe_2pct_droughts, 
+             identify_drought_chunks(drought_prop = p2_2000_severe_droughts, 
                                      min_chunk_days = 365)),
+  tar_target(p2_drought_chunks_byCASC,
+             identify_drought_chunks(drought_prop = p2_1000_severe_droughts_eachCASC, 
+                                     min_chunk_days = 365) |>
+               mutate(CASC = unique(p2_1000_severe_droughts_eachCASC$CASC)),
+             pattern = map(p2_1000_severe_droughts_eachCASC)),
   
   # Process data to generate swarm
   ## 'Compressed' approach (# cells filled per event = 1)
-  ## nrow = # of drought events = nrow(p2_prop_severe_2pct_droughts)
+  ## nrow = # of drought events = nrow(p2_prop_severe_droughts)
   tar_target(p2_drought_swarm_compressed,
-             create_event_swarm_compressed(event_data = p2_2000_severe_2pct_droughts,
+             create_event_swarm_compressed(event_data = p2_2000_severe_droughts,
                                            start_period = p2_drought_chunks$start_date,
                                            end_period = p2_drought_chunks$break_date,
                                            max_droughts = p2_drought_chunks$max_single_day_droughts),
              pattern = map(p2_drought_chunks)),
   
+  tar_target(p2_drought_swarm_compressed_byCASC,
+             create_event_swarm_compressed(event_data = p2_1000_severe_droughts_eachCASC,
+                                           start_period = min(p2_1000_severe_droughts_eachCASC$start),
+                                           end_period = max(p2_1000_severe_droughts_eachCASC$start + 
+                                                              p2_1000_severe_droughts_eachCASC$duration),
+                                           max_droughts = 200) |>
+               mutate(CASC = unique(p2_1000_severe_droughts_eachCASC$CASC)),
+             pattern = map(p2_1000_severe_droughts_eachCASC)),
+  
   # Expand drought properties of 2000 most severe droughts and group by CASC
-  tar_target(p2_expanded_2000_2pct_droughts_byCASC,
-             expand_drought_prop(drought_prop = p2_2000_severe_2pct_droughts) |> 
+  tar_target(p2_expanded_2000_droughts_byCASC,
+             expand_drought_prop(drought_prop = p2_2000_severe_droughts) |> 
                group_by(CASC) |>
                tar_group(),
              iteration = "group"),
@@ -144,7 +179,7 @@ p2_targets <- list(
   
   ## Collect all droughts that start during the five major droughts for mapping insets
   tar_target(p2_expanded_droughts_during_major_drought_periods,
-             expand_drought_prop(p2_2000_severe_2pct_droughts) |>
+             expand_drought_prop(p2_2000_severe_droughts) |>
                # join with major droughts
                left_join(p2_major_droughts_expanded |>
                            rename(major_start = start, major_end = end, major_duration = duration), 
