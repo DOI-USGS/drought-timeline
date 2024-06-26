@@ -67,7 +67,7 @@
             </li>
             <li class="facebook">
               <a
-                href="https://facebook.com/usgeologicalsurvey"
+                href="https://facebook.com/USGSWater/"
                 target="_blank"
                 aria-label="facebook link"
               >
@@ -76,7 +76,7 @@
             </li>
             <li class="github">
               <a
-                href="https://github.com/usgs-vizlab"
+                href="https://github.com/DOI-USGS"
                 target="_blank"
                 aria-label="github link"
               >
@@ -85,7 +85,7 @@
             </li>
             <li class="instagram">
               <a
-                href="https://instagram.com/usgs_streamgages"
+                href="https://instagram.com/usgs_water"
                 target="_blank"
                 aria-label="instagram link"
               >
