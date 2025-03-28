@@ -403,7 +403,7 @@ onMounted(() => {
     : droughtAnnotationsDesktop.timelineEvents
 
   addOverlay()
-  //addAnimations()
+  addAnimations()
   //addInteractions()
 })
 
@@ -948,7 +948,7 @@ function mouseleaveWrapper() {
       function wrap(text) {
     
         text.each(function () {
-            var text = self.d3.select(this),
+            var text = d3.select(this),
                 words = text.text().split(/\s+/).reverse(),
                 word,
                 line = [],
