@@ -49,11 +49,12 @@
           :style="{ margin: `${overlayTopMargin}px 0px 0px 0px` }"
         >
       </div>
+      <!-- MOBILE INSET IMAGES -->
       <div 
         v-if="mobileView"
         id="inset-container"
       >
-        <div id="inset-image-container">
+        <div id="inset-image-container-mobile">
           <img
             id="inset-map-default"
             class="inset-map default"
@@ -70,6 +71,8 @@
           >
         </div>
       </div>
+
+      <!-- CHARTS -->
       <div id="chart-overlay-dynamic">
         <svg id="svg-dynamic" />
       </div>
@@ -77,6 +80,7 @@
         <annotationDrawings />
       </div>
 
+      <!-- QUOTES -->
       <div
         v-if="!mobileView"
         id="drought-quote-container"
@@ -95,6 +99,7 @@
         </div>
       </div>
 
+      <!-- MOBILE ANNOTATIONS -->
       <div
         v-if="mobileView"
         id="annotation-container-mobile"
@@ -109,6 +114,8 @@
           <p v-html="annotation.text" />
         </div>
       </div>
+
+      <!-- DESKTOP ANNOTATIONS AND IMAGES -->
       <div
         v-if="!mobileView"
         id="annotation-container-desktop"
@@ -116,7 +123,7 @@
         <div 
           id="inset-container"
         >
-          <div id="inset-image-container">
+          <div id="inset-image-container-desktop">
             <img
               id="inset-map-default"
               class="inset-map default"
@@ -344,7 +351,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import * as d3Base from 'd3';
 import { useWindowSizeStore } from '../stores/WindowSizeStore.js'
 import { isMobile } from 'mobile-device-detect';
@@ -368,12 +375,13 @@ import referencesText from "@/assets/text/referencesText";
 
 const d3 = Object.assign({}, d3Base)
 const publicPath = import.meta.env.BASE_URL
+const imageMap = import.meta.glob('@/assets/images/*.png', { eager: true }) // load all image asset urls
 const mobileView = isMobile
 
 const annotations = ref(null)
 const narrations = droughtNarrations_desktop.timelineEvents
 const titles = droughtTitles_desktop.timelineTitles
-const scrollToDates = ref([])
+
 const overlayWidth = ref(window.innerWidth * 0.65)
 const overlayHeight = ref(overlayWidth.value * 10)
 const overlayTopMargin = 3
@@ -383,20 +391,23 @@ const referencesContent = referencesText.referencesContent
 const referencesQuotes = referencesText.referencesQuotes
 const referencesPhotos = referencesText.referencesPhotos
 
-let svgChartDynamic
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
-
-onMounted(() => {
-  overlayWidth.value = window.innerWidth * 0.65
-  overlayHeight.value = overlayWidth.value * 10
-
-  scrollToDates.value = [
+const scrollToDates = [
     { id: '1930', name: 'Dust Bowl', start: '1930-02-01', end: '1941-08-31' },
     { id: '1952', name: '1950s Drought', start: '1952-11-01', end: '1957-08-31' },
     { id: '1962', name: '1960s Drought', start: '1962-12-01', end: '1968-10-31' },
     { id: '1987', name: '1980s Drought', start: '1987-05-01', end: '1992-10-31' },
     { id: '1999', name: 'Turn-of-the-Century Drought', start: '1999-09-01', end: '2015-09-30' }
   ]
+
+  console.log(scrollToDates)
+
+
+let svgChartDynamic
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
+
+onMounted(() => {
+  overlayWidth.value = window.innerWidth * 0.65
+  overlayHeight.value = overlayWidth.value * 10
 
   annotations.value = mobileView
     ? droughtAnnotationsMobile.timelineEvents
@@ -407,9 +418,11 @@ onMounted(() => {
   addInteractions()
 })
 
+
 // methods
 function getImageUrl(filename) {
-  return new URL(`@/assets/images/${filename}.png`, import.meta.url).href
+  //return imageMap[`/src/assets/images/${filename}.png`]
+  return new URL(`../assets/images/${filename}.png`, import.meta.url).href
 }
 
 function scrollTimeline(e) {
@@ -487,7 +500,7 @@ function addOverlay() {
 
   // Add scroll to elements (only used for scroll navigation)
   const scrollToSpot = chartGroup.selectAll('scrollToSpot')
-    .data(scrollToDates.value)
+    .data(scrollToDates)
     .enter()
     .append('rect')
     .attr("id", d => "scrollStop-" + d.id)
