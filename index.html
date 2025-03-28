@@ -19,14 +19,17 @@
     })(window,document,'script','dataLayer','GTM-N6ZBCZV');</script>
     <!-- End Google Tag Manager -->
     <meta charset="utf-8">
+    <link rel="icon" href="/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <%= process.env.VITE_APP_TIER !== '' ? '<meta name="robots" content="noindex,nofollow">' : '' %><!-- an empty string in this case means the 'prod' version of the application   -->
+    <!-- USDWS-init js -->
+    <script type="module" src="/node_modules/@uswds/uswds/dist/js/uswds-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- On beta, add robots tag to stop indexing. An empty string for VITE_APP_TIER means the 'prod' version of the application -->
+     <% if(VITE_APP_TIER !== ''){ %>
+      <meta name="robots" content="noindex,nofollow">
+    <% } %>
+    <title>%VITE_APP_LONG_TITLE%</title>
     <!-- Primary Meta Tags -->
-    <title>
-      <%= VITE_APP_TIER %>
-        <%= VITE_APP_TITLE %>
-    </title>
     <meta name="title" content="%VITE_APP_LONG_TITLE%">
     <meta name="description" content="%VITE_APP_DESCRIPTION%">
     <!-- Open Graph / Facebook -->
@@ -41,7 +44,6 @@
     <meta property="twitter:title" content="%VITE_APP_LONG_TITLE%">
     <meta property="twitter:description" content="%VITE_APP_DESCRIPTION%">
     <meta property="twitter:image" content="https://labs.waterdata.usgs.gov/visualizations/images/drought_timeline_thumbnail.png">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <script type='application/ld+json'>
       { "@context": "http://www.schema.org",
         "@type": "WebSite", "name": "%VITE_APP_LONG_TITLE%",
