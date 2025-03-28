@@ -404,7 +404,7 @@ onMounted(() => {
 
   addOverlay()
   addAnimations()
-  //addInteractions()
+  addInteractions()
 })
 
 // methods
@@ -487,7 +487,7 @@ function addOverlay() {
 
   // Add scroll to elements (only used for scroll navigation)
   const scrollToSpot = chartGroup.selectAll('scrollToSpot')
-    .data(scrollToDates)
+    .data(scrollToDates.value)
     .enter()
     .append('rect')
     .attr("id", d => "scrollStop-" + d.id)
@@ -501,7 +501,6 @@ function addOverlay() {
     .attr("rx", 4)
     .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
     .attr("opacity", 1)
-    console.log('overlayWidth:', yAxisOffset)
 
   // Add y axis
   const yAxis = d3.axisLeft(yScale)
@@ -807,7 +806,7 @@ function addInteractions() {
   // On desktop set up interactions
   if (!mobileView) {
     // set viewbox for svg with wedges
-    const wedgesSVG = self.d3.select("#wedges-svg")
+    const wedgesSVG = d3.select("#wedges-svg")
         .attr("viewBox", "0 0 " + 360 + " " + 360)
         .attr("preserveAspectRatio", "xMidYMid meet")
         .attr("width", '100%')
@@ -815,19 +814,19 @@ function addInteractions() {
 
     // Add interaction to wedges
     wedgesSVG.selectAll('.wedge')
-        .on("mouseover", (event) => self.mouseoverWedge(event))
-        .on("mouseout", (event) => self.mouseoutWedge(event))
+        .on("mouseover", (event) => mouseoverWedge(event))
+        .on("mouseout", (event) => mouseoutWedge(event))
 
     // Add mouseleave to wrapper, which is a group that contains the wedges
     wedgesSVG.selectAll('#wrapper')
-        .on("mouseenter", self.mouseenterWrapper)
-        .on("mouseleave", self.mouseleaveWrapper)
+        .on("mouseenter", mouseenterWrapper)
+        .on("mouseleave", mouseleaveWrapper)
   }
 
   // On mobile, set up interactions
   if (mobileView) {
     // Set viewbox for svg map of CASC regions
-    const cascSVG = self.d3.select("#casc-svg")
+    const cascSVG = d3.select("#casc-svg")
         .attr("viewBox", "0 0 " + 648 + " " + 432)
         .attr("preserveAspectRatio", "xMidYMid meet")
         .attr("width", '100%')
@@ -836,11 +835,11 @@ function addInteractions() {
     // by default have Northwest region showing
     // Highlight that region on the map and show violin chart and description
     const selectedRegion = "Northwest"
-    self.showSelectedRegion(cascSVG, selectedRegion)
+    showSelectedRegion(cascSVG, selectedRegion)
 
     // add interaction to CASC regions map
     cascSVG.selectAll('.CASC_region')
-      .on("click", (event) => self.clickRegion(event))
+      .on("click", (event) => clickRegion(event))
   }
 }
 function mouseoverWedge(event) {
@@ -853,9 +852,9 @@ function mouseoverWedge(event) {
   
   // Make all wedges _except_ the one hovered over partially opaque
   // This highlights the current wedge
-  self.d3.selectAll(".wedge").selectAll('path')
+  d3.selectAll(".wedge").selectAll('path')
       .style("fill-opacity", 0.8)
-  self.d3.select("#" + regionID).selectAll('path')
+  d3.select("#" + regionID).selectAll('path')
       .style("fill-opacity", 0)
 
   // Show the regional violin chart
@@ -896,7 +895,7 @@ function mouseleaveWrapper() {
         chartInsructions.classList.remove("hide");
 
         // Make all wedges transparent
-        self.d3.selectAll(".wedge").selectAll('path')
+        d3.selectAll(".wedge").selectAll('path')
             .style("fill-opacity", 0)
       }
      function showSelectedRegion(svg, region) {
@@ -922,7 +921,7 @@ function mouseleaveWrapper() {
         let regionID = event.target.id // unique region id - use to tie to regional violin and map
         
         // Highlight that region on the map while dehighlighting other regions
-        const cascSVG = self.d3.select("#casc-svg")
+        const cascSVG = d3.select("#casc-svg")
         cascSVG.selectAll(".CASC_region")
           .style("fill", "#ffffff")
           .style("opacity", 1)
