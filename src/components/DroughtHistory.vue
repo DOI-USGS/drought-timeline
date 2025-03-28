@@ -348,9 +348,10 @@ import { ref, computed, onMounted } from 'vue'
 import * as d3Base from 'd3';
 import { useWindowSizeStore } from '../stores/WindowSizeStore.js'
 import { isMobile } from 'mobile-device-detect';
-import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
-import { TimelineMax } from "gsap/all";
+
+import gsap from "gsap"
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 
 // import images
 import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
@@ -373,10 +374,8 @@ const annotations = ref(null)
 const narrations = droughtNarrations_desktop.timelineEvents
 const titles = droughtTitles_desktop.timelineTitles
 const scrollToDates = ref([])
-const overlayWidth = ref(null)
-overlayWidth.value = window.innerWidth * 0.65
-const overlayHeight = ref(null)
-overlayHeight.value = overlayWidth.value * 10
+const overlayWidth = ref(window.innerWidth * 0.65)
+const overlayHeight = ref(overlayWidth.value * 10)
 const overlayTopMargin = 3
 const regionMapFilename = ref('casc_regions_map')
 const regionDescriptions = regionDroughtDescriptions.regionDescriptions
@@ -385,10 +384,11 @@ const referencesQuotes = referencesText.referencesQuotes
 const referencesPhotos = referencesText.referencesPhotos
 
 let svgChartDynamic
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 
 onMounted(() => {
-  const gsap = globalThis.gsap
-  gsap.registerPlugin(ScrollTrigger, TimelineMax, ScrollToPlugin)
+  overlayWidth.value = window.innerWidth * 0.65
+  overlayHeight.value = overlayWidth.value * 10
 
   scrollToDates.value = [
     { id: '1930', name: 'Dust Bowl', start: '1930-02-01', end: '1941-08-31' },
@@ -403,14 +403,13 @@ onMounted(() => {
     : droughtAnnotationsDesktop.timelineEvents
 
   addOverlay()
-  addAnimations()
-  addInteractions()
+  //addAnimations()
+  //addInteractions()
 })
 
 // methods
 function getImageUrl(filename) {
   return new URL(`@/assets/images/${filename}.png`, import.meta.url).href
-  console.log(`@/assets/images/${filename}.png`)
 }
 
 function scrollTimeline(e) {
@@ -436,7 +435,10 @@ function scrollTimeline(e) {
   // scroll to position of specified drought
   // set vertical scroll offset based on device and window height
   const scrollOffset = mobileView ? window.innerHeight*0.47: window.innerHeight*0.6;
-  gsap.to(window, {duration: scrollLength, scrollTo: {y: "#scrollStop-" + scrollDroughtYear, offsetY: scrollOffset}});
+  gsap.to(window, {
+    duration: scrollLength,
+    scrollTo: { y: "#scrollStop-" + scrollDroughtYear, offsetY: scrollOffset }
+  })
 }
 
 function addOverlay() {
@@ -455,15 +457,10 @@ function addOverlay() {
   // Transform vertically based on set topMargin (for some reason / 2 lines up)
   svgChartStatic.selectAll('g')
     .classed('hidden', true)
-    .attr("transform", "translate(0," + (overlayTopMargin / 2) + ")")
+    .attr("transform", `translate(0, ${overlayTopMargin / 2})`)
 
-
-  // select svg that will hold dynamically added overlay content
   svgChartDynamic = d3.select("#svg-dynamic")
-
-  // set dimensions for overlay svg
-  svgChartDynamic
-    .attr("viewBox", '0 0 ' + overlayWidth.value + ' ' + (overlayHeight.value + overlayTopMargin))
+    .attr("viewBox", `0 0 ${overlayWidth.value} ${overlayHeight.value + overlayTopMargin}`)
     .attr("preserveAspectRatio", "xMidYMid meet")
     .attr("width", '100%')
 
@@ -504,11 +501,12 @@ function addOverlay() {
     .attr("rx", 4)
     .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
     .attr("opacity", 1)
+    console.log('overlayWidth:', yAxisOffset)
 
   // Add y axis
   const yAxis = d3.axisLeft(yScale)
     .ticks(d3.timeYear.every(1))
-    .tickSize(-overlayWidth-yAxisOffset) // ticks spanning width of chart
+    .tickSize(-(overlayWidth.value ?? 0) - yAxisOffset) // ticks spanning width of chart
     .tickSizeOuter(0)
 
   const yAxisDom = chartGroup.append("g")
@@ -868,9 +866,8 @@ function mouseoverWedge(event) {
   const regionDescription = document.querySelector('#region-description-' + regionID);
   regionDescription.classList.add("visibleText");
 }
-function       mouseoutWedge(event) {
+function mouseoutWedge(event) {
     
-
         // Pull the region identifier
         let regionID = event.target.parentElement.id
 
@@ -882,14 +879,14 @@ function       mouseoutWedge(event) {
         const regionDescription = document.querySelector('#region-description-' + regionID);
         regionDescription.classList.remove("visibleText");    
 
-      }
-      function mouseenterWrapper() {
+}
+function mouseenterWrapper() {
   
         // Hide the interaction instructions
         const chartInsructions = document.querySelector('#chart-instructions')
         chartInsructions.classList.add("hide");
-      }
-      function mouseleaveWrapper() {
+}
+function mouseleaveWrapper() {
 
         // Show the default map
         regionMapFilename = "casc_regions_map"
