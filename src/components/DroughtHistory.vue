@@ -65,7 +65,7 @@
             :id="`inset-map-${drought.id}`"
             :key="drought.id"
             class="inset-map drought-specific hide"
-            :src="require(`@/assets/images/drought_period_stations_${drought.id}.png`)"
+            :src="getImageUrl(`drought_period_stations_${drought.id}`)"
             :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${drought.name} are highlighted in red`"
           >
         </div>
@@ -128,7 +128,7 @@
               :id="`inset-map-${narration.id}`"
               :key="`map-${narration.id}`"
               class="inset-map drought-specific hide"
-              :src="require(`@/assets/images/${narration.img_source}`)"
+              :src="getImageUrl(narration.img_source)"
               :alt="`Map of drought sites in the continental United States. Sites actively in drought during the ${narration.title} are highlighted in red`"
             >
           </div>
@@ -189,7 +189,7 @@
         <img
           v-if="!mobileView"
           id="region-map"
-          :src="require(`@/assets/images/${regionMapFilename}.png`)"
+          :src="getImageUrl(regionMapFilename)"
           alt=""
         >
         <div id="violin-container">
@@ -198,7 +198,7 @@
             :id="`region-violin-${description.id}`"
             :key="`violin-${description.id}`"
             class="violin-chart hide"
-            :src="require(`@/assets/images/duration-chart/vertical_violin_jd7d_2pct_${description.id}.png`)"
+            :src="getImageUrl(`duration-chart/vertical_violin_jd7d_2pct_${description.id}`)"
             :alt="`${description.alt}`"
           >
         </div>
@@ -342,551 +342,534 @@
     </svg>
   </section>
 </template>
-<script>
+
+<script setup>
+import { ref, computed, onMounted } from 'vue'
 import * as d3Base from 'd3';
-import { store } from '../stores/WindowSizeStore.js'
+import { useWindowSizeStore } from '../stores/WindowSizeStore.js'
 import { isMobile } from 'mobile-device-detect';
 import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 import { TimelineMax } from "gsap/all";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+
+// import images
+import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
+import polarWedges from "@/assets/svgs/polar_wedges.svg";
+import cascMap from "@/assets/svgs/casc_regions_map.svg";
+
+// import text
 import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.js";
 import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
 import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
 import droughtTitles_desktop from "@/assets/text/droughtNarrations_desktop.js";
-import annotationDrawings from "@/assets/svgs/annotation_drawings-01.svg";
-import polarWedges from "@/assets/svgs/polar_wedges.svg";
-import cascMap from "@/assets/svgs/casc_regions_map.svg";
 import regionDroughtDescriptions from "@/assets/text/regionDroughtDescriptions.js";
 import referencesText from "@/assets/text/referencesText";
-export default {
-  name: "DroughtHistory",
-    components: {
-      annotationDrawings,
-      polarWedges,
-      cascMap
-    },
-    props: {
-    },
-    data() {
-      return {
-        d3: null,
-        publicPath: process.env.BASE_URL, // allows the application to find the files when on different deployment roots
-        mobileView: isMobile, // test for mobile
-        annotations: null,
-        narrations: droughtNarrations_desktop.timelineEvents,
-        titles: droughtTitles_desktop.timelineTitles,
-        scrollToDates:  null,
-        // dimensions
-        overlayWidth: null,
-        overlayHeight: null,
-        overlayTopMargin: 3,
-        // source for regional map
-        regionMapFilename: "casc_regions_map",
-        regionDescriptions: regionDroughtDescriptions.regionDescriptions,
-        // References source
-        referencesText: referencesText.referencesContent,
-        referencesQuotes: referencesText.referencesQuotes,
-        referencesPhotos: referencesText.referencesPhotos
-      }
-  },
-  mounted(){      
-    this.d3 = Object.assign(d3Base);
-    // register plugins for global use
-    this.$gsap.registerPlugin(ScrollTrigger, TimelineMax, ScrollToPlugin); 
 
-    // Define scrollTo dates
-    this.scrollToDates = [
-      {id: '1930', name: 'Dust Bowl', start: '1930-02-01', end: '1941-08-31'}, 
-      {id: '1952', name: '1950s Drought', start: '1952-11-01', end: '1957-08-31'}, 
-      {id: '1962', name: '1960s Drought', start: '1962-12-01', end: '1968-10-31'}, 
-      {id: '1987', name: '1980s Drought', start: '1987-05-01', end: '1992-10-31'},
-      {id: '1999', name: 'Turn-of-the-Century Drought', start: '1999-09-01', end: '2015-09-30'}]
+const d3 = Object.assign({}, d3Base)
+const publicPath = import.meta.env.BASE_URL
+const mobileView = isMobile
 
-    // Define annotations source for desktop and mobile
-    this.annotations = this.mobileView ? droughtAnnotationsMobile.timelineEvents: droughtAnnotationsDesktop.timelineEvents;
+const annotations = ref(null)
+const narrations = droughtNarrations_desktop.timelineEvents
+const titles = droughtTitles_desktop.timelineTitles
+const scrollToDates = ref([])
+const overlayWidth = ref(null)
+overlayWidth.value = window.innerWidth * 0.65
+const overlayHeight = ref(null)
+overlayHeight.value = overlayWidth.value * 10
+const overlayTopMargin = 3
+const regionMapFilename = ref('casc_regions_map')
+const regionDescriptions = regionDroughtDescriptions.regionDescriptions
+const referencesContent = referencesText.referencesContent
+const referencesQuotes = referencesText.referencesQuotes
+const referencesPhotos = referencesText.referencesPhotos
 
-    this.addOverlay()
+let svgChartDynamic
 
-    this.addAnimations()
+onMounted(() => {
+  const gsap = globalThis.gsap
+  gsap.registerPlugin(ScrollTrigger, TimelineMax, ScrollToPlugin)
+
+  scrollToDates.value = [
+    { id: '1930', name: 'Dust Bowl', start: '1930-02-01', end: '1941-08-31' },
+    { id: '1952', name: '1950s Drought', start: '1952-11-01', end: '1957-08-31' },
+    { id: '1962', name: '1960s Drought', start: '1962-12-01', end: '1968-10-31' },
+    { id: '1987', name: '1980s Drought', start: '1987-05-01', end: '1992-10-31' },
+    { id: '1999', name: 'Turn-of-the-Century Drought', start: '1999-09-01', end: '2015-09-30' }
+  ]
+
+  annotations.value = mobileView
+    ? droughtAnnotationsMobile.timelineEvents
+    : droughtAnnotationsDesktop.timelineEvents
+
+  addOverlay()
+  addAnimations()
+  addInteractions()
+})
+
+// methods
+function getImageUrl(filename) {
+  return new URL(`@/assets/images/${filename}.png`, import.meta.url).href
+  console.log(`@/assets/images/${filename}.png`)
+}
+
+function scrollTimeline(e) {
+
+  // determine which year we are in on the timeline
+  // currently, scroll trigger start and end set up so that there is always 1+ year 'inView'
+  const currentYearElement = document.querySelector('.inView'); // pulls first element w/ class
+  
+  // If a year element is in view, pull the year, otherwise we are past the end of
+  // the timeline and should just set the currrent year to 2020
+  let currentYear = currentYearElement ? currentYearElement.id.split('-')[1] : 2020;
+
+  // determine which year should be scrolled to, based on selected drought
+  const scrollButton = e.target;
+  const scrollID = scrollButton.id;
+  const scrollDroughtYear = scrollID.split('-')[1];
+
+  // determine scroll length, based on # of years scrolled
+  const scrollDistance = Math.abs(scrollDroughtYear - currentYear);
+  const scrollSpeed = 9;
+  const scrollLength =  scrollDistance/scrollSpeed;
+  
+  // scroll to position of specified drought
+  // set vertical scroll offset based on device and window height
+  const scrollOffset = mobileView ? window.innerHeight*0.47: window.innerHeight*0.6;
+  gsap.to(window, {duration: scrollLength, scrollTo: {y: "#scrollStop-" + scrollDroughtYear, offsetY: scrollOffset}});
+}
+
+function addOverlay() {
+
+  const annotation_data = annotations.value
+  const narration_data = narrations
+
+  // set viewbox for svg with static overlay drawings
+  const svgChartStatic = d3.select("#svg-static")
+    .attr("viewBox", "0 0 720 7200")
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("width", '100%')
+    .attr("height", '100%')
+
+  // hide all elements of static svg to start
+  // Transform vertically based on set topMargin (for some reason / 2 lines up)
+  svgChartStatic.selectAll('g')
+    .classed('hidden', true)
+    .attr("transform", "translate(0," + (overlayTopMargin / 2) + ")")
+
+
+  // select svg that will hold dynamically added overlay content
+  svgChartDynamic = d3.select("#svg-dynamic")
+
+  // set dimensions for overlay svg
+  svgChartDynamic
+    .attr("viewBox", '0 0 ' + overlayWidth.value + ' ' + (overlayHeight.value + overlayTopMargin))
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("width", '100%')
+
+  // Add single group to contain all chart elements
+  // Transform vertically based on set overlayTopMargin
+  const chartGroup = svgChartDynamic
+    .append("g")
+    .attr("transform", "translate(0," + (overlayTopMargin / 2) + ")")
+
+
+  // Define y scale based on timeline start and end dates
+  const timelineDates = ['1920-12-09','2020-04-01']
+  const yScale = d3.scaleTime()
+    .domain([new Date(timelineDates[0]), new Date(timelineDates[1])])
+    .range([0, overlayHeight.value]);
+
+  // set y-axis offset
+  const yAxisOffset = mobileView ? 30: 45;
+
+  // Set up linear scale for chart width
+  const xScale = d3.scaleLinear()
+    .domain([0,100])
+    .range([0, overlayWidth.value])
+
+  // Add scroll to elements (only used for scroll navigation)
+  const scrollToSpot = chartGroup.selectAll('scrollToSpot')
+    .data(scrollToDates)
+    .enter()
+    .append('rect')
+    .attr("id", d => "scrollStop-" + d.id)
+    .attr("class", "scrollToSpot")
+    .attr("x", mobileView ? 0 : yAxisOffset)
+    .attr("y", d => yScale(new Date(d.start)))
+    .attr("width", mobileView ? overlayWidth.value : overlayWidth.value - yAxisOffset)
+    .attr("height", (d) => {
+      return yScale(new Date(d.end)) - yScale(new Date(d.start))
+    })
+    .attr("rx", 4)
+    .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
+    .attr("opacity", 1)
+
+  // Add y axis
+  const yAxis = d3.axisLeft(yScale)
+    .ticks(d3.timeYear.every(1))
+    .tickSize(-overlayWidth-yAxisOffset) // ticks spanning width of chart
+    .tickSizeOuter(0)
+
+  const yAxisDom = chartGroup.append("g")
+    .call(yAxis)
+    .attr("class", "y_axis")
+    .attr("transform", "translate(" + yAxisOffset + ",0)")
+
+  // set up classes for styling
+  const yearFormat = d3.timeFormat("%Y")
+  yAxisDom.selectAll('text')
+    .attr("class", "yAxisText")
+    .attr("id", (d) => "tick-" + yearFormat(d));
+  
+  yAxisDom.selectAll(".tick line")
+    .attr("class", "yAxisTick")
+
+  // remove y axis line
+  yAxisDom.select(".domain").remove()
+
+  // Set up annotations
+  if (!mobileView) {
+    // On desktop, place annotations as text
+    const annotationItems = chartGroup.selectAll('annotationText')
+      .data(annotation_data.sort((a,b) => d3.ascending(a.date, b.date)))
+      .enter()
+      .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
+      .append("text")
+      .attr("id", d => "annotation-text-" + d.id)
+      .attr("class", d => "droughtText notesText hidden")
+      .attr("x", d => xScale(d.desktop_x_offset_per))
+      .attr("y", d => yScale(new Date(d.date)))
+      .attr("text-anchor", d => d.desktop_text_anchor)
+      .attr("data-width", d => d.desktop_text_width)
+      .text(d => d.text)
+      .call(wrap);
+    // On desktop, set up rectangles to trigger narrations in box at bottom
+    const narrationRects = chartGroup.selectAll('narrationRect')
+      .data(narration_data.sort((a,b) => d3.ascending(a.start_date, b.start_date)))
+      .enter()
+      .append("rect")
+      .attr("id", d => "narration-rect-" + d.id)
+      .attr("class", "droughtRect")
+      .attr("x", yAxisOffset)
+      .attr("y", d => yScale(new Date(d.start_date)))
+      .attr("width", overlayWidth.value - yAxisOffset)
+      .attr("height", (d,i) => {
+        const y_diff = yScale(new Date(d.end_date)) - yScale(new Date(d.start_date))
+        return y_diff
+      })
+      .style('opacity', 0)
+  } else {
+    // On mobile, set up rectangles to trigger annotations
+    const annotationRects = chartGroup.selectAll('annotationRect')
+      .data(annotation_data.sort((a,b) => d3.ascending(a.date, b.date)))
+      .enter()
+      .append("rect")
+      .attr("id", d => "annotation-rect-" + d.id)
+      .attr("class", "droughtRect")
+      .attr("x", yAxisOffset)
+      .attr("y", d => yScale(new Date(d.date)))
+      .attr("width", overlayWidth.value - yAxisOffset)
+      .attr("height", (d,i) => {
+        const y_diff = i===annotation_data.length-1 ? 
+          yScale(new Date(timelineDates[1])) - yScale(new Date(d.date)) : 
+          yScale(new Date(annotation_data[i+1].date)) - yScale(new Date(d.date))
+        return y_diff > 300 ? 300 : y_diff
+      })
+      .style('opacity', 0)
+    // On mobile, place circles at annotation locations
+    const annotationCircles = chartGroup.selectAll('annotationCircle')
+      .data(annotation_data)
+      .enter()
+      .append("circle")
+      .attr("id", d => "annotation-circle-" + d.id)
+      .attr("class", "droughtCircle")
+      .attr("cx", d => xScale(d.mobile_x_offset_per))
+      .attr("cy", d => yScale(new Date(d.date)))
+      .attr("r", 4)
+
+  }
+}
+
+function addAnimations() {
+  // Set up timeline
+  const tl = gsap.timeline(); 
+
+  // Select dynamically added chart overlay svg
+  const dynamicSVG = document.querySelector("#svg-dynamic");
+
+  // Add in view animations to tick marks, so that we know which years are in the current view
+  const tickMarkTriggers = gsap.utils.toArray(".yAxisText")
+  tickMarkTriggers.forEach((tickMarkTrigger) => {
+    // get unique ID for scroll step.
+    let scrollIDFull = tickMarkTrigger.id
+
+    // When each year is in view on the timeline, add 'inView' class to element
+    // NOTE: no visual change - simply for use in scrollTimeline()
+    tl.to(`#${scrollIDFull}`, {
+      scrollTrigger: {
+        markers: false,
+        trigger: `#${scrollIDFull}`,
+        start: "top 90%",
+        end: 'bottom 10%',
+        toggleClass: {targets: `#${scrollIDFull}`, className:"inView"}, // adds class to target when triggered
+        toggleActions: "restart reverse none reverse" 
+      },
+    })
+  })
+
+
+  // Add text animations
+  if (mobileView) {
+    // On mobile...
+
+    // Add scrollTo animations
+    const scrollToTriggers = gsap.utils.toArray(".scrollToSpot")
+
+    scrollToTriggers.forEach((scrollToTrigger) => {
+
+      // get unique ID for scroll step.
+      let scrollIDFull = scrollToTrigger.id
+      let scrollID = scrollIDFull.split('-')[1]
+
+      // Highlight the menu item for each drought
+      // when in that drought period
+      tl.to(`#${scrollIDFull}`, {
+        scrollTrigger: {
+          markers: false,
+          trigger: `#${scrollIDFull}`,
+          start: "top 50%",
+          end: 'bottom 40%',
+          toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
+          toggleActions: "restart reverse none reverse" 
+        },
+      })
+      // Show the map for each drought when in that drought period
+      tl.to(`#${scrollIDFull}`, {
+        scrollTrigger: {
+          markers: false,
+          trigger: `#${scrollIDFull}`,
+          start: "top 50%",
+          end: 'bottom 50%',
+          toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
+          toggleActions: "restart reverse none reverse" 
+        },
+      })
+    })
+
+
+    // find all annotation text triggers (rectangles)
+    const droughtTextTriggers = gsap.utils.toArray(".droughtRect", dynamicSVG)
     
-    this.addInteractions()
+    // For each trigger,
+    droughtTextTriggers.forEach((droughtTextTrigger) => {
 
-
-  },
-    methods:{
-      isMobile() {
-              if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                  return true
-              } else {
-                  return false
-              }
-      },
-      scrollTimeline(e) {
-
-        // determine which year we are in on the timeline
-        // currently, scroll trigger start and end set up so that there is always 1+ year 'inView'
-        const currentYearElement = document.querySelector('.inView'); // pulls first element w/ class
-        
-        // If a year element is in view, pull the year, otherwise we are past the end of
-        // the timeline and should just set the currrent year to 2020
-        let currentYear = currentYearElement ? currentYearElement.id.split('-')[1] : 2020;
-
-        // determine which year should be scrolled to, based on selected drought
-        const scrollButton = e.target;
-        const scrollID = scrollButton.id;
-        const scrollDroughtYear = scrollID.split('-')[1];
-
-        // determine scroll length, based on # of years scrolled
-        const scrollDistance = Math.abs(scrollDroughtYear - currentYear);
-        const scrollSpeed = 9;
-        const scrollLength =  scrollDistance/scrollSpeed;
-        
-        // scroll to position of specified drought
-        // set vertical scroll offset based on device and window height
-        const scrollOffset = this.mobileView ? window.innerHeight*0.47: window.innerHeight*0.6;
-        this.$gsap.to(window, {duration: scrollLength, scrollTo: {y: "#scrollStop-" + scrollDroughtYear, offsetY: scrollOffset}});
-      },
-      addOverlay() {
-        const self = this;
-
-        const annotation_data = this.annotations
-        const narration_data = this.narrations
-
-        // set viewbox for svg with static overlay drawings
-        const svgChartStatic = this.d3.select("#svg-static")
-          .attr("viewBox", "0 0 " + 720 + " " + 7200)
-          .attr("preserveAspectRatio", "xMidYMid meet")
-          .attr("width", '100%')
-          .attr("height", '100%')
-
-        // hide all elements of static svg to start
-        // Transform vertically based on set overlayTopMargin (for some reason / 2 lines up)
-        svgChartStatic.selectAll('g')
-          .classed('hidden', true)
-          .style("transform", `translate(0, ${this.overlayTopMargin/2}px)`)
-
-        // select svg that will hold dynamically added overlay content
-        this.svgChartDynamic = this.d3.select("#svg-dynamic")
-
-        // set dimensions for overlay svg
-        this.overlayWidth = window.innerWidth*0.65 //MUST MATCH max-width of grid, which controls chart image width
-        this.overlayHeight = this.overlayWidth*10 //Based on image aspect ratio
-        this.svgChartDynamic
-          .attr("viewBox", "0 0 " + this.overlayWidth + " " + (this.overlayHeight + this.overlayTopMargin))
-          .attr("preserveAspectRatio", "xMidYMid meet")
-          .attr("width", '100%')
-
-        // Add single group to contain all chart elements
-        // Transform vertically based on set overlayTopMargin
-        const chartGroup = this.svgChartDynamic
-          .append("g")
-          .style("transform", `translate(0, ${this.overlayTopMargin}px)`)
-
-        // Define y scale based on timeline start and end dates
-        const timelineDates = ['1920-12-09','2020-04-01']
-        const yScale = this.d3.scaleTime()
-          .domain([new Date(timelineDates[0]), new Date(timelineDates[1])])
-          .range([0, this.overlayHeight]);
-
-        // set y-axis offset
-        const yAxisOffset = this.mobileView ? 30: 45;
-
-        // Set up linear scale for chart width
-        const xScale = this.d3.scaleLinear()
-          .domain([0,100])
-          .range([0, this.overlayWidth])
-
-        // Add scroll to elements (only used for scroll navigation)
-        const scrollToSpot = chartGroup.selectAll('scrollToSpot')
-          .data(this.scrollToDates)
-          .enter()
-          .append('rect')
-          .attr("id", d => "scrollStop-" + d.id)
-          .attr("class", "scrollToSpot")
-          .attr("x", this.mobileView ? 0 : yAxisOffset)
-          .attr("y", d => yScale(new Date(d.start)))
-          .attr("width", this.mobileView ? this.overlayWidth : this.overlayWidth - yAxisOffset)
-          .attr("height", (d) => {
-            return yScale(new Date(d.end)) - yScale(new Date(d.start))
-          })
-          .attr("rx", 4)
-          .attr("fill", "#F1F1F1") // fill in light grey so drought events highlighted
-          .attr("opacity", 1)
-
-        // Add y axis
-        const yAxis = this.d3.axisLeft(yScale)
-          .ticks(this.d3.timeYear.every(1))
-          .tickSize(-this.overlayWidth-yAxisOffset) // ticks spanning width of chart
-          .tickSizeOuter(0)
-
-        const yAxisDom = chartGroup.append("g")
-          .call(yAxis)
-          .attr("class", "y_axis")
-          .attr("transform", "translate(" + yAxisOffset + ",0)")
-
-        // set up classes for styling
-        const yearFormat = this.d3.timeFormat("%Y")
-        yAxisDom.selectAll('text')
-          .attr("class", "yAxisText")
-          .attr("id", (d) => "tick-" + yearFormat(d));
-        
-        yAxisDom.selectAll(".tick line")
-          .attr("class", "yAxisTick")
-
-        // remove y axis line
-        yAxisDom.select(".domain").remove()
-
-        // Set up annotations
-        if (!this.mobileView) {
-          // On desktop, place annotations as text
-          const annotationItems = chartGroup.selectAll('annotationText')
-            .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
-            .enter()
-            .append("svg:a").attr("xlink:href", function(d){ return d.url }).attr("target", "_blank")
-            .append("text")
-            .attr("id", d => "annotation-text-" + d.id)
-            .attr("class", d => "droughtText notesText hidden")
-            .attr("x", d => xScale(d.desktop_x_offset_per))
-            .attr("y", d => yScale(new Date(d.date)))
-            .attr("text-anchor", d => d.desktop_text_anchor)
-            .attr("data-width", d => d.desktop_text_width)
-            .text(d => d.text)
-            .call(self.wrap);
-          // On desktop, set up rectangles to trigger narrations in box at bottom
-          const narrationRects = chartGroup.selectAll('narrationRect')
-            .data(narration_data.sort((a,b) => this.d3.ascending(a.start_date, b.start_date)))
-            .enter()
-            .append("rect")
-            .attr("id", d => "narration-rect-" + d.id)
-            .attr("class", "droughtRect")
-            .attr("x", yAxisOffset)
-            .attr("y", d => yScale(new Date(d.start_date)))
-            .attr("width", this.overlayWidth - yAxisOffset)
-            .attr("height", (d,i) => {
-              const y_diff = yScale(new Date(d.end_date)) - yScale(new Date(d.start_date))
-              return y_diff
-            })
-            .style('opacity', 0)
-        } else {
-          // On mobile, set up rectangles to trigger annotations
-          const annotationRects = chartGroup.selectAll('annotationRect')
-            .data(annotation_data.sort((a,b) => this.d3.ascending(a.date, b.date)))
-            .enter()
-            .append("rect")
-            .attr("id", d => "annotation-rect-" + d.id)
-            .attr("class", "droughtRect")
-            .attr("x", yAxisOffset)
-            .attr("y", d => yScale(new Date(d.date)))
-            .attr("width", this.overlayWidth - yAxisOffset)
-            .attr("height", (d,i) => {
-              const y_diff = i===annotation_data.length-1 ? 
-                yScale(new Date(timelineDates[1])) - yScale(new Date(d.date)) : 
-                yScale(new Date(annotation_data[i+1].date)) - yScale(new Date(d.date))
-              return y_diff > 300 ? 300 : y_diff
-            })
-            .style('opacity', 0)
-          // On mobile, place circles at annotation locations
-          const annotationCircles = chartGroup.selectAll('annotationCircle')
-            .data(annotation_data)
-            .enter()
-            .append("circle")
-            .attr("id", d => "annotation-circle-" + d.id)
-            .attr("class", "droughtCircle")
-            .attr("cx", d => xScale(d.mobile_x_offset_per))
-            .attr("cy", d => yScale(new Date(d.date)))
-            .attr("r", 4)
-
-        }
-
-
-
-      },
-      addAnimations() {
-        // Set up timeline
-        const tl = this.$gsap.timeline(); 
-
-        // Select dynamically added chart overlay svg
-        const dynamicSVG = document.querySelector("#svg-dynamic");
-
-        // Add in view animations to tick marks, so that we know which years are in the current view
-        const tickMarkTriggers = this.$gsap.utils.toArray(".yAxisText")
-        tickMarkTriggers.forEach((tickMarkTrigger) => {
-          // get unique ID for scroll step.
-          let scrollIDFull = tickMarkTrigger.id
-
-          // When each year is in view on the timeline, add 'inView' class to element
-          // NOTE: no visual change - simply for use in scrollTimeline()
-          tl.to(`#${scrollIDFull}`, {
-            scrollTrigger: {
-              markers: false,
-              trigger: `#${scrollIDFull}`,
-              start: "top 90%",
-              end: 'bottom 10%',
-              toggleClass: {targets: `#${scrollIDFull}`, className:"inView"}, // adds class to target when triggered
-              toggleActions: "restart reverse none reverse" 
-            },
-          })
+      // get unique ID for text step.
+      let rectIDFull = droughtTextTrigger.id
+      let rectlID = rectIDFull.split('-')[2]
+      
+      // Make the text for the step visible, and the drawing, if there is one
+      // Make sure first text visible and first circle selected on page load
+      if (rectlID === annotations[0].id) {
+        tl.to(`#${rectIDFull}`, {
+          scrollTrigger: {
+            markers: false,
+            trigger: `#${rectIDFull}`,
+            start: `top 80%`,
+            end: 'bottom 50%',
+            toggleClass: {targets: [`#drought-text-${rectlID}`, `#annotation-drawing-${rectlID}`], className:"visible"}, // adds class to target when triggered
+            toggleActions: "restart reverse none reverse" 
+          },
         })
+        // Highlight the circle for each step
+        tl.to(`#${rectIDFull}`, {
+          scrollTrigger: {
+            markers: false,
+            trigger: `#${rectIDFull}`,
+            start: `top 80%`,
+            end: 'bottom 50%',
+            toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
+            toggleActions: "restart reverse none reverse" 
+          },
+        })
+      } else {
+        tl.to(`#${rectIDFull}`, {
+          scrollTrigger: {
+            markers: false,
+            trigger: `#${rectIDFull}`,
+            start: `top 50%`,
+            end: 'bottom 50%',
+            toggleClass: {targets: [`#drought-text-${rectlID}`, `#annotation-drawing-${rectlID}`], className:"visible"}, // adds class to target when triggered
+            toggleActions: "restart reverse none reverse" 
+          },
+        })
+        // Highlight the circle for each step
+        tl.to(`#${rectIDFull}`, {
+          scrollTrigger: {
+            markers: false,
+            trigger: `#${rectIDFull}`,
+            start: `top 50%`,
+            end: 'bottom 50%',
+            toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
+            toggleActions: "restart reverse none reverse" 
+          },
+        })
+      }
+
+    })
+  } else {
+    // On desktop...
+
+    // Add scrollTo animations
+    const scrollToTriggers = gsap.utils.toArray(".scrollToSpot")
+    scrollToTriggers.forEach((scrollToTrigger) => {
+
+      // get unique ID for scroll step.
+      let scrollIDFull = scrollToTrigger.id
+      let scrollID = scrollIDFull.split('-')[1]
+
+      // Highlight the menu item for each drought
+      // when in that drought period
+      tl.to(`#${scrollIDFull}`, {
+        scrollTrigger: {
+          markers: false,
+          trigger: `#${scrollIDFull}`,
+          start: "top 67%",
+          end: 'bottom 50%',
+          toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
+          toggleActions: "restart reverse none reverse" 
+        },
+      })
+    })
 
 
-        
+    const droughtTexts = gsap.utils.toArray(".droughtText", dynamicSVG)
 
-        // Add text animations
-        if (this.mobileView) {
-          // On mobile...
+    droughtTexts.forEach((droughtText) => {
+      // get unique ID for text annotation
+      let scrollIDFull = droughtText.id
+      let scrollID = scrollIDFull.split('-')[2]
 
-          // Add scrollTo animations
-          const scrollToTriggers = this.$gsap.utils.toArray(".scrollToSpot")
+      // use id to set trigger
+      tl.to(`#${scrollIDFull}`, {
+        scrollTrigger: {
+          markers: false,
+          trigger: `#${scrollIDFull}`,
+          start: "top 75%",
+          end: "bottom 25%",
+          toggleClass: {targets: [`#${scrollIDFull}`,`#annotation-drawing-${scrollID}`], className:"visible"}, // adds class to target when triggered
+          toggleActions: "restart reverse none reverse" 
+          /*
+          onEnter - scrolling down, start meets scroller-start
+          onLeave - scrolling down, end meets scroller-end
+          onEnterBack - scrolling up, end meets scroller-end
+          onLeaveBack - scrolling up, start meets scroller-start
+          */
+        },
+      })
+    })
 
-          scrollToTriggers.forEach((scrollToTrigger) => {
+    // find all narration text triggers (rectangles)
+    const droughtNarrationTriggers = gsap.utils.toArray(".droughtRect", dynamicSVG)
 
-            // get unique ID for scroll step.
-            let scrollIDFull = scrollToTrigger.id
-            let scrollID = scrollIDFull.split('-')[1]
+    // For each trigger,
+    droughtNarrationTriggers.forEach((droughtNarrationTrigger) => {
 
-            // Highlight the menu item for each drought
-            // when in that drought period
-            tl.to(`#${scrollIDFull}`, {
-              scrollTrigger: {
-                markers: false,
-                trigger: `#${scrollIDFull}`,
-                start: "top 50%",
-                end: 'bottom 40%',
-                toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
-                toggleActions: "restart reverse none reverse" 
-              },
-            })
-            // Show the map for each drought when in that drought period
-            tl.to(`#${scrollIDFull}`, {
-              scrollTrigger: {
-                markers: false,
-                trigger: `#${scrollIDFull}`,
-                start: "top 50%",
-                end: 'bottom 50%',
-                toggleClass: {targets: `#inset-map-${scrollID}`, className: "show"}, // adds class to target when triggered
-                toggleActions: "restart reverse none reverse" 
-              },
-            })
-          })
+      // get unique ID for text step.
+      let rectIDFull = droughtNarrationTrigger.id
+      let rectlID = rectIDFull.split('-')[2]
+      
+      // Make the narrative text for the step visible
+      tl.to(`#${rectIDFull}`, {
+        scrollTrigger: {
+          markers: false,
+          trigger: `#${rectIDFull}`,
+          start: `top 67%`,
+          end: 'bottom 67%',
+          toggleClass: {targets: `#drought-text-${rectlID}`, className:"visible"}, // adds class to target when triggered
+          toggleActions: "restart reverse none reverse" 
+        },
+      })
+      // Show the map for each drought when in that drought period
+      tl.to(`#${rectIDFull}`, {
+        scrollTrigger: {
+          markers: false,
+          trigger: `#${rectIDFull}`,
+          start: "top 67%",
+          end: "bottom 67%",
+          toggleClass: {targets: `#inset-map-${rectlID}`, className: "show"}, // adds class to target when triggered
+          toggleActions: "restart reverse none reverse" 
+        },
+      })
+    })
+  }
+}
+function addInteractions() {
 
+  // On desktop set up interactions
+  if (!mobileView) {
+    // set viewbox for svg with wedges
+    const wedgesSVG = self.d3.select("#wedges-svg")
+        .attr("viewBox", "0 0 " + 360 + " " + 360)
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .attr("width", '100%')
+        .attr("height", '100%')
 
-          // find all annotation text triggers (rectangles)
-          const droughtTextTriggers = this.$gsap.utils.toArray(".droughtRect", dynamicSVG)
-          
-          // For each trigger,
-          droughtTextTriggers.forEach((droughtTextTrigger) => {
+    // Add interaction to wedges
+    wedgesSVG.selectAll('.wedge')
+        .on("mouseover", (event) => self.mouseoverWedge(event))
+        .on("mouseout", (event) => self.mouseoutWedge(event))
 
-            // get unique ID for text step.
-            let rectIDFull = droughtTextTrigger.id
-            let rectlID = rectIDFull.split('-')[2]
-            
-            // Make the text for the step visible, and the drawing, if there is one
-            // Make sure first text visible and first circle selected on page load
-            if (rectlID === this.annotations[0].id) {
-              tl.to(`#${rectIDFull}`, {
-                scrollTrigger: {
-                  markers: false,
-                  trigger: `#${rectIDFull}`,
-                  start: `top 80%`,
-                  end: 'bottom 50%',
-                  toggleClass: {targets: [`#drought-text-${rectlID}`, `#annotation-drawing-${rectlID}`], className:"visible"}, // adds class to target when triggered
-                  toggleActions: "restart reverse none reverse" 
-                },
-              })
-              // Highlight the circle for each step
-              tl.to(`#${rectIDFull}`, {
-                scrollTrigger: {
-                  markers: false,
-                  trigger: `#${rectIDFull}`,
-                  start: `top 80%`,
-                  end: 'bottom 50%',
-                  toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
-                  toggleActions: "restart reverse none reverse" 
-                },
-              })
-            } else {
-              tl.to(`#${rectIDFull}`, {
-                scrollTrigger: {
-                  markers: false,
-                  trigger: `#${rectIDFull}`,
-                  start: `top 50%`,
-                  end: 'bottom 50%',
-                  toggleClass: {targets: [`#drought-text-${rectlID}`, `#annotation-drawing-${rectlID}`], className:"visible"}, // adds class to target when triggered
-                  toggleActions: "restart reverse none reverse" 
-                },
-              })
-              // Highlight the circle for each step
-              tl.to(`#${rectIDFull}`, {
-                scrollTrigger: {
-                  markers: false,
-                  trigger: `#${rectIDFull}`,
-                  start: `top 50%`,
-                  end: 'bottom 50%',
-                  toggleClass: {targets: `#annotation-circle-${rectlID}`, className:"currentCircle"}, // adds class to target when triggered
-                  toggleActions: "restart reverse none reverse" 
-                },
-              })
-            }
+    // Add mouseleave to wrapper, which is a group that contains the wedges
+    wedgesSVG.selectAll('#wrapper')
+        .on("mouseenter", self.mouseenterWrapper)
+        .on("mouseleave", self.mouseleaveWrapper)
+  }
 
-          })
-        } else {
-          // On desktop...
+  // On mobile, set up interactions
+  if (mobileView) {
+    // Set viewbox for svg map of CASC regions
+    const cascSVG = self.d3.select("#casc-svg")
+        .attr("viewBox", "0 0 " + 648 + " " + 432)
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .attr("width", '100%')
+        .attr("height", '100%')
 
-          // Add scrollTo animations
-          const scrollToTriggers = this.$gsap.utils.toArray(".scrollToSpot")
-          scrollToTriggers.forEach((scrollToTrigger) => {
+    // by default have Northwest region showing
+    // Highlight that region on the map and show violin chart and description
+    const selectedRegion = "Northwest"
+    self.showSelectedRegion(cascSVG, selectedRegion)
 
-            // get unique ID for scroll step.
-            let scrollIDFull = scrollToTrigger.id
-            let scrollID = scrollIDFull.split('-')[1]
+    // add interaction to CASC regions map
+    cascSVG.selectAll('.CASC_region')
+      .on("click", (event) => self.clickRegion(event))
+  }
+}
+function mouseoverWedge(event) {
 
-            // Highlight the menu item for each drought
-            // when in that drought period
-            tl.to(`#${scrollIDFull}`, {
-              scrollTrigger: {
-                markers: false,
-                trigger: `#${scrollIDFull}`,
-                start: "top 67%",
-                end: 'bottom 50%',
-                toggleClass: {targets: `#button-${scrollID}`, className: "currentButton"}, // adds class to target when triggered
-                toggleActions: "restart reverse none reverse" 
-              },
-            })
-          })
+  // Pull the region identifier
+  let regionID = event.target.parentElement.id
 
+  // Show the region-specific map
+  regionMapFilename = `states_regions_${regionID}`
+  
+  // Make all wedges _except_ the one hovered over partially opaque
+  // This highlights the current wedge
+  self.d3.selectAll(".wedge").selectAll('path')
+      .style("fill-opacity", 0.8)
+  self.d3.select("#" + regionID).selectAll('path')
+      .style("fill-opacity", 0)
 
-          const droughtTexts = this.$gsap.utils.toArray(".droughtText", dynamicSVG)
+  // Show the regional violin chart
+  const regionalViolin = document.querySelector('#region-violin-' + regionID);
+  regionalViolin.classList.add("show");
 
-          droughtTexts.forEach((droughtText) => {
-           // get unique ID for text annotation
-            let scrollIDFull = droughtText.id
-            let scrollID = scrollIDFull.split('-')[2]
-
-            // use id to set trigger
-            tl.to(`#${scrollIDFull}`, {
-              scrollTrigger: {
-                markers: false,
-                trigger: `#${scrollIDFull}`,
-                start: "top 75%",
-                end: "bottom 25%",
-                toggleClass: {targets: [`#${scrollIDFull}`,`#annotation-drawing-${scrollID}`], className:"visible"}, // adds class to target when triggered
-                toggleActions: "restart reverse none reverse" 
-                /*
-                onEnter - scrolling down, start meets scroller-start
-                onLeave - scrolling down, end meets scroller-end
-                onEnterBack - scrolling up, end meets scroller-end
-                onLeaveBack - scrolling up, start meets scroller-start
-                */
-              },
-            })
-          })
-
-          // find all narration text triggers (rectangles)
-          const droughtNarrationTriggers = this.$gsap.utils.toArray(".droughtRect", dynamicSVG)
-
-          // For each trigger,
-          droughtNarrationTriggers.forEach((droughtNarrationTrigger) => {
-
-            // get unique ID for text step.
-            let rectIDFull = droughtNarrationTrigger.id
-            let rectlID = rectIDFull.split('-')[2]
-            
-            // Make the narrative text for the step visible
-            tl.to(`#${rectIDFull}`, {
-              scrollTrigger: {
-                markers: false,
-                trigger: `#${rectIDFull}`,
-                start: `top 67%`,
-                end: 'bottom 67%',
-                toggleClass: {targets: `#drought-text-${rectlID}`, className:"visible"}, // adds class to target when triggered
-                toggleActions: "restart reverse none reverse" 
-              },
-            })
-            // Show the map for each drought when in that drought period
-            tl.to(`#${rectIDFull}`, {
-              scrollTrigger: {
-                markers: false,
-                trigger: `#${rectIDFull}`,
-                start: "top 67%",
-                end: "bottom 67%",
-                toggleClass: {targets: `#inset-map-${rectlID}`, className: "show"}, // adds class to target when triggered
-                toggleActions: "restart reverse none reverse" 
-              },
-            })
-          })
-        }
-
-        
-
-      },
-      addInteractions() {
-        const self = this;
-
-        // On desktop set up interactions
-        if (!this.mobileView) {
-          // set viewbox for svg with wedges
-          const wedgesSVG = self.d3.select("#wedges-svg")
-              .attr("viewBox", "0 0 " + 360 + " " + 360)
-              .attr("preserveAspectRatio", "xMidYMid meet")
-              .attr("width", '100%')
-              .attr("height", '100%')
-
-          // Add interaction to wedges
-          wedgesSVG.selectAll('.wedge')
-              .on("mouseover", (event) => self.mouseoverWedge(event))
-              .on("mouseout", (event) => self.mouseoutWedge(event))
-
-          // Add mouseleave to wrapper, which is a group that contains the wedges
-          wedgesSVG.selectAll('#wrapper')
-              .on("mouseenter", self.mouseenterWrapper)
-              .on("mouseleave", self.mouseleaveWrapper)
-        }
-
-        // On mobile, set up interactions
-        if (this.mobileView) {
-          // Set viewbox for svg map of CASC regions
-          const cascSVG = self.d3.select("#casc-svg")
-              .attr("viewBox", "0 0 " + 648 + " " + 432)
-              .attr("preserveAspectRatio", "xMidYMid meet")
-              .attr("width", '100%')
-              .attr("height", '100%')
-
-          // by default have Northwest region showing
-          // Highlight that region on the map and show violin chart and description
-          const selectedRegion = "Northwest"
-          self.showSelectedRegion(cascSVG, selectedRegion)
-
-          // add interaction to CASC regions map
-          cascSVG.selectAll('.CASC_region')
-            .on("click", (event) => self.clickRegion(event))
-        }
-      },
-      mouseoverWedge(event) {
-        const self = this;
-
-        // Pull the region identifier
-        let regionID = event.target.parentElement.id
-
-        // Show the region-specific map
-        this.regionMapFilename = `states_regions_${regionID}`
-        
-        // Make all wedges _except_ the one hovered over partially opaque
-        // This highlights the current wedge
-        self.d3.selectAll(".wedge").selectAll('path')
-            .style("fill-opacity", 0.8)
-        self.d3.select("#" + regionID).selectAll('path')
-            .style("fill-opacity", 0)
-
-        // Show the regional violin chart
-        const regionalViolin = document.querySelector('#region-violin-' + regionID);
-        regionalViolin.classList.add("show");
-
-        // Show the regional description
-        const regionDescription = document.querySelector('#region-description-' + regionID);
-        regionDescription.classList.add("visibleText");
-      },
-      mouseoutWedge(event) {
-        const self = this;
+  // Show the regional description
+  const regionDescription = document.querySelector('#region-description-' + regionID);
+  regionDescription.classList.add("visibleText");
+}
+function       mouseoutWedge(event) {
+    
 
         // Pull the region identifier
         let regionID = event.target.parentElement.id
@@ -899,19 +882,17 @@ export default {
         const regionDescription = document.querySelector('#region-description-' + regionID);
         regionDescription.classList.remove("visibleText");    
 
-      },
-      mouseenterWrapper() {
-        const self = this;
-
+      }
+      function mouseenterWrapper() {
+  
         // Hide the interaction instructions
         const chartInsructions = document.querySelector('#chart-instructions')
         chartInsructions.classList.add("hide");
-      },
-      mouseleaveWrapper() {
-        const self = this;
+      }
+      function mouseleaveWrapper() {
 
         // Show the default map
-        this.regionMapFilename = "casc_regions_map"
+        regionMapFilename = "casc_regions_map"
 
         // Show the interaction instructions
         const chartInsructions = document.querySelector('#chart-instructions')
@@ -920,8 +901,8 @@ export default {
         // Make all wedges transparent
         self.d3.selectAll(".wedge").selectAll('path')
             .style("fill-opacity", 0)
-      },
-      showSelectedRegion(svg, region) {
+      }
+     function showSelectedRegion(svg, region) {
         svg.selectAll(".CASC_region")
           .style("fill", "#ffffff")
           .style("opacity", 1)
@@ -936,9 +917,9 @@ export default {
         // Show the regional description
         const regionDescription = document.querySelector('#region-description-' + region);
         regionDescription.classList.add("visibleText");
-      },
-      clickRegion(event) {
-        const self = this;
+      }
+      function clickRegion(event) {
+    
 
         // Pull the region identifier
         let regionID = event.target.id // unique region id - use to tie to regional violin and map
@@ -963,12 +944,12 @@ export default {
         allDescriptions.forEach(violin => violin.classList.remove("visibleText"))
         const regionDescription = document.querySelector('#region-description-' + regionID);
         regionDescription.classList.add("visibleText");
-      },
+      }
       // function to wrap text added with d3 modified from
       // https://stackoverflow.com/questions/24784302/wrapping-text-in-d3
       // which is adapted from https://bl.ocks.org/mbostock/7555321
-      wrap(text) {
-        const self = this;
+      function wrap(text) {
+    
         text.each(function () {
             var text = self.d3.select(this),
                 words = text.text().split(/\s+/).reverse(),
@@ -1001,9 +982,9 @@ export default {
             }
         });
       }
-    }
-}
+    
 </script>
+
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner&display=swap');
 $writeFont: 'Edu TAS Beginner', cursive;

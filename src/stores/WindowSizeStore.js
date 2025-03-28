@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const store = defineStore('windowSize', {
+export const useWindowSizeStore = defineStore('windowSize', {
   state: () => ({
     usgsHeaderRendered: false,
     windowWidth: 0,

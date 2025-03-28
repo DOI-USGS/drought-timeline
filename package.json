@@ -16,6 +16,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@eslint/compat": "1.2.7",
     "gsap": "^3.10.4",
     "html-loader": "^2.0.0",
     "pinia": "^3.0.1",

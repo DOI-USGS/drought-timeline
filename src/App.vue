@@ -1,4 +1,4 @@
- <template>
+<template>
   <div>
     <WindowSize v-if="typeOfEnv === '-test build-'" />
     <HeaderUSWDSBanner v-if="typeOfEnv !== '-test build-'" />
@@ -6,7 +6,7 @@
     <RouterView />
     <PreFooterCodeLinks />
     <FooterUSGS />
-   </div>
+  </div>
 </template>  
 
 <script setup>
