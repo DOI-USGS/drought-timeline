@@ -27,25 +27,25 @@
       <%= VUE_APP_TIER %>
         <%= VUE_APP_TITLE %>
     </title>
-    <meta name="title" content="Five droughts that changed history">
-    <meta name="description" content="The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.">
+    <meta name="title" content="%VITE_APP_LONG_TITLE%">
+    <meta name="description" content="%VITE_APP_DESCRIPTION%">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://labs.waterdata.usgs.gov/visualizations/drought-timeline/index.html#/">
-    <meta property="og:title" content="Five droughts that changed U.S. history">
-    <meta property="og:description" content="The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.">
+    <meta property="og:url" content="https://water.usgs.gov/vizlab/%VITE_APP_TITLE%">
+    <meta property="og:title" content="%VITE_APP_LONG_TITLE%">
+    <meta property="og:description" content="%VITE_APP_DESCRIPTION%">
     <meta property="og:image" content="https://labs.waterdata.usgs.gov/visualizations/images/drought_timeline_thumbnail.png">
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://labs.waterdata.usgs.gov/visualizations/drought-timeline/index.html#/">
-    <meta property="twitter:title" content="Five droughts that changed U.S. history">
-    <meta property="twitter:description" content="The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.">
+    <meta property="twitter:url" content="https://water.usgs.gov/vizlab/%VITE_APP_TITLE%">
+    <meta property="twitter:title" content="%VITE_APP_LONG_TITLE%">
+    <meta property="twitter:description" content="%VITE_APP_DESCRIPTION%">
     <meta property="twitter:image" content="https://labs.waterdata.usgs.gov/visualizations/images/drought_timeline_thumbnail.png">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <script type='application/ld+json'>
       { "@context": "http://www.schema.org",
-        "@type": "WebSite", "name": "Five droughts that changed U.S. history",
-        "url": "https://labs.waterdata.usgs.gov/visualizations/drought-timeline/index.html#/",
+        "@type": "WebSite", "name": "%VITE_APP_LONG_TITLE%",
+        "url": "https://water.usgs.gov/vizlab/%VITE_APP_TITLE%",
         "about": "",
         "datePublished": "September 20, 2023",
         "contributor": [
@@ -57,11 +57,6 @@
           { "@type": "Person",
             "name": "Althea Archer",
             "email": "aaarcher@usgs.gov",
-            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
-          },
-          { "@type": "Person",
-            "name": "Cee Nell",
-            "email": "cnell@usgs.gov",
             "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
           },
           { "@type": "Person",
@@ -78,12 +73,17 @@
             "name": "Scott Hamshaw",
             "email": "shamshaw@usgs.gov",
             "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Cee Nell",
+            "email": "cnell@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
           }
          ]
       },
       "audience": { "@context": "http://schema.org", "@type": "Audience", "audienceType": "General public"},
       "publisher": { "@context": "http://schema.org", "@type": "Organization", "legalName": "U.S. Geological Survey" },
-      "keywords": "water, data viz, data visualization, water quality, algae" }
+      "keywords": { "water, data viz, data visualization, drought, low flows, timeseries, drought duration, dust bowl, regional drought" }
     </script>
   </head>
   <body>
@@ -103,7 +103,5 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-    <!--the next line is the required USGS Google Analytics Script -->
-    <script async src="https://www2.usgs.gov/scripts/analytics/usgs-analytics.js" type="application/javascript"></script>
   </body>
 </html>
