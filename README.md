@@ -1,12 +1,9 @@
-# 100 years of drought in the U.S.
+# {app_long_title}
+
+**The data visualization website can be viewed at [https://water.usgs.gov/vizlab/{app_title}](https://water.usgs.gov/vizlab/{app_title}).**
 
 ## To build pipeline and reproduce figures
 Clone the repo. In RStudio, run `library(targets)` and `tar_make()`. This will require ScienceBase credentials to run, see instructions below.
-
-## To run website build locally
-Clone the repo. In the directory, run `npm install` to install the required modules. This repository requires `npm v20` to run. If you are using a later version of `npm`, you may [try using `nvm` to manage multiple versions of npm](https://betterprogramming.pub/how-to-change-node-js-version-between-projects-using-nvm-3ad2416bda7e).
-
-Once the dependencies have been installed, run `npm run serve` to run locally from your browser.
 
 ## Set up ScienceBase credentials 
 
@@ -17,4 +14,22 @@ library(secret);library(dplyr)
 source("0_config/src/authentication_helpers.R")
 set_up_auth("your_email@usgs.gov")
 ```
+
+## Building the website locally
+
+Clone the repo. In the directory, run `npm install` to install the required modules. Once the dependencies have been installed, run `npm run dev` to run locally from your browser.
+
+To build the website locally you'll need `node.js` `v22.14.0` and `npm` `v10.9.2` or higher installed. To manage multiple versions of `npm`, you may [try using `nvm`](https://betterprogramming.pub/how-to-change-node-js-version-between-projects-using-nvm-3ad2416bda7e).
+
+## Citation
+
+{Authors}. {Year}. {Website title}. U.S. Geological Survey software release. Reston, VA. [https://doi.org/{doi_of official_software_release}](https://doi.org/{doi_of_official_software_release})
+
+## Consulting subject matter experts
+Scott Hamshaw, Caelan Simeone, and John Hammond consulted on the development of this website as subject matter experts.
+
+## Additional information
+* We welcome contributions from the community. See the [guidelines for contributing](https://github.com/DOI-USGS/{app_title}/) to this repository on GitHub.
+* [Disclaimer](https://code.usgs.gov/wma/vizlab/{app_title}/-/blob/main/DISCLAIMER.md)
+* [License](https://code.usgs.gov/wma/vizlab/{app_title}/-/blob/main/LICENSE.md)
 
