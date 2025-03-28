@@ -21,3 +21,7 @@ app.use(router)
 app.component("FontAwesomeIcon", FontAwesomeIcon)
 
 app.mount('#app')
+
+app.config.errorHandler = (err) => {
+  console.error('global error handler:', err)
+}

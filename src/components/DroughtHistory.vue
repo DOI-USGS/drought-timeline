@@ -344,7 +344,7 @@
 </template>
 <script>
 import * as d3Base from 'd3';
-import { store } from '../store/store.js'
+import { store } from '../stores/WindowSizeStore.js'
 import { isMobile } from 'mobile-device-detect';
 import { ScrollTrigger } from "gsap/ScrollTrigger"; // animated scroll events
 import { TimelineMax } from "gsap/all";

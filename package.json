@@ -18,6 +18,7 @@
   "dependencies": {
     "gsap": "^3.10.4",
     "html-loader": "^2.0.0",
+    "pinia": "^3.0.1",
     "@uswds/uswds": "^3.11.0",
     "v-img": "^0.2.0",
     "vue": "^3.5.13",
