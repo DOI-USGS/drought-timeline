@@ -399,8 +399,6 @@ const scrollToDates = [
     { id: '1999', name: 'Turn-of-the-Century Drought', start: '1999-09-01', end: '2015-09-30' }
   ]
 
-  console.log(scrollToDates)
-
 
 let svgChartDynamic
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
@@ -421,8 +419,8 @@ onMounted(() => {
 
 // methods
 function getImageUrl(filename) {
-  //return imageMap[`/src/assets/images/${filename}.png`]
-  return new URL(`../assets/images/${filename}.png`, import.meta.url).href
+  const safeFilename = filename.endsWith('.png') ? filename : `${filename}.png`
+  return new URL(`../assets/images/${safeFilename}`, import.meta.url).href
 }
 
 function scrollTimeline(e) {
