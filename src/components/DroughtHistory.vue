@@ -225,14 +225,12 @@
         >
           Hover over the chart to explore drought histories in each region
         </p>
-        <div
-          v-for="description in regionDescriptions"
-          :id="`region-description-${description.id}`"
-          :key="description.id"
-          class="regionText hiddenText"
+        <h4
+          v-if="!mobileView && activeRegion"
+          class="regionText"
         >
-          <h4>Drought in the {{ description.region_name }} U.S.</h4>
-        </div>
+          Drought in the {{ regionName(activeRegion) }} U.S.
+        </h4>
       </div>
     </section>
     <section
@@ -393,6 +391,12 @@ const overlayTopMargin = 3
 const regionMapFilename = ref('casc_regions_map')
 const regionDescriptions = regionDroughtDescriptions.regionDescriptions
 const referencesContent = referencesText.referencesContent
+const activeRegion = ref(null)
+
+function regionName(id) {
+  return regionDescriptions.find(r => r.id === id)?.region_name || ''
+}
+
 
 const scrollToDates = [
     { id: '1930', name: 'Dust Bowl', start: '1930-02-01', end: '1941-08-31' },
@@ -431,9 +435,6 @@ function getImageUrl(filename, fallback = '') {
 
   return new URL(`../assets/images/${finalName}`, import.meta.url).href
 }
-
-
-
 
 function scrollTimeline(e) {
 
@@ -878,6 +879,7 @@ function mouseoverWedge(event) {
   // Pull the region identifier
   let regionID = event.target.parentElement.id
   regionMapFilename.value = `states_regions_${regionID}`
+  activeRegion.value = regionID
   
   // Make all wedges _except_ the one hovered over partially opaque
   d3.selectAll(".wedge polygon").style("fill-opacity", 0.8);
@@ -898,6 +900,8 @@ function mouseenterWrapper() {
 }
 function mouseleaveWrapper() {
 
+  activeRegion.value = null
+
   // Show the default map
   regionMapFilename.value = "casc_regions_map"
 
@@ -908,6 +912,8 @@ function mouseleaveWrapper() {
   d3.selectAll(".wedge").selectAll('path').style("fill-opacity", 0)
 }
 function showSelectedRegion(svg, region) {
+  activeRegion.value = regionID
+
   svg.selectAll(".CASC_region")
     .style("fill", "#ffffff")
     .style("opacity", 1)
@@ -920,70 +926,70 @@ function showSelectedRegion(svg, region) {
   const description = document.querySelector(`#region-description-${region}`);
   description?.classList.add("visibleText");
 }
-      function clickRegion(event) {
-    
+function clickRegion(event) {
 
-        // Pull the region identifier
-        let regionID = event.target.id // unique region id - use to tie to regional violin and map
-        
-        // Highlight that region on the map while dehighlighting other regions
-        const cascSVG = d3.select("#casc-svg")
-        cascSVG.selectAll(".CASC_region")
-          .style("fill", "#ffffff")
-          .style("opacity", 1)
-        cascSVG.select("#" + regionID)
-          .style("fill", "#E48951")
-          .style("fill-opacity", 0.5)
+  // Pull the region identifier
+  let regionID = event.target.id // unique region id - use to tie to regional violin and map
+  activeRegion.value = regionID
+  
+  // Highlight that region on the map while dehighlighting other regions
+  const cascSVG = d3.select("#casc-svg")
+  cascSVG.selectAll(".CASC_region")
+    .style("fill", "#ffffff")
+    .style("opacity", 1)
+  cascSVG.select("#" + regionID)
+    .style("fill", "#E48951")
+    .style("fill-opacity", 0.5)
 
-        // Show the regional violin chart while hiding other violin charts
-        const allViolins = document.querySelectorAll('.violin-chart')
-        allViolins.forEach(violin => violin.classList.remove("show"))
-        const regionalViolin = document.querySelector('#region-violin-' + regionID);
-        regionalViolin.classList.add("show");
+  // Show the regional violin chart while hiding other violin charts
+  const allViolins = document.querySelectorAll('.violin-chart')
+  allViolins.forEach(violin => violin.classList.remove("show"))
+  const regionalViolin = document.querySelector('#region-violin-' + regionID);
+  regionalViolin.classList.add("show");
 
-        // Show the regional description while hiding other regional descriptions
-        const allDescriptions = document.querySelectorAll('.regionText')
-        allDescriptions.forEach(violin => violin.classList.remove("visibleText"))
-        const regionDescription = document.querySelector('#region-description-' + regionID);
-        regionDescription.classList.add("visibleText");
+  // Show the regional description while hiding other regional descriptions
+  const allDescriptions = document.querySelectorAll('.regionText')
+  allDescriptions.forEach(violin => violin.classList.remove("visibleText"))
+  const regionDescription = document.querySelector('#region-description-' + regionID);
+  regionDescription.classList.add("visibleText");
+}
+// function to wrap text added with d3 modified from
+// https://stackoverflow.com/questions/24784302/wrapping-text-in-d3
+// which is adapted from https://bl.ocks.org/mbostock/7555321
+function wrap(text) {
+
+  text.each(function () {
+      var text = d3.select(this),
+          words = text.text().split(/\s+/).reverse(),
+          word,
+          line = [],
+          lineNumber = 0,
+          lineHeight = 1.1, // ems
+          x = text.attr("x"),
+          y = text.attr("y"),
+          width = text.attr("data-width"),
+          dy = 0, //parseFloat(text.attr("dy")),
+          tspan = text.text(null)
+                      .append("tspan")
+                      .attr("x", x)
+                      .attr("y", y)
+                      .attr("dy", dy + "em");
+      while (word = words.pop()) {
+          line.push(word);
+          tspan.text(line.join(" "));
+          if (tspan.node().getComputedTextLength() > width) {
+              line.pop();
+              tspan.text(line.join(" "));
+              line = [word];
+              tspan = text.append("tspan")
+                          .attr("x", x)
+                          .attr("y", y)
+                          .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                          .text(word);
+          }
       }
-      // function to wrap text added with d3 modified from
-      // https://stackoverflow.com/questions/24784302/wrapping-text-in-d3
-      // which is adapted from https://bl.ocks.org/mbostock/7555321
-      function wrap(text) {
-    
-        text.each(function () {
-            var text = d3.select(this),
-                words = text.text().split(/\s+/).reverse(),
-                word,
-                line = [],
-                lineNumber = 0,
-                lineHeight = 1.1, // ems
-                x = text.attr("x"),
-                y = text.attr("y"),
-                width = text.attr("data-width"),
-                dy = 0, //parseFloat(text.attr("dy")),
-                tspan = text.text(null)
-                            .append("tspan")
-                            .attr("x", x)
-                            .attr("y", y)
-                            .attr("dy", dy + "em");
-            while (word = words.pop()) {
-                line.push(word);
-                tspan.text(line.join(" "));
-                if (tspan.node().getComputedTextLength() > width) {
-                    line.pop();
-                    tspan.text(line.join(" "));
-                    line = [word];
-                    tspan = text.append("tspan")
-                                .attr("x", x)
-                                .attr("y", y)
-                                .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                                .text(word);
-                }
-            }
-        });
-      }
+  });
+}
     
 </script>
 
