@@ -1249,7 +1249,6 @@ function mouseleaveWrapper() {
   grid-area: annotation-narration;
   padding: 0.25rem 1em 1em 1em ;
   position: absolute;
-  //top: 522px;
   width: 24vw;
 }
 .droughtText.droughtTitle {
@@ -1334,11 +1333,11 @@ function mouseleaveWrapper() {
   max-height: 115%;
   max-width: 115%;
 }
-#region-map {
-  grid-area: radial;
-  place-self: center;
-  margin-left: 0.5%; //nudges map right
-  width: 7.0vw;
+.region-map {
+    position: absolute;
+    height: 15%;
+    width: auto;
+    margin-left: 0.5%; //nudges map right
 }
 #casc-svg {
   max-height: 150px;
@@ -1357,6 +1356,14 @@ function mouseleaveWrapper() {
   stroke: none;
   fill: white;
   fill-opacity: 0;
+}
+#map-container {
+  grid-area: radial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  position: relative;
 }
 #violin-container {
   grid-area: violin;
