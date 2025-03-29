@@ -8,16 +8,21 @@
 # 2. Put this script in the same folder as your large PNG image
 # 3. Set the input image name and max slice height below
 # 4. To run the script, run these lines in terminal:
-#      chmod +x split_image.sh  # only once to make it executable
+#      chmod +x split-image.sh  # only once to make it executable
 #      ./split_image.sh # runs the script
 #
 # The original image will remain unchanged
 # -----------------------------
 
 # set input image and max slice height
-INPUT="swarm_jd7d_2pct_compressed_vertical.png"  # image filename
-MAX_HEIGHT=1200 # max height in pixels per slice - 1200px is a good default for most size, or 1600 for high res screens
-OUTDIR="slices" # output folder
+INPUT="src/assets/images/duration-chart/swarm_jd7d_2pct_compressed_vertical.png"  # image filename
+MAX_HEIGHT=1600 # max height in pixels per slice - 1200px is a good default for most size, or 1600 for high res screens
+OUTDIR="src/assets/images/duration-chart/slices" # output folder
+
+# delete all files in the output directory if it exists
+if [ -d "$OUTDIR" ]; then
+  rm -rf "$OUTDIR"/*
+fi
 
 # create output directory if it doesn't exist
 mkdir -p $OUTDIR
