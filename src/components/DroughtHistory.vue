@@ -285,7 +285,7 @@
         <h3>References</h3>
         <div>
           <div
-            v-for="reference in referencesText.references"
+            v-for="reference in referencesContent.references"
             :key="reference.id"
             class="references-list"
           >
@@ -369,7 +369,6 @@ import cascMap from "@/assets/svgs/casc_regions_map.svg";
 import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.js";
 import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
 import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
-import droughtTitles_desktop from "@/assets/text/droughtNarrations_desktop.js";
 import regionDroughtDescriptions from "@/assets/text/regionDroughtDescriptions.js";
 import referencesText from "@/assets/text/referencesText";
 
@@ -378,7 +377,6 @@ const mobileView = isMobile
 
 const annotations = ref(null)
 const narrations = droughtNarrations_desktop.timelineEvents
-const titles = droughtTitles_desktop.timelineTitles
 
 const overlayWidth = ref(window.innerWidth * 0.65)
 const overlayHeight = ref(overlayWidth.value * 10)
@@ -386,8 +384,6 @@ const overlayTopMargin = 3
 const regionMapFilename = ref('casc_regions_map')
 const regionDescriptions = regionDroughtDescriptions.regionDescriptions
 const referencesContent = referencesText.referencesContent
-const referencesQuotes = referencesText.referencesQuotes
-const referencesPhotos = referencesText.referencesPhotos
 
 const scrollToDates = [
     { id: '1930', name: 'Dust Bowl', start: '1930-02-01', end: '1941-08-31' },
