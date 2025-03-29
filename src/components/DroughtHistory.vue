@@ -193,22 +193,46 @@
           v-if="!mobileView"
           id="wedges-svg"
         />
-        <img
+        <div
           v-if="!mobileView"
-          id="region-map"
-          :src="getImageUrl(regionMapFilename.value)"
-          alt=""
+          id="map-container"
         >
-        <div id="violin-container">
+          <img    
+            id="region-map-default"
+            class="region-map"
+            src="@/assets/images/casc_regions_map.png"
+            alt=""
+          >
+          <img    
+            v-for="region in regions"
+            :id="`region-map-${region}`"
+            :key="`map-${region}`" 
+            class="region-map hide"
+            :src="getMapImageUrl(region)"
+            alt=""
+          >
+        </div>
+        <div
+          id="violin-container"
+          :class="{ mobile: mobileView}"
+        >
           <img
             v-for="description in regionDescriptions"
             :id="`region-violin-${description.id}`"
             :key="`violin-${description.id}`"
             class="violin-chart hide"
-            :src="getImageUrl(`duration-chart/vertical_violin_jd7d_2pct_${description.id}`)"
-            :alt="`${description.alt}`"
+            :src="getImageUrl(`vertical_violin_jd7d_2pct_${description.id}`)"
+            alt="`${description.alt}`"
           >
         </div>
+        //old here
+        <img
+          v-if="!mobileView"
+          id="region-map"
+          :key="regionMapFilename.value"
+          :src="getImageUrl('states_regions_Northwest')"
+          alt=""
+        >
         <p
           v-if="!mobileView"
           id="chart-instructions"
@@ -412,11 +436,18 @@ onMounted(() => {
 
 
 // methods
-function getImageUrl(filename) {
-  if (!filename || typeof filename !== 'string') return ''
-  const safeFilename = filename.endsWith('.png') ? filename : `${filename}.png`
-  return new URL(`../assets/images/${safeFilename}`, import.meta.url).href
+
+function getImageUrl(filename, fallback = '') {
+  if (!filename && !fallback) return ''
+
+  const finalName = (filename || fallback).endsWith('.png')
+    ? (filename || fallback)
+    : `${filename || fallback}.png`
+
+  return new URL(`../assets/images/${finalName}`, import.meta.url).href
 }
+
+
 
 
 function scrollTimeline(e) {
@@ -856,6 +887,11 @@ function mouseoverWedge(event) {
 
   // Show the region-specific map
   regionMapFilename.value = `states_regions_${regionID}`
+
+  console.log('🧭 switching map to:', regionID)
+console.log('🔁 setting regionMapFilename to:', `states_regions_${regionID}`)
+console.log('🖼️ resolved map:', getImageUrl(regionMapFilename.value))
+
   
   // Make all wedges _except_ the one hovered over partially opaque
   // This highlights the current wedge
