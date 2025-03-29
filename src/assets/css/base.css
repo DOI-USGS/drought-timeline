@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Neucha&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner&display=swap');
 
 /* semantic color variables for this project */
 /* Define colors */
@@ -7,7 +8,7 @@
   --white: #ffffff;
   --white-soft: #F0F0F0;
 
-  --black-soft: #151515;
+  --black-soft: #333534;
   --dodger-blue: #1e90ff;
   --medium-grey: #B5B5B5;
   --medium-purple: #8F00DB;
@@ -18,8 +19,9 @@
 
   font-size: 62.5%;
 
-  --title-font: Roboto Slab;
+  --title-font: Source Sans Pro;
   --default-font: Source Sans Pro;
+  --write-font: Neucha;
 }
 
 /* Declare color variables */
@@ -37,13 +39,6 @@
   --color-map-default: var(--white);
   --color-USGS-header-footer: var(--usgs-blue);
 }
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--black-soft);
-    --color-text: var(--white-soft);
-  }
-} */
 
 *,
 *::before,
@@ -76,10 +71,115 @@ h1 {
   padding: 0rem 0 1rem 0;
 }
 h2 {
-  font-size: 2.5rem;
+  font-size: 6rem;
   font-weight: 700;
   padding: 3rem 0 1rem 0;
+  font-family: var(--default-font);
+  margin-top: 5px;
+  line-height: 1.2;
+  @media screen and (max-width: 600px) {
+    font-size: 4rem;
+    line-height: 1.1;
+  }
+}
+h3{
+  font-size: 3.5rem;
+  padding-top: 1em;
+  padding-bottom: .25em;
+  font-family: var(--default-font);
+  font-weight: 700;
+  color: $textcolor;
+  @media screen and (max-width: 600px) {
+      font-size: 3.2rem;
+  }  
+}
+h4{
+  font-size: 2.5rem;
+  padding-top: 0em;
+  padding-bottom: .25em;
+  font-family: var(--default-font);
+  font-weight: 600;
+  color: $textcolor;
+  @media screen and (max-width: 600px) {
+    font-size: 1.8rem;
+  }  
 }
 p, text, li {
   padding: 0 0 1rem 0;
+}
+
+.droughtText.notesText{
+  font-family: var(--write-font);
+}
+.droughtText {
+  z-index: 10;
+  font-weight: 400;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+.droughtText.mobile {
+  z-index: 10;
+  font-weight: 500;
+  margin: 0 5vw 0 5vw;
+  position: absolute;
+}
+.droughtText.quote {
+  font-style: italic;
+}
+a:link {
+  color:#032a56;
+}
+a:visited {
+  color: #032a56;
+}
+a:hover {
+  color: #032a56;
+}
+a:active {
+  color: #032a56;
+}
+.droughtText.notesText{
+  font-family: var(--write-font);
+  font-size: 1.9rem;
+}
+input[type=button] {
+        font-family: var(--default-font);
+    }
+
+.legend-text {
+  fill: black;
+  font-family: var(--default-font);
+  font-size: 1.6rem;
+}
+.viz-comment {
+  font-family: var(--default-font);
+  font-size: 2.6rem;
+  font-weight: 400;
+  fill:rgb(224, 222, 222);
+}
+.viz-emph {
+  font-weight:700;
+  fill: white;
+  font-family: var(--default-font);
+  font-size: 2.6rem;
+}
+.emph {
+  font-weight: bold;
+}
+.italic {
+  font-style: italic;
+}
+.pseudo-caption {
+  font-size: 1.0rem;
+  margin: 0 10px;
+}  
+sup {
+  opacity: .4;
+}
+.sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
 }

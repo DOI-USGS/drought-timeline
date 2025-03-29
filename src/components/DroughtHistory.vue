@@ -317,21 +317,21 @@
           href="https://www.usgs.gov/staff-profiles/althea-a-archer"
           target="_blank"
         >Althea A. Archer</a> led the development of this website with contributions from <a
-          href="https://www.usgs.gov/staff-profiles/cee-nell"
-          target="_blank"
-        >Cee Nell</a> and <a
-          href="https://www.usgs.gov/staff-profiles/elmera-azadpour"
-          target="_blank"
-        >Elmera Azadpour</a>. Althea Archer led the data analysis and chart creation with contributions from Hayley Corson-Dosch and Cee Nell. <a
           href="https://www.usgs.gov/staff-profiles/amanda-carr"
           target="_blank"
-        >Mandie Carr</a> wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a
+        >Mandie Carr</a>, <a
+          href="https://www.usgs.gov/staff-profiles/elmera-azadpour"
+          target="_blank"
+        >Elmera Azadpour</a>, and <a
+          href="https://www.usgs.gov/staff-profiles/cee-nell"
+          target="_blank"
+        >Cee Nell</a>. Althea led the data analysis and chart creation with contributions from Hayley and Cee. Mandie wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a
           href="https://twitter.com/USGS_DataSci/status/1516447170437726208"
           target="_blank"
         >chart</a> made by <a
           href="https://www.usgs.gov/staff-profiles/scott-hamshaw"
           target="_blank"
-        >Scott Hamshaw</a>.
+        >Scott Hamshaw</a> and Cee.
       </p>
     </section>
     <svg id="filter-svg">
@@ -374,8 +374,6 @@ import regionDroughtDescriptions from "@/assets/text/regionDroughtDescriptions.j
 import referencesText from "@/assets/text/referencesText";
 
 const d3 = Object.assign({}, d3Base)
-const publicPath = import.meta.env.BASE_URL
-const imageMap = import.meta.glob('@/assets/images/*.png', { eager: true }) // load all image asset urls
 const mobileView = isMobile
 
 const annotations = ref(null)
@@ -993,8 +991,6 @@ function mouseleaveWrapper() {
 </script>
 
 <style scoped lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Edu+TAS+Beginner&display=swap');
-$writeFont: 'Edu TAS Beginner', cursive;
 
 #grid-container {
   display: grid;
@@ -1126,11 +1122,11 @@ $writeFont: 'Edu TAS Beginner', cursive;
   font-style: italic;
   bottom: 7vh;
 
-  /*Borders - (Optional)*/
+  /*Borders */
   border-left: 15px solid #c76c0c;
   border-right: 2px solid #c76c0c;
   
-  /*Box Shadow - (Optional)*/
+  /*Box Shadow */
   -moz-box-shadow: 2px 2px 15px #ccc;
   -webkit-box-shadow: 2px 2px 15px #ccc;
   box-shadow: 2px 2px 15px #ccc;
@@ -1189,7 +1185,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
     width: 100%;
   }
 }
-// Class for paths in AI-generated annotation_drawings-01.svg
+// Class for paths in annotation_drawings-01.svg
 .cls-1 {
   fill: none;
   stroke: black;
@@ -1229,25 +1225,7 @@ $writeFont: 'Edu TAS Beginner', cursive;
   opacity: 0.9;
   box-shadow: 0px -5px 5px #B9B9B9;
 }
-.droughtText {
-  z-index: 10;
-  font-weight: 400;
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-}
-.droughtText.mobile {
-  z-index: 10;
-  font-weight: 500;
-  margin: 0 5vw 0 5vw;
-  position: absolute;
-}
-.droughtText.quote {
-  font-style: italic;
-}
-.droughtText.notesText{
-  font-family: $writeFont;
-}
+
 .droughtText.narration {
   grid-area: annotation-narration;
   padding: 0.25rem 1em 1em 1em ;

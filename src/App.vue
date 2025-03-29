@@ -42,6 +42,56 @@
   }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+// General Layout  
+  .text-content {
+    min-width: 300px;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 10px;   
+    @media screen and (max-width: 600px) {
+        padding: 10px;
+    }  
+  }
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    align-content: space-around;
+    max-width: 30%;
+    margin: auto;
+    @media screen and (max-width: 600px) {
+        max-width: 100%;
+    }
+  }
+  .flex-item {
+    padding: 20px;
+    min-width: 400px;
+    flex: 0 0 auto;
+    align-self: center;
+  }
+  @media (max-width: 600px) {
+    .flex-container {
+      flex-direction: column;
+    }
+    .flex-item {
+      flex: none;
+      padding: 0 0 1em 0;
+      height: 100%;
+    }
+  }
+  .figure-content {
+    border: 1px white;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    align-content: space-around;
+    max-width: 100%;
+    margin: auto;
+    @media screen and (max-width: 600px) {
+        padding: 0px; 
+    }
+  }
 </style>
