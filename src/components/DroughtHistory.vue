@@ -196,7 +196,7 @@
         <img
           v-if="!mobileView"
           id="region-map"
-          :src="getImageUrl(regionMapFilename)"
+          :src="getImageUrl(regionMapFilename.value)"
           alt=""
         >
         <div id="violin-container">
@@ -413,9 +413,11 @@ onMounted(() => {
 
 // methods
 function getImageUrl(filename) {
+  if (!filename || typeof filename !== 'string') return ''
   const safeFilename = filename.endsWith('.png') ? filename : `${filename}.png`
   return new URL(`../assets/images/${safeFilename}`, import.meta.url).href
 }
+
 
 function scrollTimeline(e) {
 
@@ -853,7 +855,7 @@ function mouseoverWedge(event) {
   let regionID = event.target.parentElement.id
 
   // Show the region-specific map
-  regionMapFilename = `states_regions_${regionID}`
+  regionMapFilename.value = `states_regions_${regionID}`
   
   // Make all wedges _except_ the one hovered over partially opaque
   // This highlights the current wedge
@@ -893,7 +895,7 @@ function mouseenterWrapper() {
 function mouseleaveWrapper() {
 
         // Show the default map
-        regionMapFilename = "casc_regions_map"
+        regionMapFilename.value = "casc_regions_map"
 
         // Show the interaction instructions
         const chartInsructions = document.querySelector('#chart-instructions')
