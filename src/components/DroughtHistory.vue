@@ -197,20 +197,13 @@
           v-if="!mobileView"
           id="map-container"
         >
-          <img    
-            id="region-map-default"
-            class="region-map"
-            src="@/assets/images/casc_regions_map.png"
-            alt=""
-          >
-          <img    
-            v-for="description in regionDescriptions"
-            :id="`region-map-${description.id}`"
-            :key="`map-${description.id}`" 
-            class="region-map hide"
-            :src="getImageUrl(`states_regions_${description.id}`)"
-            alt=""
-          >
+        <img
+          id="region-map"
+          class="region-map"
+          :src="getImageUrl(regionMapFilename)"
+          alt="Map showing drought in selected region"
+        />
+
         </div>
         <div
           id="violin-container"
@@ -872,41 +865,32 @@ function addInteractions() {
       .on("click", (event) => clickRegion(event))
   }
 }
+function toggleRegionElements(regionID, show = true) {
+  const method = show ? 'add' : 'remove';
+  const violin = document.querySelector(`#region-violin-${regionID}`);
+  const map = document.querySelector(`#region-map-${regionID}`);
+
+  violin?.classList[method]("show");
+  map?.classList[method]("show");
+}
+
 function mouseoverWedge(event) {
-        // Pull the region identifier
-        let regionID = event.target.parentElement.id
+  // Pull the region identifier
+  let regionID = event.target.parentElement.id
+  regionMapFilename.value = `states_regions_${regionID}`
+  
+  // Make all wedges _except_ the one hovered over partially opaque
+  d3.selectAll(".wedge polygon").style("fill-opacity", 0.8);
+  d3.select(`#${regionID} polygon`).style("fill-opacity", 0);
 
-        // Hide the default map
-        const defaultMap = document.querySelector('#region-map-default');
-        defaultMap.classList.add("hide");
-        
-        // Show the region-specific map
-        const regionalMap = document.querySelector('#region-map-' + regionID);
-        regionalMap.classList.add("show");
-        
-        // Make all wedges _except_ the one hovered over partially opaque
-        // This highlights the current wedge
-        d3.selectAll(".wedge").selectAll('polygon')
-            .style("fill-opacity", 0.8)
-        d3.select("#" + regionID).selectAll('polygon')
-            .style("fill-opacity", 0)
+  toggleRegionElements(regionID, true);
+}
+function mouseoutWedge(event) {
+  // Pull the region identifier
+  let regionID = event.target.parentElement.id
+  toggleRegionElements(regionID, false);
 
-        // Show the regional violin chart
-        const regionalViolin = document.querySelector('#region-violin-' + regionID);
-        regionalViolin.classList.add("show");
-    }
-    function mouseoutWedge(event) {
-        // Pull the region identifier
-        let regionID = event.target.parentElement.id
-
-        // Hide the regional map
-        const regionalMap = document.querySelector('#region-map-' + regionID);
-        regionalMap.classList.remove("show"); 
-
-        // Hide the regional violin chart
-        const regionalViolin = document.querySelector('#region-violin-' + regionID);
-        regionalViolin.classList.remove("show"); 
-    }
+}
 function mouseenterWrapper() {
   
         // Hide the interaction instructions
