@@ -893,39 +893,33 @@ function mouseoutWedge(event) {
 }
 function mouseenterWrapper() {
   
-        // Hide the interaction instructions
-        const chartInsructions = document.querySelector('#chart-instructions')
-        chartInsructions.classList.add("hide");
+  // Hide the interaction instructions
+  document.querySelector('#chart-instructions')?.classList.add("hide");
 }
 function mouseleaveWrapper() {
 
-        // Show the default map
-        regionMapFilename.value = "casc_regions_map"
+  // Show the default map
+  regionMapFilename.value = "casc_regions_map"
 
-        // Show the interaction instructions
-        const chartInsructions = document.querySelector('#chart-instructions')
-        chartInsructions.classList.remove("hide");
+  // Show the interaction instructions
+  document.querySelector('#chart-instructions')?.classList.remove("hide");
 
-        // Make all wedges transparent
-        d3.selectAll(".wedge").selectAll('path')
-            .style("fill-opacity", 0)
-      }
-     function showSelectedRegion(svg, region) {
-        svg.selectAll(".CASC_region")
-          .style("fill", "#ffffff")
-          .style("opacity", 1)
-        svg.select("#" + region)
-            .style("fill", "#E48951")
-            .style("fill-opacity", 0.5)
+  // Make all wedges transparent
+  d3.selectAll(".wedge").selectAll('path').style("fill-opacity", 0)
+}
+function showSelectedRegion(svg, region) {
+  svg.selectAll(".CASC_region")
+    .style("fill", "#ffffff")
+    .style("opacity", 1)
+  svg.select("#" + region)
+      .style("fill", "#E48951")
+      .style("fill-opacity", 0.5)
 
-        // Show the regional violin chart
-        const regionalViolin = document.querySelector('#region-violin-' + region);
-        regionalViolin.classList.add("show");
+  toggleRegionElements(region, true);
 
-        // Show the regional description
-        const regionDescription = document.querySelector('#region-description-' + region);
-        regionDescription.classList.add("visibleText");
-      }
+  const description = document.querySelector(`#region-description-${region}`);
+  description?.classList.add("visibleText");
+}
       function clickRegion(event) {
     
 
