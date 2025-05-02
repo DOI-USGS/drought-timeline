@@ -3,7 +3,7 @@
     "name": "drought-timeline",
     "organization": "U.S. Geological Survey",
     "description": "The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.",
-    "version": "main",
+    "version": "2.0.0",
     "status": "Production",
     "permissions": {
       "usageType": "openSource",
@@ -22,7 +22,8 @@
     "laborHours": 200,
     "tags": [
       "R",
-      "USGS"
+      "USGS",
+      "Vizlab"
     ],
     "languages": [
       "R",
