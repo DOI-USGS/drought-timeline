@@ -1,6 +1,6 @@
-# {app_long_title}
+# Five droughts that changed U.S. history
 
-**The data visualization website can be viewed at [https://water.usgs.gov/vizlab/{app_title}](https://water.usgs.gov/vizlab/{app_title}).**
+**The data visualization website can be viewed at [https://water.usgs.gov/vizlab/drought-timeline](https://water.usgs.gov/vizlab/drought-timeline).**
 
 ## To build pipeline and reproduce figures
 Clone the repo. In RStudio, run `library(targets)` and `tar_make()`. This will require ScienceBase credentials to run, see instructions below.
@@ -23,13 +23,13 @@ To build the website locally you'll need `node.js` `v22.14.0` and `npm` `v10.9.2
 
 ## Citation
 
-{Authors}. {Year}. {Website title}. U.S. Geological Survey software release. Reston, VA. [https://doi.org/{doi_of official_software_release}](https://doi.org/{doi_of_official_software_release})
+B22.	Corson-Dosch, H., Archer, A., Azadpour, E., Carr, A., and Nell, C. Five droughts that changed U.S. history. U.S. Geological Survey website. Reston, VA. [https://water.usgs.gov/vizlab/drought-timeline](https://doi.org/https://water.usgs.gov/vizlab/drought-timeline)
 
 ## Consulting subject matter experts
 Scott Hamshaw, Caelan Simeone, and John Hammond consulted on the development of this website as subject matter experts.
 
 ## Additional information
-* We welcome contributions from the community. See the [guidelines for contributing](https://github.com/DOI-USGS/{app_title}/) to this repository on GitHub.
-* [Disclaimer](https://code.usgs.gov/wma/vizlab/{app_title}/-/blob/main/DISCLAIMER.md)
-* [License](https://code.usgs.gov/wma/vizlab/{app_title}/-/blob/main/LICENSE.md)
+* We welcome contributions from the community. See the [guidelines for contributing](https://github.com/DOI-USGS/drought-timeline/) to this repository on GitHub.
+* [Disclaimer](https://code.usgs.gov/wma/vizlab/drought-timeline/-/blob/main/DISCLAIMER.md)
+* [License](https://code.usgs.gov/wma/vizlab/drought-timeline/-/blob/main/LICENSE.md)
 
