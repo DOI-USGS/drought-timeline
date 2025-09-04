@@ -57,4 +57,8 @@
 </script>
 
 <style scoped>
+/* Moved from common.js so that it doesn't affect USWDS banner css */
+footer, header, main, nav, div {
+  display: block;
+}
 </style>
