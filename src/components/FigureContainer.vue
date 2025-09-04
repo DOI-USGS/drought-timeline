@@ -20,7 +20,7 @@
 
 <script>
     export default {
-        name: "Figure",
+        name: "FigureContainer",
         props: {
             content: {
                 type: String,

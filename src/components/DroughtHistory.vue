@@ -197,13 +197,12 @@
           v-if="!mobileView"
           id="map-container"
         >
-        <img
-          id="region-map"
-          class="region-map"
-          :src="getImageUrl(regionMapFilename)"
-          alt="Map showing drought in selected region"
-        />
-
+          <img
+            id="region-map"
+            class="region-map"
+            :src="getImageUrl(regionMapFilename)"
+            alt="Map showing drought in selected region"
+          >
         </div>
         <div
           id="violin-container"
@@ -691,7 +690,7 @@ function addAnimations() {
       
       // Make the text for the step visible, and the drawing, if there is one
       // Make sure first text visible and first circle selected on page load
-      if (rectlID === annotations[0].id) {
+      if (rectlID === annotations.value[0].id) {
         tl.to(`#${rectIDFull}`, {
           scrollTrigger: {
             markers: false,
