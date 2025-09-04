@@ -259,7 +259,7 @@
         >
           Streamflow droughts happen when reduced rainfall or snowmelt lowers water levels in rivers and streams below a specific level. That level, or threshold, tells us what is “normal” for that river or stream (See 
           <a
-            href="https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
+            href="https://water.usgs.gov/vizlab/what-is-drought/"
             target="_blank"
           >What is Streamflow Drought?</a>). The red line in this image represents a variable threshold, which means that normal streamflow levels change through the year. For our timeline visualization, we identified streamflow drought events in the lower 48 states that were below the 20% variable 7-day threshold – in other words, these drought events were all moderate, severe, extreme, or exceptional (<a
             href="https://droughtmonitor.unl.edu/"
