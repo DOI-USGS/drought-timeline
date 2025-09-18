@@ -911,14 +911,16 @@ function mouseleaveWrapper() {
   d3.selectAll(".wedge").selectAll('path').style("fill-opacity", 0)
 }
 function showSelectedRegion(svg, region) {
-  activeRegion.value = regionID
+  activeRegion.value = region
+  regionMapFilename.value = `states_regions_${region}`
 
   svg.selectAll(".CASC_region")
     .style("fill", "#ffffff")
     .style("opacity", 1)
-  svg.select("#" + region)
-      .style("fill", "#E48951")
-      .style("fill-opacity", 0.5)
+
+  svg.select(`#${region}`)
+    .style("fill", "#E48951")
+    .style("fill-opacity", 0.5)
 
   toggleRegionElements(region, true);
 
