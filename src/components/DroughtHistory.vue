@@ -1049,6 +1049,7 @@ function wrap(text) {
   border: 0.5px solid darkgrey;
   font-weight: bold;
   border-radius: 3px;
+  background-color: white;
   @media only screen and (max-width: 600px) {
     padding: 2px 4px 2px 3px;
     margin: 2px;
