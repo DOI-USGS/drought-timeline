@@ -26,11 +26,3 @@ Here we track upcoming changes.
 ### Added
 
 -Initial public release
- 
-### Changed
-  
-- Description of change
- 
-### Fixed
- 
-- Description of fix
