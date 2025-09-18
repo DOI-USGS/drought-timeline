@@ -1487,4 +1487,7 @@ function wrap(text) {
   transform-origin: left;  
   transform:scale(1.1,1.1);
 }
+.wedge polygon {
+  stroke: none;
+}
 </style>
