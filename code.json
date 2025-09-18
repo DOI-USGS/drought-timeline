@@ -15,7 +15,7 @@
       ]
     },
     "homepageURL": "https://water.usgs.gov/vizlab/drought-timeline/",
-    "downloadURL": "https://github.com/USGS-VIZLAB/drought-timeline/archive/refs/heads/main.zip",
+    "downloadURL": "https://github.com/DOI-USGS/drought-timeline/archive/refs/heads/main.zip",
     "disclaimerURL": "https://github.com/USGS-VIZLAB/drought-timeline/blob/main/DISCLAIMER.md",
     "repositoryURL": "https://github.com/USGS-VIZLAB/drought-timeline.git",
     "vcs": "git",
