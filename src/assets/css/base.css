@@ -59,11 +59,14 @@ body {
   line-height: 1.2;
   font-family: sans-serif; /* This is fallback font for old browsers */
   font-family: var(--default-font);
-  font-size: 2rem;
+  font-size: 1.6rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
+  @media screen and (max-width: 600px) {
+    font-size: 1.6rem;
+  }
 }
 h1 {
   font-size: 5rem;
@@ -117,6 +120,9 @@ p, text, li {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
+}
+.yAxisText {
+  font-family: "Source Sans Pro", var(--default-font), sans-serif;
 }
 .droughtText.mobile {
   z-index: 10;

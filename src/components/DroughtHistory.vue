@@ -540,7 +540,9 @@ function addOverlay() {
   const yearFormat = d3.timeFormat("%Y")
   yAxisDom.selectAll('text')
     .attr("class", "yAxisText")
-    .attr("id", (d) => "tick-" + yearFormat(d));
+    .attr("id", (d) => "tick-" + yearFormat(d))
+    .attr("dx", mobileView ? 8 : 0)
+    .attr("dy", "0.35em");
   
   yAxisDom.selectAll(".tick line")
     .attr("class", "yAxisTick")
@@ -1460,7 +1462,7 @@ function wrap(text) {
 .yAxisText {
   font-size: 1.8rem;
   @media only screen and (max-width: 600px) {
-    font-size: 1.2em;
+    font-size: 1.6rem;
   }
 }
 .yAxisTick {
