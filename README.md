@@ -31,5 +31,5 @@ Scott Hamshaw, Caelan Simeone, and John Hammond consulted on the development of 
 ## Additional information
 * We welcome contributions from the community. See the [guidelines for contributing](https://github.com/DOI-USGS/drought-timeline/) to this repository on GitHub.
 * [Disclaimer](https://github.com/DOI-USGS/drought-timeline/blob/main/DISCLAIMER.md)
-* [License](https://code.usgs.gov/wma/vizlab/drought-timeline/-/blob/main/LICENSE.md)
+* [License](https://github.com/DOI-USGS/drought-timeline/blob/main/LICENSE.md)
 
