@@ -25,7 +25,7 @@ Here we track upcoming changes.
  
 ### Added
 
-- Description of new feature
+-Initial public release
  
 ### Changed
   
