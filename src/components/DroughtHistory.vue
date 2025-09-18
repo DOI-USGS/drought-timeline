@@ -1083,11 +1083,15 @@ function wrap(text) {
     justify-self: end;
   }
 }
-#inset-image-container {
+#inset-image-container,
+#inset-image-container-mobile,
+#inset-image-container-desktop {
   position: sticky;
-  margin: 0 ;
+  margin: 0;
+  top: 0;
+
   @media only screen and (max-width: 600px) {
-    top: 100px;
+    top: 125px;
     margin: 0;
   }
 }
@@ -1106,6 +1110,7 @@ function wrap(text) {
 }
 .inset-map.drought-specific {
   position: absolute;
+  top: 0;
   right: 0;
 }
 
