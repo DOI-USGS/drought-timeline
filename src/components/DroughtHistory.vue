@@ -1046,7 +1046,7 @@ function wrap(text) {
   z-index: 20;
   background-color: white;
   @media screen and (max-width: 600px) {
-    padding: 5px 0px 10px 0px;
+    padding: 0px 0px 0px 0px;
   }
 }
 .scrollButton {
@@ -1098,7 +1098,7 @@ function wrap(text) {
   top: 0;
 
   @media only screen and (max-width: 600px) {
-    top: 125px;
+    top: 95px;
     margin: 0;
   }
 }
