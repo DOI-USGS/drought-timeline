@@ -608,7 +608,7 @@ function addOverlay() {
       .attr("class", "droughtCircle")
       .attr("cx", d => xScale(d.mobile_x_offset_per))
       .attr("cy", d => yScale(new Date(d.date)))
-      .attr("r", 4)
+      .attr("r", 6)
 
   }
 }
@@ -1011,11 +1011,13 @@ function wrap(text) {
     "chart narration";
   justify-content: center;
   margin: auto;
-  max-width: 90vw;
+  max-width: 100%;
   min-width: 90vw;
   @media screen and (max-width: 600px) {
     padding: 0px 0 20px 0;
-    grid-template-columns: 100%;
+    grid-template-columns: 95%;
+    justify-content: left;
+    margin: 10px;
     grid-template-rows: max-content max-content max-content max-content max-content;
     grid-template-areas:
       "title"
@@ -1027,6 +1029,7 @@ function wrap(text) {
 }
 #title-container {
   grid-area: title;
+  padding-top: 0px;
 }
 #intro-container {
   grid-area: intro;
@@ -1298,7 +1301,7 @@ function wrap(text) {
 }
 #region-grid-container {
   display: grid;
-  width: 95vw;
+  width: 100%;
   max-width: 1200px;
   grid-template-columns: 80% 20%;
   grid-template-rows:  max-content minmax(30vh, 80vh);
