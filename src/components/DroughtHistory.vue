@@ -910,7 +910,7 @@ function mouseleaveWrapper() {
   document.querySelector('#chart-instructions')?.classList.remove("hide");
 
   // Make all wedges transparent
-  d3.selectAll(".wedge").selectAll('path').style("fill-opacity", 0)
+  d3.selectAll(".wedge").selectAll('polygon').style("fill-opacity", 0)
 }
 function showSelectedRegion(svg, region) {
   activeRegion.value = region
