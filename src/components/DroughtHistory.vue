@@ -1462,7 +1462,7 @@ function wrap(text) {
 .yAxisText {
   font-size: 1.8rem;
   @media only screen and (max-width: 600px) {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
   }
 }
 .yAxisTick {
