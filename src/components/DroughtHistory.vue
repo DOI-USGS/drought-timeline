@@ -1328,7 +1328,7 @@ function wrap(text) {
 }
 .region-map {
     position: absolute;
-    height: 15%;
+    height: 10%;
     width: auto;
     margin-left: 0.5%; //nudges map right
 }
