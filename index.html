@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- VIZLAB GTM CODE -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V443MQ3V1S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-V443MQ3V1S');
+    </script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.ico">
+    <!-- USDWS-init js -->
+    <script type="module" src="/node_modules/@uswds/uswds/dist/js/uswds-init.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- On beta, add robots tag to stop indexing. An empty string for VITE_APP_TIER means the 'prod' version of the application -->
+     <% if(VITE_APP_TIER !== ''){ %>
+      <meta name="robots" content="noindex,nofollow">
+    <% } %>
+    <title>%VITE_APP_LONG_TITLE%</title>
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="%VITE_APP_LONG_TITLE%">
+    <meta name="description" content="%VITE_APP_DESCRIPTION%">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://water.usgs.gov/vizlab/%VITE_APP_TITLE%">
+    <meta property="og:title" content="%VITE_APP_LONG_TITLE%">
+    <meta property="og:description" content="%VITE_APP_DESCRIPTION%">
+    <meta property="og:image" content="%VITE_APP_S3_PROD_URL%images/drought_timeline_thumbnail.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://water.usgs.gov/vizlab/%VITE_APP_TITLE%">
+    <meta property="twitter:title" content="%VITE_APP_LONG_TITLE%">
+    <meta property="twitter:description" content="%VITE_APP_DESCRIPTION%">
+    <meta property="twitter:image" content="%VITE_APP_S3_PROD_URL%images/drought_timeline_thumbnail.png">
+    <script type='application/ld+json'>
+      { "@context": "http://www.schema.org",
+        "@type": "WebSite", "name": "%VITE_APP_LONG_TITLE%",
+        "url": "https://water.usgs.gov/vizlab/%VITE_APP_TITLE%",
+        "about": "",
+        "datePublished": "September 20, 2023",
+        "contributor": [
+          { "@type": "Person",
+            "name": "Hayley Corson-Dosch",
+            "email": "hcorson-dosch@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Althea Archer",
+            "email": "aaarcher@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Elmera Azadpour",
+            "email": "eazadpour@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Mandie Carr",
+            "email": "ancarr@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Scott Hamshaw",
+            "email": "shamshaw@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          },
+          { "@type": "Person",
+            "name": "Cee Nell",
+            "email": "cnell@usgs.gov",
+            "affiliation": { "@type": "Organization", "legalName": "U.S. Geological Survey" }
+          }
+         ]
+      },
+      "audience": { "@context": "http://schema.org", "@type": "Audience", "audienceType": "General public"},
+      "publisher": { "@context": "http://schema.org", "@type": "Organization", "legalName": "U.S. Geological Survey" },
+      "keywords": { "water, data viz, data visualization, drought, low flows, timeseries, drought duration, dust bowl, regional drought" }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <!-- USDWS js -->
+    <script type="module" src="/node_modules/@uswds/uswds/dist/js/uswds.js"></script>
+  </body>
+</html>
