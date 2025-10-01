@@ -5,6 +5,7 @@
       ref="headerUSGS"
     />
     <InternetExplorerPage v-if="isInternetExplorer" />
+    <ShutdownBanner />
     <!-- an empty string in this case means the 'prod' version of the application   -->
     <router-view
       v-if="!isInternetExplorer"
@@ -19,12 +20,14 @@
     import WindowSize from "./components/WindowSize";
     import HeaderUSGS from './components/HeaderUSGS';
     import { isMobile } from 'mobile-device-detect';
+    import ShutdownBanner from './components/ShutdownBanner.vue'
     export default {
         name: 'App',
         components: {
             WindowSize,
             HeaderUSGS,
             InternetExplorerPage: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "internet-explorer-page"*/ "./components/InternetExplorerPage"),
+            ShutdownBanner,
             // PreFooterVisualizationsLinks: () => import( /* webpackPreload: true */ /*webpackChunkName: "pre-footer-links-visualizations"*/ "./components/PreFooterVisualizationsLinks"),
             PreFooterCodeLinks: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "pre-footer-links-code"*/ "./components/PreFooterCodeLinks"),
             FooterUSGS: () => import( /* webpackPrefetch: true */ /*webpackChunkName: "usgs-footer"*/ "./components/FooterUSGS") // Have Webpack put the footer in a separate chunk so we can load it conditionally (with a v-if) if we desire
