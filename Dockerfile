@@ -9,8 +9,8 @@ RUN apt-get update && \
       apt-get purge -y --auto-remove && \
       apt-get clean
 
-# Enable the NodeSource repository and install the latest nodejs
-RUN curl -sL https://deb.nodesource.com/setup_current.x | bash - && \
+# Enable the NodeSource repository and install nodejs 24
+RUN curl -sL https://deb.nodesource.com/setup_24.x | bash - && \
       apt-get install nodejs -y
 
 # Create temp directory for building viz app
