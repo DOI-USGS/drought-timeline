@@ -12,7 +12,7 @@
     "build-beta": "vite build --mode beta_tier",
     "build-prod": "vite build --mode prod_tier",
     "preview": "vite preview",
-    "lint": "eslint --ext .vue,.js,.jsx,.cjs,.mjs --fix",
+    "lint": "eslint . --fix",
     "format": "prettier --write src/"
   },
   "dependencies": {
