@@ -25,10 +25,12 @@
             <div class="margin-y-5">
               <ul class="usa-button-group">
                 <li class="usa-button-group__item">
-                  <a
-                    href="/"
+                  <RouterLink
+                    to="/"
                     class="usa-button"
-                  >Visit {{ long_title }} main page</a>
+                  >
+                    Visit {{ long_title }} main page
+                  </RouterLink>
                 </li>
                 <li class="usa-button-group__item">
                   <a
@@ -50,6 +52,8 @@
 </template>
 
 <script setup>
+  import { RouterLink } from 'vue-router';
+
   const title = import.meta.env.VITE_APP_TITLE;
   const long_title = import.meta.env.VITE_APP_LONG_TITLE;
 </script>
