@@ -38,7 +38,10 @@
 <style scoped lang="scss">
 .pre-footer-links {
   background-color: white;
-  padding: 1.5rem 1rem 2rem;
+  /* no horizontal padding here - the inner boxes own it, so they can line up
+     with the .page-section text column above (max-width 1200px, padding 1em,
+     where 1em is the body font-size of 2rem / 1.6rem on mobile) */
+  padding: 1.5rem 0 2rem;
   font-family: 'Noto Sans', sans-serif;
   font-size: 1.5rem;
   color: #1e1e1e;
@@ -46,7 +49,8 @@
   &__divider {
     border-top: 1px solid #d4d8dd;
     margin: 0 auto 1.5rem;
-    width: min(90%, 700px);
+    width: calc(100% - 4rem);
+    max-width: calc(1200px - 4rem);
   }
 
   &__content {
@@ -54,8 +58,16 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
-    width: min(90%, 700px);
+    width: calc(100% - 4rem);
+    max-width: calc(1200px - 4rem);
     margin: 0 auto;
+  }
+
+  @media screen and (max-width: 600px) {
+    &__divider,
+    &__content {
+      width: calc(100% - 3.2rem);
+    }
   }
 
   &__item {
