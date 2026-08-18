@@ -16,28 +16,22 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@eslint/compat": "1.2.7",
-    "gsap": "^3.10.4",
-    "html-loader": "^2.0.0",
-    "pinia": "^3.0.1",
-    "@uswds/uswds": "3.12.0",
-    "v-img": "^0.2.0",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0",
-    "vue-uswds": "^1.14.0"
-  },
-  "devDependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
-    "@rollup/plugin-replace": "6.0.2",
-    "@rushstack/eslint-patch": "^1.10.5",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "@vue/eslint-config-prettier": "^10.2.0",
+    "@uswds/uswds": "3.12.0",
     "d3": "^7.9.0",
+    "gsap": "^3.10.4",
+    "mobile-device-detect": "^0.4.3",
+    "pinia": "^3.0.1",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@eslint/compat": "1.2.7",
+    "@vitejs/plugin-vue": "^5.2.1",
     "eslint": "^9.21.0",
     "eslint-plugin-vue": "^9.32.0",
-    "mobile-device-detect": "^0.4.3",
     "prettier": "^3.5.2",
     "sass": "1.85.1",
     "vite": "^6.2.0",
