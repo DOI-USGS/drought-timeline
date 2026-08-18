@@ -286,29 +286,7 @@
         >
       </div>
     </section>
-    <section id="references-container">       
-      <div class="page-section">
-        <h3>References</h3>
-        <div>
-          <div
-            v-for="reference in referencesContent.references"
-            :key="reference.id"
-            class="references-list"
-          >
-            <p>
-              {{ reference.authors }} 
-              <a
-                :href="reference.link"
-                target="_blank"
-              >
-                {{ reference.title }}
-              </a>
-              {{ reference.ref }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <ReferencesSection :references="references" />
     <section
       id="authors-container"
       class="page-section"
@@ -376,7 +354,8 @@ import droughtAnnotationsDesktop from "@/assets/text/droughtAnnotations_desktop.
 import droughtAnnotationsMobile from "@/assets/text/droughtAnnotations_mobile.js";
 import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.js";
 import regionDroughtDescriptions from "@/assets/text/regionDroughtDescriptions.js";
-import referencesText from "@/assets/text/referencesText";
+import references from "@/assets/text/references.js";
+import ReferencesSection from "@/components/ReferencesSection.vue";
 
 const d3 = Object.assign({}, d3Base)
 const mobileView = isMobile
@@ -389,7 +368,6 @@ const overlayHeight = ref(overlayWidth.value * 10)
 const overlayTopMargin = 3
 const regionMapFilename = ref('casc_regions_map')
 const regionDescriptions = regionDroughtDescriptions.regionDescriptions
-const referencesContent = referencesText.referencesContent
 const activeRegion = ref(null)
 
 function regionName(id) {
@@ -1391,17 +1369,6 @@ function wrap(text) {
     align-self: start;
   }
 }
-.references-list{
-  padding-left: 42px ;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  margin-top: 5px;
-  text-indent: -22px ;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  word-break: break-word;
-}
 #methods-container{
   display: grid;
   width: 100%;
@@ -1452,9 +1419,6 @@ function wrap(text) {
 .methods_text {
   padding: 1em 0 1em 0; 
   max-width: 700px;
-}
-#references-container {
-  height: auto;
 }
 #authors-container {
   height: auto;
