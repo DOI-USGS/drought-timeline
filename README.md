@@ -23,7 +23,7 @@ To build the website locally you'll need `node.js` `v22.14.0` and `npm` `v10.9.2
 
 ## Citation
 
-B22.	Corson-Dosch, H., Archer, A., Azadpour, E., Carr, A., and Nell, C. Five droughts that changed U.S. history. U.S. Geological Survey website. Reston, VA. [https://water.usgs.gov/vizlab/drought-timeline](https://doi.org/https://water.usgs.gov/vizlab/drought-timeline)
+B22.	Corson-Dosch, H., Archer, A., Azadpour, E., Carr, A., and Nell, C. Five droughts that changed U.S. history. U.S. Geological Survey website. Reston, VA. [https://water.usgs.gov/vizlab/drought-timeline](https://water.usgs.gov/vizlab/drought-timeline)
 
 ## Consulting subject matter experts
 Scott Hamshaw, Caelan Simeone, and John Hammond consulted on the development of this website as subject matter experts.

@@ -22,7 +22,6 @@
 
   const windowSizeStore = useWindowSizeStore();
   const typeOfEnv = import.meta.env.VITE_APP_TIER;
-  console.log('typeOfEnv:', typeOfEnv)
 
 
   // Declare behavior on mounted
@@ -31,7 +30,6 @@
     // Add window size tracking by adding a listener
     window.addEventListener('resize', handleResize);
     handleResize();
-    console.log('typeOfEnv:', typeOfEnv)
   });
 
   // Functions
