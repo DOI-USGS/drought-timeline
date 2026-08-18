@@ -7,8 +7,8 @@ export default {
         num: "1",
         authors: "Archer, A.A., Corson-Dosch, H, and Nell, C. (2023)",
         title: "What is streamflow drought?",
-        link: "https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/",
-        ref: " https://labs.waterdata.usgs.gov/visualizations/what-is-drought/index.html#/"
+        link: "https://water.usgs.gov/vizlab/what-is-drought/",
+        ref: " https://water.usgs.gov/vizlab/what-is-drought/"
         
       }, 
       {
