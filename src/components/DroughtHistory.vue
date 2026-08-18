@@ -287,37 +287,7 @@
       </div>
     </section>
     <ReferencesSection :references="references" />
-    <section
-      id="authors-container"
-      class="page-section"
-    >
-      <h3>Authors</h3>
-      <p>
-        <a
-          href="https://www.usgs.gov/staff-profiles/hayley-corson-dosch"
-          target="_blank"
-        >Hayley Corson-Dosch</a> and 
-        <a
-          href="https://www.usgs.gov/staff-profiles/althea-a-archer"
-          target="_blank"
-        >Althea A. Archer</a> led the development of this website with contributions from <a
-          href="https://www.usgs.gov/staff-profiles/amanda-carr"
-          target="_blank"
-        >Mandie Carr</a>, <a
-          href="https://www.usgs.gov/staff-profiles/elmera-azadpour"
-          target="_blank"
-        >Elmera Azadpour</a>, and <a
-          href="https://www.usgs.gov/staff-profiles/cee-nell"
-          target="_blank"
-        >Cee Nell</a>. Althea led the data analysis and chart creation with contributions from Hayley and Cee. Mandie wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a
-          href="https://twitter.com/USGS_DataSci/status/1516447170437726208"
-          target="_blank"
-        >chart</a> made by <a
-          href="https://www.usgs.gov/staff-profiles/scott-hamshaw"
-          target="_blank"
-        >Scott Hamshaw</a> and Cee.
-      </p>
-    </section>
+    <AuthorshipSection :authors="authors" />
     <svg id="filter-svg">
       <filter
         id="shadow2"
@@ -356,6 +326,8 @@ import droughtNarrations_desktop from "@/assets/text/droughtNarrations_desktop.j
 import regionDroughtDescriptions from "@/assets/text/regionDroughtDescriptions.js";
 import references from "@/assets/text/references.js";
 import ReferencesSection from "@/components/ReferencesSection.vue";
+import authors from "@/assets/text/authors.js";
+import AuthorshipSection from "@/components/AuthorshipSection.vue";
 
 const d3 = Object.assign({}, d3Base)
 const mobileView = isMobile
@@ -1419,9 +1391,6 @@ function wrap(text) {
 .methods_text {
   padding: 1em 0 1em 0; 
   max-width: 700px;
-}
-#authors-container {
-  height: auto;
 }
 </style>
 <style lang="scss">
