@@ -2,27 +2,28 @@
   {
     "name": "drought-timeline",
     "organization": "U.S. Geological Survey",
-    "description": "A history of hydrological drought in the U.S.",
-    "version": "main",
+    "description": "The U.S. has experienced thousands of droughts—periods of drier-than-normal conditions that cause water-related problems for humans and ecosystems. But in the last 100 years, five major drought events stand out in their effects on agriculture, wildfires, and streamflow. Scroll through the timeline to see when and where these major drought events occurred across the lower 48 states.",
+    "version": "2.0.0",
     "status": "Production",
     "permissions": {
       "usageType": "openSource",
       "licenses": [
         {
           "name": "Public Domain, CC0-1.0",
-          "URL": "https://github.com/USGS-VIZLAB/drought-timeline/blob/main/LICENSE.md"
+          "URL": "https://github.com/DOI-USGS/drought-timeline/blob/main/LICENSE.md"
         }
       ]
     },
-    "homepageURL": "https://github.com/USGS-VIZLAB/drought-timeline/",
-    "downloadURL": "https://github.com/USGS-VIZLAB/drought-timeline/archive/refs/heads/main.zip",
-    "disclaimerURL": "https://github.com/USGS-VIZLAB/drought-timeline/blob/main/DISCLAIMER.md",
-    "repositoryURL": "https://github.com/USGS-VIZLAB/drought-timeline.git",
+    "homepageURL": "https://water.usgs.gov/vizlab/drought-timeline/",
+    "downloadURL": "https://github.com/DOI-USGS/drought-timeline/archive/refs/heads/main.zip",
+    "disclaimerURL": "https://github.com/DOI-USGS/drought-timeline/blob/main/DISCLAIMER.md",
+    "repositoryURL": "https://github.com/DOI-USGS/drought-timeline.git",
     "vcs": "git",
-    "laborHours": 70,
+    "laborHours": 200,
     "tags": [
       "R",
-      "USGS"
+      "USGS",
+      "Vizlab"
     ],
     "languages": [
       "R",
@@ -34,7 +35,7 @@
       "email": "aaarcher@usgs.gov"
     },
     "date": {
-      "metadataLastUpdated": "2023-09-22"
+      "metadataLastUpdated": "2025-09-04"
     }
   }
 ]
