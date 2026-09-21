@@ -19,7 +19,6 @@
             class="img"
             src="@/assets/usgsHeaderAndFooter/images/usgsLogo_white-01.png"
             alt="USGS logo. Science for a changing world."
-            target="_blank"
           >
         </a>
         <form

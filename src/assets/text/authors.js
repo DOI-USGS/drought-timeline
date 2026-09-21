@@ -1,6 +1,10 @@
 export default {
   // Do not update title w/o checking with Cee/Hayley - we want this to be consistent across sites
   title: "USGS Vizlab",
+  // ISO dates (YYYY-MM-DD). datePublished is the initial public release; update dateModified
+  // whenever content changes. Keep in sync with CHANGELOG.md and the JSON-LD block in index.html.
+  datePublished: "2024-11-07",
+  dateModified: "2026-08-17",
   // Do not update the first two sentences of the author text w/o checking with Cee/Hayley -
   // we want this to be consistent across sites. Site-specific credits follow.
   authorText: "This site was created by the {projectTeam}. {leadAuthors} led the project with contributions from {additionalAuthors}, and {lastAuthor}. Althea led the data analysis and chart creation with contributions from Hayley and Cee. Mandie wrote the narration and directed the visual storytelling throughout the site. This data visualization was inspired by a <a href=\"https://twitter.com/USGS_DataSci/status/1516447170437726208\" target=\"_blank\">chart</a> made by <a href=\"https://www.usgs.gov/staff-profiles/scott-hamshaw\" target=\"_blank\">Scott Hamshaw</a> and Cee.",

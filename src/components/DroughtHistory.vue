@@ -45,7 +45,7 @@
         <img
           id="swarm_vertical"
           src="@/assets/images/duration-chart/swarm_jd7d_2pct_compressed_vertical.png"
-          alt=""
+          alt="Vertical timeline of the 2,000 most severe streamflow drought events at USGS streamgages from 1920 at the top to 2020 at the bottom. Each drought event is drawn as a vertical bar whose height is its duration; taller, darker bars are longer droughts. Bars cluster into five dense bands during the Dust Bowl (1930-1941), the 1950s Drought (1952-1957), the 1960s Drought (1962-1968), the 1980s Drought (1987-1992), and the Turn-of-the-Century Drought (1999-2015)."
           :style="{ margin: `${overlayTopMargin}px 0px 0px 0px` }"
         >
       </div>
@@ -187,7 +187,7 @@
           v-if="!mobileView"
           id="radial-chart"
           src="@/assets/images/duration-chart/polar_background_plot.png"
-          alt=""
+          alt="Radial chart of the 2,000 most severe streamflow drought events, arranged by Climate Adaptation Science Center region. Time runs outward from 1920 at the center to 2020 at the outer edge along concentric rings. Each region is a spoke with an orange violin shape whose width shows how many streamgages were in drought at the same time; wide bursts appear at the outer edges of several spokes, showing that many of the most severe droughts occurred after 2000."
         >
         <polarWedges
           v-if="!mobileView"
@@ -214,7 +214,7 @@
             :key="`violin-${description.id}`"
             class="violin-chart hide"
             :src="getImageUrl(`vertical_violin_jd7d_2pct_${description.id}`)"
-            alt="`${description.alt}`"
+            :alt="description.alt"
           >
         </div>
         <p
@@ -251,6 +251,7 @@
           id="explainer1"
           class="explainer_image"
           src="@/assets/images/gage_explainer.png"
+          alt="Three maps of the lower 48 states showing USGS streamgage locations as dots for three time periods: 1920 to 1950 with 313 gages, 1951 to 1980 with 1,912 gages, and 1981 to 2020 with 3,198 gages. Gage density increases sharply across the periods, especially in the eastern U.S. and along the West Coast."
         >
         <p
           id="methods2"
@@ -269,6 +270,7 @@
           id="explainer2"
           class="explainer_image"
           src="@/assets/images/drought_explainer.png"
+          alt="Line chart of streamflow over the days of a year. A gray line shows streamflow rising and falling, and a red line shows a variable threshold that declines through the year. Where the gray streamflow line dips below the red threshold, the gap is shaded orange and labeled as a drought event; several drought events of different lengths and depths are shown."
         >
         <p
           id="methods3"
@@ -283,6 +285,7 @@
           id="explainer3"
           class="explainer_image"
           src="@/assets/images/severity_explainer.png"
+          alt="Three small diagrams of a streamflow dip below a threshold line, illustrating drought duration as the length of time streamflow stays below the threshold, intensity as how far streamflow drops below the threshold, and severity, shaded orange, as the combination of how long and how dry."
         >
       </div>
     </section>

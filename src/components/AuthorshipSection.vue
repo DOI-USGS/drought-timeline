@@ -11,6 +11,12 @@
         v-html="authors.title"
       />
       <p v-html="formatAuthorText(authors)" />
+      <p
+        v-if="authors.datePublished"
+        class="byline"
+      >
+        Published <time :datetime="authors.datePublished">{{ formatDate(authors.datePublished) }}</time><span v-if="authors.dateModified && authors.dateModified !== authors.datePublished">. Last updated <time :datetime="authors.dateModified">{{ formatDate(authors.dateModified) }}</time></span>.
+      </p>
     </div>
   </section>
 </template>
@@ -32,11 +38,22 @@
           projectTeam: [],
           leadAuthors: [],
           additionalAuthors: [],
-          lastAuthor: []
+          lastAuthor: [],
+          datePublished: "",
+          dateModified: ""
         }
       }
     }
   })
+
+  // Format an ISO date string (YYYY-MM-DD) as e.g. "November 7, 2024".
+  // Parsed as local time (not UTC) so the day doesn't shift by timezone.
+  function formatDate(isoDate) {
+    const [year, month, day] = isoDate.split('-').map(Number);
+    return new Date(year, month - 1, day).toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+  }
 
   function createLink(data) {
     return data.link ? `<a href="${data.link}" target="_blank">${data.name}</a>` : data.name;
@@ -67,5 +84,10 @@
     margin: auto;
     padding: 1em;
     max-width: 1200px;
+  }
+  .byline {
+    margin-top: 1em;
+    font-size: 0.85em;
+    color: var(--medium-grey-dark, #5c5c5c);
   }
 </style>
